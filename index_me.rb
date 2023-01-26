@@ -8,7 +8,7 @@ end
 File.open('index.html', 'wt') do |f|
   f.puts "<html><head><title>TP88.us</title></head><body>"
   f.puts "<ul>"
-  Dir["*.rb"].each do |file|
+  Dir["*.rb", "*.ps1"].each do |file|
     f.puts %Q|<li><a href="#{file}">#{file}</a>#{file_description(file)}</li>|
   end
   f.puts "</body></html>"

@@ -11,6 +11,7 @@ end
 
 
 def check_encodings(output)
+  puts "output encoding: #{output.encoding.inspect}"
   if output.include?(UTF_8_FILENAME)
     puts "output matches without forcing encoding"
   end

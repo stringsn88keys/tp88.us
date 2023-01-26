@@ -20,11 +20,16 @@ end
 
 puts "\nDoes any source/target encoding of time zone match \"Mitteleuropäische Zeit\" (CET in German)?\n"
 
-Encoding.list.each do |source|
-  time_zone=Time.now.zone
+begin
   if time_zone.include?("Mitteleuropäische Zeit")
     puts "Time zone matches without forcing encoding"
   end
+rescue
+  # encoding errors
+end
+
+Encoding.list.each do |source|
+  time_zone=Time.now.zone
   begin
     time_zone_force_encoded=time_zone.force_encoding(source).encode("UTF-8")
     if time_zone_force_encoded.include?("Mitteleuropäische Zeit")
