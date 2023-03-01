@@ -1,6 +1,6 @@
 ##
 set-executionpolicy unrestricted
-git checkout tp/ffi-378
+git checkout tp/ffi-378-branch-install
 $ENV:CUSTOM_CHEF_POWERSHELL_BRANCH="tp/debug-ffi-yajl"
 $ENV:CHEF_LICENSE="accept-no-persist"
 bundle install
