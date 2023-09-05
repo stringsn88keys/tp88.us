@@ -39,5 +39,5 @@ GTAG
 
 end
 
-%x|aws s3 sync . s3://tp88.us|
+# %x|aws s3 sync . s3://tp88.us|
 puts File.read('index.html')

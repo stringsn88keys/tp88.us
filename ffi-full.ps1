@@ -10,4 +10,3 @@ if ($? -ne 0) { throw "unit failed" }
 bundle exec rspec -f progress --profile -- ./spec/functional
 if ($? -ne 0) { throw "functional failed" }
 bundle exec rspec -f progress --profile -- ./spec/integration
-
