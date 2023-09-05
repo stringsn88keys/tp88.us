@@ -19,7 +19,7 @@ end
 File.open('index.html', 'wt') do |f|
   f.puts '<html><head><meta charset="utf-8" /><title>TP88.us</title></head><body>'
   f.puts "<ul>"
-  Dir["*.rb", "*.ps1", "*.html"].each do |file|
+  Dir["*.sh", "*.rb", "*.ps1", "*.html"].each do |file|
     f.puts %Q|<li><a href="#{file}">#{file}</a>#{file_description(file)}</li>|
   end
   gtag=<<GTAG

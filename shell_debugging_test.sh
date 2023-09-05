@@ -1,3 +1,4 @@
+## demonstrate set -x behavior and LINENO and FUNCNAME in your current shell
 
 SHELL=`ps -p $$`
 
