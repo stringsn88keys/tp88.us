@@ -26,5 +26,10 @@ def canonicalize_hostname_with_retries(hostname)
     end
 end
 
+def resolve_fqdn_without_deprecated_call(hostname)
+    Addrinfo.ip(hostname).getnameinfo&.[](0)
+end
+
 puts "old code: #{resolve_fqdn}"
 puts "new code: #{canonicalize_hostname_with_retries(%x{hostname}.chomp)}"
+puts "proposed code: #{resolve_fqdn_without_deprecated_call(%x{hostname}.chomp)}"
