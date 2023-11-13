@@ -1,19 +1,24 @@
 ## Try to build openssl 3.0 with ruby 3.0
-sudo apt update && sudo apt -y upgrade && sudo apt install -y build-essential git checkinstall
+if [ `whoami` = "root" ]
+then
+  apt update && apt -y upgrade && apt install -y build-essential git checkinstall curl
+else
+  sudo apt update && sudo apt -y upgrade && sudo apt install -y build-essential git checkinstall curl
+fi
 curl https://www.openssl.org/source/openssl-3.0.11.tar.gz --output openssl-3.0.11.tar.gz
 tar zxvf openssl-3.0.11.tar.gz
-pushd openssl-3.0.11
+cd openssl-3.0.11
 ./config
 make
-popd
+cd ..
 curl https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.6.tar.gz --output ruby-3.0.6.tar.gz
 tar zxvf ruby-3.0.6.tar.gz
-pushd ruby-3.0.6
+cd ruby-3.0.6
 ./configure
 make
-popd
+cd ..
 ruby -e "require 'openssl'; %w[OpenSSL::OPENSSL_FIPS
 OpenSSL::OPENSSL_LIBRARY_VERSION
 OpenSSL::OPENSSL_VERSION].each { |e| puts e + ': ' + eval(e).to_s }"
-    
+
 
