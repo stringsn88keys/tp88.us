@@ -15,9 +15,15 @@ RUN ./configure
 RUN make
 RUN make install
 WORKDIR ..
-#ENV
+#ENV RUBY_CONFIGURE_OPTS="--without-openssl --with-openssl-dir=/path/to/openssl"
 RUN curl https://rubygems.org/downloads/openssl-3.2.0.gem --output openssl-3.2.0.gem
 
 RUN gem install openssl-3.2.0.gem
+
+RUN ruby -e "require 'openssl'; %w[OpenSSL::OPENSSL_FIPS \
+OpenSSL::OPENSSL_LIBRARY_VERSION \
+OpenSSL::OPENSSL_VERSION].each { |e| puts e + ': ' + eval(e).to_s }"
+
+
 
 
