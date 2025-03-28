@@ -2,7 +2,18 @@
   addHooks();
 })();
 
+// Function to update prices dynamically based on the first input
+function updatePrices() {
+  const form = document.getElementById('pizzaForm');
+  const diameterInputs = form.querySelectorAll('input[id$="diameter"]');
+  syncPizzaPrices({ target: diameterInputs[0] });
+}
+
+// Initialize prices on page load
+document.addEventListener('DOMContentLoaded', updatePrices);
+
 function syncPizzaPrices(event) {
+  console.log(event);
   targetId = event.target.id;
   targetSize = targetId.match(/size\d+/);
   if (targetId.includes('diameter')) {
@@ -21,8 +32,6 @@ function syncPizzaPrices(event) {
 
 function addHooks() {
   document.querySelectorAll('input[type="number"]').forEach(element => {
-    console.log(element.id);
-    console.log(element.outerHTML)
     element.addEventListener('change', syncPizzaPrices)
   });
 }

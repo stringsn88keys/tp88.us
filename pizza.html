@@ -7,46 +7,119 @@
     <script src="pizzaCalc.js" type="text/javascript" charset="utf-8" defer></script>
   </head>
   <body>
-    <form>
-      
-        <div class="mb-3">
-          <label for="size10diameter" class="form-label">Size</label>
-          <input type="number" id="size10diameter" min="1" max="30" value="10">
-          <label for="size10size" class="form-label">Price</label>
-          <input type="number" id="size10price" step="0.01" value="10.00">
+    <div class="container my-4">
+      <h1 class="text-center mb-4">Pizza Size and Price Calculator</h1>
+      <form id="pizzaForm">
+        <div class="row">
+          
+            <div class="col-12 col-md-6 mb-3">
+              <div class="card p-3">
+                <label for="size10diameter" class="form-label">Size (inches)</label>
+                <input 
+                  type="number" 
+                  id="size10diameter" 
+                  class="form-control mb-2" 
+                  min="1" 
+                  max="30" 
+                  value="10" 
+                  oninput="syncPizzaPrices()"
+                >
+                <label for="size10price" class="form-label">Price ($)</label>
+                <input 
+                  type="number" 
+                  id="size10price" 
+                  class="form-control" 
+                  step="0.01" 
+                  value="10.00" 
+                  oninput="syncPizzaPrices()"
+                >
+              </div>
+            </div>
+          
+            <div class="col-12 col-md-6 mb-3">
+              <div class="card p-3">
+                <label for="size12diameter" class="form-label">Size (inches)</label>
+                <input 
+                  type="number" 
+                  id="size12diameter" 
+                  class="form-control mb-2" 
+                  min="1" 
+                  max="30" 
+                  value="12" 
+                  oninput="syncPizzaPrices()"
+                >
+                <label for="size12price" class="form-label">Price ($)</label>
+                <input 
+                  type="number" 
+                  id="size12price" 
+                  class="form-control" 
+                  step="0.01" 
+                  value="" 
+                  oninput="syncPizzaPrices()"
+                >
+              </div>
+            </div>
+          
+            <div class="col-12 col-md-6 mb-3">
+              <div class="card p-3">
+                <label for="size14diameter" class="form-label">Size (inches)</label>
+                <input 
+                  type="number" 
+                  id="size14diameter" 
+                  class="form-control mb-2" 
+                  min="1" 
+                  max="30" 
+                  value="14" 
+                  oninput="syncPizzaPrices()"
+                >
+                <label for="size14price" class="form-label">Price ($)</label>
+                <input 
+                  type="number" 
+                  id="size14price" 
+                  class="form-control" 
+                  step="0.01" 
+                  value="" 
+                  oninput="syncPizzaPrices()"
+                >
+              </div>
+            </div>
+          
+            <div class="col-12 col-md-6 mb-3">
+              <div class="card p-3">
+                <label for="size18diameter" class="form-label">Size (inches)</label>
+                <input 
+                  type="number" 
+                  id="size18diameter" 
+                  class="form-control mb-2" 
+                  min="1" 
+                  max="30" 
+                  value="18" 
+                  oninput="syncPizzaPrices()"
+                >
+                <label for="size18price" class="form-label">Price ($)</label>
+                <input 
+                  type="number" 
+                  id="size18price" 
+                  class="form-control" 
+                  step="0.01" 
+                  value="" 
+                  oninput="syncPizzaPrices()"
+                >
+              </div>
+            </div>
+          
         </div>
-      
-        <div class="mb-3">
-          <label for="size12diameter" class="form-label">Size</label>
-          <input type="number" id="size12diameter" min="1" max="30" value="12">
-          <label for="size12size" class="form-label">Price</label>
-          <input type="number" id="size12price" step="0.01" value="12.00">
-        </div>
-      
-        <div class="mb-3">
-          <label for="size14diameter" class="form-label">Size</label>
-          <input type="number" id="size14diameter" min="1" max="30" value="14">
-          <label for="size14size" class="form-label">Price</label>
-          <input type="number" id="size14price" step="0.01" value="14.00">
-        </div>
-      
-        <div class="mb-3">
-          <label for="size18diameter" class="form-label">Size</label>
-          <input type="number" id="size18diameter" min="1" max="30" value="18">
-          <label for="size18size" class="form-label">Price</label>
-          <input type="number" id="size18price" step="0.01" value="18.00">
-        </div>
-      
-    </form>
+      </form>
+    </div>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6GL6564XD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6GL6564XD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-Y6GL6564XD');
-</script>
+      gtag('config', 'G-Y6GL6564XD');
+    </script>
   </body>
 </html>

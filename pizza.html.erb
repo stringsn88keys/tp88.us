@@ -7,25 +7,47 @@
     <script src="pizzaCalc.js" type="text/javascript" charset="utf-8" defer></script>
   </head>
   <body>
-    <form>
-      <% [10, 12, 14, 18].each_with_index do |size, i| %>
-        <div class="mb-3">
-          <label for="size<%= size %>diameter" class="form-label">Size</label>
-          <input type="number" id="size<%= size %>diameter" min="1" max="30" value="<%= size %>">
-          <label for="size<%= size %>size" class="form-label">Price</label>
-          <input type="number" id="size<%= size %>price" step="0.01" value="<%= size %>.00">
+    <div class="container my-4">
+      <h1 class="text-center mb-4">Pizza Size and Price Calculator</h1>
+      <form id="pizzaForm">
+        <div class="row">
+          <% [10, 12, 14, 18].each_with_index do |size, i| %>
+            <div class="col-12 col-md-6 mb-3">
+              <div class="card p-3">
+                <label for="size<%= size %>diameter" class="form-label">Size (inches)</label>
+                <input 
+                  type="number" 
+                  id="size<%= size %>diameter" 
+                  class="form-control mb-2" 
+                  min="1" 
+                  max="30" 
+                  value="<%= i == 0 ? 10 : size %>" 
+                  oninput="syncPizzaPrices()"
+                >
+                <label for="size<%= size %>price" class="form-label">Price ($)</label>
+                <input 
+                  type="number" 
+                  id="size<%= size %>price" 
+                  class="form-control" 
+                  step="0.01" 
+                  value="<%= i == 0 ? '10.00' : '' %>" 
+                  oninput="syncPizzaPrices()"
+                >
+              </div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-    </form>
+      </form>
+    </div>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6GL6564XD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6GL6564XD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-Y6GL6564XD');
-</script>
+      gtag('config', 'G-Y6GL6564XD');
+    </script>
   </body>
 </html>
