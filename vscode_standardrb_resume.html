@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Powell - Senior Principal Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .vscode-container {
+            min-height: 100vh;
+            background: #1e1e1e;
+        }
+
+        .title-bar {
+            background: #323233;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #2d2d30;
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+            margin-right: 12px;
+        }
+
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .close { background: #ff5f57; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #28ca42; }
+
+        .window-title {
+            color: #cccccc;
+            font-size: 13px;
+        }
+
+        .tab-bar {
+            background: #2d2d2d;
+            display: flex;
+            border-bottom: 1px solid #2d2d30;
+        }
+
+        .tab {
+            background: #1e1e1e;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-right: 1px solid #2d2d30;
+            font-size: 13px;
+            position: relative;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #007acc;
+        }
+
+        .editor {
+            display: flex;
+            min-height: calc(100vh - 71px);
+        }
+
+        .line-numbers {
+            background: #1e1e1e;
+            color: #858585;
+            padding: 20px 10px;
+            text-align: right;
+            user-select: none;
+            min-width: 60px;
+            border-right: 1px solid #2d2d30;
+            font-size: 13px;
+        }
+
+        .code-content {
+            flex: 1;
+            padding: 20px;
+            background: #1e1e1e;
+        }
+
+        /* Ruby syntax highlighting colors */
+        .keyword { color: #569cd6; }        /* Blue - Ruby keywords */
+        .string { color: #ce9178; }         /* Orange - strings */
+        .comment { color: #6a9955; }        /* Green - comments */
+        .method { color: #dcdcaa; }         /* Yellow - methods */
+        .variable { color: #9cdcfe; }       /* Light blue - variables */
+        .symbol { color: #4fc1ff; }         /* Cyan - symbols */
+        .constant { color: #4ec9b0; }       /* Teal - constants */
+        .number { color: #b5cea8; }         /* Light green - numbers */
+        .operator { color: #d4d4d4; }       /* White - operators */
+        .bracket { color: #ffd700; }        /* Gold - brackets */
+        .instance_var { color: #9cdcfe; }   /* Light blue - instance variables */
+        .class_name { color: #4ec9b0; }     /* Teal - class names */
+        .interpolation { color: #ffd700; }  /* Gold - string interpolation */
+
+        .line {
+            margin-bottom: 2px;
+        }
+
+        .indent-1 { margin-left: 20px; }
+        .indent-2 { margin-left: 40px; }
+        .indent-3 { margin-left: 60px; }
+        .indent-4 { margin-left: 80px; }
+        .indent-5 { margin-left: 100px; }
+        .indent-6 { margin-left: 120px; }
+        .indent-7 { margin-left: 140px; }
+        .indent-8 { margin-left: 160px; }
+
+        a {
+            color: #4fc1ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="vscode-container">
+        <div class="title-bar">
+            <div class="traffic-lights">
+                <div class="traffic-light close"></div>
+                <div class="traffic-light minimize"></div>
+                <div class="traffic-light maximize"></div>
+            </div>
+            <div class="window-title">standardrb_resume.rb — Visual Studio Code</div>
+        </div>
+        
+        <div class="tab-bar">
+            <div class="tab">standardrb_resume.rb</div>
+        </div>
+        
+        <div class="editor">
+            <div class="line-numbers">
+                <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+                <div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div>
+                <div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div>
+                <div>31</div><div>32</div><div>33</div><div>34</div><div>35</div><div>36</div><div>37</div><div>38</div><div>39</div><div>40</div>
+                <div>41</div><div>42</div><div>43</div><div>44</div><div>45</div><div>46</div><div>47</div><div>48</div><div>49</div><div>50</div>
+                <div>51</div><div>52</div><div>53</div><div>54</div><div>55</div><div>56</div><div>57</div><div>58</div><div>59</div><div>60</div>
+                <div>61</div><div>62</div><div>63</div><div>64</div><div>65</div><div>66</div><div>67</div><div>68</div><div>69</div><div>70</div>
+                <div>71</div><div>72</div><div>73</div><div>74</div><div>75</div><div>76</div><div>77</div><div>78</div><div>79</div><div>80</div>
+                <div>81</div><div>82</div><div>83</div><div>84</div><div>85</div><div>86</div><div>87</div><div>88</div><div>89</div><div>90</div>
+                <div>91</div><div>92</div><div>93</div><div>94</div><div>95</div><div>96</div><div>97</div><div>98</div><div>99</div><div>100</div>
+                <div>101</div><div>102</div><div>103</div><div>104</div><div>105</div><div>106</div><div>107</div><div>108</div><div>109</div><div>110</div>
+                <div>111</div><div>112</div><div>113</div><div>114</div><div>115</div><div>116</div><div>117</div><div>118</div><div>119</div><div>120</div>
+                <div>121</div><div>122</div><div>123</div><div>124</div><div>125</div><div>126</div><div>127</div><div>128</div><div>129</div><div>130</div>
+            </div>
+            
+            <div class="code-content">
+                <div class="line"><span class="comment"># frozen_string_literal: true</span></div>
+                <div class="line"></div>
+                <div class="line"><span class="comment"># Senior Principal Engineer Resume</span></div>
+                <div class="line"><span class="comment"># @author Thomas Powell</span></div>
+                <div class="line"><span class="comment"># @version 2025.06</span></div>
+                <div class="line"></div>
+                <div class="line"><span class="keyword">class</span> <span class="class_name">Developer</span></div>
+                <div class="line indent-1"><span class="keyword">attr_reader</span> <span class="symbol">:name</span><span class="operator">,</span> <span class="symbol">:title</span><span class="operator">,</span> <span class="symbol">:website</span><span class="operator">,</span> <span class="symbol">:experience_years</span></div>
+                <div class="line"></div>
+                <div class="line indent-1"><span class="keyword">def</span> <span class="method">initialize</span></div>
+                <div class="line indent-2"><span class="instance_var">@name</span> <span class="operator">=</span> <span class="string">"Thomas Powell"</span></div>
+                <div class="line indent-2"><span class="instance_var">@title</span> <span class="operator">=</span> <span class="string">"Senior Technical Leader"</span></div>
+                <div class="line indent-2"><span class="instance_var">@website</span> <span class="operator">=</span> <span class="string">"<a href="https://thomaspowell.com/about">https://thomaspowell.com/about</a>"</span></div>
+                <div class="line indent-2"><span class="instance_var">@experience_years</span> <span class="operator">=</span> <span class="number">20</span></div>
+                <div class="line indent-1"><span class="keyword">end</span></div>
+                <div class="line"></div>
+                <div class="line indent-1"><span class="comment"># Core competencies</span></div>
+                <div class="line indent-1"><span class="keyword">def</span> <span class="method">skills</span></div>
+                <div class="line indent-2"><span class="bracket">[</span></div>
+                <div class="line indent-3"><span class="string">"Team Leadership"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"Legacy Apps Support"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"Ruby/Rails (10+ years)"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"AWS Certified Solutions Architect"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"Healthcare Tech"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"Restaurant POS and BOH"</span></div>
+                <div class="line indent-2"><span class="bracket">]</span></div>
+                <div class="line indent-1"><span class="keyword">end</span></div>
+                <div class="line"></div>
+                <div class="line indent-1"><span class="comment"># Professional objective</span></div>
+                <div class="line indent-1"><span class="keyword">def</span> <span class="method">objective</span></div>
+                <div class="line indent-2"><span class="string">&lt;&lt;~OBJECTIVE</span></div>
+                <div class="line indent-3"><span class="string">Dedicated Senior Software Engineering Manager</span></div>
+                <div class="line indent-3"><span class="string">seeking opportunities to leverage </span><span class="interpolation">#{</span><span class="instance_var">@experience_years</span><span class="interpolation">}</span><span class="string">+</span></div>
+                <div class="line indent-3"><span class="string">years of programming, architecture, and leadership</span></div>
+                <div class="line indent-3"><span class="string">experience in a Software Engineering Manager role</span></div>
+                <div class="line indent-2"><span class="string">OBJECTIVE</span></div>
+                <div class="line indent-1"><span class="keyword">end</span></div>
+                <div class="line"></div>
+                <div class="line indent-1"><span class="comment"># Work experience</span></div>
+                <div class="line indent-1"><span class="keyword">def</span> <span class="method">experience</span></div>
+                <div class="line indent-2"><span class="bracket">[</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">position:</span> <span class="string">"SENIOR PRINCIPAL ENGINEER"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">company:</span> <span class="string">"Progress, Chef Infra Client"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">duration:</span> <span class="string">"05/2022 - Present"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">achievements:</span> <span class="bracket">[</span></div>
+                <div class="line indent-5"><span class="string">"Troubleshooting Windows builds for Chef 18 release"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Community PR and Issue Triage"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Ad Hoc Jobs architecture and development in Golang"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Complex problem solving across Ruby, packaging, OS"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"AIX libarchive building solutions"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Windows UCRT heap memory error resolution"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"OpenSSL FIPS fingerprint error fixes"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Chinese Windows segmentation fault debugging"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Solaris patch version mismatch solutions"</span></div>
+                <div class="line indent-4"><span class="bracket">]</span></div>
+                <div class="line indent-3"><span class="bracket">}</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">position:</span> <span class="string">"Sr Software Engineer / Support Team Lead"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">company:</span> <span class="string">"Everly Health"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">duration:</span> <span class="string">"03/2021 - 04/2022"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">achievements:</span> <span class="bracket">[</span></div>
+                <div class="line indent-5"><span class="string">"Mentoring junior engineers in ActiveRecord and DevOps"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Mirth and HL7 messaging support"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Legacy Rails app enhancements and stabilization"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Rack::Middleware for sensitive data filtering"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Datica to LogicWorks (EKS) migration"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Monitoring dashboards and Statuspage.io integration"</span></div>
+                <div class="line indent-4"><span class="bracket">]</span></div>
+                <div class="line indent-3"><span class="bracket">}</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">position:</span> <span class="string">"SR Software Engineering Manager"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">company:</span> <span class="string">"Appriss Health"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">duration:</span> <span class="string">"08/2018 - 03/2021"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">team_size:</span> <span class="number">13</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">achievements:</span> <span class="bracket">[</span></div>
+                <div class="line indent-5"><span class="string">"Remote management of US and Warsaw-based developers"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Architecture Design Sessions for tech debt"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Rails 5 Upgrade leadership"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Technical interviewing for engineering roles"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Legacy monolith to Vue.js migration"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Performance debugging with New Relic and AWS"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Site Reliability Engineering team management"</span></div>
+                <div class="line indent-4"><span class="bracket">]</span></div>
+                <div class="line indent-3"><span class="bracket">}</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">position:</span> <span class="string">"Software Engineer III-IV"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">company:</span> <span class="string">"Appriss Health"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">duration:</span> <span class="string">"07/2012 - 08/2018"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">scale:</span> <span class="string">"43 state configurations, billions of PostgreSQL rows"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">achievements:</span> <span class="bracket">[</span></div>
+                <div class="line indent-5"><span class="string">"Co-developed flagship Prescription Management Program"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"API Gateway for pharmacy/health system integration"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Led Medical Marijuana Registry development for Ohio"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Xamarin mobile app with AWS Cognito backend"</span><span class="operator">,</span></div>
+                <div class="line indent-5"><span class="string">"Technical book club leadership"</span></div>
+                <div class="line indent-4"><span class="bracket">]</span></div>
+                <div class="line indent-3"><span class="bracket">}</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">position:</span> <span class="string">"Intern to Solutions Architect"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">company:</span> <span class="string">"Yum! Brands"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">duration:</span> <span class="string">"05/1996 - 07/2012"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">progression:</span> <span class="string">"Co-op → Project Lead → Solutions Architect"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">technologies:</span> <span class="bracket">[</span><span class="string">"Java EAI"</span><span class="operator">,</span> <span class="string">"IBM OmniFind"</span><span class="operator">,</span> <span class="string">"C#.NET"</span><span class="operator">,</span> <span class="string">"POS Integration"</span><span class="bracket">]</span></div>
+                <div class="line indent-3"><span class="bracket">}</span></div>
+                <div class="line indent-2"><span class="bracket">]</span></div>
+                <div class="line indent-1"><span class="keyword">end</span></div>
+                <div class="line"></div>
+                <div class="line indent-1"><span class="comment"># Education and certifications</span></div>
+                <div class="line indent-1"><span class="keyword">def</span> <span class="method">education</span></div>
+                <div class="line indent-2"><span class="bracket">[</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">degree:</span> <span class="string">"Master of Engineering, Computer Engineering"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">school:</span> <span class="string">"University of Louisville"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">graduation:</span> <span class="string">"Fall 2003"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">honors:</span> <span class="keyword">true</span></div>
+                <div class="line indent-3"><span class="bracket">}</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="bracket">{</span></div>
+                <div class="line indent-4"><span class="symbol">degree:</span> <span class="string">"Bachelor of Science, Engineering Mathematics and Computer Science"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">school:</span> <span class="string">"University of Louisville"</span><span class="operator">,</span></div>
+                <div class="line indent-4"><span class="symbol">graduation:</span> <span class="string">"Spring 2000"</span></div>
+                <div class="line indent-3"><span class="bracket">}</span></div>
+                <div class="line indent-2"><span class="bracket">]</span></div>
+                <div class="line indent-1"><span class="keyword">end</span></div>
+                <div class="line"></div>
+                <div class="line indent-1"><span class="keyword">def</span> <span class="method">certifications</span></div>
+                <div class="line indent-2"><span class="bracket">[</span></div>
+                <div class="line indent-3"><span class="string">"AWS Certified Solutions Architect Professional (SAP-C01) - 3/21/2022"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"AWS SysOps Administrator Associate (SOA-C01) - 03/23/2021"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"AWS Certified Developer Associate (DVA-C01) - 01/26/2021"</span><span class="operator">,</span></div>
+                <div class="line indent-3"><span class="string">"AWS Certified Solutions Architect Associate (SAA-C02) - 12/1/2020"</span></div>
+                <div class="line indent-2"><span class="bracket">]</span></div>
+                <div class="line indent-1"><span class="keyword">end</span></div>
+                <div class="line"><span class="keyword">end</span></div>
+                <div class="line"></div>
+                <div class="line"><span class="comment"># Instantiate for potential employers</span></div>
+                <div class="line"><span class="variable">thomas_powell</span> <span class="operator">=</span> <span class="class_name">Developer</span><span class="operator">.</span><span class="method">new</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

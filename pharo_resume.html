@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Powell - Pharo IDE Resume</title>
+    <style>
+        body {
+            font-family: "Geneva", "Lucida Grande", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            font-size: 11px;
+        }
+        
+        .pharo-browser {
+            background: white;
+            border: 2px solid #999;
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .title-bar {
+            background: linear-gradient(to bottom, #e6e6e6, #d0d0d0);
+            border-bottom: 1px solid #999;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .pane-container {
+            display: flex;
+            min-height: 650px;
+        }
+        
+        .packages-pane {
+            width: 160px;
+            background: #f8f8f8;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        
+        .classes-pane {
+            width: 140px;
+            background: #f5f5f5;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        
+        .protocols-pane {
+            width: 120px;
+            background: #f2f2f2;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        
+        .methods-pane {
+            width: 180px;
+            background: #f0f0f0;
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+        }
+        
+        .code-pane {
+            flex: 1;
+            background: white;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        
+        .pane-header {
+            background: #e8e8e8;
+            border-bottom: 1px solid #ccc;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .item-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .list-item {
+            padding: 4px 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            font-size: 10px;
+            user-select: none;
+            line-height: 1.2;
+        }
+        
+        .list-item:hover {
+            background: #e0e0ff;
+        }
+        
+        .list-item.selected {
+            background: #4169E1;
+            color: white;
+        }
+        
+        .method-header {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 11px;
+            font-family: "Monaco", "Menlo", "Consolas", monospace;
+        }
+        
+        .method-body {
+            font-family: "Monaco", "Menlo", "Consolas", monospace;
+            font-size: 10px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            background: #fafafa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+        
+        .comment {
+            color: #008000;
+            font-style: italic;
+        }
+        
+        .string {
+            color: #0000ff;
+        }
+        
+        .keyword {
+            color: #800080;
+            font-weight: bold;
+        }
+        
+        .variable {
+            color: #000080;
+        }
+        
+        .date {
+            color: #ff6600;
+        }
+        
+        .url {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+        
+        .status-bar {
+            background: #f0f0f0;
+            border-top: 1px solid #ccc;
+            padding: 5px 10px;
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .class-definition {
+            background: #f9f9f9;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            font-family: "Monaco", "Menlo", "Consolas", monospace;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pharo-browser">
+        <div class="title-bar">
+            System Browser - ThomasPowell class
+        </div>
+        
+        <div class="pane-container">
+            <div class="packages-pane">
+                <div class="pane-header">Packages</div>
+                <ul class="item-list" id="packagesList">
+                    <li class="list-item selected" data-target="resume">Resume-Core</li>
+                    <li class="list-item" data-target="skills">Resume-Skills</li>
+                    <li class="list-item" data-target="experience">Resume-Experience</li>
+                    <li class="list-item" data-target="education">Resume-Education</li>
+                </ul>
+            </div>
+            
+            <div class="classes-pane">
+                <div class="pane-header">Classes</div>
+                <ul class="item-list" id="classesList">
+                    <li class="list-item selected" data-target="thomas">ThomasPowell</li>
+                    <li class="list-item" data-target="contact">ContactInfo</li>
+                    <li class="list-item" data-target="position">Position</li>
+                    <li class="list-item" data-target="company">Company</li>
+                </ul>
+            </div>
+            
+            <div class="protocols-pane">
+                <div class="pane-header">Protocols</div>
+                <ul class="item-list" id="protocolsList">
+                    <li class="list-item selected" data-target="accessing">accessing</li>
+                    <li class="list-item" data-target="initialization">initialization</li>
+                    <li class="list-item" data-target="career">career</li>
+                    <li class="list-item" data-target="technical">technical</li>
+                    <li class="list-item" data-target="management">management</li>
+                </ul>
+            </div>
+            
+            <div class="methods-pane">
+                <div class="pane-header">Methods</div>
+                <ul class="item-list" id="methodsList">
+                    <li class="list-item selected" data-target="objective">objective</li>
+                    <li class="list-item" data-target="skills">skills</li>
+                    <li class="list-item" data-target="currentPosition">currentPosition</li>
+                    <li class="list-item" data-target="everlyHealth">everlyHealth</li>
+                    <li class="list-item" data-target="apprissManager">apprissManager</li>
+                    <li class="list-item" data-target="apprissEngineer">apprissEngineer</li>
+                    <li class="list-item" data-target="yumBrands">yumBrands</li>
+                    <li class="list-item" data-target="education">education</li>
+                    <li class="list-item" data-target="certifications">certifications</li>
+                </ul>
+            </div>
+            
+            <div class="code-pane" id="codePane">
+                <div class="class-definition">
+                    <span class="keyword">Object</span> <span class="variable">subclass:</span> <span class="string">#ThomasPowell</span>
+                    <span class="variable">instanceVariableNames:</span> <span class="string">'name position website skills experience education certifications'</span>
+                    <span class="variable">classVariableNames:</span> <span class="string">''</span>
+                    <span class="variable">package:</span> <span class="string">'Resume-Core'</span>
+                </div>
+                
+                <div id="objective" class="content-section">
+                    <div class="method-header">objective</div>
+                    <div class="method-body"><span class="comment">"Return career objective and current professional summary"</span>
+
+<span class="keyword">^ Dictionary</span> <span class="keyword">new</span>
+    <span class="variable">at:</span> <span class="string">'summary'</span> <span class="variable">put:</span> <span class="string">'Dedicated and experienced Senior Software 
+    Engineering Manager looking for the opportunity to bring 20+ years 
+    experience with programming, architecture, technology engineering, 
+    and leadership to a Software Engineering Manager role.'</span>;
+    <span class="variable">at:</span> <span class="string">'position'</span> <span class="variable">put:</span> <span class="string">'Senior Technical Leader'</span>;
+    <span class="variable">at:</span> <span class="string">'website'</span> <span class="variable">put:</span> <span class="string url">'https://thomaspowell.com/about'</span>;
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="skills" class="content-section" style="display: none;">
+                    <div class="method-header">skills</div>
+                    <div class="method-body"><span class="comment">"Return collection of core technical and leadership competencies"</span>
+
+<span class="keyword">^ OrderedCollection</span> <span class="keyword">new</span>
+    <span class="variable">add:</span> <span class="string">'Team Leadership'</span>;
+    <span class="variable">add:</span> <span class="string">'Legacy Apps Support'</span>;
+    <span class="variable">add:</span> <span class="string">'Ruby/Rails 10 years'</span>;
+    <span class="variable">add:</span> <span class="string">'AWS Certified Solutions Architect -- Professional and 4X certified'</span>;
+    <span class="variable">add:</span> <span class="string">'Healthcare Tech'</span>;
+    <span class="variable">add:</span> <span class="string">'Restaurant POS and BOH'</span>;
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="currentPosition" class="content-section" style="display: none;">
+                    <div class="method-header">currentPosition</div>
+                    <div class="method-body"><span class="comment">"Return current role at Progress, Chef Infra Client"</span>
+
+<span class="keyword">^ Position</span> <span class="keyword">new</span>
+    <span class="variable">title:</span> <span class="string">'SENIOR PRINCIPAL ENGINEER'</span>;
+    <span class="variable">company:</span> <span class="string">'Progress, Chef Infra Client'</span>;
+    <span class="variable">duration:</span> <span class="date">'05/2022 - Present'</span>;
+    <span class="variable">responsibilities:</span> (<span class="keyword">OrderedCollection</span> <span class="keyword">new</span>
+        <span class="variable">add:</span> <span class="string">'Troubleshooting Windows builds for Chef 18 release and stabilizing the build'</span>;
+        <span class="variable">add:</span> <span class="string">'Community PR and Issue Triage'</span>;
+        <span class="variable">add:</span> <span class="string">'Ad Hoc Jobs architecture and development in Golang'</span>;
+        <span class="variable">add:</span> <span class="string">'Solve complex setup and trace problems with Ruby, packaging, and target operating systems'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">platformWork:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'AIX'</span> <span class="variable">put:</span> <span class="string">'building of libarchive'</span>;
+        <span class="variable">at:</span> <span class="string">'Windows'</span> <span class="variable">put:</span> <span class="string">'Heap memory errors, OpenSSL FIPS, time zone loading, Chinese Windows segfaults'</span>;
+        <span class="variable">at:</span> <span class="string">'Solaris'</span> <span class="variable">put:</span> <span class="string">'Patch version mismatch solutions with pkgmogrify'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="everlyHealth" class="content-section" style="display: none;">
+                    <div class="method-header">everlyHealth</div>
+                    <div class="method-body"><span class="comment">"Return Sr Software Engineer / Support Team Lead position at Everly Health"</span>
+
+<span class="keyword">^ Position</span> <span class="keyword">new</span>
+    <span class="variable">title:</span> <span class="string">'Sr Software Engineer / Support Team Lead'</span>;
+    <span class="variable">company:</span> <span class="string">'Everly Health'</span>;
+    <span class="variable">duration:</span> <span class="date">'03/2021 -- 04/2022'</span>;
+    <span class="variable">keyContributions:</span> (<span class="keyword">OrderedCollection</span> <span class="keyword">new</span>
+        <span class="variable">add:</span> <span class="string">'Mentoring new junior engineers in support, ActiveRecord and SQL queries, and DevOps'</span>;
+        <span class="variable">add:</span> <span class="string">'Mirth and HL7 messaging support'</span>;
+        <span class="variable">add:</span> <span class="string">'Prioritization of support concerns and analysis of top candidates for automation'</span>;
+        <span class="variable">add:</span> <span class="string">'Legacy Rails app Labs Module enhancements and build stabilization'</span>;
+        <span class="variable">add:</span> <span class="string">'Compass Project adding Rack::Middleware and log formatters to filter sensitive data'</span>;
+        <span class="variable">add:</span> <span class="string">'Datica to LogicWorks (on EKS) migration, focusing on helm charts and configuration'</span>;
+        <span class="variable">add:</span> <span class="string">'Configuring monitoring dashboards and improvements to Statuspage.io integration'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="apprissManager" class="content-section" style="display: none;">
+                    <div class="method-header">apprissManager</div>
+                    <div class="method-body"><span class="comment">"Return SR Software Engineering Manager position at Appriss Health"</span>
+
+<span class="keyword">^ Position</span> <span class="keyword">new</span>
+    <span class="variable">title:</span> <span class="string">'SR Software Engineering Manager'</span>;
+    <span class="variable">company:</span> <span class="string">'Appriss Health'</span>;
+    <span class="variable">duration:</span> <span class="date">'08/2018 -- 03/2021'</span>;
+    <span class="variable">teamSize:</span> <span class="string">'Remote manager of a team of up to 13 remote US and Warsaw-based developers'</span>;
+    <span class="variable">managementResponsibilities:</span> (<span class="keyword">OrderedCollection</span> <span class="keyword">new</span>
+        <span class="variable">add:</span> <span class="string">'Architecture Design Sessions for tech debt'</span>;
+        <span class="variable">add:</span> <span class="string">'Rails 5 Upgrade'</span>;
+        <span class="variable">add:</span> <span class="string">'Interviewing of Director of Engineering, Manager, and Software Engineering candidates'</span>;
+        <span class="variable">add:</span> <span class="string">'Migration of Legacy Prescription Management Program monolith new functionality to Vue.js'</span>;
+        <span class="variable">add:</span> <span class="string">'Debugged platform/performance issues with Platform team, utilizing New Relic and AWS Performance Insights'</span>;
+        <span class="variable">add:</span> <span class="string">'Conduct 1:1 with direct reports and manage performance and career development'</span>;
+        <span class="variable">add:</span> <span class="string">'Manager of Site Reliability Engineering team, tuning alerting with Sumologic and New Relic'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="apprissEngineer" class="content-section" style="display: none;">
+                    <div class="method-header">apprissEngineer</div>
+                    <div class="method-body"><span class="comment">"Return Software Engineer III -- IV position at Appriss Health"</span>
+
+<span class="keyword">^ Position</span> <span class="keyword">new</span>
+    <span class="variable">title:</span> <span class="string">'Software Engineer III -- IV'</span>;
+    <span class="variable">company:</span> <span class="string">'Appriss Health'</span>;
+    <span class="variable">duration:</span> <span class="date">'07/2012 -- 08/2018'</span>;
+    <span class="variable">majorProjects:</span> (<span class="keyword">OrderedCollection</span> <span class="keyword">new</span>
+        <span class="variable">add:</span> <span class="string">'Co-developed flagship Prescription Management Program monolith in Ruby on Rails 
+        that ultimately served 43 distinct state configurations, scaling to billions of rows 
+        of data in PostgreSQL'</span>;
+        <span class="variable">add:</span> <span class="string">'Co-developed Prescription Management Program API Gateway that provided integration 
+        points for pharmacies and health systems'</span>;
+        <span class="variable">add:</span> <span class="string">'Led team that developed a Medical Marijuana Registry for Ohio'</span>;
+        <span class="variable">add:</span> <span class="string">'Led team of 1-3 developers to launch a pilot of a Xamarin mobile app for overdose 
+        entry + accompanying backend utilizing AWS Cognito and React + .NET core frontend'</span>;
+        <span class="variable">add:</span> <span class="string">'Led team book reads and discussions of books such as Exceptional Ruby and POODR'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="yumBrands" class="content-section" style="display: none;">
+                    <div class="method-header">yumBrands</div>
+                    <div class="method-body"><span class="comment">"Return career progression from Intern to Solutions Architect at Yum Brands"</span>
+
+<span class="keyword">^ Position</span> <span class="keyword">new</span>
+    <span class="variable">title:</span> <span class="string">'Intern to Solutions Architect'</span>;
+    <span class="variable">company:</span> <span class="string">'Yum Brands'</span>;
+    <span class="variable">duration:</span> <span class="date">'05/1996 -- 07/2012'</span>;
+    <span class="variable">careerProgression:</span> (<span class="keyword">OrderedCollection</span> <span class="keyword">new</span>
+        <span class="variable">add:</span> <span class="string">'Promoted to multiple roles; from co-op student writing C and debugging assembly 
+        to Project Lead, Applications Analyst, and Solutions Architect'</span>;
+        <span class="variable">add:</span> <span class="string">'Java developer supporting EAI processes built on JCAPS 6/Java Web Services/JMS/DB2, 
+        some Spring MVC POC'</span>;
+        <span class="variable">add:</span> <span class="string">'Solutions Architecture, including: training leadership teams on use of social media 
+        platforms and concepts'</span>;
+        <span class="variable">add:</span> <span class="string">'Analysis of Microsoft BI toolset for China division, Lead on Mobile ordering proof 
+        of concept with POS integration'</span>;
+        <span class="variable">add:</span> <span class="string">'Enterprise Search with IBM OmniFind integration to SharePoint and WebSphere'</span>;
+        <span class="variable">add:</span> <span class="string">'C#.NET team lead for Labor and Sales Forecasting engine migration'</span>;
+        <span class="variable">add:</span> <span class="string">'Credit card and gift card POS integration and business analyst for flagship 
+        projects with Pizza Hut division'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="education" class="content-section" style="display: none;">
+                    <div class="method-header">education</div>
+                    <div class="method-body"><span class="comment">"Return educational background and degrees"</span>
+
+<span class="keyword">^ OrderedCollection</span> <span class="keyword">new</span>
+    <span class="variable">add:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'degree'</span> <span class="variable">put:</span> <span class="string">'Master of Engineering, Computer Engineering Computer Science'</span>;
+        <span class="variable">at:</span> <span class="string">'date'</span> <span class="variable">put:</span> <span class="date">'Fall 2003'</span>;
+        <span class="variable">at:</span> <span class="string">'institution'</span> <span class="variable">put:</span> <span class="string">'University of Louisville'</span>;
+        <span class="variable">at:</span> <span class="string">'honors'</span> <span class="variable">put:</span> <span class="string">'Graduated with Honors'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">add:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'degree'</span> <span class="variable">put:</span> <span class="string">'Bachelor of Science, Engineering Mathematics and Computer Science'</span>;
+        <span class="variable">at:</span> <span class="string">'date'</span> <span class="variable">put:</span> <span class="date">'Spring 2000'</span>;
+        <span class="variable">at:</span> <span class="string">'institution'</span> <span class="variable">put:</span> <span class="string">'University of Louisville'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+
+                <div id="certifications" class="content-section" style="display: none;">
+                    <div class="method-header">certifications</div>
+                    <div class="method-body"><span class="comment">"Return AWS certifications and professional achievements"</span>
+
+<span class="keyword">^ OrderedCollection</span> <span class="keyword">new</span>
+    <span class="variable">add:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'name'</span> <span class="variable">put:</span> <span class="string">'AWS Certified Solutions Architect Professional (SAP-C01)'</span>;
+        <span class="variable">at:</span> <span class="string">'achieved'</span> <span class="variable">put:</span> <span class="date">'3/21/2022'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">add:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'name'</span> <span class="variable">put:</span> <span class="string">'AWS SysOps Administrator Associate (SOA-C01)'</span>;
+        <span class="variable">at:</span> <span class="string">'achieved'</span> <span class="variable">put:</span> <span class="date">'03/23/2021'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">add:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'name'</span> <span class="variable">put:</span> <span class="date">'AWS Certified Developer Associate (DVA-C01)'</span>;
+        <span class="variable">at:</span> <span class="string">'achieved'</span> <span class="variable">put:</span> <span class="date">'01/26/2021'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">add:</span> (<span class="keyword">Dictionary</span> <span class="keyword">new</span>
+        <span class="variable">at:</span> <span class="string">'name'</span> <span class="variable">put:</span> <span class="string">'AWS Certified Solutions Architect Associate (SAA-C02)'</span>;
+        <span class="variable">at:</span> <span class="string">'achieved'</span> <span class="variable">put:</span> <span class="date">'12/1/2020'</span>;
+        <span class="variable">yourself</span>);
+    <span class="variable">yourself</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            ThomasPowell class selected | accessing protocol | objective method | 20+ years experience | AWS 4X Certified
+        </div>
+    </div>
+
+    <script>
+        // Enhanced multi-tier navigation like real Pharo browser
+        const packages = document.querySelectorAll('#packagesList .list-item');
+        const classes = document.querySelectorAll('#classesList .list-item');
+        const protocols = document.querySelectorAll('#protocolsList .list-item');
+        const methods = document.querySelectorAll('#methodsList .list-item');
+        const sections = document.querySelectorAll('.content-section');
+        
+        // Package selection
+        packages.forEach(pkg => {
+            pkg.addEventListener('click', () => {
+                packages.forEach(p => p.classList.remove('selected'));
+                pkg.classList.add('selected');
+                updateStatusBar();
+            });
+        });
+        
+        // Class selection  
+        classes.forEach(cls => {
+            cls.addEventListener('click', () => {
+                classes.forEach(c => c.classList.remove('selected'));
+                cls.classList.add('selected');
+                updateStatusBar();
+            });
+        });
+        
+        // Protocol selection
+        protocols.forEach(protocol => {
+            protocol.addEventListener('click', () => {
+                protocols.forEach(p => p.classList.remove('selected'));
+                protocol.classList.add('selected');
+                updateStatusBar();
+            });
+        });
+        
+        // Method selection and content display
+        methods.forEach(method => {
+            method.addEventListener('click', () => {
+                methods.forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+                
+                // Hide all sections
+                sections.forEach(section => section.style.display = 'none');
+                
+                // Show target section
+                const targetId = method.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                }
+                
+                updateStatusBar();
+            });
+        });
+        
+        function updateStatusBar() {
+            const selectedPackage = document.querySelector('#packagesList .selected')?.textContent;
+            const selectedClass = document.querySelector('#classesList .selected')?.textContent;
+            const selectedProtocol = document.querySelector('#protocolsList .selected')?.textContent;
+            const selectedMethod = document.querySelector('#methodsList .selected')?.textContent;
+            
+            const statusBar = document.querySelector('.status-bar');
+            statusBar.textContent = `${selectedClass} class selected | ${selectedProtocol} protocol | ${selectedMethod} method | 20+ years experience | AWS 4X Certified`;
+        }
+    </script>
+</body>
+</html>

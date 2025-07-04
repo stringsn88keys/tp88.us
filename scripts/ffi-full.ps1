@@ -1,4 +1,4 @@
-##o run all the omnibus level tests
+## run all the omnibus level tests
 set-executionpolicy unrestricted
 git checkout tp/ffi-378-branch-install
 $ENV:CUSTOM_CHEF_POWERSHELL_BRANCH="tp/debug-ffi-yajl"

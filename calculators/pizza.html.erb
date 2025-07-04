@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pizza Size and Price Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="pizzaCalc.js" type="text/javascript" charset="utf-8" defer></script>
+  <style>
+      body {
+          background-color: #ffcc00; /* Cheese yellow */
+          color: #4d2600; /* Crust brown */
+      }
+      .container {
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          background-color: #fff2cc; /* Light cheese yellow */
+      }
+      h1 {
+          color: #e60000; /* Pepperoni red */
+      }
+      .card {
+          background-color: #ffcc00; /* Cheese yellow */
+          border: 2px solid #4d2600; /* Crust brown */
+      }
+      .form-label {
+          color: #e60000; /* Pepperoni red */
+      }
+      .form-control {
+          background-color: #fff2cc; /* Light cheese yellow */
+          border: 1px solid #4d2600; /* Crust brown */
+          color: #4d2600; /* Crust brown */
+      }
+      .form-control:focus {
+          border-color: #e60000; /* Pepperoni red */
+          box-shadow: 0 0 5px #e60000; /* Pepperoni red shadow */
+      }
+      .btn-primary {
+          background-color: #e60000; /* Pepperoni red */
+          border-color: #e60000; /* Pepperoni red */
+      }
+      .btn-primary:hover {
+          background-color: #cc0000; /* Darker pepperoni red */
+          border-color: #cc0000; /* Darker pepperoni red */
+      }
+  </style>
+</head>
+<body>
+<div class="container my-4">
+  <h1 class="text-center mb-4">Pizza Size and Price Calculator</h1>
+  <form id="pizzaForm">
+    <div class="row">
+      <% [10, 12, 14, 18].each_with_index do |size, i| %>
+        <div class="col-12 col-md-6 mb-3">
+          <div class="card p-3">
+            <label for="size<%= size %>diameter" class="form-label">Size (inches)</label>
+            <input
+              type="number"
+              id="size<%= size %>diameter"
+              class="form-control mb-2"
+              min="1"
+              max="30"
+              value="<%= i == 0 ? 10 : size %>"
+              oninput="syncPizzaPrices()"
+            >
+            <label for="size<%= size %>price" class="form-label">Price ($)</label>
+            <input
+              type="number"
+              id="size<%= size %>price"
+              class="form-control"
+              step="0.01"
+              value="<%= i == 0 ? '10.00' : '' %>"
+              oninput="syncPizzaPrices()"
+            >
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </form>
+</div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6GL6564XD"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y6GL6564XD');
+</script>
+</body>
+</html>
