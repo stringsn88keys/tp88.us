@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisualAge Smalltalk - Thomas Powell Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: #008080;
+            color: #000;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .desktop {
+            width: 100vw;
+            height: 100vh;
+            background: #008080;
+            position: relative;
+        }
+        
+        .window {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 50px;
+            background: #c0c0c0;
+            border: 2px outset #c0c0c0;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+        }
+        
+        .title-bar {
+            background: linear-gradient(90deg, #000080 0%, #4169e1 100%);
+            color: white;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #000;
+        }
+        
+        .title-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .window-icon {
+            width: 16px;
+            height: 16px;
+            background: #ffff00;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: #000;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .control-btn {
+            width: 16px;
+            height: 14px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .control-btn:hover {
+            background: #d0d0d0;
+        }
+        
+        .menu-bar {
+            background: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            padding: 4px;
+            font-size: 11px;
+        }
+        
+        .menu-item {
+            display: inline-block;
+            padding: 2px 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        
+        .menu-item:hover {
+            border: 1px inset #c0c0c0;
+            background: #e0e0e0;
+        }
+        
+        .toolbar {
+            background: #c0c0c0;
+            border-bottom: 1px solid #808080;
+            padding: 4px;
+            display: flex;
+            gap: 2px;
+        }
+        
+        .toolbar-btn {
+            width: 24px;
+            height: 22px;
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .toolbar-btn:hover {
+            background: #d0d0d0;
+        }
+        
+        .content-area {
+            display: flex;
+            height: calc(100% - 80px);
+        }
+        
+        .class-browser {
+            width: 200px;
+            background: #f0f0f0;
+            border-right: 1px solid #808080;
+            overflow-y: auto;
+            font-size: 11px;
+        }
+        
+        .browser-header {
+            background: #d0d0d0;
+            padding: 4px;
+            font-weight: bold;
+            border-bottom: 1px solid #808080;
+        }
+        
+        .browser-item {
+            padding: 2px 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .browser-item:hover {
+            background: #e0e0e0;
+        }
+        
+        .browser-item.selected {
+            background: #000080;
+            color: white;
+        }
+        
+        .code-area {
+            flex: 1;
+            background: white;
+            padding: 8px;
+            overflow-y: auto;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        
+        .method-signature {
+            color: #000080;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .comment {
+            color: #008000;
+            font-style: italic;
+        }
+        
+        .keyword {
+            color: #800080;
+            font-weight: bold;
+        }
+        
+        .string {
+            color: #008080;
+        }
+        
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #c0c0c0;
+            border-top: 1px solid #808080;
+            display: flex;
+            align-items: center;
+            padding: 0 4px;
+        }
+        
+        .start-button {
+            background: #c0c0c0;
+            border: 1px outset #c0c0c0;
+            padding: 4px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+        
+        .start-button:hover {
+            background: #d0d0d0;
+        }
+        
+        .taskbar-item {
+            background: #c0c0c0;
+            border: 1px inset #c0c0c0;
+            padding: 4px 8px;
+            font-size: 11px;
+            margin-right: 4px;
+        }
+        
+        .clock {
+            margin-left: auto;
+            font-size: 11px;
+            padding: 4px;
+        }
+        
+        .resume-section {
+            margin-bottom: 16px;
+        }
+        
+        .section-header {
+            background: #e0e0e0;
+            padding: 4px;
+            font-weight: bold;
+            border: 1px solid #808080;
+            margin-bottom: 8px;
+        }
+        
+        .job-entry {
+            margin-bottom: 12px;
+            padding: 4px;
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .job-title {
+            font-weight: bold;
+            color: #000080;
+        }
+        
+        .job-company {
+            color: #800080;
+            font-weight: bold;
+        }
+        
+        .job-date {
+            color: #008080;
+            font-style: italic;
+        }
+        
+        .bullet-point {
+            margin-left: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .bullet-point:before {
+            content: "• ";
+            color: #800080;
+        }
+        
+        .skill-item {
+            display: inline-block;
+            background: #e0e0e0;
+            padding: 2px 6px;
+            margin: 2px;
+            border: 1px solid #808080;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    <div class="window-icon">ST</div>
+                    VisualAge Smalltalk - Thomas Powell Resume Browser
+                </div>
+                <div class="window-controls">
+                    <div class="control-btn">_</div>
+                    <div class="control-btn">□</div>
+                    <div class="control-btn">×</div>
+                </div>
+            </div>
+            
+            <div class="menu-bar">
+                <span class="menu-item">File</span>
+                <span class="menu-item">Edit</span>
+                <span class="menu-item">Browse</span>
+                <span class="menu-item">Tools</span>
+                <span class="menu-item">Options</span>
+                <span class="menu-item">Help</span>
+            </div>
+            
+            <div class="toolbar">
+                <div class="toolbar-btn">📁</div>
+                <div class="toolbar-btn">💾</div>
+                <div class="toolbar-btn">🔍</div>
+                <div class="toolbar-btn">⚙️</div>
+                <div class="toolbar-btn">▶️</div>
+            </div>
+            
+            <div class="content-area">
+                <div class="class-browser">
+                    <div class="browser-header">Class Hierarchy</div>
+                    <div class="browser-item">Object</div>
+                    <div class="browser-item">├─ Person</div>
+                    <div class="browser-item selected">├─ SoftwareEngineer</div>
+                    <div class="browser-item">│  ├─ ThomasPowell</div>
+                    <div class="browser-item">│  ├─ Experience</div>
+                    <div class="browser-item">│  ├─ Skills</div>
+                    <div class="browser-item">│  └─ Education</div>
+                    <div class="browser-item">└─ Manager</div>
+                </div>
+                
+                <div class="code-area">
+                    <div class="method-signature">ThomasPowell class >> resume</div>
+                    <div class="comment">"Senior Technical Leader with 20+ years of experience"</div>
+                    <br>
+                    
+                    <div class="resume-section">
+                        <div class="section-header">| OBJECTIVE |</div>
+                        <p>Dedicated and experienced Senior Software Engineering Manager looking for the opportunity to bring 20+ years' experience with programming, architecture, technology engineering, and leadership to a Software Engineering Manager role.</p>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="section-header">| EXPERIENCE |</div>
+                        
+                        <div class="job-entry">
+                            <div class="job-title">SENIOR PRINCIPAL ENGINEER</div>
+                            <div class="job-company">Progress, Chef Infra Client</div>
+                            <div class="job-date">05/2022 - Present</div>
+                            <div class="bullet-point">Troubleshooting Windows builds for Chef 18 release and stabilizing the build</div>
+                            <div class="bullet-point">Community PR and Issue Triage</div>
+                            <div class="bullet-point">"Ad Hoc" Jobs architecture and development in Golang</div>
+                            <div class="bullet-point">Solve complex to set up and trace problems, often with Ruby, packaging, and target operating systems</div>
+                            <div class="bullet-point">AIX: building of libarchive</div>
+                            <div class="bullet-point">Windows: Solving heap memory error with UCRT in invoking PowerShell from Ruby through C++/CLI</div>
+                            <div class="bullet-point">Windows: Resolving OpenSSL FIPS fingerprint error by invoking /DYNAMICBASE:NO in linker</div>
+                            <div class="bullet-point">Solaris: Find a solution for a mismatch between Solaris patch version of customer fleets and internal build systems</div>
+                        </div>
+                        
+                        <div class="job-entry">
+                            <div class="job-title">SR SOFTWARE ENGINEER / SUPPORT TEAM LEAD</div>
+                            <div class="job-company">Everly Health</div>
+                            <div class="job-date">03/2021 - 04/2022</div>
+                            <div class="bullet-point">Mentoring new junior engineers in support, ActiveRecord and SQL queries, and DevOps</div>
+                            <div class="bullet-point">Mirth and HL7 messaging support</div>
+                            <div class="bullet-point">Prioritization of support concerns and analysis of top candidates for automation</div>
+                            <div class="bullet-point">Legacy Rails app Labs Module enhancements and build stabilization</div>
+                            <div class="bullet-point">Compass Project adding Rack::Middleware and log formatters to filter sensitive data</div>
+                            <div class="bullet-point">Datica to LogicWorks (on EKS) migration, focusing on helm charts and configuration</div>
+                        </div>
+                        
+                        <div class="job-entry">
+                            <div class="job-title">SR SOFTWARE ENGINEERING MANAGER</div>
+                            <div class="job-company">Appriss Health</div>
+                            <div class="job-date">08/2018 - 03/2021</div>
+                            <div class="bullet-point">Remote manager of a team of up to 13 remote US and Warsaw-based developers</div>
+                            <div class="bullet-point">Architecture Design Sessions for tech debt</div>
+                            <div class="bullet-point">Rails 5 Upgrade</div>
+                            <div class="bullet-point">Interviewing of Director of Engineering, Manager, and Software Engineering candidates</div>
+                            <div class="bullet-point">Migration of Legacy Prescription Management Program monolith new functionality to Vue.js</div>
+                            <div class="bullet-point">Debugged platform/performance issues with Platform team, utilizing New Relic and AWS Performance Insights</div>
+                            <div class="bullet-point">Manager of Site Reliability Engineering team, tuning alerting with Sumologic and New Relic</div>
+                        </div>
+                        
+                        <div class="job-entry">
+                            <div class="job-title">SOFTWARE ENGINEER III -- IV</div>
+                            <div class="job-company">Appriss Health</div>
+                            <div class="job-date">07/2012 - 08/2018</div>
+                            <div class="bullet-point">Co-developed flagship Prescription Management Program monolith in Ruby on Rails</div>
+                            <div class="bullet-point">Served 43 distinct state configurations, scaling to billions of rows of data in PostgreSQL</div>
+                            <div class="bullet-point">Co-developed Prescription Management Program API "Gateway"</div>
+                            <div class="bullet-point">Led team that developed a Medical Marijuana Registry for Ohio</div>
+                            <div class="bullet-point">Led team of 1-3 developers to launch a pilot of a Xamarin mobile app</div>
+                            <div class="bullet-point">Led team book reads and discussions of books such as Exceptional Ruby and POODR</div>
+                        </div>
+                        
+                        <div class="job-entry">
+                            <div class="job-title">INTERN TO SOLUTIONS ARCHITECT</div>
+                            <div class="job-company">Yum Brands</div>
+                            <div class="job-date">05/1996 - 07/2012</div>
+                            <div class="bullet-point">Promoted to multiple roles; from co-op student writing C and debugging assembly to Solutions Architect</div>
+                            <div class="bullet-point">Java developer supporting EAI processes built on JCAPS 6/Java Web Services/JMS/DB2</div>
+                            <div class="bullet-point">Solutions Architecture, training leadership teams on use of social media platforms</div>
+                            <div class="bullet-point">Enterprise Search with IBM OmniFind integration to SharePoint and WebSphere</div>
+                            <div class="bullet-point">Credit card and gift card POS integration and business analyst for flagship projects</div>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="section-header">| SKILLS |</div>
+                        <div class="skill-item">Team Leadership</div>
+                        <div class="skill-item">Legacy Apps Support</div>
+                        <div class="skill-item">Ruby/Rails 10 years</div>
+                        <div class="skill-item">AWS Certified Solutions Architect</div>
+                        <div class="skill-item">Healthcare Tech</div>
+                        <div class="skill-item">Restaurant POS and BOH</div>
+                        <div class="skill-item">Golang</div>
+                        <div class="skill-item">PostgreSQL</div>
+                        <div class="skill-item">DevOps</div>
+                        <div class="skill-item">Kubernetes</div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="section-header">| EDUCATION |</div>
+                        <div class="job-entry">
+                            <div class="job-title">Master of Engineering, Computer Engineering Computer Science</div>
+                            <div class="job-company">University of Louisville</div>
+                            <div class="job-date">Fall 2003</div>
+                            <div class="bullet-point">Graduated with Honors</div>
+                        </div>
+                        <div class="job-entry">
+                            <div class="job-title">Bachelor of Science, Engineering Mathematics and Computer Science</div>
+                            <div class="job-company">University of Louisville</div>
+                            <div class="job-date">Spring 2000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="resume-section">
+                        <div class="section-header">| CERTIFICATIONS |</div>
+                        <div class="bullet-point">AWS Certified Solutions Architect Professional (SAP-C01) achieved 3/21/2022</div>
+                        <div class="bullet-point">AWS SysOps Administrator Associate (SOA-C01) achieved 03/23/2021</div>
+                        <div class="bullet-point">AWS Certified Developer Associate (DVA-C01) achieved 01/26/2021</div>
+                        <div class="bullet-point">AWS Certified Solutions Architect Associate (SAA-C02) Achieved 12/1/2020</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="taskbar">
+            <div class="start-button">Start</div>
+            <div class="taskbar-item">VisualAge Smalltalk</div>
+            <div class="taskbar-item">File Manager</div>
+            <div class="clock">2:47 PM</div>
+        </div>
+    </div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

@@ -16,10 +16,10 @@ def display_filename(file)
   end
 end
 
-def file_description(file)
+def file_description(file, base_dir)
   desc = case file
          when /\.rb/, /\.ps1/, /\.sh/
-           (File.read(display_filename(file)).each_line.grep(/^##/).first || '').gsub(/^##/, '')
+           (File.read(File.join(base_dir, display_filename(file))).each_line.grep(/^##/).first || '').gsub(/^##/, '')
          when /\.htm.*/
            match = File.read(file).match(%r{<title>(.*)</title>})
            if match
@@ -31,6 +31,34 @@ def file_description(file)
   desc == '' ? '' : " - #{desc}"
 end
 
+# Add Google Analytics to existing HTML files
+def add_google_analytics(file_path)
+  content = File.read(file_path)
+  
+  # Check if Google Analytics is already present
+  return if content.include?('gtag.js')
+  
+  # Add Google Analytics before closing </body> tag
+  analytics_code = <<~HTML
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QT64MJL0WW');
+    </script>
+  HTML
+  
+  # Insert before closing </body> tag
+  updated_content = content.gsub(/<\/body>/i, "#{analytics_code}</body>")
+  
+  # Write the updated content back to the file
+  File.write(file_path, updated_content)
+end
+
 # Generate syntax-highlighted HTML files for .sh, .rb, and .ps1 files
 def generate_highlighted_html(file)
   code = File.read(file)
@@ -38,7 +66,7 @@ def generate_highlighted_html(file)
           when '.rb' then Rouge::Lexers::Ruby.new
           when '.sh' then Rouge::Lexers::Shell.new
           when '.ps1' then Rouge::Lexers::Powershell.new
-          when '.bat' then Rouge::Lexers::Batch.new
+          when '.bat' then Rouge::Lexers::Batchfile.new
           else Rouge::Lexers::PlainText.new
           end
   formatter = Rouge::Formatters::HTML.new
@@ -82,6 +110,16 @@ def generate_highlighted_html(file)
           <h1>#{file}</h1>
           <pre class="highlight"><code>#{highlighted_code}</code></pre>
         </div>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-QT64MJL0WW');
+        </script>
       </body>
       </html>
     HTML
@@ -99,6 +137,21 @@ end
 # Generate syntax-highlighted HTML files for .sh, .rb, and .ps1 files
 Dir["scripts/*.sh", "scripts/*.rb", "scripts/*.ps1", "scripts/*.bat"].each do |file|
   generate_highlighted_html(file)
+end
+
+# Add Google Analytics to calculator HTML files (after ERB rendering)
+Dir["calculators/*.html"].each do |file|
+  add_google_analytics(file)
+end
+
+# Add Google Analytics to blog HTML files
+Dir["blog/*.html"].each do |file|
+  add_google_analytics(file)
+end
+
+# Add Google Analytics to resumes HTML files
+Dir["resumes/*.html"].each do |file|
+  add_google_analytics(file)
 end
 
 File.open('index.html', 'wt') do |f|
@@ -139,32 +192,81 @@ File.open('index.html', 'wt') do |f|
           text-align: center;
           font-size: 14px;
         }
+        summary {
+          font-size: 1.2em;
+          font-weight: bold;
+          margin-top: 1em;
+          margin-bottom: .5em;
+          cursor: pointer;
+        }
       </style>
     </head>
     <body>
       <div class="container my-4">
         <h1 class="text-center mb-4">Thomas Powell's File Index</h1>
-        <div class="list-group">
+        <details open>
+          <summary>Resumes</summary>
+          <div class="list-group mb-3">
   HTML
 
-  Dir["*.sh.html", "*.rb.html", "*.ps1.html", "*.html"].each do |file|
-    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{display_filename(file)}#{file_description(file)}</a>|
+  Dir["resumes/*.html"].each do |file|
+    title = File.read(file)[/<title>(.*?)<\/title>/im, 1] || File.basename(file)
+    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{title}</a>|
   end
 
   f.puts <<~HTML
-        </div>
+          </div>
+        </details>
+        <details open>
+          <summary>Blog</summary>
+          <div class="list-group mb-3">
+  HTML
+
+  Dir["blog/*.html"].each do |file|
+    title = File.read(file)[/<title>(.*?)<\/title>/im, 1] || File.basename(file)
+    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{title}</a>|
+  end
+
+  f.puts <<~HTML
+          </div>
+        </details>
+        <details open>
+          <summary>Calculators</summary>
+          <div class="list-group mb-3">
+  HTML
+
+  Dir["calculators/*.html"].each do |file|
+    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{File.basename(file)}#{file_description(file, "scripts")}</a>|
+  end
+
+  f.puts <<~HTML
+          </div>
+        </details>
+        <details open>
+          <summary>Scripts</summary>
+          <div class="list-group mb-3">
+  HTML
+
+  Dir["scripts/*.sh.html", "scripts/*.rb.html", "scripts/*.ps1.html", "scripts/*.bat.html"].each do |file|
+    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{display_filename(file)}#{file_description(file, "scripts")}</a>|
+  end
+
+  f.puts <<~HTML
+          </div>
+        </details>
         <div class="footer">
           <a href="https://thomaspowell.com" target="_blank">Back to Thomas Powell's Website</a>
         </div>
       </div>
 
       <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6GL6564XD"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-Y6GL6564XD');
+
+        gtag('config', 'G-QT64MJL0WW');
       </script>
     </body>
     </html>

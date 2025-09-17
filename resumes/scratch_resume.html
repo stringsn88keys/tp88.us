@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Powell - Scratch IDE Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #4C97FF 0%, #5CB3FF 100%);
+            min-height: 100vh;
+            overflow-x: auto;
+        }
+
+        .scratch-ide {
+            display: flex;
+            height: 100vh;
+            background: #E8F4FD;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: #F2F2F2;
+            border-right: 2px solid #D0D0D0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-area {
+            background: #4C97FF;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            border-bottom: 2px solid #3A7BD5;
+        }
+
+        .cat-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .category-tabs {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            margin: 2px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+
+        .tab.active {
+            background: #4C97FF;
+            color: white;
+            border-color: #3A7BD5;
+        }
+
+        .tab:hover:not(.active) {
+            background: #E1F2FF;
+        }
+
+        .tab.motion { background: #4C97FF; color: white; }
+        .tab.looks { background: #9966FF; color: white; }
+        .tab.sound { background: #CF63CF; color: white; }
+        .tab.events { background: #FFBF00; color: white; }
+        .tab.control { background: #FF8C1A; color: white; }
+        .tab.sensing { background: #5CB1D6; color: white; }
+        .tab.operators { background: #59C059; color: white; }
+        .tab.variables { background: #FF8C1A; color: white; }
+
+        .main-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .toolbar {
+            background: #F8F8F8;
+            padding: 10px 20px;
+            border-bottom: 1px solid #E0E0E0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toolbar-btn {
+            background: #4C97FF;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .toolbar-btn:hover {
+            background: #3A7BD5;
+        }
+
+        .workspace {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #F8F8F8;
+        }
+
+        .block {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #4C97FF;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .block.experience { border-left-color: #9966FF; }
+        .block.education { border-left-color: #FF8C1A; }
+        .block.skills { border-left-color: #59C059; }
+        .block.certifications { border-left-color: #CF63CF; }
+
+        .block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .block-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .block-icon.experience { background: #9966FF; }
+        .block-icon.education { background: #FF8C1A; }
+        .block-icon.skills { background: #59C059; }
+        .block-icon.certifications { background: #CF63CF; }
+
+        .block-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #4C97FF;
+            margin: 8px 0 4px 0;
+        }
+
+        .company-period {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .achievements {
+            list-style: none;
+            padding: 0;
+        }
+
+        .achievements li {
+            background: #F0F8FF;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 6px;
+            border-left: 3px solid #4C97FF;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-item {
+            background: #E8F4FD;
+            padding: 8px 12px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            border: 2px solid #4C97FF;
+        }
+
+        .header-block {
+            background: linear-gradient(135deg, #4C97FF, #9966FF);
+            color: white;
+            text-align: center;
+            border-left: none;
+            margin-bottom: 20px;
+        }
+
+        .header-block h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .header-block h2 {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .header-block .website {
+            color: #FFE066;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .objective {
+            background: #FFF8E1;
+            border-left-color: #FFBF00;
+            font-style: italic;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .sprite-area {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: #FF6B35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .sprite-area:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            
+            .tab {
+                padding: 8px;
+                text-align: center;
+                font-size: 12px;
+            }
+            
+            .logo-area {
+                font-size: 12px;
+                padding: 10px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scratch-ide">
+        <div class="sidebar">
+            <div class="logo-area">
+                <div class="cat-icon">🐱</div>
+                Resume Builder
+            </div>
+            
+            <div class="category-tabs">
+                <div class="tab motion active" onclick="showSection('all')">📋 Overview</div>
+                <div class="tab looks" onclick="showSection('experience')">💼 Experience</div>
+                <div class="tab sound" onclick="showSection('education')">🎓 Education</div>
+                <div class="tab events" onclick="showSection('skills')">⚡ Skills</div>
+                <div class="tab control" onclick="showSection('certifications')">🏆 Certs</div>
+                <div class="tab sensing" onclick="showSection('contact')">📞 Contact</div>
+            </div>
+        </div>
+
+        <div class="main-area">
+            <div class="toolbar">
+                <button class="toolbar-btn" onclick="downloadResume()">💾 Save</button>
+                <button class="toolbar-btn" onclick="shareResume()">📤 Share</button>
+                <button class="toolbar-btn" onclick="printResume()">🖨️ Print</button>
+                <span style="margin-left: auto; color: #666;">Thomas Powell Professional Resume</span>
+            </div>
+
+            <div class="workspace" id="workspace">
+                <!-- Header Block -->
+                <div class="block header-block">
+                    <h1>Thomas Powell</h1>
+                    <h2>Senior Technical Leader</h2>
+                    <a href="https://thomaspowell.com/about" class="website">thomaspowell.com/about</a>
+                </div>
+
+                <!-- Objective Block -->
+                <div class="block objective">
+                    <div class="block-header">
+                        <div class="block-icon" style="background: #FFBF00;">🎯</div>
+                        <div class="block-title">Objective</div>
+                    </div>
+                    <p>Dedicated and experienced Senior Software Engineering Manager looking for the opportunity to bring 20+ years' experience with programming, architecture, technology engineering, and leadership to a Software Engineering Manager role.</p>
+                </div>
+
+                <!-- Experience Blocks -->
+                <div class="block experience">
+                    <div class="block-header">
+                        <div class="block-icon experience">💼</div>
+                        <div class="block-title">Current Role</div>
+                    </div>
+                    <div class="job-title">Senior Principal Engineer</div>
+                    <div class="company-period">Progress, Chef Infra Client • 05/2022 - Present</div>
+                    <ul class="achievements">
+                        <li>🔧 Troubleshooting Windows builds for Chef 18 release and stabilizing the build</li>
+                        <li>👥 Community PR and Issue Triage</li>
+                        <li>🏗️ "Ad Hoc" Jobs architecture and development in Golang</li>
+                        <li>🐛 Solve complex setup and trace problems with Ruby, packaging, and target operating systems</li>
+                        <li>💻 AIX: Building of libarchive solutions</li>
+                        <li>🖥️ Windows: Solving heap memory errors, OpenSSL FIPS issues, time zone loading fixes</li>
+                        <li>☀️ Solaris: Resolving patch version mismatches between customer fleets and build systems</li>
+                    </ul>
+                </div>
+
+                <div class="block experience">
+                    <div class="block-header">
+                        <div class="block-icon experience">🏥</div>
+                        <div class="block-title">Healthcare Technology</div>
+                    </div>
+                    <div class="job-title">Sr Software Engineer / Support Team Lead</div>
+                    <div class="company-period">Everly Health • 03/2021 - 04/2022</div>
+                    <ul class="achievements">
+                        <li>👨‍🏫 Mentoring new junior engineers in support, ActiveRecord and SQL queries, and DevOps</li>
+                        <li>🔗 Mirth and HL7 messaging support</li>
+                        <li>📊 Prioritization of support concerns and automation analysis</li>
+                        <li>🚀 Legacy Rails app Labs Module enhancements and build stabilization</li>
+                        <li>🔒 Compass Project: Adding Rack::Middleware and log formatters for sensitive data filtering</li>
+                        <li>☁️ Datica to LogicWorks (EKS) migration with helm charts and Datadog configuration</li>
+                    </ul>
+                </div>
+
+                <div class="block experience">
+                    <div class="block-header">
+                        <div class="block-icon experience">👨‍💼</div>
+                        <div class="block-title">Management Experience</div>
+                    </div>
+                    <div class="job-title">SR Software Engineering Manager</div>
+                    <div class="company-period">Appriss Health • 08/2018 - 03/2021</div>
+                    <ul class="achievements">
+                        <li>👥 Remote manager of up to 13 US and Warsaw-based developers</li>
+                        <li>🏛️ Architecture Design Sessions for technical debt management</li>
+                        <li>⬆️ Rails 5 Upgrade leadership</li>
+                        <li>🎯 Interviewing for Director of Engineering, Manager, and Software Engineering roles</li>
+                        <li>🔄 Migration of Legacy Prescription Management Program to Vue.js</li>
+                        <li>📈 Performance debugging with New Relic and AWS Performance Insights</li>
+                        <li>🔧 Site Reliability Engineering team management with Sumologic and New Relic</li>
+                    </ul>
+                </div>
+
+                <div class="block experience">
+                    <div class="block-header">
+                        <div class="block-icon experience">⚕️</div>
+                        <div class="block-title">Healthcare Development</div>
+                    </div>
+                    <div class="job-title">Software Engineer III - IV</div>
+                    <div class="company-period">Appriss Health • 07/2012 - 08/2018</div>
+                    <ul class="achievements">
+                        <li>🏗️ Co-developed flagship Prescription Management Program serving 43 state configurations</li>
+                        <li>📊 Scaled to billions of rows of data in PostgreSQL</li>
+                        <li>🔌 Co-developed PMP API "Gateway" for pharmacy and health system integrations</li>
+                        <li>🌿 Led team developing Medical Marijuana Registry for Ohio</li>
+                        <li>📱 Led Xamarin mobile app development with AWS Cognito and React + .NET core</li>
+                        <li>📚 Led team book reads and discussions (Exceptional Ruby, POODR)</li>
+                    </ul>
+                </div>
+
+                <div class="block experience">
+                    <div class="block-header">
+                        <div class="block-icon experience">🍕</div>
+                        <div class="block-title">Enterprise Experience</div>
+                    </div>
+                    <div class="job-title">Intern to Solutions Architect</div>
+                    <div class="company-period">Yum Brands • 05/1996 - 07/2012</div>
+                    <ul class="achievements">
+                        <li>📈 Promoted through multiple roles from co-op student to Solutions Architect</li>
+                        <li>☕ Java developer supporting EAI processes with JCAPS 6/Java Web Services/JMS/DB2</li>
+                        <li>🏗️ Solutions Architecture including social media training and Microsoft BI analysis</li>
+                        <li>🔍 Enterprise Search with IBM OmniFind integration to SharePoint and WebSphere</li>
+                        <li>💳 Credit card and gift card POS integration and business analysis</li>
+                        <li>🎯 Mobile ordering proof of concept with POS integration</li>
+                    </ul>
+                </div>
+
+                <!-- Education Block -->
+                <div class="block education">
+                    <div class="block-header">
+                        <div class="block-icon education">🎓</div>
+                        <div class="block-title">Education</div>
+                    </div>
+                    <div class="job-title">Master of Engineering, Computer Engineering & Computer Science</div>
+                    <div class="company-period">University of Louisville • Fall 2003 • Graduated with Honors</div>
+                    <div class="job-title">Bachelor of Science, Engineering Mathematics & Computer Science</div>
+                    <div class="company-period">University of Louisville • Spring 2000</div>
+                </div>
+
+                <!-- Skills Block -->
+                <div class="block skills">
+                    <div class="block-header">
+                        <div class="block-icon skills">⚡</div>
+                        <div class="block-title">Technical Skills</div>
+                    </div>
+                    <div class="skill-grid">
+                        <div class="skill-item">Team Leadership</div>
+                        <div class="skill-item">Legacy Apps Support</div>
+                        <div class="skill-item">Ruby/Rails (10+ years)</div>
+                        <div class="skill-item">AWS Certified 4X</div>
+                        <div class="skill-item">Healthcare Tech</div>
+                        <div class="skill-item">Restaurant POS & BOH</div>
+                        <div class="skill-item">Golang</div>
+                        <div class="skill-item">PostgreSQL</div>
+                        <div class="skill-item">Vue.js</div>
+                        <div class="skill-item">Docker/Kubernetes</div>
+                        <div class="skill-item">DevOps</div>
+                        <div class="skill-item">Architecture Design</div>
+                    </div>
+                </div>
+
+                <!-- Certifications Block -->
+                <div class="block certifications">
+                    <div class="block-header">
+                        <div class="block-icon certifications">🏆</div>
+                        <div class="block-title">AWS Certifications</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>🏅 AWS Certified Solutions Architect Professional (SAP-C01) - 03/21/2022</li>
+                        <li>🔧 AWS SysOps Administrator Associate (SOA-C01) - 03/23/2021</li>
+                        <li>👨‍💻 AWS Certified Developer Associate (DVA-C01) - 01/26/2021</li>
+                        <li>🏗️ AWS Certified Solutions Architect Associate (SAA-C02) - 12/01/2020</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="sprite-area" onclick="animateSprite()">
+            🐱
+        </div>
+    </div>
+
+    <script>
+        function showSection(section) {
+            const blocks = document.querySelectorAll('.block');
+            const tabs = document.querySelectorAll('.tab');
+            
+            // Remove active class from all tabs
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            if (section === 'all') {
+                blocks.forEach(block => block.style.display = 'block');
+            } else {
+                blocks.forEach(block => {
+                    if (block.classList.contains(section) || block.classList.contains('header-block') || block.classList.contains('objective')) {
+                        block.style.display = 'block';
+                    } else {
+                        block.style.display = 'none';
+                    }
+                });
+            }
+        }
+
+        function downloadResume() {
+            alert('📄 Resume downloaded! (Demo)');
+        }
+
+        function shareResume() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Thomas Powell - Resume',
+                    text: 'Check out Thomas Powell\'s professional resume!',
+                    url: window.location.href
+                });
+            } else {
+                alert('📋 Resume link copied to clipboard! (Demo)');
+            }
+        }
+
+        function printResume() {
+            window.print();
+        }
+
+        function animateSprite() {
+            const sprite = document.querySelector('.sprite-area');
+            sprite.style.transform = 'scale(1.2) rotate(360deg)';
+            setTimeout(() => {
+                sprite.style.transform = 'scale(1)';
+            }, 500);
+        }
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.block').forEach(block => {
+            block.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            block.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

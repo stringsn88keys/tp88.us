@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenSSL FIPS Compliance Explained</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            overflow-x: auto;
+        }
+        
+        .conspiracy-board {
+            position: relative;
+            width: 1200px;
+            height: 800px;
+            background: #F5DEB3;
+            border: 10px solid #654321;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            margin: 0 auto;
+        }
+        
+        .note {
+            position: absolute;
+            background: #FFE4B5;
+            border: 2px solid #8B4513;
+            padding: 8px;
+            font-size: 11px;
+            line-height: 1.2;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+            transform: rotate(-2deg);
+            max-width: 150px;
+            font-weight: bold;
+        }
+        
+        .note.yellow { background: #FFFF99; }
+        .note.pink { background: #FFB6C1; }
+        .note.green { background: #90EE90; }
+        .note.blue { background: #87CEEB; }
+        .note.orange { background: #FFD700; }
+        
+        .red-string {
+            position: absolute;
+            height: 2px;
+            background: #FF0000;
+            transform-origin: left center;
+            z-index: 1;
+        }
+        
+        .red-string::before {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -2px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid #FF0000;
+            border-top: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B0000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .charlie-text {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #8B0000;
+            font-style: italic;
+            transform: rotate(1deg);
+        }
+        
+        .pushpin {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #FF0000;
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        
+        .pushpin::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 8px;
+            height: 8px;
+            background: #800000;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="conspiracy-board">
+        <div class="title">OPENSSL FIPS COMPLIANCE CONSPIRACY</div>
+        
+        <!-- Generated connections -->
+        
+          
+          
+          
+          
+          <!-- openssl_gem to openssl_library -->
+          <div class="pushpin" style="top: 140px; left: 125px;"></div>
+          <div class="red-string" style="top: 146px; left: 137px; width: 306px; transform: rotate(11.3deg);"></div>
+          <div class="pushpin" style="top: 200px; left: 425px;"></div>
+        
+          
+          
+          
+          
+          <!-- openssl_library to fips_validation -->
+          <div class="pushpin" style="top: 200px; left: 425px;"></div>
+          <div class="red-string" style="top: 206px; left: 437px; width: 308px; transform: rotate(13.1deg);"></div>
+          <div class="pushpin" style="top: 270px; left: 725px;"></div>
+        
+          
+          
+          
+          
+          <!-- fips_validation to dependency_chain -->
+          <div class="pushpin" style="top: 270px; left: 725px;"></div>
+          <div class="red-string" style="top: 276px; left: 737px; width: 262px; transform: rotate(-17.7deg);"></div>
+          <div class="pushpin" style="top: 190px; left: 975px;"></div>
+        
+          
+          
+          
+          
+          <!-- nist_validation to provider_architecture -->
+          <div class="pushpin" style="top: 360px; left: 175px;"></div>
+          <div class="red-string" style="top: 366px; left: 187px; width: 359px; transform: rotate(12.9deg);"></div>
+          <div class="pushpin" style="top: 440px; left: 525px;"></div>
+        
+          
+          
+          
+          
+          <!-- fips_validation to provider_architecture -->
+          <div class="pushpin" style="top: 270px; left: 725px;"></div>
+          <div class="red-string" style="top: 276px; left: 737px; width: 262px; transform: rotate(139.6deg);"></div>
+          <div class="pushpin" style="top: 440px; left: 525px;"></div>
+        
+          
+          
+          
+          
+          <!-- fips_validation to separate_versions -->
+          <div class="pushpin" style="top: 270px; left: 725px;"></div>
+          <div class="red-string" style="top: 276px; left: 737px; width: 446px; transform: rotate(109.7deg);"></div>
+          <div class="pushpin" style="top: 690px; left: 575px;"></div>
+        
+          
+          
+          
+          
+          <!-- provider_architecture to compliance_reality -->
+          <div class="pushpin" style="top: 440px; left: 525px;"></div>
+          <div class="red-string" style="top: 446px; left: 537px; width: 403px; transform: rotate(-7.1deg);"></div>
+          <div class="pushpin" style="top: 390px; left: 925px;"></div>
+        
+          
+          
+          
+          
+          <!-- version_mismatch to separate_versions -->
+          <div class="pushpin" style="top: 520px; left: 875px;"></div>
+          <div class="red-string" style="top: 526px; left: 887px; width: 345px; transform: rotate(150.5deg);"></div>
+          <div class="pushpin" style="top: 690px; left: 575px;"></div>
+        
+          
+          
+          
+          
+          <!-- the_truth to separate_versions -->
+          <div class="pushpin" style="top: 620px; left: 275px;"></div>
+          <div class="red-string" style="top: 626px; left: 287px; width: 308px; transform: rotate(13.1deg);"></div>
+          <div class="pushpin" style="top: 690px; left: 575px;"></div>
+        
+          
+          
+          
+          
+          <!-- pepe_silvia to fips_validation -->
+          <div class="pushpin" style="top: 90px; left: 575px;"></div>
+          <div class="red-string" style="top: 96px; left: 587px; width: 234px; transform: rotate(50.2deg);"></div>
+          <div class="pushpin" style="top: 270px; left: 725px;"></div>
+        
+        
+        <!-- Generated notes -->
+        
+          <div class="note yellow" style="top: 100px; left: 50px; transform: rotate(-5deg);">
+              OpenSSL GEM<br>ruby/openssl<br>VERSION: 3.2.0<br><strong>RUBY WRAPPER!</strong><br>NOT the actual crypto!
+          </div>
+        
+          <div class="note pink" style="top: 160px; left: 350px; transform: rotate(3deg);">
+              OpenSSL LIBRARY<br>openssl/openssl<br>VERSION: 3.2.4<br><strong>ACTUAL C LIBRARY</strong><br>The real crypto stuff!
+          </div>
+        
+          <div class="note green" style="top: 230px; left: 650px; transform: rotate(-8deg);">
+              FIPS VALIDATION<br>Only for C library!<br>Validated versions:<br>• 3.0.8 ✓<br>• 3.0.9 ✓<br>• 3.1.2 ✓<br><strong>NOT 3.2.4!</strong>
+          </div>
+        
+          <div class="note blue" style="top: 320px; left: 100px; transform: rotate(7deg);">
+              NIST VALIDATION<br>Takes FOREVER!<br>Expensive process!<br>Any code change =<br>RE-VALIDATION!
+          </div>
+        
+          <div class="note orange" style="top: 400px; left: 450px; transform: rotate(-3deg);">
+              PROVIDER ARCHITECTURE<br>OpenSSL 3.x uses<br>loadable modules<br>FIPS = separate provider<br>Must use EXACT validated one!
+          </div>
+        
+          <div class="note pink" style="top: 480px; left: 800px; transform: rotate(6deg);">
+              VERSION MISMATCH<br>Gem 3.2.0 ≠ Library 3.2.4<br>Different repos!<br>Different numbering!<br>TOTALLY DIFFERENT!
+          </div>
+        
+          <div class="note yellow" style="top: 580px; left: 200px; transform: rotate(-4deg);">
+              THE TRUTH:<br>Can't use 3.2.4 for FIPS<br>without separate validated<br>FIPS provider because<br>NO VALIDATION EXISTS!
+          </div>
+        
+          <div class="note green" style="top: 150px; left: 900px; transform: rotate(8deg);">
+              DEPENDENCY CHAIN<br>Ruby App →<br>OpenSSL Gem →<br>OpenSSL Library →<br>FIPS Provider<br>ALL must align!
+          </div>
+        
+          <div class="note blue" style="top: 350px; left: 850px; transform: rotate(-6deg);">
+              COMPLIANCE REALITY<br>Need:<br>• Validated C library<br>• Compatible gem<br>• Proper config<br>• Exact versions!
+          </div>
+        
+          <div class="note orange" style="top: 50px; left: 500px; transform: rotate(2deg);">
+              PEPE SILVIA MOMENT:<br>There IS no 3.2.4<br>FIPS validation!<br>It's all connected!<br>CAROL IN HR!
+          </div>
+        
+          <div class="note yellow" style="top: 650px; left: 500px; transform: rotate(-7deg);">
+              SEPARATE VERSIONS<br>You MUST maintain<br>different versions for<br>FIPS vs non-FIPS<br>because validation<br>locks you to specific<br>exact versions!
+          </div>
+        
+        
+        <div class="charlie-text">
+            "Day bow bow... chik... chika-chika..."<br>
+            - Charlie Kelly, Cryptography Expert
+        </div>
+    </div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

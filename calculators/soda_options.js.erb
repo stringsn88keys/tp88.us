@@ -1,0 +1,69 @@
+// Package size data with structured format: [containers, unit, size per container, total ounces, display name]
+const packageSizes = [
+  // Can packs
+  { id: '12x12oz', containers: 12, unit: 'oz', size: 12, ounces: 144, name: '12 x 12oz Cans' },
+  { id: '24x12oz', containers: 24, unit: 'oz', size: 12, ounces: 288, name: '24 x 12oz Cans' },
+  { id: '6x12oz', containers: 6, unit: 'oz', size: 12, ounces: 72, name: '6 x 12oz Cans' },
+  { id: '8x12oz', containers: 8, unit: 'oz', size: 12, ounces: 96, name: '8 x 12oz Cans' },
+  { id: '10x12oz', containers: 10, unit: 'oz', size: 12, ounces: 120, name: '10 x 12oz Cans' },
+  { id: '15x12oz', containers: 15, unit: 'oz', size: 12, ounces: 180, name: '15 x 12oz Cans' },
+  { id: '18x12oz', containers: 18, unit: 'oz', size: 12, ounces: 216, name: '18 x 12oz Cans' },
+  { id: '30x12oz', containers: 30, unit: 'oz', size: 12, ounces: 360, name: '30 x 12oz Cans' },
+  { id: '36x12oz', containers: 36, unit: 'oz', size: 12, ounces: 432, name: '36 x 12oz Cans' },
+  
+  // 2L Bottle packs
+  { id: '1x2L', containers: 1, unit: 'L', size: 2, ounces: 67.628, name: '1 x 2L Bottle' },
+  { id: '2x2L', containers: 2, unit: 'L', size: 2, ounces: 135.256, name: '2 x 2L Bottles' },
+  { id: '3x2L', containers: 3, unit: 'L', size: 2, ounces: 202.884, name: '3 x 2L Bottles' },
+  
+  // 0.5L Bottle packs
+  { id: '6x0.5L', containers: 6, unit: 'L', size: 0.5, ounces: 101.442, name: '6 x 0.5L Bottles' },
+  { id: '8x0.5L', containers: 8, unit: 'L', size: 0.5, ounces: 135.256, name: '8 x 0.5L Bottles' },
+  { id: '12x0.5L', containers: 12, unit: 'L', size: 0.5, ounces: 202.884, name: '12 x 0.5L Bottles' },
+  
+  // 1L Bottle packs
+  { id: '1x1L', containers: 1, unit: 'L', size: 1, ounces: 33.814, name: '1 x 1L Bottle' },
+  { id: '2x1L', containers: 2, unit: 'L', size: 1, ounces: 67.628, name: '2 x 1L Bottles' },
+  { id: '4x1L', containers: 4, unit: 'L', size: 1, ounces: 135.256, name: '4 x 1L Bottles' },
+  
+  // 20oz Bottle packs
+  { id: '1x20oz', containers: 1, unit: 'oz', size: 20, ounces: 20, name: '1 x 20oz Bottle' },
+  { id: '2x20oz', containers: 2, unit: 'oz', size: 20, ounces: 40, name: '2 x 20oz Bottles' },
+  { id: '4x20oz', containers: 4, unit: 'oz', size: 20, ounces: 80, name: '4 x 20oz Bottles' },
+  
+  // 16.9oz Bottle packs
+  { id: '1x16.9oz', containers: 1, unit: 'oz', size: 16.9, ounces: 16.9, name: '1 x 16.9oz Bottle' },
+  { id: '2x16.9oz', containers: 2, unit: 'oz', size: 16.9, ounces: 33.8, name: '2 x 16.9oz Bottles' },
+  { id: '4x16.9oz', containers: 4, unit: 'oz', size: 16.9, ounces: 67.6, name: '4 x 16.9oz Bottles' }
+];
+
+// Function to generate package size options for the select dropdown
+function generatePackageOptions() {
+  const selectElement = document.getElementById('packageSize');
+  if (!selectElement) return;
+  
+  // Clear existing options except the first placeholder
+  selectElement.innerHTML = '<option value="">Select a package size...</option>';
+  
+  // Generate options from packageSizes data
+  packageSizes.forEach(pkg => {
+    const option = document.createElement('option');
+    option.value = pkg.id;
+    option.textContent = pkg.name;
+    option.setAttribute('data-ounces', pkg.ounces);
+    option.setAttribute('data-containers', pkg.containers);
+    option.setAttribute('data-unit', pkg.unit);
+    option.setAttribute('data-size', pkg.size);
+    selectElement.appendChild(option);
+  });
+}
+
+// Function to get package size by ID
+function getPackageById(id) {
+  return packageSizes.find(pkg => pkg.id === id);
+}
+
+// Function to get all package sizes
+function getAllPackages() {
+  return packageSizes;
+}

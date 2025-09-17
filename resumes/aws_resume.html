@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Powell - Senior Cloud Engineer Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .aws-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(22, 35, 51, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff9900 0%, #ff6600 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.05); opacity: 0.2; }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            position: relative;
+        }
+
+        .header h2 {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            z-index: 1;
+            position: relative;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .sidebar {
+            background: rgba(16, 27, 40, 0.8);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 153, 0, 0.2);
+            height: fit-content;
+        }
+
+        .main-content {
+            background: rgba(16, 27, 40, 0.6);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 153, 0, 0.2);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #ff9900;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 153, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #ff9900, #ff6600);
+            border-radius: 2px;
+        }
+
+        .skill-category {
+            margin-bottom: 20px;
+        }
+
+        .skill-category h4 {
+            color: #ffffff;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .skill-item {
+            background: rgba(255, 153, 0, 0.1);
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 6px;
+            border-left: 3px solid #ff9900;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 153, 0, 0.2);
+            transform: translateX(5px);
+        }
+
+        .certification {
+            background: rgba(0, 128, 0, 0.1);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 4px solid #00ff88;
+            transition: all 0.3s ease;
+        }
+
+        .certification:hover {
+            background: rgba(0, 128, 0, 0.2);
+            transform: translateX(5px);
+        }
+
+        .cert-name {
+            font-weight: 600;
+            color: #00ff88;
+            font-size: 1em;
+        }
+
+        .cert-date {
+            color: #cccccc;
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+
+        .job {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 153, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .job:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 153, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ff9900;
+            margin-bottom: 5px;
+        }
+
+        .job-company {
+            font-size: 1.1em;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .job-duration {
+            color: #cccccc;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .job-description {
+            list-style: none;
+            padding: 0;
+        }
+
+        .job-description li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+
+        .job-description li::before {
+            content: '▶';
+            color: #ff9900;
+            position: absolute;
+            left: 0;
+            font-size: 0.8em;
+        }
+
+        .education {
+            background: rgba(0, 100, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #0066ff;
+        }
+
+        .education h4 {
+            color: #0088ff;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .education .degree {
+            color: #ffffff;
+            font-size: 1em;
+            margin-bottom: 3px;
+        }
+
+        .education .school {
+            color: #cccccc;
+            font-size: 0.9em;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info a {
+            color: #ff9900;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #ffaa33;
+        }
+
+        .aws-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9900, #ff6600);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight {
+            background: rgba(255, 153, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ff9900;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header h2 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="aws-container">
+        <div class="header">
+            <h1>Thomas Powell</h1>
+            <h2>Senior Cloud Engineer & AWS Solutions Architect</h2>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="contact-info">
+                    <div><strong>Portfolio:</strong> <a href="https://thomaspowell.com/about">thomaspowell.com/about</a></div>
+                    <div><strong>Location:</strong> Remote US</div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">AWS Certifications</h3>
+                    <div class="certification">
+                        <div class="cert-name">AWS Certified Solutions Architect Professional</div>
+                        <div class="cert-date">SAP-C01 • March 2022</div>
+                    </div>
+                    <div class="certification">
+                        <div class="cert-name">AWS SysOps Administrator Associate</div>
+                        <div class="cert-date">SOA-C01 • March 2021</div>
+                    </div>
+                    <div class="certification">
+                        <div class="cert-name">AWS Certified Developer Associate</div>
+                        <div class="cert-date">DVA-C01 • January 2021</div>
+                    </div>
+                    <div class="certification">
+                        <div class="cert-name">AWS Certified Solutions Architect Associate</div>
+                        <div class="cert-date">SAA-C02 • December 2020</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Core Technologies</h3>
+                    <div class="skill-category">
+                        <h4>Cloud & DevOps</h4>
+                        <div class="skill-item">AWS EC2, EKS, Lambda, RDS</div>
+                        <div class="skill-item">Docker, Kubernetes, Helm</div>
+                        <div class="skill-item">CloudFormation, Infrastructure as Code</div>
+                        <div class="skill-item">CI/CD Pipelines</div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Programming</h4>
+                        <div class="skill-item">Ruby/Rails (10+ years)</div>
+                        <div class="skill-item">Golang</div>
+                        <div class="skill-item">JavaScript/Node.js</div>
+                        <div class="skill-item">Python</div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Monitoring & Observability</h4>
+                        <div class="skill-item">Datadog, New Relic</div>
+                        <div class="skill-item">CloudWatch, Performance Insights</div>
+                        <div class="skill-item">Sumologic</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Education</h3>
+                    <div class="education">
+                        <h4>Master of Engineering</h4>
+                        <div class="degree">Computer Engineering & Computer Science</div>
+                        <div class="school">University of Louisville • 2003</div>
+                    </div>
+                    <div class="education">
+                        <h4>Bachelor of Science</h4>
+                        <div class="degree">Engineering Mathematics & Computer Science</div>
+                        <div class="school">University of Louisville • 2000</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section">
+                    <h3 class="section-title">Professional Summary</h3>
+                    <p style="line-height: 1.6; color: #e0e0e0;">
+                        <span class="highlight">AWS Solutions Architect Professional</span> with 20+ years of experience in cloud architecture,
+                        DevOps, and technical leadership. Proven track record of managing distributed teams, optimizing cloud infrastructure,
+                        and solving complex technical challenges across multiple platforms. Expert in <span class="highlight">Ruby/Rails</span>,
+                        <span class="highlight">Golang</span>, and <span class="highlight">AWS services</span> with extensive experience in
+                        healthcare technology and enterprise solutions.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Professional Experience</h3>
+
+                    <div class="job">
+                        <div class="job-title">Senior Principal Engineer <span class="aws-badge">AWS EXPERT</span></div>
+                        <div class="job-company">Progress • Chef Infrastructure Client</div>
+                        <div class="job-duration">May 2022 - Present</div>
+                        <ul class="job-description">
+                            <li>Lead complex cross-platform build optimization for Chef 18 release, focusing on Windows, AIX, and Solaris environments</li>
+                            <li>Architect and develop "Ad Hoc" Jobs system in <span class="highlight">Golang</span> for distributed infrastructure management</li>
+                            <li>Resolve critical memory management issues in PowerShell/Ruby integration using C++/CLI</li>
+                            <li>Implement OpenSSL FIPS compliance solutions and security hardening across build systems</li>
+                            <li>Troubleshoot and optimize packaging systems for multiple operating systems and architectures</li>
+                            <li>Mentor team on Ruby optimization and cross-platform development best practices</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Senior Software Engineer / Support Team Lead <span class="aws-badge">EKS MIGRATION</span></div>
+                        <div class="job-company">Everly Health</div>
+                        <div class="job-duration">March 2021 - April 2022</div>
+                        <ul class="job-description">
+                            <li>Led migration from Datica to LogicWorks on <span class="highlight">AWS EKS</span>, designing Helm charts and ingress configurations</li>
+                            <li>Implemented comprehensive monitoring with <span class="highlight">Datadog</span> and Statuspage.io integration</li>
+                            <li>Developed Rack::Middleware solutions for sensitive data filtering and log security</li>
+                            <li>Mentored junior engineers on ActiveRecord optimization and SQL query performance</li>
+                            <li>Managed HL7 messaging systems and healthcare data integration workflows</li>
+                            <li>Established automated testing and deployment pipelines for Rails applications</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Senior Software Engineering Manager <span class="aws-badge">REMOTE TEAM LEAD</span></div>
+                        <div class="job-company">Appriss Health</div>
+                        <div class="job-duration">August 2018 - March 2021</div>
+                        <ul class="job-description">
+                            <li>Managed distributed team of 13 developers across US and Warsaw, implementing agile methodologies</li>
+                            <li>Architected Rails 5 upgrade strategy for prescription management platform serving 43 state configurations</li>
+                            <li>Led Vue.js migration project for legacy monolith modernization</li>
+                            <li>Optimized PostgreSQL performance for billions of rows using <span class="highlight">AWS Performance Insights</span></li>
+                            <li>Managed Site Reliability Engineering team, implementing alerting with Sumologic and New Relic</li>
+                            <li>Conducted technical interviews and performance management for engineering roles</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Software Engineer III - IV <span class="aws-badge">FULL STACK</span></div>
+                        <div class="job-company">Appriss Health</div>
+                        <div class="job-duration">July 2012 - August 2018</div>
+                        <ul class="job-description">
+                            <li>Co-developed flagship Prescription Management Program monolith in <span class="highlight">Ruby on Rails</span></li>
+                            <li>Designed and implemented API Gateway for pharmacy and health system integrations</li>
+                            <li>Led development of Medical Marijuana Registry system for Ohio state compliance</li>
+                            <li>Architected Xamarin mobile application with <span class="highlight">AWS Cognito</span> authentication</li>
+                            <li>Implemented React + .NET Core frontend solutions for healthcare data visualization</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <div class="job-title">Solutions Architect <span class="aws-badge">ENTERPRISE</span></div>
+                        <div class="job-company">Yum Brands</div>
+                        <div class="job-duration">1996 - 2012</div>
+                        <ul class="job-description">
+                            <li>Progressed from intern to Solutions Architect, leading technology strategy for global restaurant operations</li>
+                            <li>Developed Java-based EAI processes using JCAPS 6, Web Services, and JMS with DB2 integration</li>
+                            <li>Led mobile ordering proof of concept with POS system integration across multiple brands</li>
+                            <li>Architected enterprise search solutions using IBM OmniFind and SharePoint integration</li>
+                            <li>Designed credit card and gift card processing systems for Pizza Hut division</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>
