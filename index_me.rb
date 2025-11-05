@@ -18,8 +18,17 @@ end
 
 def file_description(file, base_dir)
   desc = case file
-         when /\.rb/, /\.ps1/, /\.sh/
-           (File.read(File.join(base_dir, display_filename(file))).each_line.grep(/^##/).first || '').gsub(/^##/, '')
+         when /\.ps1/
+           content = File.read(File.join(base_dir, display_filename(file)))
+           # Look for .SYNOPSIS in PowerShell comment-based help
+           if content =~ /\.SYNOPSIS\s*\n\s*(.+)/
+             $1.strip
+           else
+             # Fallback to ## style comments
+             (content.each_line.grep(/^##/).first || '').gsub(/^##/, '').strip
+           end
+         when /\.rb/, /\.sh/
+           (File.read(File.join(base_dir, display_filename(file))).each_line.grep(/^##/).first || '').gsub(/^##/, '').strip
          when /\.htm.*/
            match = File.read(file).match(%r{<title>(.*)</title>})
            if match
