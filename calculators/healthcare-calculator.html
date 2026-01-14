@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Cost Calculator | The Hidden Tax You're Already Paying</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        .home-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .home-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .calculator {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .help-text {
+            display: block;
+            margin-top: 5px;
+            font-size: 13px;
+            color: #666;
+            font-weight: normal;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 8px;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .result-percentage {
+            font-size: 36px;
+            font-weight: 800;
+            color: #764ba2;
+            margin: 20px 0;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .result-detail {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .result-detail strong {
+            color: #444;
+            display: inline-block;
+            min-width: 180px;
+        }
+
+        .result-detail span {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .interpretation {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #764ba2;
+            font-style: italic;
+            color: #555;
+        }
+
+        .comparison {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .comparison h4 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-item:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-country {
+            font-weight: 600;
+            color: #444;
+        }
+
+        .comparison-rate {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .footer {
+            padding: 20px 30px;
+            background: #f5f7fa;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .calculator {
+                padding: 30px 20px;
+            }
+
+            .result-percentage {
+                font-size: 28px;
+            }
+
+            .result-detail strong {
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="https://tp88.us" class="home-link">← tp88.us home</a>
+            <h1>Healthcare Cost Calculator</h1>
+            <p>Calculate the real percentage of your compensation going to healthcare</p>
+        </div>
+
+        <div class="calculator">
+            <form id="calculatorForm" onsubmit="calculateHealthcareTax(event)">
+                <div class="form-group">
+                    <label for="payFrequency">
+                        Pay Frequency
+                    </label>
+                    <select id="payFrequency" required>
+                        <option value="26">Bi-weekly (26 pay periods)</option>
+                        <option value="24">Semi-monthly (24 pay periods)</option>
+                        <option value="12">Monthly (12 pay periods)</option>
+                        <option value="52">Weekly (52 pay periods)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="salary">
+                        Your Annual Salary
+                        <span class="help-text">Your base salary before any deductions</span>
+                    </label>
+                    <input type="number" id="salary" placeholder="e.g., 75000" min="0" step="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="employeePremium">
+                        Your Premium Per Paycheck
+                        <span class="help-text">The amount deducted from your paycheck for health insurance</span>
+                    </label>
+                    <input type="number" id="employeePremium" placeholder="e.g., 150" min="0" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="employerPremium">
+                        Employer's Premium Per Paycheck
+                        <span class="help-text">Check your benefits statement or HR portal for this amount</span>
+                    </label>
+                    <input type="number" id="employerPremium" placeholder="e.g., 400" min="0" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="deductible">
+                        Annual Deductible
+                        <span class="help-text">The amount you must pay before insurance coverage kicks in</span>
+                    </label>
+                    <input type="number" id="deductible" placeholder="e.g., 3000" min="0" step="100" required>
+                </div>
+
+                <button type="submit" class="calculate-btn">Calculate My Healthcare Tax</button>
+            </form>
+
+            <div id="results" class="results">
+                <h3>Your Results</h3>
+                
+                <div class="result-percentage" id="percentage"></div>
+
+                <div class="result-detail">
+                    <strong>Annual Healthcare Cost:</strong>
+                    <span id="annualCost"></span>
+                </div>
+
+                <div class="result-detail">
+                    <strong>Total Compensation:</strong>
+                    <span id="totalComp"></span>
+                </div>
+
+                <div class="result-detail">
+                    <strong>Monthly Healthcare Cost:</strong>
+                    <span id="monthlyCost"></span>
+                </div>
+
+                <div class="interpretation">
+                    This is what you're paying <strong>before receiving any medical services</strong>. 
+                    This doesn't include copays, coinsurance, out-of-network charges, or any other 
+                    out-of-pocket expenses when you actually use healthcare.
+                </div>
+
+                <div class="comparison">
+                    <h4>Compare to Other Countries' Healthcare Tax Rates</h4>
+                    <div class="comparison-item">
+                        <span class="comparison-country">Canada</span>
+                        <span class="comparison-rate">7-13%</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-country">United Kingdom</span>
+                        <span class="comparison-rate">8-10%</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-country">France</span>
+                        <span class="comparison-rate">~8%</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-country">Germany</span>
+                        <span class="comparison-rate">7-8%</span>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 14px; color: #666;">
+                        In these countries, there are no deductibles, no claim denials, no out-of-network surprises, 
+                        and no medical debt collectors.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Read the full article: <a href="https://thomaspowell.com">The Hidden Tax You're Already Paying</a></p>
+            <p style="margin-top: 10px;">© 2024 Thomas Powell | <a href="https://tp88.us">tp88.us</a></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateHealthcareTax(event) {
+            event.preventDefault();
+
+            const salary = parseFloat(document.getElementById('salary').value);
+            const employeePremium = parseFloat(document.getElementById('employeePremium').value);
+            const employerPremium = parseFloat(document.getElementById('employerPremium').value);
+            const deductible = parseFloat(document.getElementById('deductible').value);
+            const payFrequency = parseInt(document.getElementById('payFrequency').value);
+
+            // Calculate annual costs
+            const annualEmployeePremium = employeePremium * payFrequency;
+            const annualEmployerPremium = employerPremium * payFrequency;
+            const totalHealthcareCost = annualEmployeePremium + annualEmployerPremium + deductible;
+            const totalCompensation = salary + annualEmployerPremium;
+            const percentage = (totalHealthcareCost / totalCompensation * 100).toFixed(1);
+            const monthlyCost = (totalHealthcareCost / 12).toFixed(2);
+
+            // Format currency
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
+            // Update results
+            document.getElementById('percentage').textContent = percentage + '%';
+            document.getElementById('annualCost').textContent = formatter.format(totalHealthcareCost);
+            document.getElementById('totalComp').textContent = formatter.format(totalCompensation);
+            document.getElementById('monthlyCost').textContent = formatter.format(monthlyCost);
+
+            // Show results with animation
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.style.display = 'block';
+            
+            // Smooth scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Add some interactivity - clear results when inputs change
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                document.getElementById('results').style.display = 'none';
+            });
+        });
+    </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

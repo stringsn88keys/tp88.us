@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuity Strategy Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input[type="date"] {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .strategy-card {
+            background: white;
+            border: 3px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .strategy-card.winner {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .strategy-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .strategy-card.winner h3::before {
+            content: "🏆 ";
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .stat-value.income {
+            color: #28a745;
+        }
+
+        .stat-value.estate {
+            color: #667eea;
+        }
+
+        .scenario-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .scenario-btn {
+            padding: 10px 20px;
+            background: white;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .scenario-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .scenario-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .winner-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #28a745;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .insights {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .insights h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .insight-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .insight-item h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .insight-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .recommendation {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .recommendation h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .recommendation p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .recommendation ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .recommendation li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .recommendation li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scenario-selector {
+                flex-direction: column;
+            }
+
+            .scenario-btn {
+                width: 100%;
+            }
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: inline-block;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .footer-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Annuity Strategy Calculator</h1>
+            <p>Find the optimal strategy for your retirement funds</p>
+        </div>
+
+        <div class="content">
+            <div class="input-section">
+                <h2 style="margin-bottom: 25px; color: #333;">Your Financial Situation</h2>
+
+                <div class="input-group">
+                    <label for="total401k">Total 401(k) Balance ($)</label>
+                    <input type="number" id="total401k" value="500000" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="annuityAmount">Annuity Amount Being Considered ($)</label>
+                    <input type="number" id="annuityAmount" value="250000" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="annuityPayment">Annual Annuity Payment ($)</label>
+                    <input type="number" id="annuityPayment" value="25000" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="annualContribution">Annual 401(k) Contribution ($)</label>
+                    <input type="number" id="annualContribution" value="12000" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="socialSecurity">Annual Social Security ($)</label>
+                    <input type="number" id="socialSecurity" value="48000" step="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="annuityStartDate">Annuity Start Date (assumes the same as retirment / Social Security start)</label>
+                    <input type="date" id="annuityStartDate">
+                </div>
+
+                <div class="button-group">
+                    <button onclick="calculateAll()">Calculate All Strategies</button>
+                </div>
+            </div>
+
+            <div class="results" id="results">
+                <h2 style="margin-bottom: 25px; color: #333;">Select a Scenario to View</h2>
+
+                <div class="scenario-selector" id="scenarioSelector">
+                    <!-- Scenario buttons will be generated here -->
+                </div>
+
+                <div id="comparisonView">
+                    <!-- Comparison cards will be generated here -->
+                </div>
+
+                <div class="table-container">
+                    <h2 style="margin: 30px 0 20px; color: #333;">Summary: Annual Income by Strategy</h2>
+                    <table id="incomeTable">
+                        <!-- Income table will be generated here -->
+                    </table>
+                </div>
+
+                <div class="table-container">
+                    <h2 style="margin: 30px 0 20px; color: #333;">Summary: Estate Value by Strategy</h2>
+                    <table id="estateTable">
+                        <!-- Estate table will be generated here -->
+                    </table>
+                </div>
+
+                <div class="insights">
+                    <h2>📊 Key Insights</h2>
+                    <div id="insightsContent">
+                        <!-- Insights will be generated here -->
+                    </div>
+                </div>
+
+                <div class="recommendation">
+                    <h2>🎯 Recommended Strategy</h2>
+                    <div id="recommendationContent">
+                        <!-- Recommendation will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 20px;">
+        <a href="/" class="footer-link">
+            ← Back to tp88.us
+        </a>
+    </div>
+
+    <script>
+        const scenarios = [
+            { name: "Worst case (0.44%)", rate: 0.0044, desc: "Great Depression" },
+            { name: "Bad (4%)", rate: 0.04, desc: "Dot-com + 2008" },
+            { name: "Conservative (6%)", rate: 0.06, desc: "Below average" },
+            { name: "Breakeven (8.48%)", rate: 0.0848, desc: "Annuity breakeven" },
+            { name: "Historical avg (10%)", rate: 0.10, desc: "Long-term avg" },
+            { name: "Good (12%)", rate: 0.12, desc: "Above average" },
+            { name: "Great (15%)", rate: 0.15, desc: "Bull market" },
+            { name: "Best (17%)", rate: 0.17, desc: "Tech boom" }
+        ];
+
+        let currentScenario = 4; // Default to historical average
+        let allResults = [];
+
+        function formatCurrency(amount) {
+            return Math.round(amount).toLocaleString();
+        }
+
+        function calculateStrategy(annuityAmount, marketAmount, annualReturn) {
+            const inputs = getInputs();
+            const annuityPaymentRatio = annuityAmount / inputs.annuityAmount;
+            const annuityPayment = inputs.annuityPayment * annuityPaymentRatio;
+
+            let balance = marketAmount;
+
+            for (let year = 1; year <= Math.floor(inputs.yearsUntil); year++) {
+                balance *= (1 + annualReturn);
+                balance += inputs.annualContribution;
+            }
+
+            const fractional = inputs.yearsUntil - Math.floor(inputs.yearsUntil);
+            balance *= (1 + annualReturn * fractional);
+
+            const marketWithdrawal = balance * 0.04;
+            const totalIncome = annuityPayment + marketWithdrawal + inputs.socialSecurity;
+            const estateValue = balance + (annuityPayment * 20); // 20-year guarantee
+
+            return {
+                annuityPayment,
+                marketBalance: balance,
+                marketWithdrawal,
+                totalIncome,
+                estateValue
+            };
+        }
+
+        function getInputs() {
+            const annuityStartDate = new Date(document.getElementById('annuityStartDate').value);
+            const today = new Date();
+            const yearsUntil = (annuityStartDate - today) / (1000 * 60 * 60 * 24 * 365.25);
+
+            return {
+                total401k: parseFloat(document.getElementById('total401k').value),
+                annuityAmount: parseFloat(document.getElementById('annuityAmount').value),
+                annuityPayment: parseFloat(document.getElementById('annuityPayment').value),
+                annualContribution: parseFloat(document.getElementById('annualContribution').value),
+                socialSecurity: parseFloat(document.getElementById('socialSecurity').value),
+                yearsUntil: yearsUntil,
+                annuityStartDate: annuityStartDate
+            };
+        }
+
+        function calculateAll() {
+            const inputs = getInputs();
+            allResults = [];
+
+            scenarios.forEach((scenario, index) => {
+                const fullAnnuity = calculateStrategy(
+                    inputs.annuityAmount,
+                    inputs.total401k - inputs.annuityAmount,
+                    scenario.rate
+                );
+
+                const noAnnuity = calculateStrategy(
+                    0,
+                    inputs.total401k,
+                    scenario.rate
+                );
+
+                const split = calculateStrategy(
+                    inputs.annuityAmount / 2,
+                    inputs.total401k - (inputs.annuityAmount / 2),
+                    scenario.rate
+                );
+
+                allResults.push({
+                    scenario,
+                    fullAnnuity,
+                    noAnnuity,
+                    split
+                });
+            });
+
+            document.getElementById('results').classList.add('active');
+            renderScenarioSelector();
+            renderComparison(currentScenario);
+            renderTables();
+            renderInsights();
+            renderRecommendation();
+
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderScenarioSelector() {
+            const selector = document.getElementById('scenarioSelector');
+            selector.innerHTML = scenarios.map((scenario, index) => `
+                <button class="scenario-btn ${index === currentScenario ? 'active' : ''}"
+                        onclick="selectScenario(${index})">
+                    ${scenario.name}
+                </button>
+            `).join('');
+        }
+
+        function selectScenario(index) {
+            currentScenario = index;
+            renderScenarioSelector();
+            renderComparison(index);
+        }
+
+        function renderComparison(scenarioIndex) {
+            const result = allResults[scenarioIndex];
+            const inputs = getInputs();
+
+            const strategies = [
+                {
+                    name: 'Full Annuity',
+                    subtitle: `$${formatCurrency(inputs.annuityAmount)} → Annuity`,
+                    data: result.fullAnnuity
+                },
+                {
+                    name: 'No Annuity',
+                    subtitle: `Full $${formatCurrency(inputs.total401k)} Invested`,
+                    data: result.noAnnuity
+                },
+                {
+                    name: 'SPLIT Strategy',
+                    subtitle: `$${formatCurrency(inputs.annuityAmount / 2)} Annuity + $${formatCurrency(inputs.total401k - inputs.annuityAmount / 2)} Invested`,
+                    data: result.split
+                }
+            ];
+
+            const maxIncome = Math.max(
+                result.fullAnnuity.totalIncome,
+                result.noAnnuity.totalIncome,
+                result.split.totalIncome
+            );
+
+            const comparisonView = document.getElementById('comparisonView');
+            const dateStr = inputs.annuityStartDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            const yearsStr = inputs.yearsUntil.toFixed(1);
+
+            comparisonView.innerHTML = `
+                <h2 style="margin-bottom: 25px; color: #333;">
+                    ${result.scenario.name} - ${result.scenario.desc}
+                </h2>
+                <p style="margin-bottom: 20px; color: #666; font-size: 1.05em;">
+                    📅 Annuity starts: <strong>${dateStr}</strong> (${yearsStr} years from now)
+                </p>
+                <div class="comparison-grid">
+                    ${strategies.map(strategy => `
+                        <div class="strategy-card ${strategy.data.totalIncome === maxIncome ? 'winner' : ''}">
+                            <h3>${strategy.name}</h3>
+                            <p style="color: #666; margin-bottom: 20px; font-size: 0.95em;">${strategy.subtitle}</p>
+
+                            ${strategy.data.annuityPayment > 0 ? `
+                                <div class="stat-row">
+                                    <span class="stat-label">Annuity Income</span>
+                                    <span class="stat-value income">$${formatCurrency(strategy.data.annuityPayment)}/yr</span>
+                                </div>
+                            ` : ''}
+
+                            <div class="stat-row">
+                                <span class="stat-label">Market Balance</span>
+                                <span class="stat-value">$${formatCurrency(strategy.data.marketBalance)}</span>
+                            </div>
+
+                            <div class="stat-row">
+                                <span class="stat-label">Market Income (4%)</span>
+                                <span class="stat-value income">$${formatCurrency(strategy.data.marketWithdrawal)}/yr</span>
+                            </div>
+
+                            <div class="stat-row">
+                                <span class="stat-label">Social Security</span>
+                                <span class="stat-value income">$${formatCurrency(inputs.socialSecurity)}/yr</span>
+                            </div>
+
+                            <div class="stat-row" style="border-top: 3px solid #667eea; margin-top: 15px; padding-top: 15px;">
+                                <span class="stat-label" style="font-size: 1.2em; font-weight: 700;">TOTAL INCOME</span>
+                                <span class="stat-value income" style="font-size: 1.3em;">$${formatCurrency(strategy.data.totalIncome)}/yr</span>
+                            </div>
+
+                            <div class="stat-row">
+                                <span class="stat-label">Estate Value</span>
+                                <span class="stat-value estate">$${formatCurrency(strategy.data.estateValue)}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderTables() {
+            // Income table
+            const incomeTable = document.getElementById('incomeTable');
+            let incomeHTML = `
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Full Annuity</th>
+                        <th>No Annuity</th>
+                        <th>SPLIT</th>
+                        <th>Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+
+            allResults.forEach(result => {
+                const maxIncome = Math.max(
+                    result.fullAnnuity.totalIncome,
+                    result.noAnnuity.totalIncome,
+                    result.split.totalIncome
+                );
+
+                let winner = 'Full Annuity';
+                if (result.noAnnuity.totalIncome === maxIncome) winner = 'No Annuity';
+                else if (result.split.totalIncome === maxIncome) winner = 'SPLIT';
+
+                incomeHTML += `
+                    <tr>
+                        <td><strong>${result.scenario.name}</strong></td>
+                        <td>$${formatCurrency(result.fullAnnuity.totalIncome)}</td>
+                        <td>$${formatCurrency(result.noAnnuity.totalIncome)}</td>
+                        <td>$${formatCurrency(result.split.totalIncome)}</td>
+                        <td><span class="winner-badge">${winner}</span></td>
+                    </tr>
+                `;
+            });
+
+            incomeHTML += '</tbody>';
+            incomeTable.innerHTML = incomeHTML;
+
+            // Estate table
+            const estateTable = document.getElementById('estateTable');
+            let estateHTML = `
+                <thead>
+                    <tr>
+                        <th>Scenario</th>
+                        <th>Full Annuity</th>
+                        <th>No Annuity</th>
+                        <th>SPLIT</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+
+            allResults.forEach(result => {
+                estateHTML += `
+                    <tr>
+                        <td><strong>${result.scenario.name}</strong></td>
+                        <td>$${formatCurrency(result.fullAnnuity.estateValue)}</td>
+                        <td>$${formatCurrency(result.noAnnuity.estateValue)}</td>
+                        <td>$${formatCurrency(result.split.estateValue)}</td>
+                    </tr>
+                `;
+            });
+
+            estateHTML += '</tbody>';
+            estateTable.innerHTML = estateHTML;
+        }
+
+        function renderInsights() {
+            const avgResult = allResults[4]; // Historical average (10%)
+            const worstResult = allResults[0]; // Worst case
+            const bestResult = allResults[7]; // Best case
+
+            const insightsContent = document.getElementById('insightsContent');
+            insightsContent.innerHTML = `
+                <div class="insight-item">
+                    <h4>📈 At Historical Average (10% returns)</h4>
+                    <p>
+                        <strong>Full Annuity:</strong> $${formatCurrency(avgResult.fullAnnuity.totalIncome)}/year<br>
+                        <strong>No Annuity:</strong> $${formatCurrency(avgResult.noAnnuity.totalIncome)}/year<br>
+                        <strong>SPLIT:</strong> $${formatCurrency(avgResult.split.totalIncome)}/year<br>
+                        <br>
+                        The SPLIT strategy gives you ${((avgResult.split.totalIncome / avgResult.fullAnnuity.totalIncome - 1) * 100).toFixed(1)}%
+                        more income than the full annuity, while only giving up
+                        ${((avgResult.noAnnuity.totalIncome / avgResult.split.totalIncome - 1) * 100).toFixed(1)}%
+                        compared to staying fully invested.
+                    </p>
+                </div>
+
+                <div class="insight-item">
+                    <h4>🛡️ Downside Protection</h4>
+                    <p>
+                        In the worst case scenario (Great Depression repeat at 0.44% returns):<br>
+                        <strong>Full Annuity:</strong> $${formatCurrency(worstResult.fullAnnuity.totalIncome)}/year (best protection)<br>
+                        <strong>SPLIT:</strong> $${formatCurrency(worstResult.split.totalIncome)}/year<br>
+                        <strong>No Annuity:</strong> $${formatCurrency(worstResult.noAnnuity.totalIncome)}/year<br>
+                        <br>
+                        The SPLIT is only $${formatCurrency(worstResult.fullAnnuity.totalIncome - worstResult.split.totalIncome)}
+                        worse than full protection, but $${formatCurrency(worstResult.split.totalIncome - worstResult.noAnnuity.totalIncome)}
+                        better than no annuity.
+                    </p>
+                </div>
+
+                <div class="insight-item">
+                    <h4>🚀 Upside Potential</h4>
+                    <p>
+                        In the best case scenario (17% returns like the tech boom):<br>
+                        <strong>No Annuity:</strong> $${formatCurrency(bestResult.noAnnuity.totalIncome)}/year (maximum)<br>
+                        <strong>SPLIT:</strong> $${formatCurrency(bestResult.split.totalIncome)}/year<br>
+                        <strong>Full Annuity:</strong> $${formatCurrency(bestResult.fullAnnuity.totalIncome)}/year<br>
+                        <br>
+                        The SPLIT captures ${(((bestResult.split.totalIncome - bestResult.fullAnnuity.totalIncome) /
+                        (bestResult.noAnnuity.totalIncome - bestResult.fullAnnuity.totalIncome)) * 100).toFixed(0)}%
+                        of the upside potential.
+                    </p>
+                </div>
+
+                <div class="insight-item">
+                    <h4>💎 Estate Value Advantage</h4>
+                    <p>
+                        At 10% returns over 20 years:<br>
+                        <strong>Full Annuity Estate:</strong> $${formatCurrency(avgResult.fullAnnuity.estateValue)}<br>
+                        <strong>SPLIT Estate:</strong> $${formatCurrency(avgResult.split.estateValue)}<br>
+                        <strong>No Annuity Estate:</strong> $${formatCurrency(avgResult.noAnnuity.estateValue)}<br>
+                        <br>
+                        The SPLIT gives you $${formatCurrency(avgResult.split.estateValue - avgResult.fullAnnuity.estateValue)}
+                        more estate value than the full annuity, while only sacrificing
+                        $${formatCurrency(avgResult.noAnnuity.estateValue - avgResult.split.estateValue)}
+                        compared to staying fully invested.
+                    </p>
+                </div>
+            `;
+        }
+
+        function renderRecommendation() {
+            const inputs = getInputs();
+            const avgResult = allResults[4];
+            const worstResult = allResults[0];
+
+            const recommendationContent = document.getElementById('recommendationContent');
+            recommendationContent.innerHTML = `
+                <p style="font-size: 1.3em; font-weight: 600; margin-bottom: 20px;">
+                    🥇 The SPLIT Strategy ($${formatCurrency(inputs.annuityAmount / 2)} annuity + $${formatCurrency(inputs.total401k - inputs.annuityAmount / 2)} invested)
+                    offers the best balance of security and growth.
+                </p>
+
+                <p>
+                    <strong>Why the SPLIT wins:</strong>
+                </p>
+                <ul>
+                    <li>Guaranteed $${formatCurrency(inputs.annuityPayment / 2)}/year base provides peace of mind</li>
+                    <li>75% of your money ($${formatCurrency(inputs.total401k - inputs.annuityAmount / 2)}) stays invested for growth</li>
+                    <li>Expected income of $${formatCurrency(avgResult.split.totalIncome)}/year at historical average returns</li>
+                    <li>Even in worst case, you get $${formatCurrency(worstResult.split.totalIncome)}/year (vs $${formatCurrency(worstResult.noAnnuity.totalIncome)} with no annuity)</li>
+                    <li>Estate value of $${formatCurrency(avgResult.split.estateValue)} at average returns</li>
+                    <li>Your spouse is protected with 100% survivor benefit on the annuity portion</li>
+                </ul>
+
+                <p style="margin-top: 25px; padding-top: 25px; border-top: 2px solid rgba(255,255,255,0.3);">
+                    <strong>Next Step:</strong> Call your annuity provider and ask if they allow partial annuitization
+                    (converting only $${formatCurrency(inputs.annuityAmount / 2)} instead of the full $${formatCurrency(inputs.annuityAmount)}).
+                </p>
+
+                <p style="margin-top: 15px;">
+                    If partial annuitization is not allowed, consider keeping the full amount invested given your
+                    $${formatCurrency(inputs.socialSecurity)}/year Social Security safety net and the 83% historical
+                    probability of beating the annuity returns.
+                </p>
+            `;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            // Set default date to 10 years from today
+            const today = new Date();
+            const tenYearsFromNow = new Date(today);
+            tenYearsFromNow.setFullYear(today.getFullYear() + 10);
+
+            // Format date as YYYY-MM-DD for input
+            const year = tenYearsFromNow.getFullYear();
+            const month = String(tenYearsFromNow.getMonth() + 1).padStart(2, '0');
+            const day = String(tenYearsFromNow.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+
+            document.getElementById('annuityStartDate').value = formattedDate;
+
+            calculateAll();
+        });
+    </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>
