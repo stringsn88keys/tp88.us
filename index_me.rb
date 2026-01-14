@@ -81,6 +81,9 @@ def generate_highlighted_html(file)
   formatter = Rouge::Formatters::HTML.new
   highlighted_code = formatter.format(lexer.lex(code))
 
+  # Get the raw script filename (without path)
+  raw_file = File.basename(file)
+
   File.open("#{file}.html", 'wt') do |f|
     f.puts <<~HTML
       <!DOCTYPE html>
@@ -111,12 +114,23 @@ def generate_highlighted_html(file)
           h1 {
             color: #ff4500;
           }
+          .raw-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 14px;
+          }
+          .raw-link:hover {
+            text-decoration: underline;
+          }
           #{rouge_css} /* Include Rouge's syntax highlighting CSS */
         </style>
       </head>
       <body>
         <div class="container">
           <h1>#{file}</h1>
+          <a href="#{raw_file}" class="raw-link">View raw file</a>
           <pre class="highlight"><code>#{highlighted_code}</code></pre>
         </div>
 
