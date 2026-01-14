@@ -1,4 +1,4 @@
-## Automatically installs uru (using Scoop) and registers all Ruby installations found on the system
+## Automatically installs uru and registers all Ruby installations found on the system
 
 $ErrorActionPreference = "Stop"
 
