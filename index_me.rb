@@ -124,6 +124,11 @@ def generate_highlighted_html(file)
           .raw-link:hover {
             text-decoration: underline;
           }
+          .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+          }
           #{rouge_css} /* Include Rouge's syntax highlighting CSS */
         </style>
       </head>
@@ -132,6 +137,9 @@ def generate_highlighted_html(file)
           <h1>#{file}</h1>
           <a href="#{raw_file}" class="raw-link">View raw file</a>
           <pre class="highlight"><code>#{highlighted_code}</code></pre>
+          <div class="footer">
+            <a href="/">Back to Index</a>
+          </div>
         </div>
 
         <!-- Google tag (gtag.js) -->
@@ -160,6 +168,15 @@ end
 # Generate syntax-highlighted HTML files for .sh, .rb, and .ps1 files
 Dir["scripts/*.sh", "scripts/*.rb", "scripts/*.ps1", "scripts/*.bat"].each do |file|
   generate_highlighted_html(file)
+end
+
+# Generate books visualization HTML files
+system('ruby', File.join(__dir__, 'visualize_books.rb'), '-o', 'books_all.html')
+system('ruby', File.join(__dir__, 'visualize_books.rb'), '--completed-only', '-o', 'books_completed.html')
+
+# Add Google Analytics to books HTML files
+Dir["books_*.html"].each do |file|
+  add_google_analytics(file)
 end
 
 # Add Google Analytics to calculator HTML files (after ERB rendering)
@@ -223,11 +240,28 @@ File.open('index.html', 'wt') do |f|
           cursor: pointer;
         }
       </style>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // Restore saved states
+          document.querySelectorAll('details[id]').forEach(function(details) {
+            var saved = localStorage.getItem('details-' + details.id);
+            if (saved !== null) {
+              details.open = saved === 'true';
+            }
+          });
+          // Save state on toggle
+          document.querySelectorAll('details[id]').forEach(function(details) {
+            details.addEventListener('toggle', function() {
+              localStorage.setItem('details-' + details.id, details.open);
+            });
+          });
+        });
+      </script>
     </head>
     <body>
       <div class="container my-4">
         <h1 class="text-center mb-4">Thomas Powell's File Index</h1>
-        <details open>
+        <details id="resumes" open>
           <summary>Resumes</summary>
           <div class="list-group mb-3">
   HTML
@@ -240,7 +274,7 @@ File.open('index.html', 'wt') do |f|
   f.puts <<~HTML
           </div>
         </details>
-        <details open>
+        <details id="blog" open>
           <summary>Blog</summary>
           <div class="list-group mb-3">
   HTML
@@ -253,7 +287,14 @@ File.open('index.html', 'wt') do |f|
   f.puts <<~HTML
           </div>
         </details>
-        <details open>
+        <details id="books" open>
+          <summary>Books</summary>
+          <div class="list-group mb-3">
+            <a href="books_all.html" class="list-group-item list-group-item-action">Reading Visualization - All Books</a>
+            <a href="books_completed.html" class="list-group-item list-group-item-action">Reading Visualization - Completed Only</a>
+          </div>
+        </details>
+        <details id="calculators" open>
           <summary>Calculators</summary>
           <div class="list-group mb-3">
   HTML
@@ -265,17 +306,35 @@ File.open('index.html', 'wt') do |f|
   f.puts <<~HTML
           </div>
         </details>
-        <details open>
+        <details id="scripts" open>
           <summary>Scripts</summary>
-          <div class="list-group mb-3">
   HTML
 
-  Dir["scripts/*.sh.html", "scripts/*.rb.html", "scripts/*.ps1.html", "scripts/*.bat.html"].each do |file|
-    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{display_filename(file)}#{file_description(file, "scripts")}</a>|
+  file_types = {
+    '🐚 Shell Scripts (.sh)' => Dir["scripts/*.sh.html"],
+    '💎 Ruby Scripts (.rb)' => Dir["scripts/*.rb.html"],
+    '⚡ PowerShell Scripts (.ps1)' => Dir["scripts/*.ps1.html"],
+    '🪟 Batch Files (.bat)' => Dir["scripts/*.bat.html"]
+  }
+
+  file_types.each do |label, files|
+    next if files.empty?
+    detail_id = label.downcase.gsub(/[^a-z0-9]+/, '-').gsub(/-+$/, '')
+    f.puts <<~HTML
+          <details id="#{detail_id}" open>
+            <summary style="font-size: 1em; margin-left: 1em;">#{label}</summary>
+            <div class="list-group mb-3" style="margin-left: 1em;">
+    HTML
+    files.each do |file|
+      f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{display_filename(file)}#{file_description(file, "scripts")}</a>|
+    end
+    f.puts <<~HTML
+            </div>
+          </details>
+    HTML
   end
 
   f.puts <<~HTML
-          </div>
         </details>
         <div class="footer">
           <a href="https://thomaspowell.com" target="_blank">Back to Thomas Powell's Website</a>

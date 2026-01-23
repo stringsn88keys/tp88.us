@@ -1,0 +1,31 @@
+- title: Ruby Best Practices
+  subtitle: Increase Your Productivity - Write Better Code
+  edition: 1st Edition
+  author: Gregory T. Brown
+  editor:
+  associates_link: https://amzn.to/4sTqiph
+  commentary: Written in the early days of Ruby popularity between 1.8.6 and 1.9.3, this book by the Prawn author contains some good tidbits despite its dated commentary. Reminiscing about the days of RubyForge among others.
+  date_finished: 2026-01-22
+  format_read: Digital on O'Reilly App
+  print_length: 325 pages
+- title: "Dopesick: Dealers, Doctors, and the Drug Company that Addicted America"
+  subtitle:
+  author: Beth Macy
+  associates_link: https://amzn.to/3YTtJPa
+  commentary:
+  date_finished:
+  format_read: Audible
+  print_length: 400 pages
+  time_left: 1 hour 5 minutes
+  listening_length: 10 hours and 16 minutes
+- title: Genetic Algorithms and Machine Learning for Programmers
+  edition: 1st Edition
+  author: Frances Buontempo
+  associates_link: https://amzn.to/3LYkFFK
+  commentary:
+  date_started: 2026-01-22
+  date_finished:
+  format_read: Digital on O'Reilly App
+  print_length: 236 pages
+  percent_complete: 22%
+
