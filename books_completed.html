@@ -79,6 +79,11 @@
       margin-bottom: 20px;
       border-left: 4px solid #3498db;
     }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -91,15 +96,15 @@
   <div class="summary">
     <div class="stat-card">
       <h3>Total Books</h3>
-      <div class="value">1</div>
+      <div class="value">2</div>
     </div>
     <div class="stat-card">
       <h3>Total Pages Read</h3>
-      <div class="value">325</div>
+      <div class="value">725</div>
     </div>
     <div class="stat-card">
       <h3>Completed</h3>
-      <div class="value">1</div>
+      <div class="value">2</div>
     </div>
     <div class="stat-card">
       <h3>In Progress</h3>
@@ -136,6 +141,15 @@
     </thead>
     <tbody>
 <tr>
+  <td>Dopesick: Dealers, Doctors, and the Drug Company that Addicted America</td>
+  <td>Beth Macy</td>
+  <td>400</td>
+  <td>400</td>
+  <td>100%</td>
+  <td>2026-01-25</td>
+  <td class="status-completed">Completed</td>
+</tr>
+<tr>
   <td>Ruby Best Practices</td>
   <td>Gregory T. Brown</td>
   <td>325</td>
@@ -148,7 +162,14 @@
     </tbody>
   </table>
 
+  <div class="footer">
+    <a href="/">Back to Index</a>
+  </div>
+
   <script>
+    const yearlyPagesPerDay = [24.2];
+    const monthlyPagesPerDay = [24.2];
+
     const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
     new Chart(yearlyCtx, {
       type: 'bar',
@@ -156,7 +177,7 @@
         labels: [2026],
         datasets: [{
           label: 'Pages Read',
-          data: [325],
+          data: [725],
           backgroundColor: 'rgba(52, 152, 219, 0.7)',
           borderColor: 'rgba(52, 152, 219, 1)',
           borderWidth: 1
@@ -165,7 +186,18 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const pages = context.raw;
+                const ppd = yearlyPagesPerDay[context.dataIndex];
+                return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
+              }
+            }
+          }
+        },
         scales: {
           y: { beginAtZero: true, title: { display: true, text: 'Pages' } },
           x: { title: { display: true, text: 'Year' } }
@@ -175,23 +207,32 @@
 
     const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
     new Chart(monthlyCtx, {
-      type: 'line',
+      type: 'bar',
       data: {
         labels: ["2026-01"],
         datasets: [{
           label: 'Pages Read',
-          data: [325],
-          backgroundColor: 'rgba(46, 204, 113, 0.2)',
+          data: [725],
+          backgroundColor: 'rgba(46, 204, 113, 0.7)',
           borderColor: 'rgba(46, 204, 113, 1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const pages = context.raw;
+                const ppd = monthlyPagesPerDay[context.dataIndex];
+                return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
+              }
+            }
+          }
+        },
         scales: {
           y: { beginAtZero: true, title: { display: true, text: 'Pages' } },
           x: { title: { display: true, text: 'Month' } }

@@ -139,9 +139,41 @@ sorted_months = monthly_data.flat_map do |year, months|
 end.sort.map { |y, m| Date.new(y, m, 1).strftime("%Y-%m") }.uniq
 
 # Prepare monthly totals in order
+today = Date.today
 monthly_totals = sorted_months.map do |month_key|
   year, month = month_key.split('-').map(&:to_i)
   monthly_data[year][month]
+end
+
+# Calculate days for each month (current date for current month, full days for past months)
+monthly_days = sorted_months.map do |month_key|
+  year, month = month_key.split('-').map(&:to_i)
+  if year == today.year && month == today.month
+    today.day
+  else
+    Date.new(year, month, -1).day # Last day of month
+  end
+end
+
+# Calculate pages per day for each month
+monthly_pages_per_day = monthly_totals.zip(monthly_days).map do |pages, days|
+  days > 0 ? (pages.to_f / days).round(1) : 0
+end
+
+# Calculate days for each year (current date for current year, full days for past years)
+yearly_days = sorted_years.map do |year|
+  if year == today.year
+    today.yday
+  else
+    Date.new(year, 12, 31).yday
+  end
+end
+
+# Calculate pages per day for each year
+yearly_pages_per_day = sorted_years.map.with_index do |year, idx|
+  pages = yearly_data[year]
+  days = yearly_days[idx]
+  days > 0 ? (pages.to_f / days).round(1) : 0
 end
 
 # Build table rows separately
@@ -251,6 +283,11 @@ html_output = <<~HTML
       margin-bottom: 20px;
       border-left: 4px solid #3498db;
     }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
@@ -311,7 +348,14 @@ html_output = <<~HTML
     </tbody>
   </table>
 
+  <div class="footer">
+    <a href="/">Back to Index</a>
+  </div>
+
   <script>
+    const yearlyPagesPerDay = #{yearly_pages_per_day.to_json};
+    const monthlyPagesPerDay = #{monthly_pages_per_day.to_json};
+
     const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
     new Chart(yearlyCtx, {
       type: 'bar',
@@ -328,7 +372,18 @@ html_output = <<~HTML
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const pages = context.raw;
+                const ppd = yearlyPagesPerDay[context.dataIndex];
+                return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
+              }
+            }
+          }
+        },
         scales: {
           y: { beginAtZero: true, title: { display: true, text: 'Pages' } },
           x: { title: { display: true, text: 'Year' } }
@@ -338,23 +393,32 @@ html_output = <<~HTML
 
     const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
     new Chart(monthlyCtx, {
-      type: 'line',
+      type: 'bar',
       data: {
         labels: #{sorted_months.to_json},
         datasets: [{
           label: 'Pages Read',
           data: #{monthly_totals.to_json},
-          backgroundColor: 'rgba(46, 204, 113, 0.2)',
+          backgroundColor: 'rgba(46, 204, 113, 0.7)',
           borderColor: 'rgba(46, 204, 113, 1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.3
+          borderWidth: 1
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const pages = context.raw;
+                const ppd = monthlyPagesPerDay[context.dataIndex];
+                return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
+              }
+            }
+          }
+        },
         scales: {
           y: { beginAtZero: true, title: { display: true, text: 'Pages' } },
           x: { title: { display: true, text: 'Month' } }
