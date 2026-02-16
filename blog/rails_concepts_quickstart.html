@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rails Quick Reference for Experienced Programmers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#rails-quick-reference-for-experienced-programmers" aria-hidden="true" class="anchor" id="rails-quick-reference-for-experienced-programmers"></a>Rails Quick Reference for Experienced Programmers</h1>
+<h2><a href="#for-more-see" aria-hidden="true" class="anchor" id="for-more-see"></a>For more see:</h2>
+<ul>
+<li><a href="https://guides.rubyonrails.org/getting_started.html">Getting Started with Rails</a></li>
+</ul>
+<h2><a href="#mvc-architecture" aria-hidden="true" class="anchor" id="mvc-architecture"></a>MVC Architecture</h2>
+<ul>
+<li><strong>Models</strong> (ActiveRecord): Database tables = Ruby classes. Associations (<code>has_many</code>, <code>belongs_to</code>), validations, and queries all in the model. Migrations version-control your schema.</li>
+<li><strong>Controllers</strong>: HTTP routing → controller actions. Convention: <code>UsersController#show</code> maps to <code>/users/:id</code>. Actions render views or return JSON.</li>
+<li><strong>Views</strong>: ERB templates (Ruby embedded in HTML). Layouts wrap views. Partials for reuse.</li>
+</ul>
+<h2><a href="#convention-over-configuration" aria-hidden="true" class="anchor" id="convention-over-configuration"></a>Convention Over Configuration</h2>
+<ul>
+<li>File paths = class names: <code>app/models/user.rb</code> → <code>User</code> class</li>
+<li>Database tables are pluralized model names: <code>User</code> → <code>users</code> table</li>
+<li>Follow conventions → zero config. Fight them → pain.</li>
+</ul>
+<h2><a href="#key-components" aria-hidden="true" class="anchor" id="key-components"></a>Key Components</h2>
+<ul>
+<li><strong>Routes</strong> (<code>config/routes.rb</code>): RESTful by default. <code>resources :users</code> gives you 7 CRUD routes.</li>
+<li><strong>ActiveRecord</strong>: ORM with chainable queries. <code>User.where(active: true).order(:name)</code> → SQL</li>
+<li><strong>Migrations</strong>: Schema changes as Ruby code. Run with <code>rails db:migrate</code></li>
+<li><strong>Asset Pipeline</strong> (or Propshaft/Importmaps now): JS/CSS compilation/bundling</li>
+<li><strong>Gems</strong>: Bundler manages dependencies via <code>Gemfile</code></li>
+</ul>
+<h2><a href="#routes-conventions" aria-hidden="true" class="anchor" id="routes-conventions"></a>Routes Conventions</h2>
+<pre class="highlight"><code><span class="c1"># config/routes.rb</span>
+<span class="n">resources</span> <span class="ss">:posts</span>  <span class="c1"># Creates 7 RESTful routes:</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>HTTP Verb</th>
+<th>Path</th>
+<th>Controller#Action</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/posts</td>
+<td>posts#index</td>
+<td>List all</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/posts/new</td>
+<td>posts#new</td>
+<td>New form</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/posts</td>
+<td>posts#create</td>
+<td>Create</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/posts/:id</td>
+<td>posts#show</td>
+<td>Show one</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/posts/:id/edit</td>
+<td>posts#edit</td>
+<td>Edit form</td>
+</tr>
+<tr>
+<td>PATCH/PUT</td>
+<td>/posts/:id</td>
+<td>posts#update</td>
+<td>Update</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/posts/:id</td>
+<td>posts#destroy</td>
+<td>Delete</td>
+</tr>
+</tbody>
+</table>
+<pre class="highlight"><code><span class="c1"># Nested resources</span>
+<span class="n">resources</span> <span class="ss">:posts</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:comments</span>  <span class="c1"># /posts/:post_id/comments</span>
+<span class="k">end</span>
+
+<span class="c1"># Custom routes</span>
+<span class="n">get</span> <span class="s1">'about'</span><span class="p">,</span> <span class="ss">to: </span><span class="s1">'pages#about'</span>
+<span class="n">root</span> <span class="s1">'posts#index'</span>  <span class="c1"># Homepage</span>
+
+<span class="c1"># Namespace</span>
+<span class="n">namespace</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:users</span>  <span class="c1"># /admin/users → Admin::UsersController</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#cli-essentials" aria-hidden="true" class="anchor" id="cli-essentials"></a>CLI Essentials</h2>
+<pre class="highlight"><code>rails new myapp          <span class="c"># Scaffold new app</span>
+rails generate model User name:string email:string
+rails generate controller Users
+rails db:migrate         <span class="c"># Run pending migrations</span>
+rails console            <span class="c"># IRB with app loaded</span>
+rails server             <span class="c"># Start dev server (port 3000)</span>
+rails routes             <span class="c"># Show all routes</span>
+</code></pre>
+<h2><a href="#migration-commands" aria-hidden="true" class="anchor" id="migration-commands"></a>Migration Commands</h2>
+<pre class="highlight"><code>rails db:migrate                    <span class="c"># Run all pending migrations</span>
+rails db:rollback                   <span class="c"># Undo last migration</span>
+rails db:rollback <span class="nv">STEP</span><span class="o">=</span>3            <span class="c"># Undo last 3 migrations</span>
+rails db:migrate:down <span class="nv">VERSION</span><span class="o">=</span>20240101120000  <span class="c"># Undo a specific migration</span>
+rails db:migrate:up <span class="nv">VERSION</span><span class="o">=</span>20240101120000    <span class="c"># Run a specific migration</span>
+rails db:migrate <span class="nv">VERSION</span><span class="o">=</span>20240101120000       <span class="c"># Migrate to a specific version (up or down)</span>
+rails db:migrate:status             <span class="c"># Show status of all migrations (up/down)</span>
+rails db:migrate:redo               <span class="c"># Rollback then re-run last migration</span>
+rails db:migrate:redo <span class="nv">STEP</span><span class="o">=</span>3        <span class="c"># Rollback then re-run last 3 migrations</span>
+rails db:reset                      <span class="c"># Drop, recreate, and re-migrate the database</span>
+rails db:seed                       <span class="c"># Run db/seeds.rb</span>
+</code></pre>
+<h2><a href="#directory-layout" aria-hidden="true" class="anchor" id="directory-layout"></a>Directory Layout</h2>
+<ul>
+<li><code>app/</code> - Your code (models, views, controllers)</li>
+<li><code>config/</code> - Routes, database.yml, application config</li>
+<li><code>db/</code> - Migrations, schema.rb, seeds.rb</li>
+<li><code>lib/</code> - Custom modules</li>
+<li><code>public/</code> - Static files</li>
+<li><code>test/</code> or <code>spec/</code> - Tests</li>
+</ul>
+<h2><a href="#activerecord-patterns" aria-hidden="true" class="anchor" id="activerecord-patterns"></a>ActiveRecord Patterns</h2>
+<pre class="highlight"><code><span class="no">User</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">admin: </span><span class="kp">true</span><span class="p">).</span><span class="nf">first</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">posts</span>  <span class="c1"># Association from has_many :posts</span>
+</code></pre>
+<h2><a href="#associations" aria-hidden="true" class="anchor" id="associations"></a>Associations</h2>
+<pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">has_many</span> <span class="ss">:posts</span>                    <span class="c1"># user.posts → looks for user_id in posts table</span>
+  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">through: :posts</span> <span class="c1"># user.comments via join</span>
+  <span class="n">has_one</span> <span class="ss">:profile</span>                   <span class="c1"># user.profile → looks for user_id in profiles table</span>
+  <span class="n">has_and_belongs_to_many</span> <span class="ss">:roles</span>     <span class="c1"># join table: roles_users (alphabetical)</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">belongs_to</span> <span class="ss">:user</span>                   <span class="c1"># post.user → requires user_id column on posts table</span>
+  <span class="n">belongs_to</span> <span class="ss">:author</span><span class="p">,</span> <span class="ss">class_name: </span><span class="s2">"User"</span><span class="p">,</span> <span class="ss">foreign_key: </span><span class="s2">"author_id"</span>  <span class="c1"># custom name</span>
+  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">dependent: :destroy</span>  <span class="c1"># delete comments when post is deleted</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#column-naming-conventions" aria-hidden="true" class="anchor" id="column-naming-conventions"></a>Column Naming Conventions</h3>
+<ul>
+<li><code>belongs_to :user</code> expects a <code>user_id</code> column (integer/bigint) on the current model's table</li>
+<li><code>belongs_to :author, class_name: &quot;User&quot;</code> expects an <code>author_id</code> column</li>
+<li>General rule: <code>belongs_to :something</code> → needs <code>something_id</code> column</li>
+<li><code>has_many</code>/<code>has_one</code> don't add columns to the current table — the foreign key lives on the <strong>other</strong> table</li>
+</ul>
+<h3><a href="#common-association-options" aria-hidden="true" class="anchor" id="common-association-options"></a>Common Association Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dependent</code></td>
+<td><code>has_many :posts, dependent: :destroy</code></td>
+<td>What happens to children when parent is deleted (<code>:destroy</code>, <code>:nullify</code>, <code>:restrict_with_error</code>)</td>
+</tr>
+<tr>
+<td><code>foreign_key</code></td>
+<td><code>belongs_to :author, foreign_key: &quot;author_id&quot;</code></td>
+<td>Specify non-conventional FK column</td>
+</tr>
+<tr>
+<td><code>class_name</code></td>
+<td><code>belongs_to :author, class_name: &quot;User&quot;</code></td>
+<td>When association name differs from class</td>
+</tr>
+<tr>
+<td><code>through</code></td>
+<td><code>has_many :tags, through: :taggings</code></td>
+<td>Join through another association</td>
+</tr>
+<tr>
+<td><code>inverse_of</code></td>
+<td><code>has_many :posts, inverse_of: :author</code></td>
+<td>Helps Rails recognize bidirectional associations</td>
+</tr>
+<tr>
+<td><code>optional</code></td>
+<td><code>belongs_to :team, optional: true</code></td>
+<td>Allow nil (belongs_to is required by default in Rails 5+)</td>
+</tr>
+<tr>
+<td><code>counter_cache</code></td>
+<td><code>belongs_to :user, counter_cache: true</code></td>
+<td>Cache count in parent (needs <code>posts_count</code> column on users)</td>
+</tr>
+</tbody>
+</table>
+<h3><a href="#migration-for-associations" aria-hidden="true" class="anchor" id="migration-for-associations"></a>Migration for Associations</h3>
+<pre class="highlight"><code><span class="c1"># Generate a migration that adds a foreign key</span>
+<span class="n">rails</span> <span class="n">generate</span> <span class="n">migration</span> <span class="no">AddUserToPosts</span> <span class="n">user</span><span class="ss">:references</span>
+
+<span class="c1"># Produces:</span>
+<span class="k">class</span> <span class="nc">AddUserToPosts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">7.0</span><span class="p">]</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">add_reference</span> <span class="ss">:posts</span><span class="p">,</span> <span class="ss">:user</span><span class="p">,</span> <span class="ss">null: </span><span class="kp">false</span><span class="p">,</span> <span class="ss">foreign_key: </span><span class="kp">true</span>
+    <span class="c1"># Creates user_id column + index + DB-level foreign key constraint</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#modern-rails-7x" aria-hidden="true" class="anchor" id="modern-rails-7x"></a>Modern Rails (~7.x)</h2>
+<ul>
+<li>Hotwire (Turbo + Stimulus) instead of heavy JS frameworks</li>
+<li>Importmaps or esbuild for JS</li>
+<li>Tailwind integration common</li>
+</ul>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>

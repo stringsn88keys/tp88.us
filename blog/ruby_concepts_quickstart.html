@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruby Quick Reference for Experienced Programmers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#ruby-quick-reference-for-experienced-programmers" aria-hidden="true" class="anchor" id="ruby-quick-reference-for-experienced-programmers"></a>Ruby Quick Reference for Experienced Programmers</h1>
+<h2><a href="#language-basics" aria-hidden="true" class="anchor" id="language-basics"></a>Language Basics</h2>
+<ul>
+<li><strong>Everything is an object</strong>: Even <code>5</code> and <code>true</code> are objects with methods</li>
+<li><strong>Dynamic typing</strong>: Variables don't have type declarations</li>
+<li><strong>Duck typing</strong>: If it quacks like a duck... (respond_to? checks)</li>
+<li><strong>Blocks everywhere</strong>: <code>{ }</code> or <code>do...end</code> - closures passed to methods</li>
+<li><strong>Symbols</strong>: Immutable strings, <code>:symbol</code> - used for hash keys, method names</li>
+</ul>
+<h2><a href="#variables--scope" aria-hidden="true" class="anchor" id="variables--scope"></a>Variables &amp; Scope</h2>
+<pre class="highlight"><code><span class="n">local_var</span> <span class="o">=</span> <span class="s2">"local"</span>           <span class="c1"># Local variable</span>
+<span class="vi">@instance_var</span> <span class="o">=</span> <span class="s2">"instance"</span>    <span class="c1"># Instance variable (belongs to object)</span>
+<span class="vc">@@class_var</span> <span class="o">=</span> <span class="s2">"class"</span>         <span class="c1"># Class variable (shared across all instances)</span>
+<span class="vg">$global_var</span> <span class="o">=</span> <span class="s2">"global"</span>        <span class="c1"># Global variable (avoid these)</span>
+<span class="no">CONSTANT</span> <span class="o">=</span> <span class="s2">"constant"</span>         <span class="c1"># Constant (can be changed but warns)</span>
+</code></pre>
+<h3><a href="#variable-scope-gotchas" aria-hidden="true" class="anchor" id="variable-scope-gotchas"></a>Variable Scope Gotchas</h3>
+<pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span>
+  <span class="vc">@@count</span> <span class="o">=</span> <span class="mi">0</span>              <span class="c1"># Class variable - shared across inheritance chain!</span>
+  <span class="vi">@default_role</span> <span class="o">=</span> <span class="s2">"user"</span>   <span class="c1"># Class instance variable - separate per class</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="vc">@@count</span> <span class="o">+=</span> <span class="mi">1</span>           <span class="c1"># Increments shared counter</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="s2">"unknown"</span>      <span class="c1"># Instance variable for this object</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">count</span>
+    <span class="vc">@@count</span>                <span class="c1"># Accessible from class method</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">default_role</span>
+    <span class="vi">@default_role</span>          <span class="c1"># Different @default_role per class</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p><strong>Key distinction</strong>: <code>@@class_var</code> is shared across the inheritance chain (usually a mistake). <code>@class_instance_var</code> defined at class level is unique per class.</p>
+<h2><a href="#classes--modules" aria-hidden="true" class="anchor" id="classes--modules"></a>Classes &amp; Modules</h2>
+<pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span>
+  <span class="nb">attr_reader</span> <span class="ss">:name</span>           <span class="c1"># Generates getter</span>
+  <span class="nb">attr_writer</span> <span class="ss">:email</span>          <span class="c1"># Generates setter</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:age</span>          <span class="c1"># Generates both</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>              <span class="c1"># Instance variable</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">greet</span>                   <span class="c1"># Instance method</span>
+    <span class="s2">"Hello, </span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create_guest</span>       <span class="c1"># Class method (option 1)</span>
+    <span class="n">new</span><span class="p">(</span><span class="s2">"Guest"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">class</span> <span class="o">&lt;&lt;</span> <span class="nb">self</span>               <span class="c1"># Class method (option 2 - multiple)</span>
+    <span class="k">def</span> <span class="nf">admin_count</span>
+      <span class="n">where</span><span class="p">(</span><span class="ss">admin: </span><span class="kp">true</span><span class="p">).</span><span class="nf">count</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">active_count</span>
+      <span class="n">where</span><span class="p">(</span><span class="ss">active: </span><span class="kp">true</span><span class="p">).</span><span class="nf">count</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Usage</span>
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">greet</span>                    <span class="c1"># Instance method</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">create_guest</span>             <span class="c1"># Class method</span>
+</code></pre>
+<h2><a href="#modules--mixins" aria-hidden="true" class="anchor" id="modules--mixins"></a>Modules &amp; Mixins</h2>
+<pre class="highlight"><code><span class="k">module</span> <span class="nn">Authenticatable</span>
+  <span class="c1"># Instance methods added via 'include'</span>
+  <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">==</span> <span class="vi">@password</span>
+  <span class="k">end</span>
+
+  <span class="c1"># Class methods via mixin pattern</span>
+  <span class="k">module</span> <span class="nn">ClassMethods</span>
+    <span class="k">def</span> <span class="nf">find_by_credentials</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="n">find_by</span><span class="p">(</span><span class="ss">email: </span><span class="n">email</span><span class="p">)</span>
+      <span class="n">user</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">authenticate</span><span class="p">(</span><span class="n">password</span><span class="p">)</span> <span class="p">?</span> <span class="n">user</span> <span class="p">:</span> <span class="kp">nil</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">included</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+    <span class="n">base</span><span class="p">.</span><span class="nf">extend</span><span class="p">(</span><span class="no">ClassMethods</span><span class="p">)</span>  <span class="c1"># Adds ClassMethods as class methods</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">User</span>
+  <span class="kp">include</span> <span class="no">Authenticatable</span>      <span class="c1"># Adds instance methods + triggers hook</span>
+<span class="k">end</span>
+
+<span class="c1"># Now you have:</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">authenticate</span><span class="p">(</span><span class="s2">"secret"</span><span class="p">)</span>                        <span class="c1"># Instance method</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by_credentials</span><span class="p">(</span><span class="s2">"a@b.com"</span><span class="p">,</span> <span class="s2">"secret"</span><span class="p">)</span>     <span class="c1"># Class method</span>
+</code></pre>
+<p><strong>Alternative modern pattern (ActiveSupport::Concern)</strong>:</p>
+<pre class="highlight"><code><span class="k">module</span> <span class="nn">Authenticatable</span>
+  <span class="kp">extend</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span>
+
+  <span class="n">included</span> <span class="k">do</span>
+    <span class="c1"># Code run when included</span>
+    <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">authenticate</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+    <span class="c1"># Instance method</span>
+  <span class="k">end</span>
+
+  <span class="n">class_methods</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">find_by_credentials</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+      <span class="c1"># Class method</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#blocks-procs-lambdas" aria-hidden="true" class="anchor" id="blocks-procs-lambdas"></a>Blocks, Procs, Lambdas</h2>
+<pre class="highlight"><code><span class="c1"># Block (not an object, passed to methods)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">n</span> <span class="p">}</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
+  <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="k">end</span>
+
+<span class="c1"># Proc (object, loose arg checking)</span>
+<span class="n">double</span> <span class="o">=</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="n">double</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># =&gt; 10</span>
+
+<span class="c1"># Lambda (object, strict arg checking, different return)</span>
+<span class="n">double</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="n">double</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># =&gt; 10</span>
+<span class="n">double</span><span class="o">.</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>      <span class="c1"># Alternative syntax</span>
+
+<span class="c1"># Method accepting block</span>
+<span class="k">def</span> <span class="nf">with_timing</span>
+  <span class="n">start</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
+  <span class="k">yield</span>                    <span class="c1"># Calls the block</span>
+  <span class="nb">puts</span> <span class="s2">"Took </span><span class="si">#{</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span> <span class="o">-</span> <span class="n">start</span><span class="si">}</span><span class="s2">s"</span>
+<span class="k">end</span>
+
+<span class="n">with_timing</span> <span class="p">{</span> <span class="nb">sleep</span> <span class="mi">1</span> <span class="p">}</span>
+
+<span class="c1"># Block to proc conversion</span>
+<span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>          <span class="c1"># &amp; converts block to Proc</span>
+  <span class="n">block</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"World"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">greet</span> <span class="p">{</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span> <span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span> <span class="p">}</span>
+</code></pre>
+<h2><a href="#control-flow-next-break-return-in-different-contexts" aria-hidden="true" class="anchor" id="control-flow-next-break-return-in-different-contexts"></a>Control Flow: next, break, return in Different Contexts</h2>
+<h3><a href="#in-loops" aria-hidden="true" class="anchor" id="in-loops"></a>In Loops</h3>
+<pre class="highlight"><code><span class="c1"># while loop</span>
+<span class="k">while</span> <span class="kp">true</span>
+  <span class="k">next</span>      <span class="c1"># Skip to next iteration</span>
+  <span class="k">break</span>     <span class="c1"># Exit loop entirely</span>
+  <span class="c1"># return would exit the enclosing method</span>
+<span class="k">end</span>
+
+<span class="c1"># for loop (rarely used - prefer enumerators)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">5</span>
+  <span class="k">next</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span>
+  <span class="k">break</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">4</span>
+<span class="k">end</span>
+
+<span class="c1"># Idiomatic Ruby: Use enumerators instead of 'for'</span>
+<span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">5</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+  <span class="c1"># Preferred over 'for'</span>
+<span class="k">end</span>
+
+<span class="c1"># Use each_with_index when you need the iteration number</span>
+<span class="n">items</span><span class="p">.</span><span class="nf">each_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">item</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="c1"># Other useful enumerators</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">i</span> <span class="p">}</span>           <span class="c1"># 0 to 4</span>
+<span class="mi">3</span><span class="p">.</span><span class="nf">upto</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">i</span> <span class="p">}</span>         <span class="c1"># 3 to 7</span>
+<span class="mi">10</span><span class="p">.</span><span class="nf">downto</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">i</span> <span class="p">}</span>      <span class="c1"># 10 to 5</span>
+</code></pre>
+<p><strong>Note</strong>: The <code>for</code> loop exists but is rarely used in Ruby. Prefer <code>.each</code>, <code>.each_with_index</code>, <code>.times</code>, etc. They're more idiomatic and work better with blocks.</p>
+<h3><a href="#in-blocks-each-map-etc" aria-hidden="true" class="anchor" id="in-blocks-each-map-etc"></a>In Blocks (each, map, etc.)</h3>
+<pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
+  <span class="k">next</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span>        <span class="c1"># Skip to next iteration (like 'continue')</span>
+  <span class="k">break</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">3</span>       <span class="c1"># Exit the iteration entirely</span>
+  <span class="c1"># return would exit the ENCLOSING METHOD, not just the block</span>
+<span class="k">end</span>
+
+<span class="c1"># Practical example</span>
+<span class="k">def</span> <span class="nf">process_items</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
+    <span class="k">return</span> <span class="s2">"early exit"</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span>  <span class="c1"># Returns from process_items!</span>
+  <span class="k">end</span>
+  <span class="s2">"finished"</span>
+<span class="k">end</span>
+<span class="n">process_items</span>  <span class="c1"># =&gt; "early exit"</span>
+</code></pre>
+<h3><a href="#in-procs-vs-lambdas-critical-difference" aria-hidden="true" class="anchor" id="in-procs-vs-lambdas-critical-difference"></a>In Procs vs Lambdas (CRITICAL DIFFERENCE)</h3>
+<pre class="highlight"><code><span class="c1"># Proc: 'return' exits the enclosing method</span>
+<span class="k">def</span> <span class="nf">proc_test</span>
+  <span class="nb">p</span> <span class="o">=</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">"from proc"</span> <span class="p">}</span>
+  <span class="nb">p</span><span class="p">.</span><span class="nf">call</span>
+  <span class="s2">"after proc"</span>  <span class="c1"># Never reached!</span>
+<span class="k">end</span>
+<span class="n">proc_test</span>  <span class="c1"># =&gt; "from proc"</span>
+
+<span class="c1"># Lambda: 'return' exits only the lambda</span>
+<span class="k">def</span> <span class="nf">lambda_test</span>
+  <span class="n">l</span> <span class="o">=</span> <span class="o">-&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s2">"from lambda"</span> <span class="p">}</span>
+  <span class="n">l</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+  <span class="s2">"after lambda"</span>  <span class="c1"># This DOES execute</span>
+<span class="k">end</span>
+<span class="n">lambda_test</span>  <span class="c1"># =&gt; "after lambda"</span>
+
+<span class="c1"># next/break work the same in both</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="no">Proc</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span> <span class="k">next</span> <span class="s2">"skip"</span> <span class="p">}</span>   <span class="c1"># Returns "skip" from the proc</span>
+<span class="nb">p</span><span class="p">.</span><span class="nf">call</span>  <span class="c1"># =&gt; "skip"</span>
+</code></pre>
+<h3><a href="#top-level-context" aria-hidden="true" class="anchor" id="top-level-context"></a>Top-Level Context</h3>
+<pre class="highlight"><code><span class="c1"># In a script file:</span>
+<span class="k">return</span>      <span class="c1"># Returns from the file (exits script)</span>
+<span class="k">break</span>       <span class="c1"># SyntaxError: can't escape from eval with break</span>
+<span class="k">next</span>        <span class="c1"># SyntaxError: Invalid next</span>
+
+<span class="c1"># Top-level in irb/pry:</span>
+<span class="k">return</span>      <span class="c1"># LocalJumpError</span>
+<span class="k">break</span>       <span class="c1"># LocalJumpError</span>
+</code></pre>
+<h3><a href="#summary-table" aria-hidden="true" class="anchor" id="summary-table"></a>Summary Table</h3>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th><code>next</code></th>
+<th><code>break</code></th>
+<th><code>return</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Loop (while/for)</td>
+<td>Next iteration</td>
+<td>Exit loop</td>
+<td>Exit method</td>
+</tr>
+<tr>
+<td>Block (each/map)</td>
+<td>Next iteration</td>
+<td>Exit iteration</td>
+<td><strong>Exit enclosing method</strong></td>
+</tr>
+<tr>
+<td>Proc</td>
+<td>Return value from proc</td>
+<td>Exit proc with value</td>
+<td><strong>Exit enclosing method</strong></td>
+</tr>
+<tr>
+<td>Lambda</td>
+<td>Return value from lambda</td>
+<td>Exit lambda with value</td>
+<td>Exit lambda only</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Exit method with value</td>
+</tr>
+<tr>
+<td>Top-level</td>
+<td>Error</td>
+<td>Error</td>
+<td>Exit script/error</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key gotcha</strong>: <code>return</code> in a block exits the method containing the block, not just the block!</p>
+<h2><a href="#common-idioms" aria-hidden="true" class="anchor" id="common-idioms"></a>Common Idioms</h2>
+<pre class="highlight"><code><span class="c1"># Safe navigation</span>
+<span class="n">user</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">name</span>                 <span class="c1"># Returns nil if user is nil</span>
+
+<span class="c1"># Conditional assignment</span>
+<span class="n">x</span> <span class="o">||=</span> <span class="mi">5</span>                    <span class="c1"># x = x || 5 (assigns if falsy)</span>
+<span class="n">x</span> <span class="o">&amp;&amp;=</span> <span class="mi">5</span>                    <span class="c1"># x = x &amp;&amp; 5 (assigns if truthy)</span>
+
+<span class="c1"># Ternary</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">active?</span> <span class="p">?</span> <span class="s2">"on"</span> <span class="p">:</span> <span class="s2">"off"</span>
+
+<span class="c1"># case/when (uses ===)</span>
+<span class="k">case</span> <span class="n">value</span>
+<span class="k">when</span> <span class="no">String</span> <span class="k">then</span> <span class="s2">"text"</span>
+<span class="k">when</span> <span class="mi">0</span><span class="o">..</span><span class="mi">10</span> <span class="k">then</span> <span class="s2">"small number"</span>
+<span class="k">when</span> <span class="no">Integer</span> <span class="k">then</span> <span class="s2">"number"</span>
+<span class="k">else</span> <span class="s2">"unknown"</span>
+<span class="k">end</span>
+
+<span class="c1"># Splat operators</span>
+<span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>          <span class="c1"># Collects arguments into array</span>
+  <span class="n">args</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">a</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">method</span><span class="p">(</span><span class="o">*</span><span class="n">arr</span><span class="p">)</span>               <span class="c1"># Expands array into arguments</span>
+
+<span class="k">def</span> <span class="nf">keyword_method</span><span class="p">(</span><span class="nb">name</span><span class="p">:,</span> <span class="ss">age: </span><span class="mi">18</span><span class="p">)</span>  <span class="c1"># Keyword arguments</span>
+  <span class="s2">"</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> is </span><span class="si">#{</span><span class="n">age</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="c1"># Double splat for hashes</span>
+<span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+  <span class="n">opts</span><span class="p">[</span><span class="ss">:debug</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#string-interpolation--symbols" aria-hidden="true" class="anchor" id="string-interpolation--symbols"></a>String Interpolation &amp; Symbols</h2>
+<pre class="highlight"><code><span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tom"</span>
+<span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>            <span class="c1"># Interpolation (double quotes only)</span>
+<span class="s1">'Hello #{name}'</span>            <span class="c1"># Literal (single quotes)</span>
+
+<span class="sx">%Q(Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">)</span>          <span class="c1"># Alternative double quote</span>
+<span class="sx">%q(Hello #{name})</span>          <span class="c1"># Alternative single quote</span>
+
+<span class="c1"># Symbols (immutable, unique)</span>
+<span class="ss">:symbol</span>                    <span class="c1"># Memory efficient for hash keys</span>
+<span class="p">{</span> <span class="ss">name: </span><span class="s2">"Tom"</span> <span class="p">}</span>            <span class="c1"># Same as { :name =&gt; "Tom" }</span>
+</code></pre>
+<h2><a href="#enumerable-methods-arrayshashes" aria-hidden="true" class="anchor" id="enumerable-methods-arrayshashes"></a>Enumerable Methods (Arrays/Hashes)</h2>
+<pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>              <span class="c1"># =&gt; [2, 4, 6]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">}</span>           <span class="c1"># =&gt; [2, 3]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">}</span>           <span class="c1"># =&gt; [1]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">sum</span><span class="p">,</span> <span class="n">n</span><span class="o">|</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">n</span> <span class="p">}</span> <span class="c1"># =&gt; 6</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">each_with_index</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="p">,</span> <span class="n">i</span><span class="o">|</span> <span class="p">}</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">any?</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">}</span>             <span class="c1"># =&gt; true</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">all?</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">}</span>             <span class="c1"># =&gt; true</span>
+
+<span class="c1"># Chaining</span>
+<span class="n">users</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:active?</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:email</span><span class="p">).</span><span class="nf">sort</span>
+</code></pre>
+<h2><a href="#command-line-options" aria-hidden="true" class="anchor" id="command-line-options"></a>Command Line Options</h2>
+<pre class="highlight"><code>ruby script.rb              <span class="c"># Run script</span>
+ruby <span class="nt">-e</span> <span class="s1">'puts "hello"'</span>      <span class="c"># Execute code</span>
+ruby <span class="nt">-c</span> script.rb           <span class="c"># Check syntax</span>
+ruby <span class="nt">-w</span> script.rb           <span class="c"># Warnings enabled</span>
+ruby <span class="nt">-I</span>./lib script.rb      <span class="c"># Add to load path</span>
+ruby <span class="nt">-r</span> debug script.rb     <span class="c"># Require library before running</span>
+
+<span class="c"># Useful globals</span>
+<span class="nt">-d</span>, <span class="nt">--debug</span>                 <span class="c"># Debug mode ($DEBUG = true)</span>
+<span class="nt">-w</span>, <span class="nt">--warning</span>               <span class="c"># Warnings</span>
+<span class="nt">-v</span>, <span class="nt">--version</span>               <span class="c"># Version info</span>
+<span class="nt">-h</span>, <span class="nt">--help</span>                  <span class="c"># Help</span>
+</code></pre>
+<h2><a href="#important-globals" aria-hidden="true" class="anchor" id="important-globals"></a>Important Globals</h2>
+<pre class="highlight"><code><span class="vg">$0</span>                          <span class="c1"># Current script filename</span>
+<span class="vg">$:</span>  <span class="ow">or</span>  <span class="vg">$LOAD_PATH</span>          <span class="c1"># Array of load paths</span>
+<span class="vg">$?</span>                          <span class="c1"># Last process exit status</span>
+<span class="no">ARGV</span>                        <span class="c1"># Command line arguments array</span>
+<span class="no">ENV</span>                         <span class="c1"># Environment variables hash</span>
+<span class="kp">__FILE__</span>                    <span class="c1"># Current file path</span>
+<span class="kp">__LINE__</span>                    <span class="c1"># Current line number</span>
+<span class="n">__dir__</span>                     <span class="c1"># Current directory (Ruby 2.0+)</span>
+
+<span class="c1"># Less common but useful</span>
+<span class="vg">$stdin</span><span class="p">,</span> <span class="vg">$stdout</span><span class="p">,</span> <span class="vg">$stderr</span>    <span class="c1"># Standard streams</span>
+<span class="vg">$DEBUG</span>                      <span class="c1"># Debug flag</span>
+<span class="vg">$VERBOSE</span>                    <span class="c1"># Verbosity level</span>
+</code></pre>
+<h2><a href="#common-methods-to-know" aria-hidden="true" class="anchor" id="common-methods-to-know"></a>Common Methods to Know</h2>
+<pre class="highlight"><code><span class="c1"># Object</span>
+<span class="p">.</span><span class="nf">class</span>                      <span class="c1"># Object's class</span>
+<span class="p">.</span><span class="nf">is_a?</span><span class="p">(</span><span class="no">Class</span><span class="p">)</span>              <span class="c1"># Type check</span>
+<span class="p">.</span><span class="nf">respond_to?</span><span class="p">(</span><span class="ss">:method</span><span class="p">)</span>      <span class="c1"># Duck typing check</span>
+<span class="p">.</span><span class="nf">nil?</span>                       <span class="c1"># Nil check</span>
+<span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:method</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>        <span class="c1"># Dynamic method call</span>
+<span class="p">.</span><span class="nf">method</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>              <span class="c1"># Get method object</span>
+
+<span class="c1"># String</span>
+<span class="p">.</span><span class="nf">length</span> <span class="o">/</span> <span class="p">.</span><span class="nf">size</span>
+<span class="p">.</span><span class="nf">upcase</span> <span class="o">/</span> <span class="p">.</span><span class="nf">downcase</span> <span class="o">/</span> <span class="p">.</span><span class="nf">capitalize</span>
+<span class="p">.</span><span class="nf">strip</span> <span class="o">/</span> <span class="p">.</span><span class="nf">chomp</span>             <span class="c1"># Remove whitespace/newlines</span>
+<span class="p">.</span><span class="nf">split</span> <span class="o">/</span> <span class="p">.</span><span class="nf">join</span>
+<span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">replacement</span><span class="p">)</span> <span class="c1"># Global substitute</span>
+<span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="n">regex</span><span class="p">)</span>
+<span class="p">.</span><span class="nf">to_i</span> <span class="o">/</span> <span class="p">.</span><span class="nf">to_f</span> <span class="o">/</span> <span class="p">.</span><span class="nf">to_sym</span>
+
+<span class="c1"># Array</span>
+<span class="p">.</span><span class="nf">length</span> <span class="o">/</span> <span class="p">.</span><span class="nf">size</span> <span class="o">/</span> <span class="p">.</span><span class="nf">count</span>
+<span class="p">.</span><span class="nf">first</span> <span class="o">/</span> <span class="p">.</span><span class="nf">last</span>
+<span class="p">.</span><span class="nf">push</span> <span class="o">/</span> <span class="p">.</span><span class="nf">pop</span> <span class="o">/</span> <span class="p">.</span><span class="nf">shift</span> <span class="o">/</span> <span class="p">.</span><span class="nf">unshift</span>
+<span class="p">.</span><span class="nf">flatten</span> <span class="o">/</span> <span class="p">.</span><span class="nf">compact</span>         <span class="c1"># Remove nesting / nils</span>
+<span class="p">.</span><span class="nf">uniq</span> <span class="o">/</span> <span class="p">.</span><span class="nf">sort</span>
+<span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<span class="o">&amp;</span> <span class="o">|</span> <span class="o">-</span>                       <span class="c1"># Set operations</span>
+
+<span class="c1"># Hash</span>
+<span class="p">.</span><span class="nf">keys</span> <span class="o">/</span> <span class="p">.</span><span class="nf">values</span>
+<span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+<span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">other_hash</span><span class="p">)</span>
+<span class="p">.</span><span class="nf">dig</span><span class="p">(</span><span class="ss">:key</span><span class="p">,</span> <span class="ss">:nested_key</span><span class="p">)</span>     <span class="c1"># Safe nested access</span>
+<span class="p">.</span><span class="nf">transform_keys</span> <span class="o">/</span> <span class="p">.</span><span class="nf">transform_values</span>
+</code></pre>
+<h2><a href="#file-io" aria-hidden="true" class="anchor" id="file-io"></a>File I/O</h2>
+<pre class="highlight"><code><span class="c1"># Read</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s2">"file.txt"</span><span class="p">)</span>                    <span class="c1"># Entire file</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">readlines</span><span class="p">(</span><span class="s2">"file.txt"</span><span class="p">)</span>               <span class="c1"># Array of lines</span>
+
+<span class="c1"># Write</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="s2">"file.txt"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">)</span>        <span class="c1"># Overwrite</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s2">"file.txt"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="n">f</span><span class="p">.</span><span class="nf">puts</span> <span class="s2">"append"</span> <span class="p">}</span>
+
+<span class="c1"># Block form (auto-closes)</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s2">"file.txt"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="n">f</span><span class="p">.</span><span class="nf">each_line</span> <span class="p">{</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">line</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># Check existence</span>
+<span class="no">File</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="s2">"file.txt"</span><span class="p">)</span>
+<span class="no">Dir</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+</code></pre>
+<h2><a href="#requiring-files" aria-hidden="true" class="anchor" id="requiring-files"></a>Requiring Files</h2>
+<pre class="highlight"><code><span class="nb">require</span> <span class="s2">"json"</span>              <span class="c1"># Load from $LOAD_PATH (once)</span>
+<span class="nb">require_relative</span> <span class="s2">"lib/helper"</span>  <span class="c1"># Relative to current file</span>
+<span class="nb">load</span> <span class="s2">"script.rb"</span>            <span class="c1"># Always reload</span>
+
+<span class="c1"># Autoload (lazy load)</span>
+<span class="nb">autoload</span> <span class="ss">:MyClass</span><span class="p">,</span> <span class="s2">"my_class"</span>
+</code></pre>
+<h2><a href="#exception-handling" aria-hidden="true" class="anchor" id="exception-handling"></a>Exception Handling</h2>
+<pre class="highlight"><code><span class="k">begin</span>
+  <span class="c1"># Code that might fail</span>
+  <span class="n">risky_operation</span>
+<span class="k">rescue</span> <span class="no">SpecificError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="c1"># Handle specific error</span>
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">message</span>
+  <span class="nb">puts</span> <span class="n">e</span><span class="p">.</span><span class="nf">backtrace</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>               <span class="c1"># Catches StandardError</span>
+  <span class="c1"># Handle any error</span>
+<span class="k">ensure</span>
+  <span class="c1"># Always runs</span>
+<span class="k">end</span>
+
+<span class="c1"># Inline rescue</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">risky_call</span> <span class="k">rescue</span> <span class="s2">"default"</span>
+
+<span class="c1"># Method-level rescue (implicit begin/end)</span>
+<span class="k">def</span> <span class="nf">save_user</span>
+  <span class="no">User</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span>
+  <span class="n">notify_admin</span>
+<span class="k">rescue</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">RecordInvalid</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="n">log_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="kp">false</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="n">log_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+  <span class="k">raise</span>  <span class="c1"># Re-raise the exception</span>
+<span class="k">ensure</span>
+  <span class="n">cleanup_temp_files</span>
+<span class="k">end</span>
+
+<span class="c1"># Raising</span>
+<span class="k">raise</span> <span class="s2">"Error message"</span>
+<span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s2">"Bad argument"</span>
+<span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Bad argument"</span><span class="p">)</span>
+
+<span class="c1"># Retry</span>
+<span class="k">def</span> <span class="nf">fetch_data</span>
+  <span class="n">attempts</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">begin</span>
+    <span class="n">attempts</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">make_api_call</span>
+  <span class="k">rescue</span> <span class="no">NetworkError</span> <span class="o">=&gt;</span> <span class="n">e</span>
+    <span class="k">retry</span> <span class="k">if</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="mi">3</span>
+    <span class="k">raise</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#metaprogramming-basics" aria-hidden="true" class="anchor" id="metaprogramming-basics"></a>Metaprogramming Basics</h2>
+<pre class="highlight"><code><span class="c1"># Define method dynamically</span>
+<span class="n">define_method</span><span class="p">(</span><span class="ss">:greet</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span>
+  <span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="c1"># Missing method handler</span>
+<span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">name</span><span class="p">.</span><span class="nf">to_s</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"find_by_"</span><span class="p">)</span>
+    <span class="c1"># Handle dynamically</span>
+  <span class="k">else</span>
+    <span class="k">super</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Class eval</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">class_eval</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="nf">new_method</span>
+    <span class="s2">"added later"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Instance eval</span>
+<span class="n">obj</span><span class="p">.</span><span class="nf">instance_eval</span> <span class="k">do</span>
+  <span class="vi">@private_var</span> <span class="o">=</span> <span class="s2">"accessible here"</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#testing-minitestrspec-basics" aria-hidden="true" class="anchor" id="testing-minitestrspec-basics"></a>Testing (Minitest/RSpec basics)</h2>
+<pre class="highlight"><code><span class="c1"># Minitest</span>
+<span class="nb">require</span> <span class="s2">"minitest/autorun"</span>
+
+<span class="k">class</span> <span class="nc">TestUser</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+  <span class="k">def</span> <span class="nf">test_creation</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+    <span class="n">assert_equal</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="n">user</span><span class="p">.</span><span class="nf">name</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># RSpec</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">"creates with name"</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#gems--bundler" aria-hidden="true" class="anchor" id="gems--bundler"></a>Gems &amp; Bundler</h2>
+<pre class="highlight"><code>gem <span class="nb">install </span>rails           <span class="c"># Install gem globally</span>
+gem list                    <span class="c"># Show installed gems</span>
+gem uninstall rails         <span class="c"># Remove gem</span>
+
+<span class="c"># Bundler</span>
+bundle <span class="nb">install</span>              <span class="c"># Install from Gemfile</span>
+bundle update               <span class="c"># Update gems</span>
+bundle <span class="nb">exec </span>rake task       <span class="c"># Run with Bundler context</span>
+</code></pre>
+<pre class="highlight"><code><span class="c1"># Gemfile</span>
+<span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
+
+<span class="n">gem</span> <span class="s2">"rails"</span><span class="p">,</span> <span class="s2">"~&gt; 7.0"</span>       <span class="c1"># Pessimistic version</span>
+<span class="n">gem</span> <span class="s2">"pg"</span>                    <span class="c1"># Latest version</span>
+<span class="n">gem</span> <span class="s2">"debug"</span><span class="p">,</span> <span class="ss">group: :development</span>
+</code></pre>
+<h2><a href="#ruby-is-not-rails" aria-hidden="true" class="anchor" id="ruby-is-not-rails"></a>Ruby is NOT Rails</h2>
+<p>A common source of confusion: <strong>Ruby is the language, Rails is a web framework written in Ruby.</strong></p>
+<h3><a href="#this-is-ruby-works-anywhere" aria-hidden="true" class="anchor" id="this-is-ruby-works-anywhere"></a>This is Ruby (works anywhere)</h3>
+<pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+    <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+    <span class="vi">@email</span> <span class="o">=</span> <span class="n">email</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">valid?</span>
+    <span class="o">!</span><span class="nb">name</span><span class="p">.</span><span class="nf">nil?</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">email</span><span class="p">.</span><span class="nf">nil?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">,</span> <span class="s2">"tom@example.com"</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="n">user</span><span class="p">.</span><span class="nf">name</span>  <span class="c1"># =&gt; "Tom"</span>
+</code></pre>
+<h3><a href="#this-is-rails-only-works-in-rails-apps" aria-hidden="true" class="anchor" id="this-is-rails-only-works-in-rails-apps"></a>This is Rails (only works in Rails apps)</h3>
+<pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>  <span class="c1"># ApplicationRecord is Rails</span>
+  <span class="n">validates</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>     <span class="c1"># Rails validation</span>
+  <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
+
+  <span class="n">has_many</span> <span class="ss">:posts</span>                     <span class="c1"># Rails association</span>
+  <span class="n">belongs_to</span> <span class="ss">:organization</span>
+
+  <span class="n">scope</span> <span class="ss">:active</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">active: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># Rails scope</span>
+<span class="k">end</span>
+
+<span class="c1"># ActiveRecord query methods (Rails)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">active: </span><span class="kp">true</span><span class="p">).</span><span class="nf">order</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"tom@example.com"</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">email: </span><span class="s2">"tom@example.com"</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#common-confusion-points" aria-hidden="true" class="anchor" id="common-confusion-points"></a>Common Confusion Points</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Ruby or Rails?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>attr_accessor</code></td>
+<td><strong>Ruby</strong></td>
+<td>Built into the language</td>
+</tr>
+<tr>
+<td><code>validates</code></td>
+<td><strong>Rails</strong></td>
+<td>ActiveRecord/ActiveModel</td>
+</tr>
+<tr>
+<td><code>has_many</code>, <code>belongs_to</code></td>
+<td><strong>Rails</strong></td>
+<td>ActiveRecord associations</td>
+</tr>
+<tr>
+<td><code>where</code>, <code>find</code>, <code>create</code></td>
+<td><strong>Rails</strong></td>
+<td>ActiveRecord query interface</td>
+</tr>
+<tr>
+<td>Classes, modules</td>
+<td><strong>Ruby</strong></td>
+<td>Core language features</td>
+</tr>
+<tr>
+<td><code>ApplicationRecord</code></td>
+<td><strong>Rails</strong></td>
+<td>Base class for models</td>
+</tr>
+<tr>
+<td><code>params</code>, <code>session</code>, <code>cookies</code></td>
+<td><strong>Rails</strong></td>
+<td>Controller/request objects</td>
+</tr>
+<tr>
+<td><code>render</code>, <code>redirect_to</code></td>
+<td><strong>Rails</strong></td>
+<td>Controller methods</td>
+</tr>
+<tr>
+<td><code>link_to</code>, <code>form_with</code></td>
+<td><strong>Rails</strong></td>
+<td>View helpers</td>
+</tr>
+<tr>
+<td>Blocks, procs, lambdas</td>
+<td><strong>Ruby</strong></td>
+<td>Core language features</td>
+</tr>
+<tr>
+<td>String methods (<code>.upcase</code>, <code>.strip</code>)</td>
+<td><strong>Ruby</strong></td>
+<td>Standard library</td>
+</tr>
+<tr>
+<td><code>.blank?</code>, <code>.present?</code></td>
+<td><strong>Rails</strong></td>
+<td>ActiveSupport extensions</td>
+</tr>
+<tr>
+<td><code>.to_json</code></td>
+<td><strong>Ruby</strong> (stdlib)</td>
+<td>But Rails extends it heavily</td>
+</tr>
+<tr>
+<td><code>1.day.ago</code>, <code>2.weeks.from_now</code></td>
+<td><strong>Rails</strong></td>
+<td>ActiveSupport time extensions</td>
+</tr>
+<tr>
+<td><code>.pluralize</code>, <code>.singularize</code></td>
+<td><strong>Rails</strong></td>
+<td>ActiveSupport inflections</td>
+</tr>
+<tr>
+<td><code>Rails.logger</code></td>
+<td><strong>Rails</strong></td>
+<td>Framework logger</td>
+</tr>
+<tr>
+<td><code>puts</code>, <code>print</code>, <code>p</code></td>
+<td><strong>Ruby</strong></td>
+<td>Standard output methods</td>
+</tr>
+</tbody>
+</table>
+<h3><a href="#activesupport-blurs-the-line" aria-hidden="true" class="anchor" id="activesupport-blurs-the-line"></a>ActiveSupport Blurs the Line</h3>
+<p>Rails includes <strong>ActiveSupport</strong>, which adds many convenience methods to Ruby's core classes. These work in Rails but NOT in plain Ruby:</p>
+<pre class="highlight"><code><span class="c1"># Plain Ruby - works everywhere</span>
+<span class="s2">"hello"</span><span class="p">.</span><span class="nf">upcase</span>              <span class="c1"># =&gt; "HELLO"</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">first</span>             <span class="c1"># =&gt; 1</span>
+
+<span class="c1"># ActiveSupport (Rails only) - won't work in plain Ruby scripts</span>
+<span class="s2">"hello"</span><span class="p">.</span><span class="nf">blank?</span>              <span class="c1"># Checks if empty/whitespace</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">second</span>            <span class="c1"># =&gt; 2</span>
+<span class="mi">1</span><span class="p">.</span><span class="nf">day</span><span class="p">.</span><span class="nf">ago</span>                   <span class="c1"># Time calculation</span>
+<span class="s2">"user_name"</span><span class="p">.</span><span class="nf">camelize</span>        <span class="c1"># =&gt; "UserName"</span>
+<span class="p">{</span> <span class="ss">a: </span><span class="mi">1</span> <span class="p">}.</span><span class="nf">symbolize_keys</span>     <span class="c1"># Already symbols, but shows the method</span>
+</code></pre>
+<p>To use ActiveSupport features outside Rails:</p>
+<pre class="highlight"><code><span class="nb">require</span> <span class="s2">"active_support/all"</span>
+<span class="c1"># Now you have Rails-style extensions in plain Ruby</span>
+</code></pre>
+<h3><a href="#testing-where-things-get-mixed" aria-hidden="true" class="anchor" id="testing-where-things-get-mixed"></a>Testing: Where Things Get Mixed</h3>
+<pre class="highlight"><code><span class="c1"># Plain Ruby (Minitest) - works anywhere</span>
+<span class="nb">require</span> <span class="s2">"minitest/autorun"</span>
+
+<span class="k">class</span> <span class="nc">TestUser</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+  <span class="k">def</span> <span class="nf">test_valid</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">,</span> <span class="s2">"tom@example.com"</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="n">user</span><span class="p">.</span><span class="nf">valid?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Rails testing - needs Rails environment</span>
+<span class="nb">require</span> <span class="s2">"test_helper"</span>  <span class="c1"># Loads Rails</span>
+
+<span class="k">class</span> <span class="nc">UserTest</span> <span class="o">&lt;</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">TestCase</span>  <span class="c1"># Rails base class</span>
+  <span class="nb">test</span> <span class="s2">"should be valid"</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">users</span><span class="p">(</span><span class="ss">:tom</span><span class="p">)</span>  <span class="c1"># Rails fixture</span>
+    <span class="n">assert</span> <span class="n">user</span><span class="p">.</span><span class="nf">valid?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#key-takeaway" aria-hidden="true" class="anchor" id="key-takeaway"></a>Key Takeaway</h3>
+<p>If you're writing a <strong>Ruby script</strong> (automation, CLI tool, gem):</p>
+<ul>
+<li>Use only Ruby stdlib features</li>
+<li>Install specific gems you need</li>
+<li>No access to Rails helpers/methods</li>
+</ul>
+<p>If you're in a <strong>Rails application</strong>:</p>
+<ul>
+<li>You have Ruby + Rails + ActiveSupport</li>
+<li>Models inherit from ApplicationRecord</li>
+<li>Controllers/views have tons of helper methods</li>
+</ul>
+<p><strong>When learning</strong>: Try features in plain <code>irb</code> vs <code>rails console</code> to see the difference!</p>
+<h2><a href="#key-differences-from-other-languages" aria-hidden="true" class="anchor" id="key-differences-from-other-languages"></a>Key Differences from Other Languages</h2>
+<ul>
+<li>No semicolons needed (but allowed)</li>
+<li>No <code>return</code> needed (last expression is returned)</li>
+<li>Everything is truthy except <code>false</code> and <code>nil</code></li>
+<li>Parentheses optional for method calls: <code>puts &quot;hi&quot;</code> = <code>puts(&quot;hi&quot;)</code></li>
+<li>Methods can end with <code>?</code> (predicate) or <code>!</code> (mutation/danger)</li>
+<li>Open classes: Can modify any class, even built-ins</li>
+<li><code>return</code> in blocks exits the enclosing method (not the block!)</li>
+<li>Procs and lambdas handle <code>return</code> differently</li>
+<li><strong>Prefer enumerators over <code>for</code> loops</strong>: Use <code>.each</code>, <code>.each_with_index</code>, <code>.times</code> instead</li>
+<li><strong>Ruby ≠ Rails</strong>: Many &quot;Ruby&quot; features you see online are actually Rails</li>
+</ul>
+<p>That's the essential Ruby. The rest is discovering the rich standard library and ecosystem.</p>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>

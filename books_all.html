@@ -96,15 +96,15 @@
   <div class="summary">
     <div class="stat-card">
       <h3>Total Books</h3>
-      <div class="value">4</div>
+      <div class="value">6</div>
     </div>
     <div class="stat-card">
       <h3>Total Pages Read</h3>
-      <div class="value">965</div>
+      <div class="value">1,597</div>
     </div>
     <div class="stat-card">
       <h3>Completed</h3>
-      <div class="value">2</div>
+      <div class="value">4</div>
     </div>
     <div class="stat-card">
       <h3>In Progress</h3>
@@ -141,25 +141,43 @@
     </thead>
     <tbody>
 <tr>
-  <td>1929: Inside the Greatest Crash in Wall Street History--and How It Shattered a Nation</td>
+  <td>Jesus, Interrupted: Revealing the Hidden Contradictions in the Bible (And Why We Don&#39;t Know About Them) <sub><a href="https://amzn.to/4qJMkIX">(affiliate link)</a></sub></td>
+  <td>Bart D. Ehrman</td>
+  <td>1</td>
+  <td>304</td>
+  <td>0%</td>
+  <td>2026-02-15</td>
+  <td class="status-reading">Reading</td>
+</tr>
+<tr>
+  <td>AI Engineering: Building Applications with Foundation Models <sub><a href="https://amzn.to/4qnQVjW">(affiliate link)</a></sub></td>
+  <td>Chip Huyen</td>
+  <td>43</td>
+  <td>532</td>
+  <td>8%</td>
+  <td>2026-02-15</td>
+  <td class="status-reading">Reading</td>
+</tr>
+<tr>
+  <td>1929: Inside the Greatest Crash in Wall Street History--and How It Shattered a Nation <sub><a href="https://amzn.to/4rCxcha">(affiliate link)</a></sub></td>
   <td>Andrew Ross Sorkin</td>
-  <td>61</td>
   <td>592</td>
-  <td>10%</td>
-  <td>2026-01-30</td>
-  <td class="status-reading">Reading</td>
+  <td>592</td>
+  <td>100%</td>
+  <td>2026-02-15</td>
+  <td class="status-completed">Completed</td>
 </tr>
 <tr>
-  <td>Genetic Algorithms and Machine Learning for Programmers</td>
+  <td>Genetic Algorithms and Machine Learning for Programmers <sub><a href="https://amzn.to/3LYkFFK">(affiliate link)</a></sub></td>
   <td>Frances Buontempo</td>
-  <td>179</td>
   <td>236</td>
-  <td>76%</td>
-  <td>2026-01-30</td>
-  <td class="status-reading">Reading</td>
+  <td>236</td>
+  <td>100%</td>
+  <td>2026-02-02</td>
+  <td class="status-completed">Completed</td>
 </tr>
 <tr>
-  <td>Dopesick: Dealers, Doctors, and the Drug Company that Addicted America</td>
+  <td>Dopesick: Dealers, Doctors, and the Drug Company that Addicted America <sub><a href="https://amzn.to/3YTtJPa">(affiliate link)</a></sub></td>
   <td>Beth Macy</td>
   <td>400</td>
   <td>400</td>
@@ -168,7 +186,7 @@
   <td class="status-completed">Completed</td>
 </tr>
 <tr>
-  <td>Ruby Best Practices</td>
+  <td>Ruby Best Practices: Increase Your Productivity - Write Better Code <sub><a href="https://amzn.to/4sTqiph">(affiliate link)</a></sub></td>
   <td>Gregory T. Brown</td>
   <td>325</td>
   <td>325</td>
@@ -185,8 +203,8 @@
   </div>
 
   <script>
-    const yearlyPagesPerDay = [32.2];
-    const monthlyPagesPerDay = [32.2];
+    const yearlyPagesPerDay = [34.7];
+    const monthlyPagesPerDay = [23.4,58.1];
 
     const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
     new Chart(yearlyCtx, {
@@ -195,7 +213,7 @@
         labels: [2026],
         datasets: [{
           label: 'Pages Read',
-          data: [965],
+          data: [1597],
           backgroundColor: 'rgba(52, 152, 219, 0.7)',
           borderColor: 'rgba(52, 152, 219, 1)',
           borderWidth: 1
@@ -227,10 +245,10 @@
     new Chart(monthlyCtx, {
       type: 'bar',
       data: {
-        labels: ["2026-01"],
+        labels: ["2026-01","2026-02"],
         datasets: [{
           label: 'Pages Read',
-          data: [965],
+          data: [725,872],
           backgroundColor: 'rgba(46, 204, 113, 0.7)',
           borderColor: 'rgba(46, 204, 113, 1)',
           borderWidth: 1

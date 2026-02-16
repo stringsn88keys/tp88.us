@@ -48,7 +48,8 @@ def parse_duration_to_minutes(duration_str)
   return 0 unless duration_str
   hours = duration_str.match(/(\d+)\s*hours?/i)&.[](1).to_i
   minutes = duration_str.match(/(\d+)\s*minutes?/i)&.[](1).to_i
-  hours * 60 + minutes
+  seconds = duration_str.match(/(\d+)\s*seconds?/i)&.[](1).to_i
+  hours * 60 + minutes + (1/60.0) * seconds
 end
 
 # Helper to parse percent like "22%"
@@ -113,23 +114,75 @@ book_details = []
 
 filtered_books.each do |book|
   pages_read = calculate_pages_read(book)
-  date = get_book_date(book)
-  year = date.year
-  month = date.month
-  month_key = date.strftime("%Y-%m")
+  total_pages = parse_pages(book['print_length'])
+  is_completed = completed?(book)
 
-  monthly_data[year][month] += pages_read
-  yearly_data[year] += pages_read
+  if is_completed
+    # Completed books: assign all pages to finish date
+    date = get_book_date(book)
+    year = date.year
+    month = date.month
+    month_key = date.strftime("%Y-%m")
 
-  book_details << {
-    title: book['title'],
-    author: book['author'],
-    pages_read: pages_read,
-    total_pages: parse_pages(book['print_length']),
-    date: date,
-    completed: completed?(book),
-    month_key: month_key
-  }
+    monthly_data[year][month] += pages_read
+    yearly_data[year] += pages_read
+
+    full_title = book['subtitle'] ? "#{book['title']}: #{book['subtitle']}" : book['title']
+    book_details << {
+      title: full_title,
+      author: book['author'],
+      pages_read: pages_read,
+      total_pages: total_pages,
+      date: date,
+      completed: true,
+      month_key: month_key,
+      associates_link: book['associates_link']
+    }
+  else
+    # In-progress books: distribute pages evenly from date_started to today
+    date_started = book['date_started']
+    if date_started
+      date_started = Date.parse(date_started.to_s) unless date_started.is_a?(Date)
+      end_date = Date.today
+      total_days = (end_date - date_started).to_i + 1
+      pages_per_day = total_days > 0 ? pages_read.to_f / total_days : 0
+
+      # Iterate through each month from start to today
+      current = date_started
+      while current <= end_date
+        month_start = Date.new(current.year, current.month, 1)
+        month_end = Date.new(current.year, current.month, -1)
+        # Clamp to actual reading period
+        period_start = [month_start, date_started].max
+        period_end = [month_end, end_date].min
+        days_in_month = (period_end - period_start).to_i + 1
+
+        month_pages = (days_in_month * pages_per_day).round
+        monthly_data[current.year][current.month] += month_pages
+        yearly_data[current.year] += month_pages
+
+        # Move to next month
+        current = Date.new(current.year, current.month, 1).next_month
+      end
+    else
+      # No date_started, fall back to today
+      end_date = Date.today
+      monthly_data[end_date.year][end_date.month] += pages_read
+      yearly_data[end_date.year] += pages_read
+    end
+
+    full_title = book['subtitle'] ? "#{book['title']}: #{book['subtitle']}" : book['title']
+    book_details << {
+      title: full_title,
+      author: book['author'],
+      pages_read: pages_read,
+      total_pages: total_pages,
+      date: Date.today,
+      completed: false,
+      month_key: Date.today.strftime("%Y-%m"),
+      associates_link: book['associates_link']
+    }
+  end
 end
 
 # Sort data for charts
@@ -181,9 +234,13 @@ table_rows = book_details.sort_by { |b| b[:date] }.reverse.map do |b|
   progress = b[:total_pages] > 0 ? "#{(b[:pages_read].to_f / b[:total_pages] * 100).round}%" : "N/A"
   status_class = b[:completed] ? 'status-completed' : 'status-reading'
   status_text = b[:completed] ? 'Completed' : 'Reading'
+  title_html = ERB::Util.html_escape(b[:title])
+  if b[:associates_link]
+    title_html += " <sub><a href=\"#{ERB::Util.html_escape(b[:associates_link])}\">(affiliate link)</a></sub>"
+  end
   <<~ROW
     <tr>
-      <td>#{ERB::Util.html_escape(b[:title])}</td>
+      <td>#{title_html}</td>
       <td>#{ERB::Util.html_escape(b[:author])}</td>
       <td>#{b[:pages_read]}</td>
       <td>#{b[:total_pages]}</td>

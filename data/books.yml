@@ -8,8 +8,8 @@
   date_finished: 2026-01-22
   format_read: Digital on O'Reilly App
   print_length: 325 pages
-- title: "Dopesick: Dealers, Doctors, and the Drug Company that Addicted America"
-  subtitle:
+- title: Dopesick
+  subtitle: Dealers, Doctors, and the Drug Company that Addicted America
   author: Beth Macy
   associates_link: https://amzn.to/3YTtJPa
   commentary:
@@ -23,16 +23,33 @@
   associates_link: https://amzn.to/3LYkFFK
   commentary:
   date_started: 2026-01-22
-  date_finished:
+  date_finished: 2026-02-02
   format_read: Digital on O'Reilly App
   print_length: 236 pages
-  percent_complete: 76%
-- title: "1929: Inside the Greatest Crash in Wall Street History--and How It Shattered a Nation"
+  percent_complete: 100%
+- title: 1929
+  subtitle: Inside the Greatest Crash in Wall Street History--and How It Shattered a Nation
   author: Andrew Ross Sorkin
   print_length: 592 pages
   date_started: 2026-01-27
-  date_finished:
+  date_finished: 2026-02-15
+  associates_link: https://amzn.to/4rCxcha
   format_read: Audible
   listening_length: 13 hours and 30 minutes
-  time_left: 12 hours and 6 minutes
-
+- title: AI Engineering
+  subtitle: Building Applications with Foundation Models
+  author: Chip Huyen
+  associates_link: https://amzn.to/4qnQVjW
+  date_started: 2026-02-01
+  date_finished:
+  format_read: Audiobook on O'Reilly App
+  print_length: 532 pages
+  percent_complete: 8%
+- title: Jesus, Interrupted
+  subtitle: Revealing the Hidden Contradictions in the Bible (And Why We Don't Know About Them)
+  author: Bart D. Ehrman
+  associates_link: https://amzn.to/4qJMkIX
+  format_read: Audible
+  listening_length: 12 hours and 5 minutes
+  print_length: 304 pages
+  time_left: 12 hours and 2 minutes

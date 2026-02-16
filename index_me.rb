@@ -1,5 +1,7 @@
 require 'erb'
+require 'open-uri'
 require 'rouge' # For syntax highlighting
+require 'commonmarker' # For GFM rendering
 
 # Generate the CSS for Rouge's syntax highlighting
 def rouge_css
@@ -157,6 +159,104 @@ def generate_highlighted_html(file)
   end
 end
 
+# Render GFM markdown files from blog/ to HTML
+def render_blog_markdown(md_file)
+  markdown = File.read(md_file)
+
+  # Extract title from first # heading, fall back to filename
+  title = markdown[/^\#\s+(.+)/, 1] || File.basename(md_file, '.md')
+
+  # Render GFM to HTML (disable built-in syntax highlighter so we can use Rouge)
+  body_html = Commonmarker.to_html(markdown,
+    options: { extension: { table: true, autolink: true, strikethrough: true, tasklist: true } },
+    plugins: { syntax_highlighter: nil })
+
+  # Post-process fenced code blocks with Rouge syntax highlighting
+  body_html.gsub!(%r{<pre lang="([^"]+)"><code>(.*?)</code></pre>}m) do
+    lang, code = $1, $2
+    # Unescape HTML entities that commonmarker encoded
+    code = code.gsub('&lt;', '<').gsub('&gt;', '>').gsub('&amp;', '&').gsub('&quot;', '"')
+    lexer = Rouge::Lexer.find_fancy(lang) || Rouge::Lexers::PlainText.new
+    formatter = Rouge::Formatters::HTML.new
+    highlighted = formatter.format(lexer.lex(code))
+    %(<pre class="highlight"><code>#{highlighted}</code></pre>)
+  end
+
+  html_file = md_file.sub(/\.md$/, '.html')
+  File.open(html_file, 'wt') do |f|
+    f.puts <<~HTML
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>#{title}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+          body {
+            background-color: #f4f4f4;
+            color: #333333;
+            font-family: Arial, sans-serif;
+          }
+          .container {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+          pre {
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+          }
+          h1 {
+            color: #ff4500;
+          }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+          }
+          th {
+            background-color: #ffefd5;
+          }
+          .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+          }
+          #{rouge_css}
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          #{body_html}
+          <div class="footer">
+            <a href="/">Back to Index</a>
+          </div>
+        </div>
+
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-QT64MJL0WW');
+        </script>
+      </body>
+      </html>
+    HTML
+  end
+end
+
 # Render .erb files to non-.erb versions
 Dir["calculators/*.html.erb"].each do |erb_file|
   rendered_file = erb_file.sub(/\.erb$/, '') # Remove .erb extension
@@ -174,15 +274,40 @@ end
 system('ruby', File.join(__dir__, 'visualize_books.rb'), '-o', 'books_all.html')
 system('ruby', File.join(__dir__, 'visualize_books.rb'), '--completed-only', '-o', 'books_completed.html')
 
+# Refresh coffee.csv from Google Sheets
+coffee_csv_url = 'https://docs.google.com/spreadsheets/d/1FyNziCWhpu5cp_qf-oFrHPgAByhFfXiAvGp9XL0_42Q/export?format=csv'
+begin
+  csv_data = URI.open(coffee_csv_url).read
+  # Strip currency symbols from Cost column so values parse as numbers
+  table = CSV.parse(csv_data, headers: true)
+  cost_header = table.headers.find { |h| h.strip.downcase == 'cost' }
+  if cost_header
+    table.each { |row| row[cost_header] = row[cost_header].to_s.gsub(/[^0-9.]/, '') }
+  end
+  File.write(File.join(__dir__, 'data', 'coffee.csv'), table.to_csv)
+  puts "Refreshed data/coffee.csv from Google Sheets"
+rescue => e
+  puts "Warning: Could not refresh coffee.csv: #{e.message}"
+end
+
+# Generate coffee visualization HTML file
+system('ruby', File.join(__dir__, 'visualize_coffee.rb'), '-o', 'coffee.html')
+
 # Add Google Analytics to books HTML files
 Dir["books_*.html"].each do |file|
   add_google_analytics(file)
 end
 
+# Add Google Analytics to coffee HTML file
+add_google_analytics('coffee.html')
+
 # Add Google Analytics to calculator HTML files (after ERB rendering)
 Dir["calculators/*.html"].each do |file|
   add_google_analytics(file)
 end
+
+# Render GFM markdown files from blog/ to HTML
+Dir["blog/*.md"].each { |md_file| render_blog_markdown(md_file) }
 
 # Add Google Analytics to blog HTML files
 Dir["blog/*.html"].each do |file|
@@ -292,6 +417,12 @@ File.open('index.html', 'wt') do |f|
           <div class="list-group mb-3">
             <a href="books_all.html" class="list-group-item list-group-item-action">Reading Visualization - All Books</a>
             <a href="books_completed.html" class="list-group-item list-group-item-action">Reading Visualization - Completed Only</a>
+          </div>
+        </details>
+        <details id="coffee" open>
+          <summary>Coffee</summary>
+          <div class="list-group mb-3">
+            <a href="coffee.html" class="list-group-item list-group-item-action">Coffee Consumption Visualization</a>
           </div>
         </details>
         <details id="calculators" open>
