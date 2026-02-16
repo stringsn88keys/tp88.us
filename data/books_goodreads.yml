@@ -1,0 +1,4481 @@
+---
+- title: 'Lost Christianities: The Battles for Scripture and the Faiths We Never Knew'
+  rating: 5
+  date_finished: 2025-12-30
+  date_started: 2023-05-02
+  source: goodreads
+  author: Bart D. Ehrman
+  print_length: 302 pages
+- title: 'Go Crazy: A Fun Projects-based Approach to Golang Programming'
+  rating: 3
+  date_finished: 2025-12-17
+  date_started: 2025-01-21
+  source: goodreads
+  author: Michael Mirdad
+- title: 'Learning GitHub Copilot: Multiplying Your Coding Productivity Using AI'
+  date_finished: 2025-12-15
+  date_started: 2025-06-29
+  source: goodreads
+- title: 'Extreme Programming Explained: Embrace Change (The XP Series)'
+  rating: 4
+  date_finished: 2025-12-09
+  date_started: 2025-12-01
+  source: goodreads
+  author: Kent Beck
+  print_length: 207 pages
+- title: 'The Big Con: The Story of the Confidence Man'
+  date_finished: 2025-11-26
+  date_started: 2025-06-06
+  source: goodreads
+  author: David Maurer
+  print_length: 320 pages
+- title: 'The Fall of the Ottomans: The Great War in the Middle East'
+  rating: 5
+  date_finished: 2025-11-25
+  date_started: 2025-10-13
+  source: goodreads
+  author: Eugene L. Rogan
+  print_length: 512 pages
+- title: 'Atlas of the Heart: Mapping Meaningful Connection and the Language of Human
+    Experience'
+  date_finished: 2025-11-17
+  date_started: 2025-09-28
+  source: goodreads
+  author: Brené Brown
+  print_length: 396 pages
+- title: 'Character Limit: How Elon Musk Destroyed Twitter'
+  rating: 5
+  date_finished: 2025-11-17
+  date_started: 2025-10-05
+  source: goodreads
+  author: Kate Conger
+  print_length: 480 pages
+- title: 'What an Owl Knows: The New Science of the World''s Most Enigmatic Birds'
+  rating: 5
+  date_finished: 2025-10-05
+  date_started: 2025-09-30
+  source: goodreads
+  author: Jennifer Ackerman
+- title: 'Turing''s Cathedral: The Origins of the Digital Universe'
+  rating: 5
+  date_finished: 2025-08-05
+  date_started: 2015-02-01
+  review: Overwhelmingly slow start but glad I restarted and finished it
+  source: goodreads
+  author: George Dyson
+  print_length: 401 pages
+- title: 'The Coming Wave: Technology, Power, and the Twenty-first Century''s Greatest
+    Dilemma'
+  rating: 4
+  date_finished: 2025-07-01
+  date_started: 2025-05-25
+  source: goodreads
+  author: Mustafa Suleyman
+- title: 'Prompt Engineering for Generative AI: Future-Proof Inputs for Reliable AI
+    Outputs'
+  rating: 3
+  date_finished: 2025-06-22
+  date_started: 2025-05-26
+  source: goodreads
+  author: James Phoenix
+- title: 'Don''t Start a Side Hustle!: Work Less, Earn More, and Live Free'
+  rating: 2
+  date_finished: 2025-06-09
+  date_started: 2025-06-09
+  source: goodreads
+  author: Brian Page
+- title: 'The Nvidia Way: Jensen Huang and the Making of a Tech Giant'
+  rating: 5
+  date_finished: 2025-05-29
+  date_started: 2025-04-23
+  source: goodreads
+- title: 'Ready Player One (Ready Player One, #1)'
+  date_finished: 2025-05-29
+  date_started: 2025-05-29
+  source: goodreads
+  author: Ernest Cline
+  print_length: 462 pages
+- title: On War
+  rating: 4
+  date_finished: 2025-05-25
+  date_started: 2025-04-25
+  source: goodreads
+  author: Rashid Khalidi
+  print_length: 352 pages
+- title: 'Nexus: A Brief History of Information Networks from the Stone Age to AI'
+  rating: 5
+  date_finished: 2025-04-25
+  date_started: 2025-02-25
+  source: goodreads
+  author: Yuval Noah Harari
+- title: 'Terraform: Up & Running: Writing Infrastructure as Code'
+  rating: 5
+  date_finished: 2025-04-23
+  date_started: 2025-03-03
+  source: goodreads
+  author: Yevgeniy Brikman
+  print_length: 287 pages
+- title: 'Dune Messiah (Dune #2)'
+  rating: 3
+  date_finished: 2025-04-23
+  date_started: 2025-04-23
+  source: goodreads
+  author: Frank Herbert
+  print_length: 278 pages
+- title: Dare to Lead
+  rating: 5
+  date_finished: 2025-03-30
+  date_started: 2025-03-22
+  source: goodreads
+  author: Brené Brown
+  print_length: 320 pages
+- title: 'Forward the Foundation (Foundation, #7)'
+  rating: 5
+  date_finished: 2025-03-04
+  date_started: 2025-02-07
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 447 pages
+- title: '5 Types of People Who Can Ruin Your Life: Identifying and Dealing with Narcissists,
+    Sociopaths, and Other High-Conflict Personalities'
+  date_finished: 2025-02-25
+  date_started: 2025-02-25
+  source: goodreads
+  author: William A. Eddy
+  print_length: 197 pages
+- title: Chef Cookbook
+  rating: 4
+  date_finished: 2025-02-07
+  date_started: 2025-01-28
+  source: goodreads
+  author: Julia Child
+  print_length: 480 pages
+- title: 'I Hate You--Don''t Leave Me: Third Edition: Understanding the Borderline
+    Personality'
+  date_finished: 2025-01-30
+  date_started: 2024-11-28
+  source: goodreads
+  author: Jerold J. Kreisman
+  print_length: 207 pages
+- title: 'Ruby on Rails Tutorial, 6th Edition: Ruby on Rails 6'
+  rating: 4
+  date_finished: 2025-01-21
+  date_started: 2024-11-21
+  source: goodreads
+- title: 'Scarred: The True Story of How I Escaped NXIVM, the Cult That Bound My Life'
+  rating: 5
+  date_finished: 2025-01-05
+  date_started: 2024-11-13
+  source: goodreads
+  author: Leigh Bardugo
+  print_length: 528 pages
+- title: 'The Intelligence Trap: Why Smart People Make Dumb Mistakes'
+  date_finished: 2024-12-24
+  date_started: 2024-12-24
+  source: goodreads
+  author: David Robson
+  print_length: 336 pages
+- title: 'The Purest Bond: Understanding the Human–Canine Connection'
+  rating: 5
+  date_finished: 2024-12-11
+  date_started: 2024-11-14
+  source: goodreads
+- title: 'Polished Ruby Programming: Build better software with more intuitive, maintainable,
+    scalable, and high-performance Ruby code'
+  rating: 5
+  date_finished: 2024-11-21
+  date_started: 2024-10-17
+  source: goodreads
+  author: Jeremy Evans
+  print_length: 434 pages
+- title: 'Dune (Dune, #1)'
+  rating: 3
+  date_finished: 2024-11-13
+  date_started: 2019-09-16
+  source: goodreads
+  author: Frank Herbert
+  print_length: 592 pages
+- title: 'PowerShell Cookbook: Your Complete Guide to Scripting the Ubiquitous Object-Based
+    Shell'
+  rating: 5
+  date_finished: 2024-10-17
+  date_started: 2024-04-22
+  source: goodreads
+  author: Lee Holmes
+  print_length: 553 pages
+- title: Born with Teeth
+  date_finished: 2024-10-01
+  date_started: 2024-10-01
+  source: goodreads
+  author: Kate Mulgrew
+  print_length: 306 pages
+- title: 'Wild: From Lost to Found on the Pacific Crest Trail'
+  rating: 5
+  date_finished: 2024-09-09
+  date_started: 2015-03-23
+  source: goodreads
+  author: Maurice Sendak
+  print_length: 42 pages
+- title: 'Busting Vegas: A True Story of Monumental Excess, Sex, Love, Violence, and
+    Beating the Odds – An MIT Team''s Dangerous Memoir of Mathematical Genius and
+    Millions Won'
+  date_finished: 2024-09-05
+  date_started: 2016-10-30
+  source: goodreads
+  author: Ben Mezrich
+  print_length: 297 pages
+- title: 'Smarter Faster Better: The Secrets of Being Productive in Life and Business'
+  rating: 5
+  date_finished: 2024-08-24
+  date_started: 2024-07-07
+  source: goodreads
+  author: Charles Duhigg
+  print_length: 400 pages
+- title: 'Refactoring: Ruby Edition'
+  date_finished: 2024-08-07
+  date_started: 2016-07-12
+  source: goodreads
+  author: Adam Wathan
+  print_length: 218 pages
+- title: 'Switch: How to Change Things When Change Is Hard'
+  rating: 5
+  date_finished: 2024-07-17
+  date_started: 2015-06-10
+  source: goodreads
+  author: Sandra Brown
+  print_length: 555 pages
+- title: 'ADHD 2.0: New Science and Essential Strategies for Thriving with Distraction—From
+    Childhood Through Adulthood'
+  rating: 5
+  date_finished: 2024-07-07
+  date_started: 2024-06-12
+  source: goodreads
+  author: Edward M. Hallowell
+  print_length: 208 pages
+- title: 'Words from Hell: Unearthing the Darkest Secrets of English Etymology'
+  rating: 5
+  date_finished: 2024-07-02
+  date_started: 2024-06-12
+  source: goodreads
+  author: Jess Zafarris
+- title: 'Driven to Distraction: Recognizing and Coping with Attention Deficit Disorder
+    from Childhood Through Adulthood'
+  rating: 5
+  date_finished: 2024-06-25
+  date_started: 2024-05-03
+  source: goodreads
+  author: Edward M. Hallowell
+  print_length: 319 pages
+- title: 'Flash Boys: A Wall Street Revolt'
+  rating: 5
+  date_finished: 2024-06-12
+  date_started: 2024-05-29
+  source: goodreads
+  author: Michael Lewis
+  print_length: 320 pages
+- title: 'The Seven Principles for Making Marriage Work: A Practical Guide from the
+    Country''s Foremost Relationship Expert'
+  rating: 5
+  date_finished: 2024-06-09
+  date_started: 2024-02-16
+  source: goodreads
+  author: John Mordechai Gottman
+  print_length: 288 pages
+- title: 'Boomerang: Travels in the New Third World'
+  rating: 5
+  date_finished: 2024-05-29
+  date_started: 2024-05-20
+  source: goodreads
+  author: Margaret Pargeter
+  print_length: 188 pages
+- title: 'The ADHD Effect on Marriage: Understand and Rebuild Your Relationship in
+    Six Steps'
+  rating: 3
+  date_finished: 2024-04-29
+  date_started: 2024-04-04
+  review: There are decent thoughts here, but there are a lot of anecdotes that feel
+    like they were lifted from the “best of /r/aita”
+  source: goodreads
+  author: Melissa Orlov
+  print_length: 121 pages
+- title: 'The Stars, Like Dust (Galactic Empire, #1)'
+  rating: 4
+  date_finished: 2024-04-28
+  date_started: 2024-04-16
+  review: That ending aged awkwardly
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 229 pages
+- title: 'CSS: The Definitive Guide'
+  rating: 5
+  date_finished: 2024-04-19
+  date_started: 2023-12-13
+  source: goodreads
+  author: Jon Duckett
+  print_length: 512 pages
+- title: 'Hidden Genius: The secret ways of thinking that power the world''s most
+    successful people'
+  rating: 4
+  date_finished: 2024-04-04
+  date_started: 2024-03-25
+  source: goodreads
+  author: Craig Wright
+  print_length: 336 pages
+- title: 'Happy at Work: How to Create a Happy, Engaging Workplace for Today''s (and
+    Tomorrow''s!) Workforce'
+  rating: 5
+  date_finished: 2024-03-25
+  date_started: 2024-03-07
+  source: goodreads
+  author: His Holiness Tenzin Gyatso the XIV Dalai Lama
+  print_length: 224 pages
+- title: 'Going Infinite: The Rise and Fall of a New Tycoon'
+  rating: 5
+  date_finished: 2024-03-06
+  date_started: 2024-02-25
+  source: goodreads
+  author: Michael Lewis
+  print_length: 258 pages
+- title: 'Quit Like a Millionaire: No Gimmicks, Luck, or Trust Fund Required'
+  rating: 5
+  date_finished: 2024-02-16
+  date_started: 2024-02-08
+  review: I’ve read/listened to a fair number of these over the years, but for some
+    reason the framing here gave me new perspective… the 4% rule is something I knew
+    about, but thinking outside of the box with various hacks to make the required
+    savings smaller was good as I sit here with an insane mortgage payment.
+  source: goodreads
+  author: Kristy Shen
+  print_length: 312 pages
+- title: 'Learning GraphQL: Declarative Data Fetching for Modern Web Apps'
+  rating: 3
+  date_finished: 2024-02-12
+  date_started: 2024-01-31
+  review: I guess it’s handy for those trying to decide whether to use GraphQL to
+    see an implementation, but I would have preferred a little more on how to do more
+    complicated things with GraphQL, because its capabilities seem rudimentary.
+  source: goodreads
+  author: Eve Porcello
+- title: 'How To: Absurd Scientific Advice for Common Real-World Problems'
+  rating: 5
+  date_finished: 2024-02-07
+  date_started: 2024-01-30
+  source: goodreads
+  author: Dale Carnegie
+  print_length: 276 pages
+- title: 'Bernoulli''s Fallacy: Statistical Illogic and the Crisis of Modern Science'
+  rating: 5
+  date_finished: 2024-01-30
+  date_started: 2023-12-03
+  source: goodreads
+  author: Aubrey Clayton
+  print_length: 368 pages
+- title: Moby-Dick or, The Whale
+  rating: 5
+  date_finished: 2024-01-26
+  date_started: 2017-02-07
+  source: goodreads
+  author: Herman Melville
+  print_length: 506 pages
+- title: Elixir in Action, Third Edition
+  rating: 5
+  date_finished: 2024-01-19
+  date_started: 2023-11-22
+  source: goodreads
+  author: Sasa Juric
+- title: 'Accidental Saints: Finding God in All the Wrong People'
+  rating: 5
+  date_finished: 2023-12-02
+  date_started: 2023-11-15
+  source: goodreads
+  author: Nadia Bolz-Weber
+- title: 'Docker Cookbook: Over 100 practical and insightful recipes to build distributed
+    applications with Docker , 2nd Edition'
+  rating: 4
+  date_finished: 2023-11-29
+  date_started: 2023-11-13
+  source: goodreads
+  author: Sébastien Goasguen
+  print_length: 366 pages
+- title: 'Pastrix: The Cranky, Beautiful Faith of a Sinner & Saint'
+  rating: 5
+  date_finished: 2023-11-15
+  date_started: 2018-12-29
+  source: goodreads
+  author: Nadia Bolz-Weber
+  print_length: 215 pages
+- title: 'No More Feedback: Cultivate Consciousness at Work'
+  rating: 5
+  date_finished: 2023-11-08
+  date_started: 2023-09-25
+  source: goodreads
+  author: Carol Sanford
+  print_length: 190 pages
+- title: 'Invisible Women: Data Bias in a World Designed for Men'
+  rating: 5
+  date_finished: 2023-11-01
+  date_started: 2023-09-24
+  source: goodreads
+  author: Caroline Criado Perez
+  print_length: 432 pages
+- title: 'Move Fast and Break Things: How Facebook, Google, and Amazon Cornered Culture
+    and Undermined Democracy'
+  rating: 5
+  date_finished: 2023-10-30
+  date_started: 2023-10-30
+  source: goodreads
+  author: Jonathan Taplin
+  print_length: 320 pages
+- title: Artemis
+  rating: 5
+  date_finished: 2023-10-14
+  date_started: 2023-09-22
+  source: goodreads
+  author: Eoin Colfer
+  print_length: 288 pages
+- title: Project Hail Mary
+  rating: 5
+  date_finished: 2023-09-24
+  date_started: 2023-09-03
+  source: goodreads
+  author: Andy Weir
+  print_length: 496 pages
+- title: Learning the Korn Shell (Nutshell Handbooks)
+  rating: 4
+  date_finished: 2023-09-22
+  date_started: 2023-08-28
+  source: goodreads
+  author: Arnold Robbins
+  print_length: 432 pages
+- title: 'Demystifying Cryptography with OpenSSL 3.0: Discover the best techniques
+    to enhance your network security with OpenSSL 3.0'
+  rating: 5
+  date_finished: 2023-09-03
+  date_started: 2023-08-09
+  source: goodreads
+  author: Alexei Khlebnikov
+- title: 'Good for a Girl: A Woman Running in a Man''s World'
+  rating: 5
+  date_finished: 2023-09-03
+  date_started: 2023-08-21
+  source: goodreads
+  author: Tanya Lee Stone
+  print_length: 234 pages
+- title: 'Fundamentals: Ten Keys to Reality'
+  rating: 4
+  date_finished: 2023-08-21
+  date_started: 2023-07-23
+  source: goodreads
+  author: Frederic Martini
+  print_length: 1138 pages
+- title: '40 Algorithms Every Programmer Should Know: Hone your problem-solving skills
+    by learning different algorithms and their implementation in Python'
+  rating: 4
+  date_finished: 2023-08-09
+  date_started: 2023-07-24
+  source: goodreads
+  author: Imran Ahmad
+  print_length: 417 pages
+- title: 'The Youtube Formula: How Anyone Can Unlock the Algorithm to Drive Views,
+    Build an Audience, and Grow Revenue'
+  date_finished: 2023-08-01
+  date_started: 2023-05-04
+  source: goodreads
+  author: Derral Eves
+  print_length: 352 pages
+- title: 'When Women Ruled the World: Six Queens of Egypt'
+  rating: 5
+  date_finished: 2023-07-23
+  date_started: 2023-06-25
+  source: goodreads
+  author: Kara Cooney
+  print_length: 399 pages
+- title: 'Autopilot: The Art & Science of Doing Nothing'
+  rating: 4
+  date_finished: 2023-07-22
+  date_started: 2014-12-05
+  review: I liked his 6-Sigma = organizational epilepsy analogy the best.
+  source: goodreads
+  author: Mike Butler
+  print_length: 276 pages
+- title: 'Misbehaving: The Making of Behavioral Economics'
+  rating: 5
+  date_finished: 2023-07-22
+  date_started: 2023-06-08
+  source: goodreads
+  author: Richard H. Thaler
+  print_length: 432 pages
+- title: The Dream Builders
+  rating: 5
+  date_finished: 2023-06-25
+  date_started: 2023-05-21
+  source: goodreads
+  author: Oindrila Mukherjee
+- title: 'Once Upon a Word: A Word-Origin Dictionary for Kids―Building Vocabulary
+    Through Etymology, Definitions & Stories'
+  rating: 5
+  date_finished: 2023-06-08
+  date_started: 2023-06-03
+  source: goodreads
+  author: Rob Kyff
+  print_length: 148 pages
+- title: Sed & Awk, 2nd Edition
+  rating: 4
+  date_finished: 2023-06-03
+  date_started: 2023-05-04
+  source: goodreads
+- title: Rationality
+  rating: 5
+  date_finished: 2023-05-21
+  date_started: 2023-05-06
+  source: goodreads
+  author: Matt Ridley
+  print_length: 438 pages
+- title: 'The Great Mental Models: General Thinking Concepts'
+  rating: 5
+  date_finished: 2023-05-06
+  date_started: 2023-05-03
+  source: goodreads
+  author: Farnam Street
+  print_length: 190 pages
+- title: 'Choosing to Run: A Memoir'
+  rating: 5
+  date_finished: 2023-05-02
+  date_started: 2023-04-28
+  source: goodreads
+  author: Des Linden
+- title: 'What Money Can''t Buy: The Moral Limits of Markets'
+  rating: 5
+  date_finished: 2023-04-28
+  date_started: 2023-04-17
+  source: goodreads
+  author: Jean Jegel
+  print_length: 163 pages
+- title: 'The Longest Race: Inside the Secret World of Abuse, Doping, and Deception
+    on Nike''s Elite Running Team'
+  rating: 5
+  date_finished: 2023-04-17
+  date_started: 2023-04-06
+  source: goodreads
+  author: Cook, Peter
+  print_length: 191 pages
+- title: 'Toyota Kata: Managing People for Improvement, Adaptiveness and Superior
+    Results'
+  date_finished: 2023-04-10
+  date_started: 2023-04-04
+  source: goodreads
+  author: Mike Rother
+  print_length: 321 pages
+- title: 'Noise: A Flaw in Human Judgment'
+  rating: 5
+  date_finished: 2023-04-06
+  date_started: 2023-02-26
+  source: goodreads
+  author: Don DeLillo
+  print_length: 326 pages
+- title: 'Sarek (Star Trek: The Original Series Unnumbered)'
+  rating: 5
+  date_finished: 2023-04-04
+  date_started: 2023-03-20
+  source: goodreads
+  author: A. C. Crispin
+  print_length: 428 pages
+- title: 'Java CAPS Basics: Implementing Common EAI Patterns'
+  rating: 3
+  date_finished: 2023-03-18
+  date_started: 2010-10-31
+  review: Mediocre editing.
+  source: goodreads
+  author: Michael Czapski
+  print_length: 463 pages
+- title: 'A Libertarian Walks into a Bear: The Utopian Plot to Liberate an American
+    Town (And Some Bears)'
+  rating: 5
+  date_finished: 2023-03-06
+  date_started: 2023-01-19
+  source: goodreads
+  author: Matthew Hongoltz-Hetling
+  print_length: 288 pages
+- title: Federation (Star Trek)
+  rating: 5
+  date_finished: 2023-03-01
+  date_started: 2023-02-02
+  source: goodreads
+  author: United States. General Accounting Office. Accounting and Information Management
+    Division
+- title: 'Without You: A Memoir of Love, Loss and the Musical ''Rent'''
+  rating: 5
+  date_finished: 2023-02-26
+  date_started: 2023-02-03
+  source: goodreads
+  author: Jenny Han
+  print_length: 284 pages
+- title: Distributed Services with Go - Your Guide to Reliable, Scalable, and Maintainable
+    Systems
+  rating: 5
+  date_finished: 2023-02-02
+  date_started: 2023-01-04
+  source: goodreads
+- title: 'The Master Algorithm: How the Quest for the Ultimate Learning Machine Will
+    Remake Our World'
+  rating: 1
+  date_finished: 2023-02-01
+  date_started: 2018-03-02
+  source: goodreads
+  author: Pedro Domingos
+  print_length: 352 pages
+- title: 'Ludicrous: The Unvarnished Story of Tesla Motors'
+  rating: 5
+  date_finished: 2023-01-19
+  date_started: 2023-01-07
+  source: goodreads
+  author: Edward Niedermeyer
+  print_length: 220 pages
+- title: 'The Book of Why: The New Science of Cause and Effect'
+  rating: 5
+  date_finished: 2023-01-06
+  date_started: 2022-12-06
+  source: goodreads
+  author: Judea Pearl
+  print_length: 425 pages
+- title: 'Cloud Native Go: Building Reliable Services in Unreliable Environments'
+  rating: 4
+  date_finished: 2023-01-04
+  date_started: 2022-12-09
+  source: goodreads
+  author: Matthew A. Titmus
+  print_length: 520 pages
+- title: '1453: The Holy War for Constantinople and the Clash of Islam and the West'
+  rating: 5
+  date_finished: 2022-12-07
+  date_started: 2013-04-04
+  source: goodreads
+  author: Sir Steven Runciman
+  print_length: 256 pages
+- title: 21 Lessons for the 21st Century
+  rating: 5
+  date_finished: 2022-12-06
+  date_started: 2022-11-10
+  source: goodreads
+  author: Yuval Noah Harari
+  print_length: 400 pages
+- title: 'O Great One!: A Little Story About the Awesome Power of Recognition'
+  rating: 4
+  date_finished: 2022-11-18
+  date_started: 2022-11-18
+  source: goodreads
+  author: David Novak
+  print_length: 223 pages
+- title: 'Learning Go: An Idiomatic Approach to Real-World Go Programming'
+  rating: 4
+  date_finished: 2022-11-10
+  date_started: 2022-09-18
+  source: goodreads
+  author: Jon Bodner
+  print_length: 374 pages
+- title: 'The Ashes of Eden (Star Trek: Odyssey, #1)'
+  rating: 3
+  date_finished: 2022-11-08
+  date_started: 2022-10-08
+  review: Had low expectations, but it was pretty good until the ending kind of fell
+    down a stairwell of Star Trek tropes.
+  source: goodreads
+  author: William Shatner
+  print_length: 309 pages
+- title: Lech Walesa (People Who Have Helped the World)
+  rating: 4
+  date_finished: 2022-10-26
+  date_started: 2022-10-26
+  source: goodreads
+  author: Mary Craig
+  print_length: 64 pages
+- title: 'The Ballad of Songbirds and Snakes (The Hunger Games, #0)'
+  rating: 5
+  date_finished: 2022-10-24
+  date_started: 2022-09-20
+  source: goodreads
+  author: Suzanne Collins
+  print_length: 528 pages
+- title: 'Tao of Charlie Munger: A Compilation of Quotes from Berkshire Hathaway''s
+    Vice Chairman on Life, Business, and the Pursuit of Wealth With Commentary by
+    David Clark'
+  rating: 4
+  date_finished: 2022-09-18
+  date_started: 2022-09-14
+  source: goodreads
+  author: David Clark
+  print_length: 240 pages
+- title: 'Prelude to Foundation (Foundation, #6)'
+  rating: 5
+  date_finished: 2022-09-08
+  date_started: 2022-08-04
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 440 pages
+- title: I'm Glad My Mom Died
+  rating: 5
+  date_finished: 2022-09-08
+  date_started: 2022-08-28
+  source: goodreads
+  author: Jennette McCurdy
+  print_length: 320 pages
+- title: 'Extra Lives: Why Video Games Matter'
+  rating: 3
+  date_finished: 2022-08-04
+  date_started: 2022-07-15
+  source: goodreads
+  author: Tom Bissell
+  print_length: 218 pages
+- title: 'The Five Love Languages: How to Express Heartfelt Commitment to Your Mate'
+  rating: 3
+  date_finished: 2022-07-29
+  date_started: 2022-07-28
+  source: goodreads
+  author: Gary D. Chapman
+  print_length: 204 pages
+- title: 'Sounds Like Me: My Life (So Far) in Song'
+  rating: 5
+  date_finished: 2022-07-15
+  date_started: 2022-07-07
+  source: goodreads
+  author: Sara Bareilles
+  print_length: 197 pages
+- title: 'Why We Snap: Understanding the Rage Circuit in Your Brain'
+  rating: 5
+  date_finished: 2022-07-07
+  date_started: 2022-05-31
+  source: goodreads
+  author: R. Douglas Fields
+  print_length: 205 pages
+- title: Data Science For Dummies
+  rating: 3
+  date_finished: 2022-06-19
+  date_started: 2018-02-09
+  review: |-
+    It was a valiant attempt to define and educate the audience on the book on what “data science” is. I think it accomplished that, but otherwise the book got lost in the firehose of presenting applications, tools, and methodologies. It was too shallow to be useful and too deep to be absorbed for me.
+
+    It’s a good place to start if you want to further explore what to actually read about or experiment with in data science.
+  source: goodreads
+  author: Lillian Pierson
+  print_length: 384 pages
+- title: 'The Psychology of Money: Timeless Lessons on Wealth, Greed, and Happiness'
+  rating: 4
+  date_finished: 2022-05-31
+  date_started: 2022-05-14
+  source: goodreads
+  author: Michael Argyle
+- title: 'The Joy of X: A Guided Tour of Math, from One to Infinity'
+  rating: 5
+  date_finished: 2022-05-14
+  date_started: 2022-05-02
+  source: goodreads
+  author: Steven H. Strogatz
+  print_length: 336 pages
+- title: '12 Months to $1 Million: How to Pick a Winning Product, Build a Real Business,
+    and Become a Seven-Figure Entrepreneur'
+  rating: 4
+  date_finished: 2022-05-02
+  date_started: 2022-05-02
+  review: A bit of the usual “hustle” concepts, but also some perspective on both
+    the attainability of the goal and also some warnings about the pitfalls in the
+    pursuit. Name drops a lot of the usual suspects, but this book is quite a bit
+    less fluff than I anticipated. More of a 3.5 star, but not quite a 3 star (on
+    my fairly generous scale)
+  source: goodreads
+  author: Ryan Daniel Moran
+  print_length: 220 pages
+- title: 'Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones'
+  rating: 5
+  date_finished: 2022-02-21
+  date_started: 2022-02-12
+  source: goodreads
+  author: James Clear
+  print_length: 322 pages
+- title: 'Influence: The Psychology of Persuasion'
+  rating: 4
+  date_finished: 2022-02-12
+  date_started: 2021-09-09
+  source: goodreads
+  author: Dale Carnegie
+  print_length: 276 pages
+- title: 'Cult of the Dead Cow: How the Original Hacking Supergroup Might Just Save
+    the World'
+  rating: 5
+  date_finished: 2021-10-20
+  date_started: 2021-10-20
+  source: goodreads
+  author: Joseph Menn
+  print_length: 272 pages
+- title: 'All Your Base Are Belong to Us: How Fifty Years of Videogames Conquered
+    Pop Culture'
+  rating: 5
+  date_finished: 2021-09-09
+  date_started: 2021-07-24
+  source: goodreads
+  author: Harold Goldberg
+  print_length: 327 pages
+- title: 'In the Heights: Finding Home'
+  rating: 5
+  date_finished: 2021-07-24
+  date_started: 2021-07-04
+  source: goodreads
+  author: Richard Watson Gilder
+  print_length: 95 pages
+- title: Scar Tissue
+  rating: 4
+  date_finished: 2021-07-04
+  date_started: 2019-12-27
+  source: goodreads
+  author: Anthony Kiedis
+  print_length: 465 pages
+- title: Acid for the Children
+  rating: 5
+  date_finished: 2021-06-06
+  date_started: 2021-06-06
+  source: goodreads
+  author: Flea
+  print_length: 436 pages
+- title: The Alchemist
+  rating: 2
+  date_finished: 2021-05-22
+  date_started: 2018-11-20
+  review: Meh.
+  source: goodreads
+  author: Ben Jonson
+  print_length: 175 pages
+- title: 'The End is Always Near: Apocalyptic Moments, from the Bronze Age Collapse
+    to Nuclear Near Misses'
+  rating: 4
+  date_finished: 2021-05-18
+  date_started: 2021-05-16
+  source: goodreads
+  author: Brandon Flatt
+  print_length: 175 pages
+- title: 'The Language Instinct: How the Mind Creates Language'
+  rating: 5
+  date_finished: 2021-05-16
+  date_started: 2021-01-03
+  source: goodreads
+  author: Steven Pinker
+  print_length: 513 pages
+- title: The Gifts of Imperfection
+  rating: 5
+  date_finished: 2021-02-09
+  date_started: 2021-02-09
+  source: goodreads
+  author: Brené Brown
+  print_length: 202 pages
+- title: The Story of Human Language
+  rating: 5
+  date_finished: 2021-01-03
+  date_started: 2020-05-30
+  source: goodreads
+- title: Have a Nice Day
+  rating: 5
+  date_finished: 2020-12-19
+  date_started: 2018-12-03
+  source: goodreads
+  author: Mick Foley
+  print_length: 522 pages
+- title: The Monster at the End of this Book
+  rating: 1
+  date_finished: 2020-08-14
+  date_started: 2020-08-14
+  source: goodreads
+  author: Jon Stone
+  print_length: 24 pages
+- title: 'The Ostrich Paradox: Why We Underprepare for Disasters'
+  rating: 3
+  date_finished: 2020-05-19
+  date_started: 2020-05-05
+  source: goodreads
+  author: Robert Meyer
+  print_length: 132 pages
+- title: 'Dark Star Safari: Overland from Cairo to Capetown'
+  rating: 4
+  date_finished: 2020-05-18
+  date_started: 2020-02-05
+  source: goodreads
+  author: Paul Theroux
+  print_length: 495 pages
+- title: 'Caffeine: How Caffeine Created the Modern World'
+  rating: 4
+  date_finished: 2020-04-11
+  date_started: 2020-04-10
+  source: goodreads
+  author: Stephen Snehan Cherniske
+  print_length: 451 pages
+- title: 'Software Estimation Without Guessing: Effective Planning in an Imperfect
+    World'
+  rating: 4
+  date_finished: 2020-04-10
+  date_started: 2019-10-05
+  source: goodreads
+  author: George Dinwiddie
+- title: 'Talking to Strangers: What We Should Know About the People We Don''t Know'
+  rating: 5
+  date_finished: 2020-04-10
+  date_started: 2020-03-13
+  source: goodreads
+  author: Malcolm Gladwell
+  print_length: 353 pages
+- title: 'Brain Myths Exploded: Lessons from Neuroscience'
+  rating: 5
+  date_finished: 2020-03-13
+  date_started: 2020-03-04
+  source: goodreads
+  author: Indre Viskontas
+  print_length: 12 pages
+- title: 'Kluge: The Haphazard Construction of the Human Mind'
+  rating: 5
+  date_finished: 2020-03-04
+  date_started: 2020-02-23
+  source: goodreads
+  author: Gary Marcus
+  print_length: 224 pages
+- title: 'Thinking in Bets: Making Smarter Decisions When You Don''t Have All the
+    Facts'
+  rating: 5
+  date_finished: 2020-02-23
+  date_started: 2020-02-16
+  source: goodreads
+  author: Annie Duke
+  print_length: 276 pages
+- title: 'Sex at Dawn: The Prehistoric Origins of Modern Sexuality'
+  rating: 5
+  date_finished: 2020-02-16
+  date_started: 2020-02-03
+  review: Interesting and thought provoking.
+  source: goodreads
+  author: Christopher Ryan
+  print_length: 400 pages
+- title: 'Polish : The Ultimate Beginners Learning Guide: Master The Fundamentals
+    Of The Polish Language (Learn Polish, Polish Language, Polish for Beginners)'
+  rating: 4
+  date_finished: 2020-02-05
+  date_started: 2020-02-04
+  source: goodreads
+  author: William Isaac Thomas
+  print_length: 483 pages
+- title: Understanding Complexity
+  rating: 5
+  date_finished: 2020-02-03
+  date_started: 2020-01-27
+  source: goodreads
+  author: Patricia L Walsh
+  print_length: 352 pages
+- title: How the States Got Their Shapes
+  rating: 4
+  date_finished: 2020-01-31
+  date_started: 2019-09-04
+  source: goodreads
+  author: Mark Stein
+  print_length: 352 pages
+- title: 'Awkward: The Science of Why We''re Socially Awkward and Why That''s Awesome'
+  rating: 5
+  date_finished: 2020-01-27
+  date_started: 2020-01-11
+  source: goodreads
+  author: Svetlana Chmakova
+  print_length: 210 pages
+- title: 'Payoff: The Hidden Logic That Shapes Our Motivations (TED Books)'
+  rating: 4
+  date_finished: 2020-01-19
+  date_started: 2020-01-17
+  source: goodreads
+  author: Evan Hunter
+  print_length: 176 pages
+- title: Measure What Matters
+  rating: 4
+  date_finished: 2020-01-17
+  date_started: 2020-01-11
+  source: goodreads
+  author: John Doerr
+- title: 'Sapiens: A Brief History of Humankind'
+  rating: 5
+  date_finished: 2020-01-11
+  date_started: 2019-12-15
+  source: goodreads
+  author: Yuval Noah Harari
+  print_length: 456 pages
+- title: 'Mastering Logical Fallacies: The Definitive Guide to Flawless Rhetoric and
+    Bulletproof Logic'
+  date_finished: 2020-01-09
+  date_started: 2017-01-23
+  source: goodreads
+  author: Michael Withey
+  print_length: 200 pages
+- title: 'Learning React: A Hands-on Guide to Building Maintainable, High-performing
+    Web Application User Interfaces Using the React Javascript Library'
+  rating: 5
+  date_finished: 2019-12-30
+  date_started: 2018-10-14
+  source: goodreads
+  author: Alex Banks
+  print_length: 330 pages
+- title: Mastering Ruby Closures
+  rating: 4
+  date_finished: 2019-12-22
+  date_started: 2019-11-27
+  source: goodreads
+  author: Benjamin Tan Wei Hao
+  print_length: 96 pages
+- title: Language Families of the World
+  rating: 5
+  date_finished: 2019-12-15
+  date_started: 2019-11-09
+  source: goodreads
+  author: John McWhorter
+  print_length: 186 pages
+- title: Agile Web Development with Rails, 1st Edition
+  rating: 4
+  date_finished: 2019-12-11
+  date_started: 2019-11-24
+  source: goodreads
+- title: 'Learning Chef: A Guide to Configuration Management and Automation'
+  rating: 4
+  date_finished: 2019-11-11
+  date_started: 2017-04-18
+  source: goodreads
+  author: Rishabh Sharma
+  print_length: 316 pages
+- title: 'The Body Keeps the Score: Brain, Mind, and Body in the Healing of Trauma'
+  rating: 5
+  date_finished: 2019-11-09
+  date_started: 2019-10-17
+  source: goodreads
+  author: Bessel van der Kolk
+  print_length: 520 pages
+- title: 'From Chaos to Successful Distributed Agile Teams: Collaborate to Deliver'
+  rating: 5
+  date_finished: 2019-10-29
+  date_started: 2019-10-07
+  source: goodreads
+- title: 'Nine Pints: A Journey Through the Money, Medicine, and Mysteries of Blood'
+  rating: 5
+  date_finished: 2019-10-13
+  date_started: 2019-10-13
+  source: goodreads
+  author: Rose George
+  print_length: 368 pages
+- title: 'The Storm Before the Storm: The Beginning of the End of the Roman Republic'
+  rating: 5
+  date_finished: 2019-10-05
+  date_started: 2019-09-25
+  source: goodreads
+  author: Duncan, Michael (Podcaster)
+  print_length: 327 pages
+- title: 'Dreams from My Father: A Story of Race and Inheritance'
+  rating: 5
+  date_finished: 2019-09-25
+  date_started: 2019-09-21
+  source: goodreads
+  author: Barack Obama
+  print_length: 442 pages
+- title: 'Site Reliability Engineering: How Google Runs Production Systems'
+  rating: 5
+  date_finished: 2019-09-25
+  date_started: 2019-08-08
+  source: goodreads
+  author: Betsy Beyer
+  print_length: 524 pages
+- title: 'The Audacity of Hope: Thoughts on Reclaiming the American Dream'
+  rating: 5
+  date_finished: 2019-09-21
+  date_started: 2019-09-18
+  source: goodreads
+  author: Barack Obama
+  print_length: 413 pages
+- title: Becoming
+  rating: 5
+  date_finished: 2019-09-18
+  date_started: 2019-06-07
+  source: goodreads
+  author: Paul Kalanithi
+  print_length: 232 pages
+- title: 'The DevOps Handbook: How to Create World-Class Agility, Reliability, and
+    Security in Technology Organizations'
+  rating: 5
+  date_finished: 2019-08-08
+  date_started: 2019-07-14
+  source: goodreads
+  author: Gene Kim
+  print_length: 460 pages
+- title: 'The Innovator''s Dilemma: The Revolutionary Book that Will Change the Way
+    You Do Business'
+  rating: 5
+  date_finished: 2019-07-14
+  date_started: 2019-07-05
+  source: goodreads
+  author: Clayton M. Christensen
+  print_length: 286 pages
+- title: 'Tipping Sacred Cows: Kick the Bad Work Habits That Masquerade as Virtues'
+  rating: 5
+  date_finished: 2019-07-05
+  date_started: 2019-06-24
+  source: goodreads
+  author: Jeff Monroe
+- title: 'Holy Cow!: Doggerel, Catnaps, Scapegoats, Foxtrots, and Horse Feathers—Splendid
+    Animal Words and Phrases'
+  rating: 4
+  date_finished: 2019-06-24
+  date_started: 2019-06-13
+  source: goodreads
+  author: David Duchovny
+  print_length: 160 pages
+- title: 'The Radium Girls: The Dark Story of America’s Shining Women'
+  rating: 5
+  date_finished: 2019-06-13
+  date_started: 2019-03-10
+  source: goodreads
+  author: Kate Moore
+  print_length: 480 pages
+- title: 'Everybody Lies: Big Data, New Data, and What the Internet Can Tell Us About
+    Who We Really Are'
+  rating: 5
+  date_finished: 2019-06-07
+  date_started: 2019-06-07
+  source: goodreads
+  author: Seth Stephens-Davidowitz
+  print_length: 338 pages
+- title: 'Stahl''s Essential Psychopharmacology: Neuroscientific Basis and Practical
+    Applications'
+  rating: 5
+  date_finished: 2019-06-07
+  date_started: 2019-03-24
+  source: goodreads
+  author: " S. M. Stahl"
+  print_length: 1132 pages
+- title: 'Aws Solutions Architect Associate Sg (Aws Certified Solutions Architect
+    Official: Associate Exam)'
+  date_finished: 2019-06-07
+  date_started: 2018-04-25
+  source: goodreads
+- title: 'The Hitchhiker''s Guide to Python: Best Practices for Development'
+  rating: 4
+  date_finished: 2019-05-15
+  date_started: 2019-03-19
+  source: goodreads
+  author: Kenneth Reitz
+  print_length: 338 pages
+- title: 'Prediction Machines: The Simple Economics of Artificial Intelligence'
+  rating: 5
+  date_finished: 2019-03-19
+  date_started: 2019-03-03
+  source: goodreads
+  author: Ajay Agrawal
+  print_length: 250 pages
+- title: The Enigma of Reason
+  rating: 4
+  date_finished: 2019-03-03
+  date_started: 2018-12-29
+  source: goodreads
+  author: Hugo Mercier
+  print_length: 396 pages
+- title: 'QR Codes Kill Kittens: How to Alienate Customers, Dishearten Employees,
+    and Drive Your Business into the Ground'
+  rating: 4
+  date_finished: 2019-02-18
+  date_started: 2018-12-29
+  source: goodreads
+  author: Scott Stratten
+  print_length: 208 pages
+- title: 'Product Leadership: How Top Product Managers Launch Awesome Products and
+    Build Successful Teams'
+  rating: 5
+  date_finished: 2019-02-17
+  date_started: 2019-01-14
+  source: goodreads
+  author: Richard Banfield
+  print_length: 217 pages
+- title: 'Pro-Choice and Christian: Reconciling Faith, Politics, and Justice'
+  rating: 5
+  date_finished: 2019-01-11
+  date_started: 2018-12-29
+  review: A thought-provoking perspective, although if you can't get past the juxtaposition
+    of "pro-choice" and "Christian" in the title, you may not do any better with the
+    book itself.
+  source: goodreads
+  author: Kira Schlesinger
+  print_length: 136 pages
+- title: 'Tragic Design: The True Impact of Bad Design and How to Fix It'
+  rating: 5
+  date_finished: 2019-01-06
+  date_started: 2018-12-13
+  source: goodreads
+  author: Jonathan Shariat
+  print_length: 203 pages
+- title: 'Harry Potter: A History of Magic'
+  rating: 4
+  date_finished: 2018-12-28
+  date_started: 2018-12-05
+  review: It’s a bit of a hodgepodge of information and random trivia in places.
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 701 pages
+- title: 'Vue.js 2 Design Patterns and Best Practices: Build enterprise-ready, modular
+    Vue.js applications with Vuex and Nuxt'
+  rating: 5
+  date_finished: 2018-12-13
+  date_started: 2018-11-29
+  source: goodreads
+  author: Paul Halliday
+  print_length: 344 pages
+- title: On Power
+  rating: 3
+  date_finished: 2018-12-05
+  date_started: 2018-12-05
+  source: goodreads
+  author: Bryce Courtenay
+  print_length: 518 pages
+- title: The Coming Storm
+  rating: 5
+  date_finished: 2018-12-03
+  date_started: 2018-12-01
+  source: goodreads
+  author: Regina M. Hansen
+  print_length: 273 pages
+- title: 'Wait, What?: And Life''s Other Essential Questions'
+  rating: 4
+  date_finished: 2018-12-01
+  date_started: 2018-12-01
+  review: Pretty basic, but relatively to the point vs your average book of the same
+    type.
+  source: goodreads
+  author: Barbara Michaels
+  print_length: 282 pages
+- title: 'The 5 Second Rule: Transform Your Life, Work, and Confidence with Everyday
+    Courage'
+  rating: 3
+  date_finished: 2018-11-30
+  date_started: 2018-11-11
+  review: Kind of meh.
+  source: goodreads
+  author: Mel Robbins
+  print_length: 246 pages
+- title: 'ASP.NET Core 2 and Vue.js: Full Stack Web Development with Vue, Vuex, and
+    ASP.NET Core 2.0'
+  rating: 4
+  date_finished: 2018-11-29
+  date_started: 2018-10-17
+  source: goodreads
+  author: Stuart Ratcliffe
+  print_length: 556 pages
+- title: 'The Power of Vulnerability: Teachings of Authenticity, Connections and Courage'
+  rating: 5
+  date_finished: 2018-11-29
+  date_started: 2018-11-20
+  source: goodreads
+  author: Brené Brown
+- title: 'How Language Began: The Story of Humanity''s Greatest Invention'
+  date_finished: 2018-11-11
+  date_started: 2018-11-11
+  source: goodreads
+  author: Daniel Leonard Everett
+  print_length: 330 pages
+- title: 'The Personality Brokers: The Strange History of Myers-Briggs and the Birth
+    of Personality Testing'
+  rating: 5
+  date_finished: 2018-10-21
+  date_started: 2018-09-28
+  source: goodreads
+  author: Merve Emre
+  print_length: 322 pages
+- title: 'React.js Essentials: A fast-paced guide to designing and building scalable
+    and maintainable web apps with React.js'
+  rating: 4
+  date_finished: 2018-10-14
+  date_started: 2018-10-13
+  source: goodreads
+  author: Artemij Fedosejev
+  print_length: 208 pages
+- title: 'Learn CloudFormation: Write, deploy, and maintain your AWS infrastructure'
+  rating: 3
+  date_finished: 2018-10-10
+  date_started: 2018-10-09
+  source: goodreads
+  author: Agus Kurniawan
+  print_length: 220 pages
+- title: 'Effective Modern C++: 42 Specific Ways to Improve Your Use of C++11 and
+    C++14'
+  rating: 5
+  date_finished: 2018-10-09
+  date_started: 2018-09-28
+  source: goodreads
+- title: 'Never Split the Difference: Negotiating As If Your Life Depended On It'
+  rating: 5
+  date_finished: 2018-09-28
+  date_started: 2018-09-16
+  source: goodreads
+  author: Frank Walsh
+- title: Dart Essentials
+  date_finished: 2018-09-24
+  date_started: 2018-09-10
+  source: goodreads
+  author: Martin Sikora
+- title: English History Made Brief, Irreverent and Pleasurable
+  rating: 5
+  date_finished: 2018-09-16
+  date_started: 2018-09-14
+  source: goodreads
+  author: Lacey Baldwin Smith
+  print_length: 262 pages
+- title: 'Cryptography Engineering: Design Principles and Practical Applications'
+  rating: 4
+  date_finished: 2018-09-14
+  date_started: 2018-08-12
+  source: goodreads
+  author: Niels Ferguson
+  print_length: 384 pages
+- title: 'Barking Up the Wrong Tree: The Surprising Science Behind Why Everything
+    You Know About Success Is (Mostly) Wrong'
+  date_finished: 2018-08-31
+  date_started: 2018-08-31
+  source: goodreads
+  author: Jenn McKinlay
+  print_length: 401 pages
+- title: 'How to Lead When You''re Not in Charge: Leveraging Influence When You Lack
+    Authority'
+  rating: 4
+  date_finished: 2018-08-16
+  date_started: 2018-07-24
+  review: The book is good, as long as you're receptive to leadership advice from
+    an evangelical christian perspective.
+  source: goodreads
+  author: Andy Stanley
+- title: 'Introducing Erlang: Getting Started in Functional Programming'
+  rating: 5
+  date_finished: 2018-08-16
+  date_started: 2018-07-31
+  source: goodreads
+  author: Simon St Laurent
+  print_length: 204 pages
+- title: 'Functional Thinking: Paradigm Over Syntax'
+  rating: 4
+  date_finished: 2018-07-31
+  date_started: 2018-07-21
+  source: goodreads
+  author: Richard Bird
+  print_length: 352 pages
+- title: 'Becoming Functional: Steps for Transforming Into a Functional Programmer'
+  rating: 3
+  date_finished: 2018-07-21
+  date_started: 2018-02-21
+  source: goodreads
+- title: 'Xamarin in Action: Creating native cross-platform mobile apps'
+  rating: 4
+  date_finished: 2018-07-20
+  date_started: 2018-05-18
+  source: goodreads
+  author: Jim Bennett
+- title: 'Outlander (Outlander, #1)'
+  rating: 4
+  date_finished: 2018-07-20
+  date_started: 2015-01-12
+  source: goodreads
+  author: Diana Gabaldon
+  print_length: 745 pages
+- title: Docker Cookbook
+  rating: 4
+  date_finished: 2018-06-19
+  date_started: 2017-02-03
+  source: goodreads
+  author: Sébastien Goasguen
+  print_length: 366 pages
+- title: 'Multipliers: How the Best Leaders Make Everyone Smarter'
+  rating: 4
+  date_finished: 2018-06-10
+  date_started: 2018-05-24
+  source: goodreads
+  author: Liz Wiseman
+  print_length: 288 pages
+- title: 'Soonish: Ten Emerging Technologies That''ll Improve and/or Ruin Everything'
+  rating: 4
+  date_finished: 2018-05-24
+  date_started: 2018-05-14
+  source: goodreads
+  author: Kelly Weinersmith
+  print_length: 363 pages
+- title: 'Understanding Compression: Data Compression for Modern Developers'
+  rating: 4
+  date_finished: 2018-05-18
+  date_started: 2018-04-13
+  source: goodreads
+  author: Colt McAnlis
+- title: 'Chaos Monkeys: Obscene Fortune and Random Failure in Silicon Valley'
+  rating: 3
+  date_finished: 2018-05-14
+  date_started: 2018-05-06
+  review: |-
+    Intriguing, but also heavy on the sexism and self-importance, given its effectively a memoir written by someone that you wouldn't know of otherwise.
+
+    tl;dr: Silicon Valley success is not deterministic, and success is a roll of the dice weighted by luck, determination, and skill.
+  source: goodreads
+  author: Antonio Garcia Martinez
+  print_length: 320 pages
+- title: 'Mastering AWS Lambda: Learn how to build and deploy serverless applications'
+  rating: 4
+  date_finished: 2018-05-03
+  date_started: 2018-04-10
+  review: "“Mastering” is a bit generous, but I liked it as a tour of AWS Lambda with
+    examples along the way."
+  source: goodreads
+  author: Yohan Wadia
+- title: 'NeuroTribes: The Legacy of Autism and the Future of Neurodiversity'
+  rating: 5
+  date_finished: 2018-05-02
+  date_started: 2018-04-14
+  review: Enlightening, with a touch of rage inducing. Also addresses Asperger's affiliations
+    to some degree.
+  source: goodreads
+  author: Steve Silberman
+  print_length: 539 pages
+- title: 'Essentialism: The Disciplined Pursuit of Less'
+  rating: 5
+  date_finished: 2018-04-14
+  date_started: 2018-04-08
+  source: goodreads
+  author: Sean McArdle
+  print_length: 48 pages
+- title: 'Code Girls: The Untold Story of the American Women Code Breakers Who Helped
+    Win World War II'
+  rating: 5
+  date_finished: 2018-04-08
+  date_started: 2018-03-22
+  source: goodreads
+  author: cara alwill leyba
+- title: 'The Inexplicable Universe: Unsolved Mysteries'
+  rating: 4
+  date_finished: 2018-04-06
+  date_started: 2015-07-15
+  source: goodreads
+- title: You're Never Weird on the Internet (Almost)
+  rating: 5
+  date_finished: 2018-03-22
+  date_started: 2018-03-10
+  source: goodreads
+  author: Felicia Day
+  print_length: 288 pages
+- title: 'How to Live a Good Life: Soulful Stories, Surprising Science, and Practical
+    Wisdom'
+  rating: 5
+  date_finished: 2018-02-28
+  date_started: 2018-02-13
+  review: A little bit a rehashing of things you can get in other books, but he struck
+    the right balance between fluffy abstraction and formulas for me.
+  source: goodreads
+  author: Massimo Pigliucci
+  print_length: 256 pages
+- title: The Effective Manager
+  rating: 4
+  date_finished: 2018-02-18
+  date_started: 2018-01-01
+  source: goodreads
+  author: Horstman,Mark
+  print_length: 208 pages
+- title: Genghis Khan and the Making of the Modern World
+  rating: 4
+  date_finished: 2018-02-11
+  date_started: 2018-01-30
+  source: goodreads
+  author: Jack Weatherford
+  print_length: 352 pages
+- title: 'Learning Vue.js 2: Learn how to build amazing and complex reactive web applications
+    easily with Vue.js: Learn how to build amazing reactive web applications easily
+    with Vue.js'
+  rating: 5
+  date_finished: 2018-02-09
+  date_started: 2018-01-03
+  source: goodreads
+  author: Guillaume Chau
+  print_length: 398 pages
+- title: OAuth 2.0 Identity and Access Management Patterns
+  rating: 4
+  date_finished: 2018-02-06
+  date_started: 2018-01-31
+  source: goodreads
+  author: Martin Spasovski
+  print_length: 128 pages
+- title: 'The Highly Sensitive Person: How to Thrive When the World Overwhelms You'
+  rating: 4
+  date_finished: 2018-01-28
+  date_started: 2018-01-12
+  source: goodreads
+  author: Elaine N. Aron
+  print_length: 251 pages
+- title: 'Deviate: The Science of Seeing Differently'
+  rating: 5
+  date_finished: 2018-01-27
+  date_started: 2017-12-31
+  source: goodreads
+  author: Beau Lotto
+  print_length: 352 pages
+- title: 'JavaScript Patterns: Build Better Applications with Coding and Design Patterns'
+  rating: 4
+  date_finished: 2018-01-01
+  date_started: 2014-07-22
+  source: goodreads
+  author: Stoyan Stefanov
+  print_length: 240 pages
+- title: 'Peak Performance: Elevate Your Game, Avoid Burnout, and Thrive with the
+    New Science of Success'
+  rating: 5
+  date_finished: 2017-12-31
+  date_started: 2017-12-31
+  source: goodreads
+  author: Sharon K. Ferrett
+  print_length: 496 pages
+- title: Bossypants
+  date_finished: 2017-12-21
+  date_started: 2015-03-23
+  source: goodreads
+  author: Tina Fey
+  print_length: 276 pages
+- title: 'Foundation''s Edge (Foundation, #4)'
+  rating: 4
+  date_finished: 2017-12-16
+  date_started: 2017-12-06
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 432 pages
+- title: Kotlin in Action
+  rating: 4
+  date_finished: 2017-12-16
+  date_started: 2017-10-25
+  source: goodreads
+  author: Dmitry Jemerov
+  print_length: 360 pages
+- title: 'Trailblazer: A New Architecture For Rails'
+  rating: 4
+  date_finished: 2017-12-16
+  date_started: 2017-07-21
+  source: goodreads
+  author: Hermi Hyacinth Hewitt
+  print_length: 279 pages
+- title: 'Algorithms to Live By: The Computer Science of Human Decisions'
+  rating: 5
+  date_finished: 2017-11-29
+  date_started: 2017-11-20
+  source: goodreads
+  author: Brian Christian
+  print_length: 359 pages
+- title: At the Mountains of Madness
+  rating: 4
+  date_finished: 2017-11-20
+  date_started: 2017-11-15
+  source: goodreads
+  author: H.P. Lovecraft
+  print_length: 192 pages
+- title: 'The Arabs: A History'
+  rating: 5
+  date_finished: 2017-11-15
+  date_started: 2017-10-24
+  source: goodreads
+  author: René R. Khawam
+  print_length: 377 pages
+- title: 'Effective Ruby: 48 Specific Ways to Write Better Ruby (Effective Software
+    Development)'
+  rating: 4
+  date_finished: 2017-10-24
+  date_started: 2017-09-12
+  source: goodreads
+  author: Peter J. Jones
+  print_length: 211 pages
+- title: 'Second Foundation (Foundation, #3)'
+  rating: 5
+  date_finished: 2017-10-21
+  date_started: 2017-10-21
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 237 pages
+- title: Rails 5 Way, The (Addison-Wesley Professional Ruby Series)
+  rating: 5
+  date_finished: 2017-10-16
+  date_started: 2017-07-02
+  source: goodreads
+  author: Obie Fernandez
+  print_length: 1088 pages
+- title: 'Foundation and Empire (Foundation, #2)'
+  rating: 5
+  date_finished: 2017-10-15
+  date_started: 2017-10-15
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 253 pages
+- title: 'Trekonomics: The Economics of Star Trek'
+  rating: 5
+  date_finished: 2017-10-07
+  date_started: 2017-09-25
+  source: goodreads
+  author: Manu Saadia
+  print_length: 280 pages
+- title: 'Foundation (Foundation, #1)'
+  rating: 5
+  date_finished: 2017-09-25
+  date_started: 2017-09-20
+  source: goodreads
+  author: Isaac Asimov
+  print_length: 240 pages
+- title: Managing Virtual Teams, Second Edition
+  rating: 4
+  date_finished: 2017-09-07
+  date_started: 2017-09-02
+  source: goodreads
+  author: Debbie D. DuFrene
+- title: 'A Canticle for Leibowitz (St. Leibowitz, #1)'
+  rating: 5
+  date_finished: 2017-08-28
+  date_started: 2017-08-13
+  source: goodreads
+  author: Walter M. Miller Jr.
+  print_length: 320 pages
+- title: A Meeting with Medusa / Green Mars
+  rating: 5
+  date_finished: 2017-08-21
+  date_started: 2016-11-24
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 192 pages
+- title: 'Give Us the Ballot: The Modern Struggle for Voting Rights in America'
+  rating: 5
+  date_finished: 2017-08-13
+  date_started: 2017-07-11
+  source: goodreads
+  author: Ari Berman
+  print_length: 378 pages
+- title: 'Math Mutation Classics: Exploring Interesting, Fun and Weird Corners of
+    Mathematics'
+  rating: 4
+  date_finished: 2017-07-23
+  date_started: 2016-12-05
+  source: goodreads
+  author: Erik Seligman
+  print_length: 244 pages
+- title: 'My Year of Running Dangerously: A Dad, a Daughter, and a Ridiculous Plan'
+  rating: 5
+  date_finished: 2017-07-11
+  date_started: 2017-07-02
+  source: goodreads
+  author: Tom Foreman
+  print_length: 280 pages
+- title: The Go Programming Language
+  rating: 4
+  date_finished: 2017-07-08
+  date_started: 2017-02-19
+  source: goodreads
+  author: Alan A. A. Donovan
+  print_length: 399 pages
+- title: 'Running with the Kenyans: Passion, Adventure, and the Secrets of the Fastest
+    People on Earth'
+  rating: 5
+  date_finished: 2017-07-07
+  date_started: 2014-12-19
+  source: goodreads
+  author: Adharanand Finn
+  print_length: 304 pages
+- title: Americanah
+  rating: 5
+  date_finished: 2017-06-26
+  date_started: 2017-06-02
+  source: goodreads
+  author: Chimamanda Ngozi Adichie
+  print_length: 590 pages
+- title: 'Learning HTTP/2: A Practical Guide for Beginners'
+  rating: 4
+  date_finished: 2017-06-10
+  date_started: 2017-06-06
+  source: goodreads
+  author: Stephen Ludin
+  print_length: 136 pages
+- title: 'The Hoarder in You: How to Live a Happier, Healthier, Uncluttered Life'
+  rating: 4
+  date_finished: 2017-06-02
+  date_started: 2017-05-01
+  source: goodreads
+  author: Robin Zasio
+  print_length: 231 pages
+- title: 'Rogue One: A Star Wars Story (Star Wars Novelizations, #3.5)'
+  rating: 5
+  date_finished: 2017-06-02
+  date_started: 2017-05-21
+  source: goodreads
+  author: James Luceno
+  print_length: 432 pages
+- title: 'The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living
+    a Good Life'
+  rating: 5
+  date_finished: 2017-06-02
+  date_started: 2016-12-11
+  source: goodreads
+  author: Mason Madison
+- title: 'The Leadership Secrets of Santa Claus: How to Get Big Things Done in YOUR
+    Workshop...All Year Long'
+  rating: 2
+  date_finished: 2017-06-02
+  date_started: 2016-12-06
+  source: goodreads
+  author: David Cottrell
+  print_length: 92 pages
+- title: 'The Dictator''s Handbook: Why Bad Behavior Is Almost Always Good Politics'
+  rating: 5
+  date_finished: 2017-06-02
+  date_started: 2017-04-12
+  source: goodreads
+  author: Bruce Bueno de Mesquita
+  print_length: 352 pages
+- title: 'Good to Great: Why Some Companies Make the Leap... and Others Don''t'
+  rating: 2
+  date_finished: 2017-05-22
+  date_started: 2017-05-22
+  source: goodreads
+  author: Jim Collins
+  print_length: 320 pages
+- title: 'Empire''s End (Star Wars: Aftermath, #3)'
+  rating: 4
+  date_finished: 2017-05-20
+  date_started: 2017-04-30
+  review: Ok, this book made the setup in book 1 a little more worth it. Not wholly
+    predictable. Still wore me down a little more than other Star Wars books. Still
+    annoyed with the excessive alien fauna metaphors... I know that's a thing in the
+    Star Wars universe, but I would have traded Timothy Zahn's one dimensional Han
+    Solo for the tedium of species proliferation.
+  source: goodreads
+  author: Chuck Wendig
+  print_length: 512 pages
+- title: Scrappy Little Nobody
+  rating: 5
+  date_finished: 2017-05-18
+  date_started: 2017-05-18
+  source: goodreads
+  author: Anna Kendrick
+  print_length: 288 pages
+- title: 'The Memory Illusion: Remembering, Forgetting, and the Science of False Memory'
+  rating: 5
+  date_finished: 2017-05-09
+  date_started: 2017-05-09
+  source: goodreads
+  author: Julia Shaw
+  print_length: 296 pages
+- title: 'Life Debt (Star Wars: Aftermath, #2)'
+  rating: 5
+  date_finished: 2017-04-24
+  date_started: 2017-04-08
+  source: goodreads
+  author: Chuck Wendig
+  print_length: 397 pages
+- title: 'Building Microservices: Designing Fine-Grained Systems'
+  rating: 4
+  date_finished: 2017-04-16
+  date_started: 2017-03-15
+  source: goodreads
+  author: Sam Newman
+  print_length: 265 pages
+- title: 'Born a Crime: Stories from a South African Childhood'
+  rating: 5
+  date_finished: 2017-04-10
+  date_started: 2017-04-03
+  source: goodreads
+  author: Trevor Noah
+  print_length: 304 pages
+- title: 'Aftermath (Star Wars: Aftermath, #1)'
+  rating: 3
+  date_finished: 2017-04-03
+  date_started: 2017-02-11
+  review: I couldn't slog through it in one 21 day lending period. The last 20% of
+    the book that I had remaining when my loan expired was the easiest part of the
+    book to read. Unfortunately, there was a wait list on hold at my library, so I
+    had to wait 21+ days before borrowing again.
+  source: goodreads
+  author: Peter Robinson
+  print_length: 464 pages
+- title: 'The 10% Entrepreneur: Live Your Startup Dream Without Quitting Your Day
+    Job'
+  rating: 4
+  date_finished: 2017-03-31
+  date_started: 2017-03-31
+  review: |-
+    It's not "bad" enough for a 3, but I had to round up to a 4.
+
+    There were times when I couldn't tell if a story was a crucial part of the narrative or just name-dropping.
+  source: goodreads
+  author: patrick j mcginning
+- title: 'Pets on the Couch: Neurotic Dogs, Compulsive Cats, Anxious Birds, and the
+    New Science of Animal Psychiatry'
+  rating: 5
+  date_finished: 2017-03-26
+  date_started: 2017-03-25
+  source: goodreads
+  author: Nicholas Dodman
+  print_length: 304 pages
+- title: 'Panic: The Story of Modern Financial Insanity'
+  rating: 4
+  date_finished: 2017-03-25
+  date_started: 2017-03-19
+  source: goodreads
+  author: Lucinda Bassett
+  print_length: 276 pages
+- title: 'Super Mario: How Nintendo Conquered America'
+  rating: 5
+  date_finished: 2017-03-25
+  date_started: 2017-03-15
+  source: goodreads
+  author: Creative Book
+- title: 'Worst. President. Ever.: James Buchanan, the POTUS Rating Game, and the
+    Legacy of the Least of the Lesser Presidents'
+  rating: 5
+  date_finished: 2017-03-14
+  date_started: 2017-03-03
+  source: goodreads
+  author: Stephen H. Frye
+- title: Born to Run
+  rating: 5
+  date_finished: 2017-03-03
+  date_started: 2017-03-03
+  review: I only vaguely remember Springsteen hitting it big with Born in the U.S.A.,
+    and never was really a fan, but this was an enjoyable insight into his life. The
+    reading inspired me to go back to his early albums prior to that "big time" moment.
+    I recommend the audiobook version, read by Springsteen himself.
+  source: goodreads
+  author: Christopher McDougall
+  print_length: 287 pages
+- title: 'The Dorito Effect: The Surprising New Truth About Food and Flavor'
+  rating: 5
+  date_finished: 2017-02-11
+  date_started: 2017-02-11
+  source: goodreads
+  author: Mark Schatzker
+  print_length: 272 pages
+- title: 'What Einstein Kept Under His Hat: Secrets of Science in the Kitchen'
+  rating: 4
+  date_finished: 2017-02-08
+  date_started: 2014-02-23
+  review: A potpourri of food/food industry trivia explained from a chemist's point
+    of view.
+  source: goodreads
+  author: Robert L. Wolke
+  print_length: 384 pages
+- title: 'Plum Island (John Corey, #1)'
+  rating: 4
+  date_finished: 2017-02-07
+  date_started: 2017-01-11
+  source: goodreads
+  author: Nelson DeMille
+  print_length: 559 pages
+- title: 'Debt: The First 5,000 Years'
+  rating: 4
+  date_finished: 2017-01-28
+  date_started: 2015-01-26
+  source: goodreads
+  author: David Graeber
+  print_length: 543 pages
+- title: 'Seven More Languages in Seven Weeks: Languages That Are Shaping the Future'
+  date_finished: 2017-01-23
+  date_started: 2016-08-18
+  source: goodreads
+  author: Bruce Tate
+  print_length: 320 pages
+- title: 'You Are a Badass: How to Stop Doubting Your Greatness and Start Living an
+    Awesome Life'
+  rating: 3
+  date_finished: 2017-01-14
+  date_started: 2017-01-04
+  review: Pretty sure if she'd have used "The Force" in her explanations of things
+    instead of "Source Energy" and The Law of Attraction, I would have given the book
+    4 stars.
+  source: goodreads
+  author: Jen Sincero
+  print_length: 259 pages
+- title: A Pocket Guide to Front-End Style Guides
+  rating: 4
+  date_finished: 2017-01-05
+  date_started: 2017-01-05
+  source: goodreads
+- title: 'How to Move to Canada: A Discontented American''s Guide to Canadian Relocation'
+  rating: 5
+  date_finished: 2017-01-04
+  date_started: 2017-01-03
+  source: goodreads
+  author: Terese Loeb Kreuzer
+  print_length: 245 pages
+- title: 'How to Create a Mind: The Secret of Human Thought Revealed'
+  rating: 5
+  date_finished: 2017-01-04
+  date_started: 2017-01-04
+  source: goodreads
+  author: Ray Kurzweil
+  print_length: 352 pages
+- title: 'The Gig Economy: The Complete Guide to Getting Better Work, Taking More
+    Time Off, and Financing the Life You Want'
+  rating: 4
+  date_finished: 2016-12-27
+  date_started: 2016-12-09
+  source: goodreads
+  author: Bridey Heing
+  print_length: 176 pages
+- title: The Terrible and Wonderful Reasons Why I Run Long Distances (Volume 5) (The
+    Oatmeal)
+  rating: 4
+  date_finished: 2016-12-09
+  date_started: 2016-12-09
+  source: goodreads
+  author: Matthew Inman
+  print_length: 147 pages
+- title: We
+  rating: 4
+  date_finished: 2016-12-05
+  date_started: 2016-12-05
+  source: goodreads
+  author: Michael Rosen
+  print_length: 36 pages
+- title: 'Words on the Move: Why English Won''t - and Can''t - Sit Still (Like, Literally)'
+  rating: 5
+  date_finished: 2016-12-05
+  date_started: 2016-11-28
+  source: goodreads
+  author: John McWhorter
+- title: 'Moneyball: The Art of Winning an Unfair Game'
+  rating: 5
+  date_finished: 2016-11-28
+  date_started: 2016-11-21
+  source: goodreads
+  author: Michael Lewis
+  print_length: 317 pages
+- title: 'A Dog''s Purpose (A Dog''s Purpose, #1)'
+  rating: 4
+  date_finished: 2016-11-21
+  date_started: 2016-11-21
+  source: goodreads
+  author: W. Bruce Cameron
+  print_length: 332 pages
+- title: 'Harry Potter and the Cursed Child: Parts One and Two (Harry Potter, #8)'
+  date_finished: 2016-11-20
+  date_started: 2016-07-31
+  source: goodreads
+  author: Jack Thorne
+  print_length: 343 pages
+- title: 'Better Than New: Lessons I''ve Learned from Saving Old Homes (and How They
+    Saved Me)'
+  rating: 4
+  date_finished: 2016-11-18
+  date_started: 2016-11-15
+  source: goodreads
+  author: Douglas Hiller
+  print_length: 77 pages
+- title: '100 Tricks to Appear Smart in Meetings: How to Get By Without Even Trying'
+  rating: 3
+  date_finished: 2016-11-15
+  date_started: 2016-11-15
+  review: Satire? It hits a little too close to home.
+  source: goodreads
+  author: Sarah Cooper
+  print_length: 176 pages
+- title: 'The Gift of Failure: How the Best Parents Learn to Let Go So Their Children
+    Can Succeed'
+  date_finished: 2016-11-14
+  date_started: 2016-11-05
+  source: goodreads
+  author: Jessica Lahey
+  print_length: 304 pages
+- title: 'Fully Present: The Science, Art, and Practice of Mindfulness'
+  date_finished: 2016-11-12
+  date_started: 2016-10-30
+  source: goodreads
+  author: Susan L. Smalley
+  print_length: 304 pages
+- title: 'Notorious RBG: The Life and Times of Ruth Bader Ginsburg'
+  rating: 4
+  date_finished: 2016-11-05
+  date_started: 2016-11-01
+  source: goodreads
+  author: Irin Carmon and Shana Knizhnik
+  print_length: 240 pages
+- title: 'Life Hacks: Any Procedure or Action That Solves a Problem, Simplifies a
+    Task, Reduces Frustration, Etc. in One''s Everyday Life (Life Hacks Series)'
+  rating: 2
+  date_finished: 2016-11-04
+  date_started: 2016-11-02
+  source: goodreads
+  author: Sara Devos
+  print_length: 205 pages
+- title: 'Rama Revealed (Rama, #4)'
+  rating: 4
+  date_finished: 2016-11-01
+  date_started: 2016-10-08
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 480 pages
+- title: 'Stuff: Compulsive Hoarding and the Meaning of Things'
+  rating: 4
+  date_finished: 2016-10-30
+  date_started: 2015-01-26
+  source: goodreads
+  author: Tom Wolfe
+  print_length: 436 pages
+- title: 'The 4% Universe: Dark Matter, Dark Energy, and the Race to Discover the
+    Rest of Reality'
+  date_finished: 2016-10-21
+  date_started: 2016-10-02
+  source: goodreads
+  author: Canadian General Hospital, No. 4.
+- title: 'Earthquake Storms: An Unauthorized Biography of the San Andreas Fault'
+  rating: 4
+  date_finished: 2016-10-18
+  date_started: 2016-10-06
+  source: goodreads
+  author: John Dvorak
+  print_length: 312 pages
+- title: 'Doubt: A History: The Great Doubters and Their Legacy of Innovation from
+    Socrates and Jesus to Thomas Jefferson and Emily Dickinson'
+  rating: 4
+  date_finished: 2016-10-06
+  date_started: 2015-01-20
+  source: goodreads
+  author: Douglas Adams
+  print_length: 299 pages
+- title: 'Age of Discovery: Navigating the Risks and Rewards of Our New Renaissance'
+  rating: 4
+  date_finished: 2016-10-02
+  date_started: 2016-09-05
+  source: goodreads
+  author: Charles Kovacs
+- title: 'The Garden of Rama (Rama, #3)'
+  rating: 2
+  date_finished: 2016-09-23
+  date_started: 2016-09-08
+  review: "Just go read this review. I liked some details here and there, but the
+    book overall of tiring.\nhttps://www.goodreads.com/review/show/150933281?book_show_action=true "
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 511 pages
+- title: 'Rama II (Rama #2)'
+  rating: 4
+  date_finished: 2016-09-08
+  date_started: 2016-08-29
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 496 pages
+- title: 'The Political Brain: The Role of Emotion in Deciding the Fate of the Nation'
+  rating: 5
+  date_finished: 2016-09-08
+  date_started: 2016-07-31
+  source: goodreads
+  author: Drew Westen
+  print_length: 477 pages
+- title: 'Rendezvous with Rama (Rama, #1)'
+  rating: 4
+  date_finished: 2016-08-29
+  date_started: 2016-07-17
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 256 pages
+- title: 'Peak: Secrets from the New Science of Expertise'
+  rating: 5
+  date_finished: 2016-08-25
+  date_started: 2016-08-16
+  source: goodreads
+  author: Sir Walter Scott
+  print_length: 556 pages
+- title: 'The Inevitable: Understanding the 12 Technological Forces That Will Shape
+    Our Future'
+  rating: 5
+  date_finished: 2016-08-16
+  date_started: 2016-08-10
+  source: goodreads
+  author: Kevin Kelly
+  print_length: 328 pages
+- title: I Will Teach You to Be Rich
+  date_finished: 2016-08-15
+  date_started: 2015-01-26
+  source: goodreads
+  author: Ramit Sethi
+  print_length: 272 pages
+- title: 'Unbroken Brain: A Revolutionary New Way of Understanding Addiction'
+  rating: 5
+  date_finished: 2016-08-06
+  date_started: 2016-07-23
+  source: goodreads
+  author: Maia Szalavitz
+  print_length: 344 pages
+- title: "$2.00 a Day: Living on Almost Nothing in America"
+  rating: 5
+  date_finished: 2016-07-31
+  date_started: 2016-07-31
+  review: Insight into those living in extreme poverty in the US, how they manage,
+    and the systemic problems they face, along with background on welfare reform and
+    its winners and losers.
+  source: goodreads
+  author: Kathryn Edin
+  print_length: 210 pages
+- title: 'How to Bake Pi: An Edible Exploration of the Mathematics of Mathematics'
+  rating: 5
+  date_finished: 2016-07-23
+  date_started: 2016-07-23
+  source: goodreads
+  author: Eugenia Cheng
+  print_length: 288 pages
+- title: 'Coffee: The Epic of a Commodity'
+  rating: 3
+  date_finished: 2016-07-11
+  date_started: 2016-06-15
+  source: goodreads
+  author: 川口俊和
+  print_length: 240 pages
+- title: 'Hamilton: The Revolution'
+  rating: 5
+  date_finished: 2016-07-04
+  date_started: 2016-07-04
+  source: goodreads
+  author: Ron Chernow
+  print_length: 832 pages
+- title: 'Harry Potter and the Deathly Hallows (Harry Potter, #7)'
+  rating: 5
+  date_finished: 2016-06-26
+  date_started: 2016-06-11
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 701 pages
+- title: 'When to Rob a Bank: ...and 131 More Warped Suggestions and Well-Intended
+    Rants – A Curated Collection of Witty, Off-Center Economics'
+  rating: 4
+  date_finished: 2016-06-15
+  date_started: 2016-05-28
+  source: goodreads
+  author: Steven D. Levitt
+  print_length: 400 pages
+- title: 'Harry Potter and the Half-Blood Prince (Harry Potter, #6)'
+  rating: 5
+  date_finished: 2016-06-11
+  date_started: 2016-05-03
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 640 pages
+- title: Accessibility Handbook
+  rating: 4
+  date_finished: 2016-06-07
+  date_started: 2016-06-05
+  source: goodreads
+  author: Richard Bullock
+- title: Learning Javascript Design Patterns
+  rating: 3
+  date_finished: 2016-06-05
+  date_started: 2016-05-31
+  source: goodreads
+  author: Addy Osmani
+  print_length: 270 pages
+- title: Do Fish Drink Water?
+  rating: 3
+  date_finished: 2016-05-28
+  date_started: 2016-05-19
+  source: goodreads
+  author: Bill McLain
+  print_length: 303 pages
+- title: Walden & Civil Disobedience
+  rating: 4
+  date_finished: 2016-05-05
+  date_started: 2011-01-31
+  source: goodreads
+  author: Henry David Thoreau
+  print_length: 248 pages
+- title: Common Sense
+  date_finished: 2016-05-04
+  date_started: 2016-05-03
+  source: goodreads
+  author: Thomas Paine
+  print_length: 61 pages
+- title: 'Harry Potter and the Order of the Phoenix (Harry Potter, #5)'
+  rating: 5
+  date_finished: 2016-05-02
+  date_started: 2016-04-08
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 870 pages
+- title: 'Better Than Before: What I Learned About Making and Breaking Habits--to
+    Sleep More, Quit Sugar, Procrastinate Less, and Generally Build a Happier Life'
+  rating: 4
+  date_finished: 2016-04-29
+  date_started: 2014-12-16
+  source: goodreads
+  author: Gretchen Rubin
+  print_length: 317 pages
+- title: 'Lamb: The Gospel According to Biff, Christ’s Childhood Pal'
+  rating: 4
+  date_finished: 2016-04-17
+  date_started: 2016-04-05
+  source: goodreads
+  author: Thomas Harris
+  print_length: 352 pages
+- title: 'Harry Potter and the Goblet of Fire (Harry Potter, #4)'
+  rating: 5
+  date_finished: 2016-04-06
+  date_started: 2016-03-16
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 672 pages
+- title: 'Build Awesome Command-Line Applications in Ruby 2: Control Your Computer,
+    Simplify Your Life'
+  rating: 4
+  date_finished: 2016-04-05
+  date_started: 2016-04-05
+  source: goodreads
+- title: 'Tmux: Productive Mouse-Free Development'
+  date_finished: 2016-03-30
+  date_started: 2016-03-29
+  source: goodreads
+  author: Brian P. Hogan
+  print_length: 71 pages
+- title: Metaprogramming Elixir
+  rating: 4
+  date_finished: 2016-03-29
+  date_started: 2015-09-07
+  source: goodreads
+  author: Chris McCord
+  print_length: 128 pages
+- title: 'TrumpNation: The Art of Being The Donald'
+  rating: 4
+  date_finished: 2016-03-29
+  date_started: 2016-03-14
+  source: goodreads
+  author: Timothy L. O'Brien
+  print_length: 288 pages
+- title: 'Being Mortal: Medicine and What Matters in the End'
+  rating: 5
+  date_finished: 2016-03-25
+  date_started: 2016-03-19
+  source: goodreads
+  author: Atul Gawande
+  print_length: 283 pages
+- title: 'The Possibility Dogs: What a Handful of "Unadoptables" Taught Me About Service,
+    Hope, and Healing'
+  rating: 5
+  date_finished: 2016-03-21
+  date_started: 2016-02-01
+  source: goodreads
+  author: Susannah Charleson
+  print_length: 285 pages
+- title: 'Harry Potter and the Prisoner of Azkaban (Harry Potter, #3)'
+  rating: 5
+  date_finished: 2016-03-18
+  date_started: 2016-03-04
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 416 pages
+- title: 'The Madoff Chronicles: Inside the Secret World of Bernie and Ruth'
+  rating: 4
+  date_finished: 2016-03-14
+  date_started: 2016-03-09
+  source: goodreads
+  author: Brian Ross
+  print_length: 279 pages
+- title: 'Programming Phoenix: Productive |> Reliable |> Fast'
+  rating: 4
+  date_finished: 2016-03-08
+  date_started: 2016-01-16
+  source: goodreads
+  author: Douglas Valentine
+  print_length: 482 pages
+- title: 'Harry Potter and the Chamber of Secrets (Harry Potter, #2)'
+  rating: 4
+  date_finished: 2016-03-04
+  date_started: 2016-02-25
+  source: goodreads
+  author: J. K. Rowling
+  print_length: 339 pages
+- title: 'Harry Potter and the Sorcerer''s Stone (Harry Potter, #1)'
+  rating: 5
+  date_finished: 2016-02-25
+  date_started: 2016-02-19
+  source: goodreads
+  author: Drew Struzan
+- title: 'This Idea Must Die: Scientific Theories That Are Blocking Progress'
+  rating: 4
+  date_finished: 2016-02-25
+  date_started: 2016-02-05
+  source: goodreads
+  author: John Brockman
+- title: 'The Buddha Walks into a Bar . . .: A Guide to Life for a New Generation'
+  rating: 4
+  date_finished: 2016-02-19
+  date_started: 2016-02-19
+  source: goodreads
+  author: Lodro Rinzler
+- title: 'The Hard Thing About Hard Things: Building a Business When There Are No
+    Easy Answers―Straight Talk on the Challenges of Entrepreneurship'
+  rating: 5
+  date_finished: 2016-02-14
+  date_started: 2016-02-08
+  source: goodreads
+  author: Ben Horowitz
+  print_length: 145 pages
+- title: Concussion
+  rating: 5
+  date_finished: 2016-02-05
+  date_started: 2016-02-01
+  review: |-
+    Just in time for the Super Bowl.
+
+    It's one-sided, yes, but I think the NFL has done plenty of one-sided story telling themselves. I think there's an urgent need for this message, in an age in which kids are getting involved in football at an ever-younger age.
+  source: goodreads
+  author: Rolland S. Parker
+  print_length: 879 pages
+- title: Double Star
+  rating: 5
+  date_finished: 2016-01-31
+  date_started: 2016-01-27
+  source: goodreads
+  author: Robert A. Heinlein
+  print_length: 170 pages
+- title: 'Rewire: Change Your Brain to Break Bad Habits, Overcome Addictions, Conquer
+    Self-Destructive Behavior'
+  rating: 3
+  date_finished: 2016-01-27
+  date_started: 2016-01-17
+  review: Interesting material, but it reads like a layman's DSM combined with an
+    encyclopedia.
+  source: goodreads
+  author: Catherine M. Pittman
+  print_length: 232 pages
+- title: 'The Handmaid’s Tale (The Handmaid''s Tale, #1)'
+  rating: 5
+  date_finished: 2016-01-25
+  date_started: 2016-01-17
+  source: goodreads
+  author: Margaret Atwood
+  print_length: 350 pages
+- title: A Brief History of Holiday Music
+  rating: 3
+  date_finished: 2016-01-17
+  date_started: 2016-01-17
+  source: goodreads
+- title: 'The Etymologicon: A Circular Stroll through the Hidden Connections of the
+    English Language'
+  rating: 5
+  date_finished: 2016-01-17
+  date_started: 2016-01-07
+  source: goodreads
+  author: Mark Forsyth
+  print_length: 373 pages
+- title: Out of Africa / Shadows on the Grass
+  rating: 3
+  date_finished: 2016-01-15
+  date_started: 2015-11-13
+  source: goodreads
+  author: Isak Dinesen
+- title: 'Genesis (Extinction Point, #4)'
+  rating: 4
+  date_finished: 2016-01-08
+  date_started: 2016-01-01
+  source: goodreads
+  author: Terry Brooks
+  print_length: 404 pages
+- title: The Call of Cthulhu and Other Weird Stories
+  rating: 4
+  date_finished: 2016-01-07
+  date_started: 2016-01-01
+  source: goodreads
+  author: H.P. Lovecraft
+  print_length: 420 pages
+- title: 'QI: The Second Book of General Ignorance'
+  rating: 4
+  date_finished: 2016-01-06
+  date_started: 2015-12-30
+  source: goodreads
+  author: Yasha Jiang
+  print_length: 754 pages
+- title: 'Wizard: The Life and Times of Nikola Tesla: Biography of a Genius'
+  rating: 3
+  date_finished: 2016-01-01
+  date_started: 2015-11-13
+  source: goodreads
+  author: L. Frank Baum
+  print_length: 159 pages
+- title: Shockaholic
+  rating: 4
+  date_finished: 2015-12-30
+  date_started: 2015-12-25
+  source: goodreads
+  author: Carrie Fisher
+  print_length: 169 pages
+- title: Alexander Hamilton
+  rating: 5
+  date_finished: 2015-12-18
+  date_started: 2015-11-18
+  source: goodreads
+  author: Ron Chernow
+  print_length: 832 pages
+- title: 'Folks, This Ain''t Normal: A Farmer''s Advice for Happier Hens, Healthier
+    People, and a Better World'
+  rating: 5
+  date_finished: 2015-11-13
+  date_started: 2015-10-24
+  source: goodreads
+  author: Joel Salatin
+  print_length: 480 pages
+- title: Of Human Bondage
+  rating: 4
+  date_finished: 2015-11-03
+  date_started: 2015-09-11
+  source: goodreads
+  author: William Somerset Maugham
+  print_length: 589 pages
+- title: The Martian
+  rating: 4
+  date_finished: 2015-11-03
+  date_started: 2015-10-27
+  source: goodreads
+  author: Ray Bradbury
+  print_length: 262 pages
+- title: '3001: The Final Odyssey'
+  rating: 3
+  date_finished: 2015-10-23
+  date_started: 2015-10-23
+  review: Only about 2/3 of the book seems to be new material. Lots of flashbacks
+    to other books.
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 276 pages
+- title: 'Is That a Word?: From AA to ZZZ, the Weird and Wonderful Language of SCRABBLE'
+  rating: 3
+  date_finished: 2015-10-20
+  date_started: 2015-10-14
+  source: goodreads
+  author: David Bukszpan
+- title: '2061: Odyssey Three (Space Odyssey, #3)'
+  rating: 4
+  date_finished: 2015-10-14
+  date_started: 2015-10-02
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 279 pages
+- title: 'Rails 4 Test Prescriptions: Build a Healthy Codebase'
+  rating: 4
+  date_finished: 2015-10-11
+  date_started: 2015-08-14
+  source: goodreads
+  author: Noel Rappin
+- title: '2010: Odyssey Two (Space Odyssey, #2)'
+  rating: 5
+  date_finished: 2015-10-02
+  date_started: 2015-10-02
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 304 pages
+- title: 'The Marshmallow Test: Mastering Self-Control'
+  rating: 5
+  date_finished: 2015-09-28
+  date_started: 2015-09-20
+  review: Clarifies some misrepresentation of the results behind the original marshmallow
+    test and expands on the malleability of the human brain.
+  source: goodreads
+  author: Walter Mischel
+  print_length: 326 pages
+- title: 'Born to Run: A Hidden Tribe, Superathletes, and the Greatest Race the World
+    Has Never Seen'
+  rating: 3
+  date_finished: 2015-09-19
+  date_started: 2015-09-08
+  source: goodreads
+  author: Christopher McDougall
+  print_length: 287 pages
+- title: What I Learned Losing A Million Dollars
+  rating: 4
+  date_finished: 2015-09-17
+  date_started: 2015-04-21
+  source: goodreads
+  author: Jim Paul
+  print_length: 191 pages
+- title: My Ántonia
+  rating: 5
+  date_finished: 2015-09-10
+  date_started: 2015-09-02
+  source: goodreads
+  author: Willa Cather
+  print_length: 264 pages
+- title: 'Blackout: Remembering the Things I Drank to Forget'
+  rating: 5
+  date_finished: 2015-09-09
+  date_started: 2015-09-07
+  source: goodreads
+  author: Dhonielle Clayton
+  print_length: 250 pages
+- title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry Into Values (Phaedrus,
+    #1)'
+  rating: 4
+  date_finished: 2015-09-02
+  date_started: 2011-12-19
+  source: goodreads
+  author: Robert M. Pirsig
+  print_length: 421 pages
+- title: 'Izzy & Lenore: Two Dogs, an Unexpected Journey, and Me'
+  rating: 5
+  date_finished: 2015-09-01
+  date_started: 2015-08-26
+  source: goodreads
+  author: Jon Katz
+  print_length: 216 pages
+- title: 'Off Balance: Getting Beyond the Work-Life Balance Myth to Personal and Professional
+    Satisfaction'
+  rating: 4
+  date_finished: 2015-08-30
+  date_started: 2015-08-28
+  source: goodreads
+  author: Dominique Moceanu
+- title: Childhood’s End
+  rating: 5
+  date_finished: 2015-08-26
+  date_started: 2015-08-18
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 224 pages
+- title: '2001: A Space Odyssey (Space Odyssey, #1)'
+  rating: 5
+  date_finished: 2015-08-18
+  date_started: 2015-08-12
+  source: goodreads
+  author: Arthur C. Clarke
+  print_length: 237 pages
+- title: 'Cucumber Recipes: Automate Anything with BDD Tools and Techniques (Pragmatic
+    Programmers)'
+  rating: 3
+  date_finished: 2015-08-14
+  date_started: 2015-07-19
+  source: goodreads
+  author: Lillian Harris
+- title: 'The Physics of Wall Street: A Brief History of Predicting the Unpredictable'
+  rating: 3
+  date_finished: 2015-08-10
+  date_started: 2015-07-20
+  review: Great background stories, and he may be onto something, but he carries his
+    evidence a little too far, especially in assuming that physicists are not subject
+    to the hubris that others who have dealt with mathematical models and economics
+    have.
+  source: goodreads
+  author: James Owen Weatherall
+  print_length: 295 pages
+- title: 'Flow: The Psychology of Optimal Experience'
+  rating: 4
+  date_finished: 2015-08-08
+  date_started: 2012-04-02
+  source: goodreads
+  author: Philip K. Dick
+  print_length: 231 pages
+- title: 'Four: A Divergent Story Collection (Divergent, #0.1-0.4)'
+  rating: 4
+  date_finished: 2015-08-02
+  date_started: 2015-07-14
+  source: goodreads
+  author: Agatha Christie
+  print_length: 223 pages
+- title: You Might Be a Zombie and Other Bad News
+  rating: 4
+  date_finished: 2015-07-19
+  date_started: 2015-07-19
+  source: goodreads
+  author: Cracked.com
+- title: 'How to Speak Money: What the Money People Say — And What It Really Means'
+  rating: 4
+  date_finished: 2015-07-15
+  date_started: 2015-07-08
+  source: goodreads
+  author: Ali Velshi
+  print_length: 208 pages
+- title: Candide
+  rating: 4
+  date_finished: 2015-07-07
+  date_started: 2015-06-28
+  source: goodreads
+  author: Voltaire
+  print_length: 152 pages
+- title: 'Mars Rover Curiosity: An Inside Account from Curiosity''s Chief Engineer'
+  rating: 4
+  date_finished: 2015-06-24
+  date_started: 2015-06-20
+  source: goodreads
+  author: Rob Manning
+  print_length: 232 pages
+- title: 'Stand and Deliver: The Dale Carnegie Method to Public Speaking'
+  rating: 3
+  date_finished: 2015-06-20
+  date_started: 2015-06-10
+  source: goodreads
+  author: Nicholas Edwards
+  print_length: 118 pages
+- title: Continuous delivery
+  rating: 3
+  date_finished: 2015-06-17
+  date_started: 2015-03-08
+  source: goodreads
+  author: Jez Humble
+  print_length: 498 pages
+- title: Thor's Tale
+  rating: 5
+  date_finished: 2015-06-15
+  date_started: 2015-06-11
+  source: goodreads
+  author: Kevin Crossley-Holland
+  print_length: 184 pages
+- title: 'Why Beautiful People Have More Daughters: From Dating, Shopping, and Praying
+    to Going to War and Becoming a Billionaire — Two Evolutionary Psychologists Explain
+    Why We Do What We Do'
+  rating: 3
+  date_finished: 2015-06-15
+  date_started: 2015-06-10
+  review: Not the best book on evolutionary psychology, but explores some new angles
+    that The Moral Animal didn't.
+  source: goodreads
+  author: Alan S. Miller
+  print_length: 252 pages
+- title: 'The Checklist Manifesto: How to Get Things Right'
+  rating: 4
+  date_finished: 2015-06-10
+  date_started: 2015-05-30
+  source: goodreads
+  author: Atul Gawande
+  print_length: 209 pages
+- title: 'Dark Warning (Star Wars: The Last of the Jedi, #2)'
+  rating: 3
+  date_finished: 2015-06-06
+  date_started: 2015-06-02
+  source: goodreads
+  author: Marie-Louise Fitzpatrick
+  print_length: 249 pages
+- title: 'The Practicing Mind: Bringing Discipline and Focus into Your Life'
+  rating: 4
+  date_finished: 2015-06-05
+  date_started: 2015-05-30
+  source: goodreads
+  author: Thomas M. Sterner
+  print_length: 100 pages
+- title: 'The Desperate Mission (Star Wars: The Last of the Jedi, #1)'
+  rating: 4
+  date_finished: 2015-06-01
+  date_started: 2015-05-30
+  source: goodreads
+  author: Hyman Kaner
+  print_length: 64 pages
+- title: 'The Two Towers (The Lord of the Rings, #2)'
+  rating: 5
+  date_finished: 2015-05-30
+  date_started: 2015-05-30
+  source: goodreads
+  author: J.R.R. Tolkien
+  print_length: 436 pages
+- title: 'Social: Why Our Brains Are Wired to Connect'
+  rating: 4
+  date_finished: 2015-05-30
+  date_started: 2015-05-07
+  source: goodreads
+  author: Jean-Jacques Rousseau
+  print_length: 249 pages
+- title: 'Continuous Integration: Improving Software Quality and Reducing Risk'
+  rating: 4
+  date_finished: 2015-05-16
+  date_started: 2015-05-08
+  source: goodreads
+  author: Paul M. Duvall
+  print_length: 336 pages
+- title: 'The Great Beanie Baby Bubble: Mass Delusion and the Dark Side of Cute'
+  rating: 4
+  date_finished: 2015-05-08
+  date_started: 2015-05-04
+  source: goodreads
+  author: Zac Bissonnette
+  print_length: 266 pages
+- title: 'Searching for Sunday: Loving, Leaving, and Finding the Church'
+  rating: 5
+  date_finished: 2015-05-06
+  date_started: 2015-03-08
+  source: goodreads
+  author: Rachel Held Evans
+  print_length: 279 pages
+- title: 'How the Hot Dog Found Its Bun: Accidental Discoveries And Unexpected Inspirations
+    That Shape What We Eat And Drink'
+  rating: 3
+  date_finished: 2015-05-03
+  date_started: 2015-04-22
+  source: goodreads
+  author: Josh Chetwynd
+  print_length: 176 pages
+- title: Revelations
+  rating: 5
+  date_finished: 2015-04-21
+  date_started: 2015-04-19
+  review: Maybe I'm far more fascinated by the premise than anyone else is, but I
+    liked this book better than the first two, possibly because the first two books
+    still had grounding in the reality of the old world, whereas this one was free
+    to fully explore an alien fantasy world.
+  source: goodreads
+  author: Julian of Norwich
+  print_length: 208 pages
+- title: 'Exodus (Extinction Point, #2)'
+  rating: 4
+  date_finished: 2015-04-19
+  date_started: 2015-04-19
+  source: goodreads
+  author: Leon Uris
+  print_length: 626 pages
+- title: AWS Development Essentials
+  rating: 1
+  date_finished: 2015-04-13
+  date_started: 2015-03-20
+  review: This book reads so poorly that it seems that it was run through Google Translate
+    from the author's native language without editing by a native English speaker.
+    Don't waste your time.
+  source: goodreads
+  author: Prabhakaran Kuppusamy
+- title: 'Extinction Point (Extinction Point, #1)'
+  rating: 4
+  date_finished: 2015-04-10
+  date_started: 2015-04-02
+  source: goodreads
+  author: Paul Antony Jones
+  print_length: 158 pages
+- title: 'The Ascent of Money: A Financial History of the World'
+  rating: 4
+  date_finished: 2015-04-02
+  date_started: 2015-03-29
+  source: goodreads
+  author: Niall Ferguson
+  print_length: 445 pages
+- title: 'How to Fail at Almost Everything and Still Win Big: Kind of the Story of
+    My Life'
+  rating: 4
+  date_finished: 2015-03-24
+  date_started: 2014-04-09
+  source: goodreads
+  author: Scott Adams
+  print_length: 248 pages
+- title: 'The Drunkard''s Walk: How Randomness Rules Our Lives'
+  rating: 2
+  date_finished: 2015-03-21
+  date_started: 2015-03-21
+  source: goodreads
+  author: Leonard Mlodinow
+  print_length: 252 pages
+- title: 'HTML5 Hacks: Tips & Tools for Creating Interactive Web Applications'
+  rating: 3
+  date_finished: 2015-03-20
+  date_started: 2015-03-06
+  source: goodreads
+  author: Jeff Burtoft
+  print_length: 481 pages
+- title: 'Evolving in Monkey Town: How a Girl Who Knew All the Answers Learned to
+    Ask the Questions'
+  rating: 4
+  date_finished: 2015-03-10
+  date_started: 2015-03-01
+  source: goodreads
+  author: Rachel Held Evans
+- title: 'Building Web Apps with Ember.js: Write Ambitious JavaScript'
+  rating: 3
+  date_finished: 2015-03-06
+  date_started: 2015-02-26
+  review: I'm not sold, based on this book, at least.
+  source: goodreads
+  author: Jesse Cravens
+- title: 'Deliverance (Defiance, #3)'
+  rating: 3
+  date_finished: 2015-03-04
+  date_started: 2015-01-12
+  source: goodreads
+- title: 'The Fellowship of the Ring (The Lord of the Rings, #1)'
+  rating: 5
+  date_finished: 2015-03-01
+  date_started: 2015-02-12
+  source: goodreads
+  author: J.R.R. Tolkien
+  print_length: 496 pages
+- title: 'Ajax on Rails: Build Dynamic Web Applications with Ruby'
+  date_finished: 2015-02-26
+  date_started: 2015-02-19
+  source: goodreads
+  author: Scott Raymond
+  print_length: 350 pages
+- title: 'Effective JavaScript: 68 Specific Ways to Harness the Power of JavaScript
+    (Effective Software Development Series)'
+  rating: 4
+  date_finished: 2015-02-19
+  date_started: 2015-02-08
+  source: goodreads
+  author: David Herman
+  print_length: 240 pages
+- title: 'Mastering Bitcoin: Unlocking Digital Cryptocurrencies'
+  rating: 4
+  date_finished: 2015-02-13
+  date_started: 2015-01-05
+  source: goodreads
+  author: Andreas M. Antonopoulos
+  print_length: 298 pages
+- title: 'Mark Twain''s Helpful Hints for Good Living: A Handbook for the Damned Human
+    Race'
+  rating: 3
+  date_finished: 2015-02-12
+  date_started: 2015-02-09
+  source: goodreads
+  author: Mark Twain
+  print_length: 221 pages
+- title: A Year of Biblical Womanhood
+  rating: 5
+  date_finished: 2015-02-09
+  date_started: 2015-02-04
+  source: goodreads
+  author: Rachel Held Evans
+  print_length: 352 pages
+- title: 'Less Doing, More Living: Make Everything in Life Easier'
+  rating: 2
+  date_finished: 2015-02-04
+  date_started: 2015-02-04
+  review: A few interesting suggestions, but mostly a "link list" in book form crossed
+    with 4 Hour Workweek.
+  source: goodreads
+  author: Ari Meisel
+  print_length: 123 pages
+- title: Practical Object Oriented Design in Ruby
+  rating: 4
+  date_finished: 2015-02-01
+  date_started: 2015-01-29
+  source: goodreads
+  author: Sandi Metz
+  print_length: 247 pages
+- title: 'The Introvert Advantage: How to Thrive in an Extrovert World'
+  rating: 2
+  date_finished: 2015-01-31
+  date_started: 2015-01-31
+  review: |-
+    At first the book made me all, "OVERTHROW THE EXTROVERTS"
+
+    At the end, it was all, "YOU ARE PHYSIOLOGICALLY FRAGILE INTROVERTS"
+  source: goodreads
+  author: Marti Olsen Laney
+  print_length: 256 pages
+- title: 'Minecraft: The Unlikely Tale of Markus "Notch" Persson and the Game that
+    Changed Everything'
+  rating: 5
+  date_finished: 2015-01-29
+  date_started: 2015-01-26
+  source: goodreads
+  author: Max Brooks
+  print_length: 288 pages
+- title: Dr. Atkins' New Diet Revolution
+  rating: 3
+  date_finished: 2015-01-28
+  date_started: 2015-01-13
+  review: 'The latest edition of the book got a little too heavy into evangelism of
+    his company''s products. '
+  source: goodreads
+  author: Atkins, Robert C.
+  print_length: 339 pages
+- title: Ruby Under a Microscope
+  rating: 5
+  date_finished: 2015-01-25
+  date_started: 2015-01-19
+  review: Good review of parsing, compilation, inheritance, and garbage collection
+    in different Ruby implementations.
+  source: goodreads
+  author: Pat Shaughnessy
+  print_length: 336 pages
+- title: 'Deception (Defiance, #2)'
+  rating: 3
+  date_finished: 2015-01-20
+  date_started: 2015-01-12
+  review: Post apocalyptic dystopian young adult romance with strong female lead cliche,
+    but it strings you along pretty well.
+  source: goodreads
+  author: Dan Brown
+  print_length: 559 pages
+- title: 'Hacking Healthcare: A Guide to Standards, Workflows, and Meaningful Use'
+  rating: 4
+  date_finished: 2015-01-17
+  date_started: 2015-01-10
+  source: goodreads
+  author: Tom Lawry
+- title: 'Defiance (Defiance, #1)'
+  rating: 3
+  date_finished: 2015-01-13
+  date_started: 2014-12-19
+  source: goodreads
+  author: Lynne Graham
+  print_length: 192 pages
+- title: 'The Big Fat Surprise: Why Butter, Meat and Cheese Belong in a Healthy Diet'
+  rating: 5
+  date_finished: 2015-01-09
+  date_started: 2014-12-13
+  review: 'This is like Atkins meets Food, Inc: The story how a flawed study became
+    the basis for a hypothesis which led us down the road of trans fat ingestion and
+    food industry interest further screwing up our diet that was probably better off
+    with the original animal fats.'
+  source: goodreads
+  author: Nina-Teicholz
+- title: 'Rails Antipatterns: Best Practice Ruby on Rails Refactoring'
+  rating: 4
+  date_finished: 2015-01-05
+  date_started: 2014-12-31
+  review: Good content, but out of date due to being last updated for Rails 3.
+  source: goodreads
+  author: Chad Pytel
+- title: 'Introducing Elixir: Getting Started in Functional Programming'
+  rating: 4
+  date_finished: 2014-12-31
+  date_started: 2014-12-03
+  source: goodreads
+  author: Simon St Laurent
+  print_length: 210 pages
+- title: Smalltalk Best Practice Patterns
+  rating: 4
+  date_finished: 2014-12-27
+  date_started: 2014-03-24
+  review: |-
+    This book is a good look into where some of the names and constructs in Objective-C and Ruby come from.
+
+    Some of the patterns and recommendations are strictly a result of the idiosyncrasies of Smalltalk and working within the average Smalltalk browser.
+
+    Oddly most enlightening for me were the code formatting recommendations which assumed using line wrapping in a browser.
+  source: goodreads
+  author: Kent Beck
+  print_length: 224 pages
+- title: Ruby Science
+  rating: 4
+  date_finished: 2014-12-23
+  date_started: 2014-11-19
+  source: goodreads
+  author: Ophir Frieder
+  print_length: 188 pages
+- title: 'Seven Concurrency Models in Seven Weeks: When Threads Unravel (The Pragmatic
+    Programmers)'
+  rating: 5
+  date_finished: 2014-12-19
+  date_started: 2014-12-13
+  source: goodreads
+  author: Paul Butcher
+  print_length: 275 pages
+- title: 'Designing for Performance: Weighing Aesthetics and Speed'
+  rating: 4
+  date_finished: 2014-12-13
+  date_started: 2014-11-19
+  source: goodreads
+  author: Lara Callender Hogan
+- title: 'The Curmudgeon''s Guide to Getting Ahead: Dos and Don''ts of Right Behavior,
+    Tough Thinking, Clear Writing, and Living a Good Life'
+  rating: 5
+  date_finished: 2014-12-13
+  date_started: 2014-12-09
+  source: goodreads
+  author: Charles A. Murray
+- title: 'Guns, Germs, and Steel: The Fates of Human Societies'
+  rating: 5
+  date_finished: 2014-12-09
+  date_started: 2014-11-17
+  source: goodreads
+  author: Jared M. Diamond
+  print_length: 528 pages
+- title: 'Superintelligence: Paths, Dangers, Strategies'
+  rating: 4
+  date_finished: 2014-12-05
+  date_started: 2014-11-16
+  review: It's not quite 4, but 3 seemed a bit low. More challenging read than War
+    and Peace. Very abstract. Reads like a very long Art of War for AI.
+  source: goodreads
+  author: Nick Bostrom
+  print_length: 352 pages
+- title: 'Antifragile: Things That Gain from Disorder'
+  rating: 4
+  date_finished: 2014-11-17
+  date_started: 2014-10-20
+  source: goodreads
+  author: Nassim Nicholas Taleb
+  print_length: 639 pages
+- title: 'Proof: The Science of Booze'
+  rating: 4
+  date_finished: 2014-11-16
+  date_started: 2014-11-07
+  source: goodreads
+  author: Dick Francis
+  print_length: 362 pages
+- title: Heart of Darkness
+  rating: 3
+  date_finished: 2014-11-07
+  date_started: 2014-11-07
+  review: 'I don''t get it. And 5% of the words are either "dark" or "darkness". '
+  source: goodreads
+  author: Joseph Conrad
+  print_length: 136 pages
+- title: 'Lies My Teacher Told Me: Everything Your American History Textbook Got Wrong'
+  rating: 5
+  date_finished: 2014-11-02
+  date_started: 2014-10-20
+  source: goodreads
+  author: James W. Loewen
+  print_length: 405 pages
+- title: 'Why Managing Sucks and How to Fix It: A Results-Only Guide to Taking Control
+    of Work, Not People'
+  rating: 4
+  date_finished: 2014-10-20
+  date_started: 2014-10-14
+  source: goodreads
+  author: Jody Thompson
+- title: 'Lift in Action: The Simply Functional Web Framework for Scala'
+  rating: 3
+  date_finished: 2014-10-20
+  date_started: 2014-09-21
+  source: goodreads
+  author: Timothy Perrett
+- title: 'Little Women (Little Women, #1)'
+  rating: 5
+  date_finished: 2014-10-14
+  date_started: 2014-09-25
+  source: goodreads
+  author: Louisa May Alcott
+  print_length: 423 pages
+- title: Tales of Edisto
+  rating: 3
+  date_finished: 2014-10-11
+  date_started: 2014-10-06
+  review: |-
+    Quite a hodgepodge of stories, including some transliterated Gullah and ghost stories and recipes.
+
+    Somewhat interesting if you know much about the geography of the island.
+
+    Romanticizes the "negroes" and plantations in much the way a book written in the Carolinas in 1955 ("revised" in 1986) would.
+  source: goodreads
+  author: Nell S. Graydon
+  print_length: 169 pages
+- title: You Are Not So Smart
+  rating: 4
+  date_finished: 2014-09-24
+  date_started: 2014-09-16
+  review: A concise review of cognitive psychology and logical fallacies that we all
+    use.
+  source: goodreads
+  author: David McRaney
+  print_length: 311 pages
+- title: 'What If?: Serious Scientific Answers to Absurd Hypothetical Questions'
+  rating: 5
+  date_finished: 2014-09-21
+  date_started: 2014-09-03
+  source: goodreads
+  author: Randall Munroe
+  print_length: 315 pages
+- title: Liar's Poker
+  rating: 4
+  date_finished: 2014-09-17
+  date_started: 2014-08-02
+  source: goodreads
+  author: Michael Lewis
+  print_length: 304 pages
+- title: 'The Moral Animal: Why We Are the Way We Are - The New Science of Evolutionary
+    Psychology'
+  rating: 5
+  date_finished: 2014-09-17
+  date_started: 2014-09-07
+  source: goodreads
+  author: Wright, Robert
+  print_length: 467 pages
+- title: The Intelligent Investor
+  rating: 4
+  date_finished: 2014-09-16
+  date_started: 2013-10-25
+  source: goodreads
+  author: Benjamin Graham
+  print_length: 352 pages
+- title: 'The Pluto Files: The Rise and Fall of America’s Favorite Planet'
+  rating: 5
+  date_finished: 2014-09-15
+  date_started: 2014-09-04
+  source: goodreads
+  author: Neil deGrasse Tyson
+  print_length: 208 pages
+- title: The Curious Incident of the Dog in the Night-Time
+  rating: 4
+  date_finished: 2014-09-04
+  date_started: 2014-08-28
+  review: I don't know how realistic this book is in its representation of an autistic
+    boy, but I managed to empathize with the characters quite a bit.
+  source: goodreads
+  author: Mark Haddon
+  print_length: 256 pages
+- title: Pride and Prejudice
+  rating: 5
+  date_finished: 2014-08-28
+  date_started: 2014-08-13
+  source: goodreads
+  author: Jane Austen
+  print_length: 351 pages
+- title: 'Animals Make Us Human: Creating the Best Life for Animals'
+  rating: 5
+  date_finished: 2014-08-25
+  date_started: 2014-05-18
+  review: Good ethological insight overall, and interesting discussion of welfare
+    of livestock and zoo animals.
+  source: goodreads
+  author: Temple Grandin
+  print_length: 352 pages
+- title: 'The Day the Bubble Burst: A Social History of the Wall Street Crash of 1929'
+  rating: 4
+  date_finished: 2014-08-18
+  date_started: 2014-05-14
+  source: goodreads
+  author: Gordon Thomas
+  print_length: 484 pages
+- title: The Metamorphosis
+  rating: 4
+  date_finished: 2014-08-13
+  date_started: 2014-04-08
+  source: goodreads
+- title: Flowers for Algernon
+  rating: 5
+  date_finished: 2014-08-12
+  date_started: 2014-08-05
+  source: goodreads
+  author: Daniel Keyes
+  print_length: 267 pages
+- title: Thérèse Raquin
+  rating: 5
+  date_finished: 2014-08-05
+  date_started: 2014-07-30
+  review: Dark and somewhat depressing. I started out loathing the antagonist and
+    pitying the protagonist, but by the end, ended up with a sort of ambivalence for
+    the antagonist and a bit of pity for his mother.
+  source: goodreads
+  author: Émile Zola
+  print_length: 255 pages
+- title: Ruby on Rails 4.0 Guide
+  rating: 2
+  date_finished: 2014-08-02
+  date_started: 2014-07-27
+  review: |-
+    Pretty good intro to Rails. Mainly downloaded to look at the quality of technical books on Amazon Unlimited.
+
+    Really needed a lot more editing assistance, felt like a beta version of a book.
+
+    Time would be better spent with The Rails Way or a Pragmatic Programmer book.
+  source: goodreads
+- title: Persuasion
+  rating: 5
+  date_finished: 2014-07-30
+  date_started: 2014-07-22
+  source: goodreads
+  author: Jane Austen
+  print_length: 268 pages
+- title: 'Why Work Sucks and How to Fix It: No Schedules, No Meetings, No Joke--the
+    Simple Change That Can Make Your Job Terrific'
+  rating: 4
+  date_finished: 2014-07-27
+  date_started: 2014-07-20
+  source: goodreads
+- title: 'Self-Reliance: An Excerpt from Collected Essays, First Series'
+  rating: 4
+  date_finished: 2014-07-21
+  date_started: 2014-07-21
+  source: goodreads
+  author: Ralph Waldo Emerson
+  print_length: 61 pages
+- title: 'Click to Calm: Healing the Aggressive Dog'
+  rating: 5
+  date_finished: 2014-07-19
+  date_started: 2014-07-15
+  review: A good introduction to solutions through clicker training.
+  source: goodreads
+  author: Emma Parsons
+  print_length: 181 pages
+- title: 'The Righteous Mind: Why Good People Are Divided by Politics and Religion'
+  rating: 5
+  date_finished: 2014-07-17
+  date_started: 2012-06-21
+  review: Insightful. I highly recommend, especially if you want to understand why
+    those with opposing beliefs persist in their beliefs.
+  source: goodreads
+  author: Jonathan Haidt
+  print_length: 493 pages
+- title: Think Like a Freak
+  rating: 4
+  date_finished: 2014-07-14
+  date_started: 2014-07-07
+  source: goodreads
+  author: Steven D. Levitt
+  print_length: 274 pages
+- title: 'Merle''s Door: Lessons from a Freethinking Dog'
+  rating: 5
+  date_finished: 2014-07-07
+  date_started: 2014-06-24
+  review: So good. If you love dogs, you'll laugh, cry, and reconsider many things
+    about their relationship to us and how we communicate with them.
+  source: goodreads
+  author: Ted Kerasote
+  print_length: 416 pages
+- title: What the Dog Saw and Other Adventures
+  rating: 4
+  date_finished: 2014-07-06
+  date_started: 2014-06-26
+  review: This is more of an anthology of Gladwell's articles than a book on a single
+    cohesive theme. In ways, it may actually be better because there's no forced theme.
+    Gladwell always tells a good thought-provoking story, at any rate.
+  source: goodreads
+  author: Malcolm Gladwell
+  print_length: 410 pages
+- title: 'Linchpin: Are You Indispensable?'
+  rating: 4
+  date_finished: 2014-06-28
+  date_started: 2014-06-18
+  review: I like Seth Godin's stuff, but the terms he uses and coins are a bit grating.
+  source: goodreads
+  author: Seth Godin
+  print_length: 244 pages
+- title: 'The Demographic Cliff: How to Survive and Prosper During the Great Deflation
+    of 2014-2019'
+  rating: 5
+  date_finished: 2014-06-22
+  date_started: 2014-06-10
+  review: Dent makes a strong case that human population cycles and life stages of
+    population groups are the greatest driver of boom and bust cycles, and all government
+    attempts to stem the long term trends are vain attempts that can result in greater
+    catastrophe once natural forces take hold.
+  source: goodreads
+  author: Harry S. Dent Jr.
+- title: 'Eat That Frog!: 21 Great Ways to Stop Procrastinating and Get More Done
+    in Less Time'
+  rating: 3
+  date_finished: 2014-06-22
+  date_started: 2014-06-22
+  review: Ok, but a lot of recycled material from better sources here. Upgrade a little
+    to Seth Godin.
+  source: goodreads
+  author: Brian Tracy
+  print_length: 128 pages
+- title: The Old Man and the Sea
+  rating: 5
+  date_finished: 2014-06-18
+  date_started: 2014-06-14
+  source: goodreads
+  author: Ernest Hemingway
+  print_length: 133 pages
+- title: Economic Facts and Fallacies
+  rating: 4
+  date_finished: 2014-06-12
+  date_started: 2014-05-29
+  source: goodreads
+  author: Thomas Sowell
+  print_length: 272 pages
+- title: The Last Jedi (Star Wars)
+  rating: 4
+  date_finished: 2014-06-08
+  date_started: 2014-05-28
+  source: goodreads
+  author: Michael Reaves
+  print_length: 470 pages
+- title: Julius Caesar
+  rating: 4
+  date_finished: 2014-05-29
+  date_started: 2014-05-28
+  source: goodreads
+  author: William Shakespeare
+  print_length: 139 pages
+- title: The Screwtape Letters
+  rating: 5
+  date_finished: 2014-05-24
+  date_started: 2014-05-19
+  source: goodreads
+  author: C. S. Lewis
+  print_length: 160 pages
+- title: The Importance of Being Earnest
+  rating: 5
+  date_finished: 2014-05-19
+  date_started: 2014-05-19
+  source: goodreads
+  author: Oscar Wilde
+  print_length: 102 pages
+- title: 'The Reason I Jump: the Inner Voice of a Thirteen-Year-Old Boy with Autism'
+  rating: 3
+  date_finished: 2014-05-19
+  date_started: 2014-05-18
+  review: I enjoyed the "insight" from this book, but considering that this is a translation
+    from Japanese, I wonder how much embellishment and interpretation is involved.
+  source: goodreads
+  author: Naoki Higashida
+  print_length: 174 pages
+- title: '1177 B.C.: The Year Civilization Collapsed'
+  rating: 4
+  date_finished: 2014-05-18
+  date_started: 2014-05-07
+  source: goodreads
+  author: Eric H. Cline
+  print_length: 264 pages
+- title: 'The Big Short: Inside the Doomsday Machine'
+  rating: 4
+  date_finished: 2014-05-14
+  date_started: 2014-04-30
+  source: goodreads
+  author: Michael Lewis
+  print_length: 291 pages
+- title: 'Our Magnificent Bastard Tongue: The Untold History of English'
+  rating: 5
+  date_finished: 2014-05-07
+  date_started: 2014-05-05
+  source: goodreads
+  author: John McWhorter
+- title: 'The Wonderful Wizard of Oz (Oz, #1)'
+  rating: 5
+  date_finished: 2014-05-05
+  date_started: 2014-05-04
+  source: goodreads
+  author: L. Frank Baum
+  print_length: 159 pages
+- title: The Five Elements of Effective Thinking
+  rating: 4
+  date_finished: 2014-05-04
+  date_started: 2014-04-30
+  source: goodreads
+  author: Michael Starbird Edward B. Burger
+- title: 'Start.: Punch Fear in the Face, Escape Average, and Do Work That Matters'
+  rating: 5
+  date_finished: 2014-04-30
+  date_started: 2014-04-24
+  source: goodreads
+  author: Dale Carnegie
+  print_length: 348 pages
+- title: The Invisible Man
+  rating: 4
+  date_finished: 2014-04-26
+  date_started: 2014-03-31
+  review: Never really appreciated how deeply H G Wells thought about sociology until
+    finally reading The Invisible Man and The Time Machine.
+  source: goodreads
+  author: H. G. Wells
+  print_length: 170 pages
+- title: Happier at Home
+  rating: 5
+  date_finished: 2014-04-24
+  date_started: 2014-03-30
+  source: goodreads
+  author: Gretchen Rubin
+  print_length: 286 pages
+- title: 'The Smartest Kids in the World: And How They Got That Way'
+  rating: 5
+  date_finished: 2014-04-24
+  date_started: 2014-04-17
+  review: |+
+    Thought provoking book. Some points:
+
+    Many of the top performing countries invest little in learning technology favoring investment in pedagogy, teachers who entered training to be teachers after being in the top of their class. They invest in equity of students, but also raise the performance overall via rigor and allowing students to fail early and to accept failure, rather than discover failure once they're out in the real world.
+
+    Instead, many of our schools are distracted by technological toys and sports programs, having to hire teachers who can coach, rather than solely on the basis of teaching skill. Half of US high school math teachers didn't even major in math. Nearly a third didn't even minor in math.
+
+  source: goodreads
+  author: Stan Schatt
+  print_length: 78 pages
+- title: 'Freakonomics: A Rogue Economist Explores the Hidden Side of Everything'
+  rating: 5
+  date_finished: 2014-04-23
+  date_started: 2014-04-13
+  source: goodreads
+  author: Steven D. Levitt
+  print_length: 320 pages
+- title: 'Without Conscience: The Disturbing World of the Psychopaths Among Us'
+  rating: 3
+  date_finished: 2014-04-17
+  date_started: 2014-04-08
+  review: |-
+    Interesting to hear his insight into psychopathy, but the tone and aims of the book weren't consistent.
+
+    In many ways this book reads like a failed attempt to water down a PhD paper to the level of the average reader.
+
+    In other cases this book reads like a doomsday book about the end times with psychopaths becoming an increasing proportion of society.
+
+    The book could have been better if it didn't sound like it was written by a disgruntled scientist whose work didn't get any respect.
+  source: goodreads
+  author: Robert D. Hare
+  print_length: 236 pages
+- title: 'The Passionate Programmer: Creating a Remarkable Career in Software Development
+    (Pragmatic Life)'
+  rating: 4
+  date_finished: 2014-04-13
+  date_started: 2014-04-04
+  source: goodreads
+  author: Chad Fowler
+  print_length: 198 pages
+- title: The Time Machine
+  rating: 4
+  date_finished: 2014-03-31
+  date_started: 2014-03-31
+  source: goodreads
+  author: H. G. Wells
+  print_length: 120 pages
+- title: 'Worst Ideas Ever: A Celebration of Embarrassment'
+  rating: 3
+  date_finished: 2014-03-30
+  date_started: 2014-03-27
+  review: Not much originality, but decent entertainment. Don't pay full price for
+    it, though.
+  source: goodreads
+  author: Daniel B. Kline
+  print_length: 240 pages
+- title: 'Drive: The Surprising Truth About What Motivates Us'
+  rating: 4
+  date_finished: 2014-03-27
+  date_started: 2010-08-27
+  source: goodreads
+  author: Mo Willems
+  print_length: 40 pages
+- title: 'Reality Check: The Irreverent Guide to Outsmarting, Outmanaging, and Outmarketing
+    Your Competit ion'
+  rating: 2
+  date_finished: 2014-03-27
+  date_started: 2012-01-31
+  source: goodreads
+  author: Diana G. Gallagher
+  print_length: 149 pages
+- title: 'Learning Rails 3: Rails from the Outside In'
+  rating: 3
+  date_finished: 2014-03-27
+  date_started: 2011-12-20
+  source: goodreads
+  author: Simon St Laurent
+  print_length: 414 pages
+- title: Anna Karenina
+  rating: 4
+  date_finished: 2014-03-27
+  date_started: 2012-06-18
+  source: goodreads
+  author: Louise Maude
+- title: The Tao of Pooh
+  rating: 3
+  date_finished: 2014-03-27
+  date_started: 2014-03-24
+  source: goodreads
+  author: Benjamin Hoff
+  print_length: 158 pages
+- title: The Ruby Way (Addison-Wesley Professional Ruby Series)
+  rating: 4
+  date_finished: 2014-03-27
+  date_started: 2012-07-25
+  source: goodreads
+  author: Hal Fulton
+  print_length: 774 pages
+- title: 'Ha!: The Science of When We Laugh and Why'
+  rating: 4
+  date_finished: 2014-03-27
+  date_started: 2014-03-19
+  source: goodreads
+  author: Henry Patterson
+  print_length: 382 pages
+- title: 'Into the Void (Star Wars: Dawn of the Jedi)'
+  rating: 4
+  date_finished: 2014-03-27
+  date_started: 2013-06-18
+  source: goodreads
+  author: Tim Lebbon
+  print_length: 352 pages
+- title: 'You Are Now Less Dumb: How to Conquer Mob Mentality, How to Buy Happiness,
+    and All the Other Ways to Outsmart Yourself'
+  rating: 5
+  date_finished: 2014-03-23
+  date_started: 2014-03-13
+  review: A simplified guide to psychology and cognitive biases in the disguise of
+    a self-help book.
+  source: goodreads
+  author: David McRaney
+  print_length: 309 pages
+- title: Web Application Security, A Beginner's Guide
+  rating: 4
+  date_finished: 2014-03-19
+  date_started: 2014-03-05
+  source: goodreads
+- title: REST API Design Rulebook
+  rating: 3
+  date_finished: 2014-03-05
+  date_started: 2014-03-02
+  review: Nice thoughts, but feels like an academic paper out of touch with modern
+    dev.
+  source: goodreads
+  author: Mark Masse
+  print_length: 116 pages
+- title: 'Programming Ruby 1.9: The Pragmatic Programmers'' Guide (Facets of Ruby)'
+  rating: 4
+  date_finished: 2014-03-02
+  date_started: 2013-10-25
+  source: goodreads
+  author: Dave Thomas
+  print_length: 863 pages
+- title: 'Allegiant (Divergent, #3)'
+  rating: 4
+  date_finished: 2014-02-23
+  date_started: 2014-02-10
+  review: I almost want to say that this was my favorite one of the series.
+  source: goodreads
+  author: Veronica Roth
+  print_length: 516 pages
+- title: 'Insurgent (Divergent, #2)'
+  rating: 4
+  date_finished: 2014-02-10
+  date_started: 2014-01-20
+  source: goodreads
+  author: Veronica Roth
+  print_length: 525 pages
+- title: Dr. Jekyll and Mr. Hyde
+  rating: 4
+  date_finished: 2014-01-26
+  date_started: 2014-01-22
+  source: goodreads
+  author: Robert Louis Stevenson
+  print_length: 130 pages
+- title: 'How Dogs Love Us: A Neuroscientist and His Adopted Dog Decode the Canine
+    Brain'
+  rating: 5
+  date_finished: 2014-01-22
+  date_started: 2014-01-05
+  source: goodreads
+  author: Gregory Berns
+- title: 'Divergent (Divergent, #1)'
+  rating: 5
+  date_finished: 2014-01-19
+  date_started: 2014-01-08
+  source: goodreads
+  author: Veronica Roth
+  print_length: 487 pages
+- title: 'Blue Ocean Strategy: How to Create Uncontested Market Space and Make the
+    Competition Irrelevant'
+  rating: 4
+  date_finished: 2014-01-07
+  date_started: 2014-01-07
+  source: goodreads
+- title: 'Programming Elixir: Functional |> Concurrent |> Pragmatic |> Fun'
+  rating: 4
+  date_finished: 2014-01-05
+  date_started: 2013-11-27
+  source: goodreads
+  author: Dave Thomas
+  print_length: 280 pages
+- title: 'The Book of Business Awesome: How Engaging Your Customers and Employees
+    Can Make Your Business Thrive'
+  rating: 4
+  date_finished: 2014-01-04
+  date_started: 2012-12-28
+  source: goodreads
+  author: Scott Stratten
+- title: 'Star Wars: Shadow Games'
+  rating: 4
+  date_finished: 2013-12-27
+  date_started: 2013-10-10
+  source: goodreads
+  author: Timothy Zahn
+  print_length: 410 pages
+- title: 'Exceptional Ruby: Master the Art of Handling Failure in Ruby'
+  rating: 3
+  date_finished: 2013-12-21
+  date_started: 2013-12-16
+  source: goodreads
+- title: 'In the Plex: How Google Thinks, Works, and Shapes Our Lives'
+  rating: 5
+  date_finished: 2013-12-21
+  date_started: 2013-11-26
+  source: goodreads
+  author: Steven Levy
+  print_length: 424 pages
+- title: Working with Ruby Threads
+  rating: 4
+  date_finished: 2013-12-16
+  date_started: 2013-12-10
+  source: goodreads
+- title: 'Change the Culture, Change the Game: The Breakthrough Strategy for Energizing
+    Your Organization and Creating Accountability for Results'
+  rating: 3
+  date_finished: 2013-12-09
+  date_started: 2013-12-09
+  source: goodreads
+  author: BusinessNews Publishing
+  print_length: 41 pages
+- title: 'David and Goliath: Underdogs, Misfits, and the Art of Battling Giants'
+  rating: 5
+  date_finished: 2013-11-26
+  date_started: 2013-11-16
+  source: goodreads
+  author: Malcolm Gladwell
+  print_length: 305 pages
+- title: 'Remote: Office Not Required'
+  rating: 4
+  date_finished: 2013-11-16
+  date_started: 2013-11-12
+  source: goodreads
+  author: Basudeb Bhatta
+  print_length: 719 pages
+- title: Don Quixote
+  rating: 4
+  date_finished: 2013-11-12
+  date_started: 2013-07-24
+  review: Oddly, I found Les Miserables more accessible (but War and Peace slightly
+    less so). That might be because I had heard Les Miserables told several different
+    ways before reading the book unabridged.
+  source: goodreads
+  author: Gilbert Keith Chesterton
+  print_length: 224 pages
+- title: Learn You a Haskell for Great Good!
+  rating: 4
+  date_finished: 2013-11-12
+  date_started: 2012-03-18
+  source: goodreads
+  author: Miran Lipovača
+  print_length: 376 pages
+- title: Rails Recipes
+  rating: 4
+  date_finished: 2013-10-25
+  date_started: 2013-10-13
+  source: goodreads
+  author: Maik Schmidt
+  print_length: 387 pages
+- title: The Moleskin Checklist
+  rating: 4
+  date_finished: 2013-10-13
+  date_started: 2013-09-06
+  source: goodreads
+- title: '97 Things Every Programmer Should Know: Collective Wisdom from the Experts'
+  rating: 3
+  date_finished: 2013-10-08
+  date_started: 2013-09-06
+  review: A worthwhile read as a free collection of short essays/blog posts. Not necessarily
+    a cohesive collection of wisdom, though.
+  source: goodreads
+  author: Kevlin Henney
+  print_length: 256 pages
+- title: 'The Happiness Hypothesis: Finding Modern Truth in Ancient Wisdom'
+  rating: 4
+  date_finished: 2013-09-09
+  date_started: 2013-08-08
+  source: goodreads
+  author: Jonathan Haidt
+  print_length: 297 pages
+- title: 'The Rspec Book: Behaviour Driven Development with RSpec, Cucumber, and Friends
+    (Facets of Ruby)'
+  rating: 4
+  date_finished: 2013-09-06
+  date_started: 2013-07-02
+  source: goodreads
+  author: David Chelimsky
+  print_length: 420 pages
+- title: 'Star Wars: The Last Command (The Thrawn Trilogy, #3)'
+  rating: 4
+  date_finished: 2013-07-24
+  date_started: 2013-07-17
+  source: goodreads
+  author: Timothy Zahn
+  print_length: 410 pages
+- title: 'Star Wars: Dark Force Rising (The Thrawn Trilogy, #2)'
+  rating: 4
+  date_finished: 2013-07-17
+  date_started: 2013-07-09
+  review: Similar in structure to Empire, but with a little more "hope" hinted at.
+  source: goodreads
+  author: Timothy Zahn
+  print_length: 410 pages
+- title: 'Heir to the Empire (Star Wars: The Thrawn Trilogy, #1)'
+  rating: 4
+  date_finished: 2013-07-09
+  date_started: 2013-07-09
+  source: goodreads
+  author: Timothy Zahn
+  print_length: 410 pages
+- title: How to Talk So Kids Will Listen & Listen So Kids Will Talk
+  rating: 5
+  date_finished: 2013-07-03
+  date_started: 2013-06-25
+  review: An insight into redirecting counterproductive tactics, the version I read
+    was an anniversary edition with a section by one of the authors' daughters.
+  source: goodreads
+  author: Adele Faber
+  print_length: 274 pages
+- title: 'The Cucumber Book: Behaviour-Driven Development for Testers and Developers'
+  rating: 5
+  date_finished: 2013-07-01
+  date_started: 2012-10-09
+  source: goodreads
+  author: Matt Wynne
+  print_length: 325 pages
+- title: Eloquent Ruby (Addison-Wesley Professional Ruby Series)
+  rating: 4
+  date_finished: 2013-06-25
+  date_started: 2013-04-25
+  source: goodreads
+  author: Russ Olsen
+  print_length: 413 pages
+- title: War and Peace
+  rating: 4
+  date_finished: 2013-06-17
+  date_started: 2013-01-01
+  source: goodreads
+  author: Лев Толстой
+  print_length: 696 pages
+- title: Spring in Action
+  date_finished: 2013-06-06
+  date_started: 2012-01-20
+  source: goodreads
+  author: Craig Walls
+  print_length: 496 pages
+- title: 'JavaScript: The Good Parts'
+  rating: 5
+  date_finished: 2013-06-06
+  date_started: 2013-05-22
+  source: goodreads
+  author: David Flanagan
+  print_length: 987 pages
+- title: 'Naked Statistics: Stripping the Dread from the Data'
+  rating: 4
+  date_finished: 2013-03-21
+  date_started: 2013-02-12
+  review: |-
+    Good insight into the basics of statistics, the theory behind confidence in the probabilities that they present, and the pitfalls of their improper use or interpretation.
+
+    Some parts may be a bit too heavy for non-math people, but valuable insight can be gained either way.
+  source: goodreads
+  author: Charles J. Wheelan
+  print_length: 304 pages
+- title: The Rails 3 Way (Addison-Wesley Professional Ruby Series)
+  rating: 4
+  date_finished: 2013-03-08
+  date_started: 2012-08-09
+  source: goodreads
+  author: Obie Fernandez
+  print_length: 708 pages
+- title: 'Little House on the Prairie (Little House, #3)'
+  rating: 5
+  date_finished: 2013-03-08
+  date_started: 2012-09-23
+  source: goodreads
+  author: Laura Ingalls Wilder
+  print_length: 309 pages
+- title: A History of the World in 6 Glasses
+  rating: 4
+  date_finished: 2013-01-25
+  date_started: 2013-01-10
+  source: goodreads
+  author: Tom Standage
+  print_length: 325 pages
+- title: 'The Pragmatic Programmer: From Journeyman to Master'
+  rating: 4
+  date_finished: 2012-12-28
+  date_started: 2012-10-05
+  source: goodreads
+  author: Andy Hunt
+  print_length: 352 pages
+- title: The Happiness Project
+  rating: 5
+  date_finished: 2012-09-23
+  date_started: 2012-08-09
+  review: |+
+    I escaped with minor injuries from a serious car wreck on the day I finished the audiobook version of this book, so the final summary resonated with me quite a bit.
+
+    I was skeptical at the start of this book, but I found value in hearing the author's experience and mantras to help myself be mindful of my own life and attitude towards it.
+
+  source: goodreads
+  author: Gretchen Craft Rubin
+- title: The Runner's Guide to the Meaning of Life
+  rating: 4
+  date_finished: 2012-09-21
+  date_started: 2011-01-29
+  review: A little perspective in a running-centric book.
+  source: goodreads
+  author: Amby Burfoot
+  print_length: 150 pages
+- title: The Devil and Daniel Boone
+  date_finished: 2012-08-28
+  date_started: 2012-07-07
+  source: goodreads
+  author: Jeffrey Scott Holland
+  print_length: 150 pages
+- title: 'Wait: The Art and Science of Delay'
+  rating: 4
+  date_finished: 2012-08-28
+  date_started: 2012-08-09
+  source: goodreads
+  author: Martin Luther King Jr.
+  print_length: 159 pages
+- title: Design Patterns in Ruby
+  rating: 5
+  date_finished: 2012-07-22
+  date_started: 2012-07-17
+  review: Awesome coverage of both design patterns and ruby in one place.
+  source: goodreads
+  author: Russ Olsen
+  print_length: 352 pages
+- title: Sun Certified Enterprise Architect For Java EE Study Guide
+  rating: 4
+  date_finished: 2012-07-13
+  date_started: 2012-07-10
+  source: goodreads
+  author: Mark Cade
+- title: 'Beautiful Testing: Leading Professionals Reveal How They Improve Software
+    (Theory in Practice)'
+  rating: 4
+  date_finished: 2012-06-25
+  date_started: 2012-05-19
+  source: goodreads
+  author: Tim Riley
+  print_length: 340 pages
+- title: Atlas Shrugged
+  rating: 3
+  date_finished: 2012-06-18
+  date_started: 2012-06-18
+  review: |-
+    Rand somehow manages to develop almost every character to be hated. I don't know how that is possible.
+
+    If you're looking for the philosophy core of Rand's, just jump to John Galt's radio speech near the end.
+
+    As a work of philosophy, this work has merit, but I'd recommend a book such as Thinking: Fast and Slow to temper the philosophy.
+  source: goodreads
+  author: Ayn Rand
+  print_length: 1096 pages
+- title: 'Taking People With You: The Only Way to Make BIG Things Happen'
+  rating: 4
+  date_finished: 2012-05-06
+  date_started: 2012-02-13
+  source: goodreads
+  author: David C. Novak
+- title: '1864: Lincoln at the Gates of History, Library Edition'
+  rating: 4
+  date_finished: 2012-04-20
+  date_started: 2011-04-25
+  review: |+
+    Fascinating picture of the political landscape and Civil War in 1864, including:
+    - Political deals within the administration.
+    - Favors granted.
+    - Incompetence of the efforts of the Union.
+    - The general cowardice of many people in the Northern political parties.
+    - The bias of newspapers.
+    - Attitudes towards the slaves on both sides.
+
+  source: goodreads
+  author: Eliza Frances Andrews
+  print_length: 387 pages
+- title: 'Nudge: Improving Decisions About Health, Wealth, and Happiness'
+  rating: 4
+  date_finished: 2012-04-19
+  date_started: 2012-04-07
+  review: |-
+    Libertarian paternalism: Interesting thoughts on how to get people to do what's best for them or do the "right thing" without sacrificing their freedom of choice, by "nudging" people's "automatic system" of their brain.
+
+    Nutrition, spending, retirement saving, charitable giving, Medicare drug plans, urinals...
+
+    The second half of the book addresses ways to engage your own "reflective system" to nudge the "automatic system" in order to make positive changes in your habits.
+
+    The last few chapters also seem to stretch the concept of the book a little beyond where it should have went.
+  source: goodreads
+  author: Richard H. Thaler
+  print_length: 312 pages
+- title: 'Quiet: The Power of Introverts in a World That Can''t Stop Talking'
+  rating: 5
+  date_finished: 2012-04-07
+  date_started: 2012-04-02
+  review: "If you're an introvert, you will probably recognize a lot of this book
+    as talking about experiences you've had.\n\n"
+  source: goodreads
+  author: Graham Greene
+  print_length: 211 pages
+- title: Thinking, Fast and Slow
+  rating: 5
+  date_finished: 2012-04-02
+  date_started: 2012-03-18
+  review: |+
+    Excellent examination of the fallacies and shortcuts constructed by the mind that often cause errors in judgment. This book approaches demonstration of the judgment errors by getting the reader to catch himself in the act of erring and then deconstructing the error and why it happened.
+
+    This book is like an extended encyclopedia entry of the concepts in Mihaly Csikszentmihalyi's work, Nassim Nicholas Taleb's Black Swan, and Phil Rosenzweig's The Halo Effect, and (while not mentioned) The Paradox of Choice.
+
+    This is a fairly loaded book that probably has added value on repeat readings, and I will be revisiting the book in the future.
+
+  source: goodreads
+  author: Daniel Kahneman
+  print_length: 528 pages
+- title: Steve Jobs
+  rating: 5
+  date_finished: 2012-03-18
+  date_started: 2012-03-18
+  review: A master of not conforming to anyone's expectations, and perhaps, succeeding
+    because of it. In the telling of this story, you can see that Apple's products
+    and marketing were truly an extension of Steve himself.
+  source: goodreads
+  author: Walter Isaacson
+  print_length: 665 pages
+- title: 'Mockingjay (The Hunger Games, #3)'
+  rating: 4
+  date_finished: 2012-03-16
+  date_started: 2012-03-16
+  source: goodreads
+  author: Suzanne Collins
+  print_length: 424 pages
+- title: 'Catching Fire (The Hunger Games, #2)'
+  rating: 4
+  date_finished: 2012-03-08
+  date_started: 2012-03-02
+  review: This book was a bit weaker structurally and in terms of plot progression
+    than the first book of the trilogy, but it kept my interest enough that I've moved
+    on to the third book.
+  source: goodreads
+  author: Suzanne Collins
+  print_length: 400 pages
+- title: 'Better: A Surgeon''s Notes on Performance'
+  rating: 5
+  date_finished: 2012-03-02
+  date_started: 2012-02-26
+  review: |-
+    This is an excellent insight into the intricacies of "performance" in medicine/surgery, but also provides good thoughts on being "better" in any industry or line of work.
+
+    Included are thoughts on malpractice, disease eradication, etc... a worthwhile read to better understand the world and each of our roles within it.
+  source: goodreads
+  author: Steven Pinker
+  print_length: 802 pages
+- title: 'The Hunger Games (The Hunger Games, #1)'
+  rating: 5
+  date_finished: 2012-03-01
+  date_started: 2012-02-28
+  review: "(All 3 books in the trilogy are free for Kindle owners on Amazon Prime)
+    \ I'm not much of a fiction reader, but this first book in the trilogy went by
+    very quickly for me.  "
+  source: goodreads
+  author: Suzanne Collins
+  print_length: 399 pages
+- title: Getting Real
+  rating: 4
+  date_finished: 2012-02-26
+  date_started: 2011-12-20
+  source: goodreads
+  author: Mahan Khalsa
+  print_length: 242 pages
+- title: 'UnMarketing: Stop Marketing. Start Engaging.'
+  rating: 5
+  date_finished: 2012-02-26
+  date_started: 2012-02-25
+  review: |-
+    I'd put this as a cross between 37 Signals' books and How to Win Friends and Influence People.
+
+    I kind of want to get this in paperback form now to scribble and dog-ear.
+  source: goodreads
+  author: Scott Stratten
+  print_length: 297 pages
+- title: 'Blink: The Power of Thinking Without Thinking'
+  rating: 4
+  date_finished: 2012-02-25
+  date_started: 2012-02-25
+  review: |-
+    Malcolm Gladwell tells an enjoyable story and drops many tidbits of scientific knowledge along the way.
+
+    However, at a few points, I felt like the cohesiveness between the stories told was less than I would like.
+  source: goodreads
+  author: Malcolm Gladwell
+  print_length: 296 pages
+- title: How to Win Friends & Influence People
+  rating: 4
+  date_finished: 2012-02-20
+  date_started: 2012-02-13
+  review: |-
+    In some ways, the material in this book is dated; however, the underlying message is timeless: It's the golden rule--treat others as you would want to be treated.
+
+    You may want to be less verbose in how you execute the principles presented, but the advice is still sound.
+  source: goodreads
+  author: Dale Carnegie
+  print_length: 276 pages
+- title: 'His Excellency: George Washington'
+  rating: 4
+  date_finished: 2012-02-11
+  date_started: 2012-01-20
+  source: goodreads
+  author: 'Massachusetts. Governor (1741-1757 : Shirley)'
+- title: 'The Information Diet: A Case for Conscious Consumption'
+  rating: 5
+  date_finished: 2012-02-02
+  date_started: 2012-01-31
+  review: |-
+    It's the Food, Inc. of news, information, media, and politics.
+
+    Why FoxNews and MSNBC are the informational equivalents of HFCS and pressed corn and soy products.
+
+    I'd highly recommend this book to anyone suffering from "information overload" or who is even remotely concerned with it.
+  source: goodreads
+  author: Clay A. Johnson
+  print_length: 150 pages
+- title: 'Robin Nixon''s Html5 Crash Course: Learn Html5 in 20 Easy Lectures'
+  rating: 3
+  date_finished: 2012-01-30
+  date_started: 2012-01-17
+  review: |-
+    I picked this book up because it was free on the Kindle as an eBook.
+
+    The HTML section was lightweight, but the HTML5 sections were like a detailed overview of the technology.
+
+    It was definitely worth more than I paid for it, but I'm not sure that I'd invest the retail price for a printed version.
+  source: goodreads
+  author: Robin Nixon
+  print_length: 318 pages
+- title: 'A Distant Mirror: The Calamitous 14th Century'
+  rating: 4
+  date_finished: 2012-01-20
+  date_started: 2011-12-03
+  review: An in-depth look at the 14th century, guided by tracing the life of a French
+    noble of that era.
+  source: goodreads
+  author: Barbara Tuchman
+  print_length: 691 pages
+- title: 'Just Spring: A Lightweight Introduction to the Spring Framework'
+  rating: 3
+  date_finished: 2012-01-19
+  date_started: 2012-01-17
+  source: goodreads
+  author: Madhusudhan Konda
+  print_length: 48 pages
+- title: 'Practicing: A Musician''s Return to Music'
+  rating: 4
+  date_finished: 2012-01-10
+  date_started: 2011-12-23
+  review: |-
+    Striving for your art, becoming disillusioned with it, and then rediscovering it later with different meaning.
+
+    As a musician and programmer, this story resonated with me, but it also made me at risk of blowing a ton of money on more classical recordings.
+  source: goodreads
+  author: Evelyn Underhill
+  print_length: 122 pages
+- title: Startup @ Cloud
+  rating: 2
+  date_finished: 2012-01-10
+  date_started: 2012-01-10
+  review: Some decent resources listed, but mostly a mediocre index.
+  source: goodreads
+  author: Daniel Bartel
+- title: The Lean Startup
+  rating: 5
+  date_finished: 2012-01-01
+  date_started: 2011-12-20
+  source: goodreads
+  author: Eric Ries
+  print_length: 336 pages
+- title: What's New in Java 7?
+  rating: 4
+  date_finished: 2011-12-20
+  date_started: 2011-12-20
+  review: "Nice, quick, free intro to Java 7 changes.\n\n"
+  source: goodreads
+  author: Madhusudhan Konda
+  print_length: 10 pages
+- title: 'Code Complete: A Practical Handbook of Software Construction'
+  rating: 4
+  date_finished: 2011-12-20
+  date_started: 2011-08-28
+  review: |-
+    Finally got around to reading this programming standard.
+
+    It's a substantial book that covers a lot of areas in the programming domain, and would probably round out even the more experienced programmer.
+  source: goodreads
+  author: Steve McConnell
+  print_length: 914 pages
+- title: What Is Node?
+  rating: 4
+  date_finished: 2011-12-20
+  date_started: 2011-12-20
+  source: goodreads
+  author: Brett McLaughlin
+  print_length: 14 pages
+- title: Great Expectations
+  rating: 4
+  date_finished: 2011-12-03
+  date_started: 2011-06-05
+  source: goodreads
+  author: Charles Dickens
+  print_length: 482 pages
+- title: 'Wicked Plants: The Weed That Killed Lincoln''s Mother and Other Botanical
+    Atrocities'
+  rating: 4
+  date_finished: 2011-12-03
+  date_started: 2011-07-01
+  source: goodreads
+  author: Amy Stewart
+  print_length: 235 pages
+- title: 'Hitler''s Holy Relics: : A True Story of Nazi Plunder and the Race to Recover
+    the Crown Jewels of the Holy Roman Empire'
+  rating: 4
+  date_finished: 2011-12-03
+  date_started: 2011-11-22
+  review: |-
+    If you crossed the Da Vinci Code with real life Nazi conspiracies, you'd get a story like this.
+
+    A look at the history of the traditions that Hitler and his men claimed to succeed, told through the personal story and investigations of one U.S.-German army lieutenant who was an expert in German art history.
+  source: goodreads
+  author: Sidney Kirkpatrick
+  print_length: 316 pages
+- title: 'Spark: The Revolutionary New Science of Exercise and the Brain'
+  rating: 5
+  date_finished: 2011-11-21
+  date_started: 2011-11-11
+  review: Fascinating topic. May be a bit heavy on the chemical compound and anatomical
+    name-dropping for the average reader.
+  source: goodreads
+  author: Jeanne DuPrau
+  print_length: 340 pages
+- title: 'The Tipping Point: How Little Things Can Make a Big Difference'
+  rating: 4
+  date_finished: 2011-11-09
+  date_started: 2011-10-26
+  review: |-
+    The first part of the book seemed to be an extended explanation of what a geometrical progression is (contagion->epidemic).
+
+    However, the rest of the book provided valuable insight into different ways of getting something to take hold
+  source: goodreads
+  author: Malcolm Gladwell
+  print_length: 288 pages
+- title: 'Made to Stick: Why Some Ideas Survive and Others Die'
+  rating: 5
+  date_finished: 2011-10-26
+  date_started: 2011-10-24
+  review: Insightful in breaking down the "curse of knowledge" and moving abstract->concrete.
+  source: goodreads
+  author: Chip Heath
+  print_length: 291 pages
+- title: Managing Oneself (Harvard Business Review Classics)
+  rating: 4
+  date_finished: 2011-10-24
+  date_started: 2011-10-21
+  source: goodreads
+  author: Peter F. Drucker
+  print_length: 64 pages
+- title: The Greatest Speeches of All Time
+  rating: 4
+  date_finished: 2011-10-21
+  date_started: 2011-10-19
+  review: |-
+    There seemed to be an overemphasis on 20th-century U.S. presidents, but this was an interesting look into many the speeches of many people who had an impact on the world, for better or worse.
+
+    Hearing the speeches (or texts of speeches) gave me greater appreciation of the great qualities of great statesmen, and a few prime examples of how some leaders may ultimately have failed.
+
+    Included is the speech of a rally by Hitler... the crowd frenzy is as chilling as the speech itself.
+  source: goodreads
+  author: Franklin D. Roosevelt
+  print_length: 68 pages
+- title: 'Death by Meeting: A Leadership Fable… about Solving the Most Painful Problem
+    in Business'
+  rating: 3
+  date_finished: 2011-10-19
+  date_started: 2011-10-15
+  source: goodreads
+  author: Patrick Lencioni
+  print_length: 272 pages
+- title: 'The Last Lion: Winston Spencer Churchill: Alone, 1932-40'
+  rating: 5
+  date_finished: 2011-10-15
+  date_started: 2011-09-23
+  review: Remarkable telling of Winston Churchill's wilderness years.
+  source: goodreads
+  author: William Manchester
+  print_length: 380 pages
+- title: 'The Cubicle Survival Guide: Keeping Your Cool in the Least Hospitable Environment
+    on Earth'
+  rating: 4
+  date_finished: 2011-10-01
+  date_started: 2011-09-02
+  review: |-
+    I love the Office Lamprey section.
+
+    A mix of humor and somewhat practical advice. This would make an excellent gift for any exceptionally clueless coworkers.
+  source: goodreads
+  author: James F. Thompson
+  print_length: 240 pages
+- title: 'The Last Lion: Winston Spencer Churchill: Visions of Glory, 1874-1932'
+  rating: 4
+  date_finished: 2011-09-23
+  date_started: 2011-08-28
+  review: Fascinating and thorough insight into Winston Churchill's early life including
+    a few of his insights that could have ended WWI much earlier and/or prevented
+    the lead up to WWII.
+  source: goodreads
+  author: William Manchester
+  print_length: 380 pages
+- title: 'Empire of Liberty: A History of the Early Republic, 1789-1815'
+  rating: 4
+  date_finished: 2011-08-12
+  date_started: 2011-07-14
+  review: |-
+    Long and detailed history of a 26 year period, but I appreciated the book in that it neither struck a heavily patriotic or apologetic tone as a U.S. history book.
+
+    This is part of an Oxford Series on U.S. History.  I will definitely be seeking out the books covering other periods.
+  source: goodreads
+  author: Robert W. Tucker
+  print_length: 376 pages
+- title: 'From the Age of Discovery to a World at War (America: The Last Best Hope
+    #1)'
+  rating: 5
+  date_finished: 2011-07-11
+  date_started: 2011-06-27
+  source: goodreads
+- title: A Tale of Two Cities
+  rating: 5
+  date_finished: 2011-06-05
+  date_started: 2011-02-01
+  source: goodreads
+  author: Charles Dickens
+  print_length: 387 pages
+- title: 'Six Days of War: June 1967 and the Making of the Modern Middle East'
+  rating: 4
+  date_finished: 2011-05-27
+  date_started: 2011-05-19
+  review: |+
+    An attempt at an objective telling of the Six Days War and the conflicts within individual nations and between nations that shaped the outcome.
+
+    Certainly, history is kinder to the losers than the winners, but this book makes a valiant attempt at exposing the dysfunction that shaped the conflict and the subsequent landscape of the modern Middle East.
+
+  source: goodreads
+  author: Michael B. Oren
+  print_length: 464 pages
+- title: The Five Dysfunctions of a Team
+  rating: 4
+  date_finished: 2011-05-19
+  date_started: 2011-05-17
+  review: This information shouldn't be this novel, but, unfortunately, it is.
+  source: goodreads
+  author: Patrick Lencioni
+  print_length: 4 pages
+- title: 'The Black Swan: The Impact of the Highly Improbable'
+  rating: 5
+  date_finished: 2011-05-17
+  date_started: 2011-05-06
+  review: |+
+    Eye-opening--challenges perceptions of risk vs. volatility.
+
+    Interesting remarks on Fannie Mae [written 4-7 years prior to the housing bust] and the overwhelming faith pension fund management.
+
+  source: goodreads
+  author: Nassim Nicholas Taleb
+  print_length: 421 pages
+- title: 'The Social Animal: The Hidden Sources of Love, Character, and Achievement'
+  rating: 5
+  date_finished: 2011-04-25
+  date_started: 2011-04-12
+  review: |-
+    An interesting telling of the origin of many social divides and societal problems told through the fictional story of two people's lives, from before conception to death, and connecting them to research about psychology, sociology, and medical research.
+
+    The failures of imposed democracies, achievement gaps, and the polarization of politics are examined as part of this book.
+  source: goodreads
+  author: Elliot Aronson
+  print_length: 431 pages
+- title: 'The Panic of 1907: Lessons Learned from the Market''s Perfect Storm'
+  rating: 3
+  date_finished: 2011-04-12
+  date_started: 2011-04-12
+  review: |-
+    I often hear comparisons of the recession/panic of 2008 with the Great Depression redirected to a comparison with the Panic of 1907.
+
+    In terms of character, duration, and impetus, I would have to agree that the characterization of 2008 as a panic similar to 1907 make sense.
+
+    This book was released in August 31, 2007 and makes reference [in the Coda] to "oil rising to $100 per barrel" and uncertainty whether credit derivatives would dampen or amplify a panic.
+
+    The conclusions in the book point to several ingredients in creating a perfect storm for a panic, but also admit to a Keynesian bias in presenting preventative measures and corrective action.
+
+    The narrative is interesting if [necessarily] dry, and while the construction of the cause thesis is reasonable, the conclusions didn't seem to follow through.
+
+    This book is available on Audible.
+  source: goodreads
+  author: Robert F. Bruner
+  print_length: 268 pages
+- title: A Little Bit Wicked
+  rating: 5
+  date_finished: 2011-04-08
+  date_started: 2011-04-05
+  review: |-
+    Loved this book, as read by Kristin Chenoweth.
+
+    Have gained much respect for her after reading this.
+
+    Would highly recommend this book, especially if you're a music theater/arts lover anywhere between the coasts.
+  source: goodreads
+  author: Victoria Alexander
+  print_length: 384 pages
+- title: Stumbling on Happiness
+  rating: 3
+  date_finished: 2011-03-09
+  date_started: 2011-02-28
+  review: This book sited a lot of the same examples as The Paradox of Choice, so
+    much so that at times it felt like The Paradox of Choice was used as a primary
+    resource in writing this book.
+  source: goodreads
+  author: Daniel Todd Gilbert
+  print_length: 310 pages
+- title: 'The Paradox of Choice: Why More Is Less'
+  rating: 4
+  date_finished: 2011-02-28
+  date_started: 2011-02-23
+  source: goodreads
+  author: Barry Schwartz
+  print_length: 269 pages
+- title: 'Talent is Overrated: What Really Separates World-Class Performers from Everybody
+    Else'
+  rating: 4
+  date_finished: 2011-02-10
+  date_started: 2011-02-05
+  review: Left me with a little bit of a chicken vs. egg thought...  is talent really
+    inherited intrinsic motivation and adaptability to the skill, or is this intrinsic
+    motivation actually nurtured?
+  source: goodreads
+  author: Geoff Colvin
+- title: 'It''s Not as Bad as You Think: Why Capitalism Trumps Fear and the Economy
+    Will Thrive'
+  rating: 4
+  date_finished: 2011-02-05
+  date_started: 2011-01-29
+  source: goodreads
+  author: Jim DeVault
+  print_length: 160 pages
+- title: Again to Carthage
+  rating: 4
+  date_finished: 2011-01-29
+  date_started: 2011-01-22
+  review: |-
+    The sequel to Once a Runner, this book initially seems like a cheap attempt to sell two novels for the effort of one book.  However, this book grew on me.  Again, John Parker draws parallels with the real world, both in events of the Cold War, and in the power trips of the athletics governing bodies.
+
+    This may not be the novel for someone into masterpieces of fiction, but it was an easy read and kept my interest.
+  source: goodreads
+  author: John L Parker
+- title: Patterns of Enterprise Application Architecture
+  rating: 3
+  date_finished: 2011-01-26
+  date_started: 2010-11-02
+  source: goodreads
+  author: Martin Fowler
+  print_length: 533 pages
+- title: How Full Is Your Bucket?
+  rating: 3
+  date_finished: 2011-01-25
+  date_started: 2011-01-22
+  review: 'A little more substantive than some of the other pop motivation/biz books,
+    but it also refined the "recognition for recognition''s sake" culture applying
+    common sense to it.  '
+  source: goodreads
+  author: Tom Rath
+- title: Advanced Marathoning
+  rating: 5
+  date_finished: 2011-01-22
+  date_started: 2010-10-20
+  source: goodreads
+  author: Pete Pfitzinger
+- title: 'Kitchen Confidential: Adventures in the Culinary Underbelly'
+  rating: 4
+  date_finished: 2011-01-22
+  date_started: 2011-01-18
+  review: I didn't really know what to expect...  very much Anthony Bourdain, but
+    much more of a memoir than a expose...
+  source: goodreads
+  author: Anthony Bourdain
+  print_length: 320 pages
+- title: The 4-Hour Workweek
+  rating: 4
+  date_finished: 2011-01-18
+  date_started: 2011-01-09
+  review: |-
+    Some very good parts to this book, and generally a quality examination of productivity and what's important versus looking busy and being a materialistic zombie.
+
+    However, there are many "Carlton Sheets Late Night informercial" parts to this book, and the martial arts example early in the book sounds like playing basketball against 7th graders.
+  source: goodreads
+  author: Timothy Ferriss
+  print_length: 341 pages
+- title: 'The Perfect Mile: Three Athletes, One Goal, and Less Than Four Minutes to
+    Achieve It'
+  rating: 5
+  date_finished: 2011-01-09
+  date_started: 2011-01-01
+  review: 'A little bit of a slow starter for me, but the race descriptions are right
+    up there with Once a Runner. '
+  source: goodreads
+  author: Neal Bascomb
+  print_length: 344 pages
+- title: 'Unbroken: A World War II Story of Survival, Resilience and Redemption'
+  rating: 5
+  date_finished: 2011-01-01
+  date_started: 2010-12-10
+  review: Inspiring, depressing, disturbing, hopeful.  A tale of a tremendous journey,
+    and a peek into years leading up to and surrounding the events of WW II.
+  source: goodreads
+  author: Laura Hillenbrand
+  print_length: 500 pages
+- title: Les Misérables
+  rating: 5
+  date_finished: 2010-12-26
+  date_started: 2010-09-27
+  review: |-
+    This book is a challenge to get through, even in audiobook form.  I had a basic familiarity with the story of Les Misérables from the musical of the same name.
+
+    The depth of Jean Valjean's character and circumstances is so much greater than could ever be remotely given justice by the movie or any musical representation.
+
+    I would recommend this for anyone who is in love with the story as presented by the musical.  The original version of the story has a completely different dimension than any 2-3 hour production can present.
+
+    The unabridged format is a bit unwieldy, but provides some measure of context, considering how far displaced we are from the original setting of the story.
+  source: goodreads
+  author: Victor Hugo
+  print_length: 520 pages
+- title: Once a Runner
+  rating: 5
+  date_finished: 2010-09-29
+  date_started: 2010-09-09
+  review: '"What was the secret, they wanted to know; in a thousand different ways
+    they wanted to know The Secret. And not one of them was prepared, truly prepared
+    to believe that it had not so much to do with chemicals and zippy mental tricks
+    as with that most unprofound and sometimes heart-rending process of removing,
+    molecule by molecule, the very tough rubber that comprised the bottoms of his
+    training shoes. The Trial of Miles; Miles of Trials."'
+  source: goodreads
+  author: Parker, John L. Jr.
+  print_length: 272 pages
+- title: What I Talk About When I Talk About Running
+  rating: 3
+  date_finished: 2010-09-23
+  date_started: 2010-09-15
+  source: goodreads
+  author: 村上春樹
+  print_length: 192 pages
+- title: 'Delivering Happiness: A Path to Profits, Passion, and Purpose'
+  rating: 4
+  date_finished: 2010-09-09
+  date_started: 2010-09-04
+  source: goodreads
+  author: Tony Hsieh
+  print_length: 253 pages
+- title: 'Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets
+    (Incerto)'
+  rating: 4
+  date_finished: 2010-08-27
+  date_started: 2010-08-19
+  source: goodreads
+  author: Nassim Nicholas Taleb
+  print_length: 312 pages
+- title: 'Unleashing the Ideavirus: Stop Marketing AT People! Turn Your Ideas into
+    Epidemics by Helping Your Customers Do the Marketing thing for You.'
+  rating: 3
+  date_finished: 2010-08-19
+  date_started: 2010-08-16
+  review: "Maybe the dated internet boom references caused problems for me, but I
+    wasn't impressed with this book. \n\nMaybe the whole virus/sneezing metaphor was
+    just too weird for me."
+  source: goodreads
+  author: Seth Godin
+  print_length: 240 pages
+- title: Rework
+  rating: 5
+  date_finished: 2010-08-17
+  date_started: 2010-08-16
+  review: Amazingly, the things that appealed to me in this book should be business
+    common sense, such as rejecting the idea of a mission statement and the "false
+    apology".  I wish this were a staple of corporate culture instead of pop business
+    books.
+  source: goodreads
+  author: Jason Fried
+  print_length: 279 pages
+- title: 'Free: The Future of a Radical Price'
+  rating: 4
+  date_finished: 2010-08-16
+  date_started: 2010-08-14
+  source: goodreads
+  author: H. G. Wells
+  print_length: 240 pages
+- title: Think and Grow Rich
+  rating: 2
+  date_finished: 2010-08-10
+  date_started: 2010-08-10
+  review: |-
+    I started this book just because I was looking for something to read via Audible.com. I continued on reading due to having already used the credit in my account and because I needed something to listen to while running, anyway.
+
+    The original edition contains dated scientific references, among other things. A majority of the book is written in a formal style, such that it reads as a textbook, but without actual authority behind it.
+
+    There are some inspirational moments and prescriptive details in the book, but the book starts and finishes in the realm of the surreal.
+
+    I actually ended up enjoying the cultural oddities preserved in a 70 year old book, which got me through it.
+  source: goodreads
+  author: Napoleon Hill
+  print_length: 256 pages

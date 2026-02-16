@@ -1,3 +1,4 @@
+require 'csv'
 require 'erb'
 require 'open-uri'
 require 'rouge' # For syntax highlighting

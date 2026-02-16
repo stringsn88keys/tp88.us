@@ -3,11 +3,13 @@
   edition: 1st Edition
   author: Gregory T. Brown
   editor:
+  rating: 4
   associates_link: https://amzn.to/4sTqiph
   commentary: Written in the early days of Ruby popularity between 1.8.6 and 1.9.3, this book by the Prawn author contains some good tidbits despite its dated commentary. Reminiscing about the days of RubyForge among others.
   date_finished: 2026-01-22
   format_read: Digital on O'Reilly App
   print_length: 325 pages
+  rating: 5
 - title: Dopesick
   subtitle: Dealers, Doctors, and the Drug Company that Addicted America
   author: Beth Macy
@@ -17,11 +19,13 @@
   format_read: Audible
   print_length: 400 pages
   listening_length: 10 hours and 16 minutes
+  rating: 5
 - title: Genetic Algorithms and Machine Learning for Programmers
   edition: 1st Edition
   author: Frances Buontempo
   associates_link: https://amzn.to/3LYkFFK
-  commentary:
+  rating: 4
+  commentary: Fairly rudimentary coverage of the concepts, but good intro if you're fairly new to GA. Not related to the content, but I don't recommend illustration/figure-heavy PragProg books on O'Reilly App.
   date_started: 2026-01-22
   date_finished: 2026-02-02
   format_read: Digital on O'Reilly App
