@@ -161,6 +161,68 @@ end
 greet { |name| "Hello #{name}" }
 ```
 
+## Branching
+```ruby
+# if/elsif/else
+if score > 90
+  "A"
+elsif score > 80
+  "B"
+else
+  "C"
+end
+
+# if as expression (returns a value)
+grade = if score > 90 then "A" elsif score > 80 then "B" else "C" end
+
+# Inline if (modifier form)
+puts "passed" if score > 60
+
+# unless (inverse of if)
+unless user.admin?
+  redirect_to root_path
+end
+
+# Inline unless
+raise "unauthorized" unless user.admin?
+
+# case/when (uses === for matching)
+case value
+when String
+  "it's a string"
+when 1..10
+  "between 1 and 10"
+when /\A\d+\z/
+  "looks like digits"
+when :active, :pending
+  "one of these symbols"
+else
+  "something else"
+end
+
+# case with no argument (acts like if/elsif)
+case
+when score > 90 then "A"
+when score > 80 then "B"
+else "C"
+end
+
+# case/in - pattern matching (Ruby 3.0+)
+case response
+in { status: 200, body: String => body }
+  process(body)
+in { status: 404 }
+  not_found
+in { status: (500..) }
+  server_error
+end
+```
+
+**Key notes**:
+- `case/when` uses `===` (case equality), so classes, ranges, and regexes all work in `when` clauses
+- `unless` doesn't support `elsif` — use `if/elsif` instead if you need multiple branches
+- Everything is an expression: `if`, `unless`, and `case` all return values
+
 ## Control Flow: next, break, return in Different Contexts
 
 ### In Loops
