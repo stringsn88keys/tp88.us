@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erlang Quick Reference for Experienced Programmers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#erlang-quick-reference-for-experienced-programmers" aria-hidden="true" class="anchor" id="erlang-quick-reference-for-experienced-programmers"></a>Erlang Quick Reference for Experienced Programmers</h1>
+<h2><a href="#for-more-see" aria-hidden="true" class="anchor" id="for-more-see"></a>For more see:</h2>
+<ul>
+<li><a href="https://www.erlang.org/doc/getting_started/users_guide">Erlang Getting Started</a></li>
+<li><a href="https://learnyousomeerlang.com/">Learn You Some Erlang</a></li>
+</ul>
+<h2><a href="#language-basics" aria-hidden="true" class="anchor" id="language-basics"></a>Language Basics</h2>
+<ul>
+<li><strong>Functional language</strong>: No objects, no mutation. Functions transform data.</li>
+<li><strong>The BEAM VM</strong>: Built for telecom — massive concurrency, fault tolerance, hot code reloading, soft real-time.</li>
+<li><strong>Immutable data</strong>: Once bound, a variable cannot change. Single assignment.</li>
+<li><strong>Pattern matching</strong>: Core mechanism for control flow, function dispatch, and destructuring.</li>
+<li><strong>Lightweight processes</strong>: Not OS threads — millions of isolated BEAM processes, each with its own heap.</li>
+<li><strong>&quot;Let it crash&quot;</strong>: Build reliability through supervision trees, not defensive coding.</li>
+<li><strong>Prolog heritage</strong>: Syntax comes from Prolog — periods end statements, commas separate expressions, semicolons separate clauses.</li>
+</ul>
+<h2><a href="#syntax-essentials" aria-hidden="true" class="anchor" id="syntax-essentials"></a>Syntax Essentials</h2>
+<pre class="highlight"><code><span class="c">% This is a comment
+</span>
+<span class="c">% Statements end with a period (.)
+% Expressions within a function are separated by commas (,)
+% Clauses (in case, if, function heads) are separated by semicolons (;)
+</span>
+<span class="c">% Variables start with Uppercase
+</span><span class="nv">Name</span> <span class="o">=</span> <span class="s">"Tom"</span><span class="p">.</span>
+
+<span class="c">% Atoms start with lowercase (like Ruby symbols)
+</span><span class="n">ok</span><span class="p">.</span>
+<span class="n">error</span><span class="p">.</span>
+<span class="n">hello_world</span><span class="p">.</span>
+<span class="n">'atoms with spaces'</span><span class="p">.</span>
+
+<span class="c">% Everything is an expression — last expression in a function is the return value
+</span></code></pre>
+<h2><a href="#data-types" aria-hidden="true" class="anchor" id="data-types"></a>Data Types</h2>
+<pre class="highlight"><code><span class="c">% Atoms
+</span><span class="n">ok</span><span class="p">.</span>
+<span class="n">error</span><span class="p">.</span>
+<span class="n">true</span><span class="p">.</span>                          <span class="c">% Booleans are atoms
+</span><span class="n">false</span><span class="p">.</span>
+
+<span class="c">% Numbers
+</span><span class="mi">42</span><span class="p">.</span>                            <span class="c">% Integer
+</span><span class="mi">3</span><span class="p">.</span><span class="mi">14</span><span class="p">.</span>                          <span class="c">% Float
+</span><span class="mi">16#FF</span><span class="p">.</span>                         <span class="c">% Base-16 (255)
+</span><span class="mi">2#1010</span><span class="p">.</span>                        <span class="c">% Base-2 (10)
+</span>
+<span class="c">% Strings (are actually lists of integers)
+</span><span class="s">"hello"</span><span class="p">.</span>                       <span class="c">% [104, 101, 108, 108, 111]
+</span><span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">111</span><span class="p">].</span>     <span class="c">% "Hello" — same thing
+</span>
+<span class="c">% Binaries (byte sequences — the efficient string)
+</span><span class="o">&lt;&lt;</span><span class="s">"hello"</span><span class="o">&gt;&gt;</span><span class="p">.</span>                   <span class="c">% Binary string (preferred for text)
+</span><span class="o">&lt;&lt;</span><span class="mi">72</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">108</span><span class="p">,</span> <span class="mi">111</span><span class="o">&gt;&gt;</span><span class="p">.</span>   <span class="c">% Same binary
+</span>
+<span class="c">% Tuples (fixed-size, contiguous memory)
+</span><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="s">"result"</span><span class="p">}.</span>
+<span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">not_found</span><span class="p">}.</span>
+<span class="p">{</span><span class="n">user</span><span class="p">,</span> <span class="s">"Tom"</span><span class="p">,</span> <span class="mi">30</span><span class="p">}.</span>
+
+<span class="c">% Lists (linked lists)
+</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span>
+<span class="p">[</span><span class="nv">Head</span> <span class="p">|</span> <span class="nv">Tail</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span>    <span class="c">% Head = 1, Tail = [2, 3]
+</span><span class="p">[</span><span class="mi">1</span> <span class="p">|</span> <span class="p">[</span><span class="mi">2</span> <span class="p">|</span> <span class="p">[</span><span class="mi">3</span> <span class="p">|</span> <span class="p">[]]]].</span>         <span class="c">% How lists actually work
+</span>
+<span class="c">% Property lists (convention: list of {Key, Value} tuples)
+</span><span class="p">[{</span><span class="n">name</span><span class="p">,</span> <span class="s">"Tom"</span><span class="p">},</span> <span class="p">{</span><span class="n">age</span><span class="p">,</span> <span class="mi">30</span><span class="p">}].</span>
+<span class="nn">proplists</span><span class="p">:</span><span class="nf">get_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">List</span><span class="p">).</span>
+
+<span class="c">% Maps (Erlang 17+)
+</span><span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="o">=&gt;</span> <span class="s">"Tom"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=&gt;</span> <span class="mi">30</span><span class="p">}.</span>
+
+<span class="c">% Records (compile-time syntactic sugar over tuples)
+</span><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">user</span><span class="p">,</span> <span class="p">{</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">active</span> <span class="o">=</span> <span class="n">true</span><span class="p">}).</span>
+<span class="nv">User</span> <span class="o">=</span> <span class="nl">#user</span><span class="p">{</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Tom"</span><span class="p">,</span> <span class="n">email</span> <span class="o">=</span> <span class="s">"tom@test.com"</span><span class="p">}.</span>
+<span class="nv">User</span><span class="nl">#user.name</span><span class="p">.</span>                <span class="c">% Access field
+</span></code></pre>
+<h2><a href="#pattern-matching" aria-hidden="true" class="anchor" id="pattern-matching"></a>Pattern Matching</h2>
+<pre class="highlight"><code><span class="c">% Variables are single-assignment — once bound, matching against them
+</span><span class="nv">X</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="mi">5</span><span class="p">.</span>           <span class="c">% OK — matches
+</span><span class="nv">X</span> <span class="o">=</span> <span class="mi">6</span><span class="p">.</span>           <span class="c">% ** badmatch error — X is already 5
+</span>
+<span class="c">% Tuple matching
+</span><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Result</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="mi">42</span><span class="p">}.</span>          <span class="c">% Result = 42
+</span><span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Result</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="s">"fail"</span><span class="p">}.</span>   <span class="c">% ** badmatch
+</span>
+<span class="c">% List matching
+</span><span class="p">[</span><span class="nv">H</span> <span class="p">|</span> <span class="nv">T</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span>              <span class="c">% H = 1, T = [2, 3]
+</span><span class="p">[_,</span> <span class="nv">Second</span> <span class="p">|</span> <span class="p">_]</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">].</span>   <span class="c">% Second = b, _ = don't care
+</span>
+<span class="c">% Map matching
+</span><span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="p">:</span><span class="o">=</span> <span class="nv">Name</span><span class="p">}</span> <span class="o">=</span> <span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="o">=&gt;</span> <span class="s">"Tom"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=&gt;</span> <span class="mi">30</span><span class="p">}.</span>   <span class="c">% Name = "Tom"
+</span>
+<span class="c">% In function heads
+</span><span class="nf">area</span><span class="p">({</span><span class="n">circle</span><span class="p">,</span> <span class="nv">Radius</span><span class="p">})</span> <span class="o">-&gt;</span> <span class="nn">math</span><span class="p">:</span><span class="nf">pi</span><span class="p">()</span> <span class="o">*</span> <span class="nv">Radius</span> <span class="o">*</span> <span class="nv">Radius</span><span class="p">;</span>
+<span class="nf">area</span><span class="p">({</span><span class="n">rectangle</span><span class="p">,</span> <span class="nv">W</span><span class="p">,</span> <span class="nv">H</span><span class="p">})</span> <span class="o">-&gt;</span> <span class="nv">W</span> <span class="o">*</span> <span class="nv">H</span><span class="p">;</span>
+<span class="nf">area</span><span class="p">({</span><span class="n">square</span><span class="p">,</span> <span class="nv">Side</span><span class="p">})</span> <span class="o">-&gt;</span> <span class="nv">Side</span> <span class="o">*</span> <span class="nv">Side</span><span class="p">.</span>
+
+<span class="c">% In case expressions
+</span><span class="k">case</span> <span class="nv">File</span><span class="p">:</span><span class="nf">read</span><span class="p">(</span><span class="s">"data.txt"</span><span class="p">)</span> <span class="k">of</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Contents</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nf">process</span><span class="p">(</span><span class="nv">Contents</span><span class="p">);</span>
+    <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">enoent</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"File not found</span><span class="si">~n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Error: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Reason</span><span class="p">])</span>
+<span class="k">end</span><span class="p">.</span>
+</code></pre>
+<h2><a href="#functions" aria-hidden="true" class="anchor" id="functions"></a>Functions</h2>
+<h3><a href="#module-functions" aria-hidden="true" class="anchor" id="module-functions"></a>Module Functions</h3>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">math_utils</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">add</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">divide</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>     <span class="c">% Public functions (name/arity)
+</span>
+<span class="nf">add</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span><span class="p">.</span>
+
+<span class="nf">divide</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">division_by_zero</span><span class="p">};</span>
+<span class="nf">divide</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">A</span> <span class="o">/</span> <span class="nv">B</span><span class="p">}.</span>
+</code></pre>
+<h3><a href="#function-clauses--guards" aria-hidden="true" class="anchor" id="function-clauses--guards"></a>Function Clauses &amp; Guards</h3>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">greeting</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">greet</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">greet</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_binary</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">&lt;&lt;</span><span class="s">"Hello, "</span><span class="p">,</span> <span class="nv">Name</span><span class="o">/</span><span class="n">binary</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="nf">greet</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_list</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s">"Hello, "</span> <span class="o">++</span> <span class="nv">Name</span><span class="p">;</span>
+<span class="nf">greet</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_atom</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">greet</span><span class="p">(</span><span class="nb">atom_to_list</span><span class="p">(</span><span class="nv">Name</span><span class="p">)).</span>
+</code></pre>
+<h3><a href="#common-guards" aria-hidden="true" class="anchor" id="common-guards"></a>Common Guards</h3>
+<pre class="highlight"><code><span class="nb">is_integer</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_float</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_number</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_atom</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_binary</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>       <span class="c">% Binary/string
+</span><span class="nb">is_list</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_tuple</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nf">is_map</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_pid</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nb">is_boolean</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span>
+<span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="nv">X</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">andalso</span> <span class="nv">X</span> <span class="o">=&lt;</span> <span class="mi">100</span>    <span class="c">% andalso/orelse (short-circuit)
+</span><span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="nf">map_size</span><span class="p">(</span><span class="nv">Map</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</code></pre>
+<h3><a href="#anonymous-functions-funs" aria-hidden="true" class="anchor" id="anonymous-functions-funs"></a>Anonymous Functions (funs)</h3>
+<pre class="highlight"><code><span class="nv">Add</span> <span class="o">=</span> <span class="k">fun</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span> <span class="k">end</span><span class="p">.</span>
+<span class="nv">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">).</span>                        <span class="c">% =&gt; 3
+</span>
+<span class="nv">Double</span> <span class="o">=</span> <span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">.</span>
+<span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="nv">Double</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>     <span class="c">% =&gt; [2, 4, 6]
+</span>
+<span class="c">% Inline
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">filter</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">end</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]).</span>  <span class="c">% =&gt; [3, 4]
+</span>
+<span class="c">% Capture module function
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span> <span class="nn">erlang</span><span class="p">:</span><span class="nb">abs</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>  <span class="c">% =&gt; [1, 2, 3]
+</span>
+<span class="c">% Multi-clause fun
+</span><span class="nv">F</span> <span class="o">=</span> <span class="k">fun</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">zero</span><span class="p">;</span>
+    <span class="p">(</span><span class="nv">N</span><span class="p">)</span> <span class="k">when</span> <span class="nv">N</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span> <span class="n">positive</span><span class="p">;</span>
+    <span class="p">(_)</span> <span class="o">-&gt;</span> <span class="n">negative</span>
+<span class="k">end</span><span class="p">.</span>
+</code></pre>
+<h2><a href="#modules" aria-hidden="true" class="anchor" id="modules"></a>Modules</h2>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">user</span><span class="p">).</span>                     <span class="c">% Module name (must match filename)
+</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">new</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">full_name</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>     <span class="c">% Public API
+</span><span class="p">-</span><span class="ni">export_type</span><span class="p">([</span><span class="n">t</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>               <span class="c">% Export types
+</span>
+<span class="p">-</span><span class="ni">type</span> <span class="nf">t</span><span class="p">()</span> <span class="p">::</span> <span class="err">#</span><span class="p">{</span>
+    <span class="n">name</span> <span class="p">:</span><span class="o">=</span> <span class="nf">binary</span><span class="p">(),</span>
+    <span class="n">email</span> <span class="p">:</span><span class="o">=</span> <span class="nf">binary</span><span class="p">(),</span>
+    <span class="n">active</span> <span class="p">:</span><span class="o">=</span> <span class="nf">boolean</span><span class="p">()</span>
+<span class="p">}.</span>
+
+<span class="p">-</span><span class="ni">spec</span> <span class="nf">new</span><span class="p">(</span><span class="nf">binary</span><span class="p">(),</span> <span class="nf">binary</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nf">t</span><span class="p">().</span>
+<span class="nf">new</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Email</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="o">=&gt;</span> <span class="nv">Name</span><span class="p">,</span> <span class="n">email</span> <span class="o">=&gt;</span> <span class="nv">Email</span><span class="p">,</span> <span class="n">active</span> <span class="o">=&gt;</span> <span class="n">true</span><span class="p">}.</span>
+
+<span class="p">-</span><span class="ni">spec</span> <span class="nf">full_name</span><span class="p">(</span><span class="nf">t</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="nf">binary</span><span class="p">().</span>
+<span class="nf">full_name</span><span class="p">(</span><span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="p">:</span><span class="o">=</span> <span class="nv">Name</span><span class="p">})</span> <span class="o">-&gt;</span> <span class="nv">Name</span><span class="p">.</span>
+</code></pre>
+<h3><a href="#module-attributes" aria-hidden="true" class="anchor" id="module-attributes"></a>Module Attributes</h3>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">config</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="s">"Tom"</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">vsn</span><span class="p">(</span><span class="s">"1.0.0"</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">MAX_RETRIES</span><span class="p">,</span> <span class="mi">3</span><span class="p">).</span>          <span class="c">% Macro (compile-time constant)
+</span><span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">LOG</span><span class="p">(</span><span class="nv">Msg</span><span class="p">),</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"</span><span class="si">~p</span><span class="s">: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">])).</span>
+
+<span class="nf">retry</span><span class="p">(</span><span class="nv">F</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nf">retry</span><span class="p">(</span><span class="nv">F</span><span class="p">,</span> <span class="o">?</span><span class="nv">MAX_RETRIES</span><span class="p">).</span>
+<span class="nf">retry</span><span class="p">(_,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">max_retries</span><span class="p">};</span>
+<span class="nf">retry</span><span class="p">(</span><span class="nv">F</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">case</span> <span class="nv">F</span><span class="p">()</span> <span class="k">of</span>
+        <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Result</span><span class="p">};</span>
+        <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="p">_}</span> <span class="o">-&gt;</span> <span class="nf">retry</span><span class="p">(</span><span class="nv">F</span><span class="p">,</span> <span class="nv">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">.</span>
+</code></pre>
+<h2><a href="#control-flow" aria-hidden="true" class="anchor" id="control-flow"></a>Control Flow</h2>
+<pre class="highlight"><code><span class="c">% case (pattern matching)
+</span><span class="k">case</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">keyfind</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">Props</span><span class="p">)</span> <span class="k">of</span>
+    <span class="p">{</span><span class="n">name</span><span class="p">,</span> <span class="nv">Value</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nv">Value</span><span class="p">;</span>
+    <span class="n">false</span> <span class="o">-&gt;</span> <span class="n">undefined</span>
+<span class="k">end</span><span class="p">.</span>
+
+<span class="c">% if (guard-based — no pattern matching, rarely used)
+</span><span class="k">if</span>
+    <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span> <span class="n">positive</span><span class="p">;</span>
+    <span class="nv">X</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">-&gt;</span> <span class="n">negative</span><span class="p">;</span>
+    <span class="n">true</span> <span class="o">-&gt;</span> <span class="n">zero</span>               <span class="c">% 'true' is the else clause
+</span><span class="k">end</span><span class="p">.</span>
+
+<span class="c">% receive (message passing)
+</span><span class="k">receive</span>
+    <span class="p">{</span><span class="n">msg</span><span class="p">,</span> <span class="nv">Text</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Got: </span><span class="si">~s~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Text</span><span class="p">]);</span>
+    <span class="n">stop</span> <span class="o">-&gt;</span> <span class="n">ok</span>
+<span class="k">after</span>
+    <span class="mi">5000</span> <span class="o">-&gt;</span> <span class="n">timeout</span>            <span class="c">% Timeout in milliseconds
+</span><span class="k">end</span><span class="p">.</span>
+</code></pre>
+<h3><a href="#why-case-over-if" aria-hidden="true" class="anchor" id="why-case-over-if"></a>Why <code>case</code> Over <code>if</code></h3>
+<p><code>if</code> only supports guard expressions — no pattern matching. <code>case</code> is far more powerful and idiomatic. Most Erlang code uses <code>case</code> or function clause matching instead of <code>if</code>.</p>
+<h2><a href="#list-operations" aria-hidden="true" class="anchor" id="list-operations"></a>List Operations</h2>
+<pre class="highlight"><code><span class="c">% Common list functions
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>          <span class="c">% =&gt; [2, 4, 6]
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">filter</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">end</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>       <span class="c">% =&gt; [2, 3]
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">foldl</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">+</span> <span class="nv">Acc</span> <span class="k">end</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>  <span class="c">% =&gt; 6
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">foldr</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Acc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">+</span> <span class="nv">Acc</span> <span class="k">end</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>  <span class="c">% =&gt; 6
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">any</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">end</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>          <span class="c">% =&gt; true
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">all</span><span class="p">(</span><span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">end</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>          <span class="c">% =&gt; true
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">member</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>                          <span class="c">% =&gt; true
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">sort</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]).</span>                               <span class="c">% =&gt; [1, 2, 3]
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">reverse</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>                            <span class="c">% =&gt; [3, 2, 1]
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">flatten</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="mi">4</span><span class="p">]]]).</span>                   <span class="c">% =&gt; [1, 2, 3, 4]
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]).</span>                           <span class="c">% =&gt; [{1, a}, {2, b}]
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">nth</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]).</span>                             <span class="c">% =&gt; b (1-indexed)
+</span><span class="nn">lists</span><span class="p">:</span><span class="nf">seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">).</span>                                     <span class="c">% =&gt; [1, 2, 3, 4, 5]
+</span><span class="nb">length</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>                                   <span class="c">% =&gt; 3
+</span>
+<span class="c">% List comprehensions
+</span><span class="p">[</span><span class="nv">X</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">||</span> <span class="nv">X</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]].</span>                          <span class="c">% =&gt; [2, 4, 6]
+</span><span class="p">[</span><span class="nv">X</span> <span class="p">||</span> <span class="nv">X</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="nv">X</span> <span class="ow">rem</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">].</span>             <span class="c">% =&gt; [2, 4]
+</span><span class="p">[{</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">}</span> <span class="p">||</span> <span class="nv">X</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="nv">Y</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">]].</span>               <span class="c">% =&gt; [{1,a},{1,b},{2,a},{2,b}]
+</span>
+<span class="c">% Cons operator
+</span><span class="p">[</span><span class="mi">1</span> <span class="p">|</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]].</span>                                        <span class="c">% =&gt; [1, 2, 3]
+</span>
+<span class="c">% String operations (strings are lists)
+</span><span class="nn">string</span><span class="p">:</span><span class="nf">uppercase</span><span class="p">(</span><span class="s">"hello"</span><span class="p">).</span>                            <span class="c">% =&gt; "HELLO"
+</span><span class="nn">string</span><span class="p">:</span><span class="nf">split</span><span class="p">(</span><span class="s">"a,b,c"</span><span class="p">,</span> <span class="s">","</span><span class="p">).</span>                          <span class="c">% =&gt; ["a", "b", "c"]
+</span><span class="nn">string</span><span class="p">:</span><span class="nf">trim</span><span class="p">(</span><span class="s">"  hello  "</span><span class="p">).</span>                            <span class="c">% =&gt; "hello"
+</span></code></pre>
+<h2><a href="#maps-erlang-17" aria-hidden="true" class="anchor" id="maps-erlang-17"></a>Maps (Erlang 17+)</h2>
+<pre class="highlight"><code><span class="c">% Create
+</span><span class="nv">Map</span> <span class="o">=</span> <span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="o">=&gt;</span> <span class="s">"Tom"</span><span class="p">,</span> <span class="n">age</span> <span class="o">=&gt;</span> <span class="mi">30</span><span class="p">}.</span>
+
+<span class="c">% Access
+</span><span class="nn">maps</span><span class="p">:</span><span class="nb">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">Map</span><span class="p">).</span>                  <span class="c">% =&gt; "Tom"
+</span><span class="nn">maps</span><span class="p">:</span><span class="nb">get</span><span class="p">(</span><span class="n">missing</span><span class="p">,</span> <span class="nv">Map</span><span class="p">,</span> <span class="n">default</span><span class="p">).</span>      <span class="c">% =&gt; default
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">find</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">Map</span><span class="p">).</span>                 <span class="c">% =&gt; {ok, "Tom"}
+</span>
+<span class="c">% Update (key must exist for :=)
+</span><span class="nv">Map2</span> <span class="o">=</span> <span class="nv">Map</span><span class="err">#</span><span class="p">{</span><span class="n">age</span> <span class="p">:</span><span class="o">=</span> <span class="mi">31</span><span class="p">}.</span>              <span class="c">% Update existing key
+</span><span class="nv">Map3</span> <span class="o">=</span> <span class="nv">Map</span><span class="err">#</span><span class="p">{</span><span class="n">email</span> <span class="o">=&gt;</span> <span class="s">"tom@t.com"</span><span class="p">}.</span>   <span class="c">% Add new key with =&gt;
+</span>
+<span class="c">% Operations
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">keys</span><span class="p">(</span><span class="nv">Map</span><span class="p">).</span>                       <span class="c">% =&gt; [age, name]
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">values</span><span class="p">(</span><span class="nv">Map</span><span class="p">).</span>                     <span class="c">% =&gt; [30, "Tom"]
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">merge</span><span class="p">(</span><span class="nv">Map1</span><span class="p">,</span> <span class="nv">Map2</span><span class="p">).</span>              <span class="c">% Merge (Map2 wins on conflict)
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">remove</span><span class="p">(</span><span class="n">age</span><span class="p">,</span> <span class="nv">Map</span><span class="p">).</span>               <span class="c">% Remove key
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">is_key</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nv">Map</span><span class="p">).</span>              <span class="c">% =&gt; true
+</span><span class="nn">maps</span><span class="p">:</span><span class="nb">size</span><span class="p">(</span><span class="nv">Map</span><span class="p">).</span>                       <span class="c">% =&gt; 2
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">to_list</span><span class="p">(</span><span class="nv">Map</span><span class="p">).</span>                    <span class="c">% =&gt; [{age, 30}, {name, "Tom"}]
+</span><span class="nn">maps</span><span class="p">:</span><span class="nf">from_list</span><span class="p">([{</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">}]).</span>            <span class="c">% =&gt; #{a =&gt; 1}
+</span>
+<span class="c">% Pattern matching with maps
+</span><span class="err">#</span><span class="p">{</span><span class="n">name</span> <span class="p">:</span><span class="o">=</span> <span class="nv">Name</span><span class="p">}</span> <span class="o">=</span> <span class="nv">Map</span><span class="p">.</span>               <span class="c">% Name = "Tom"
+</span>
+<span class="nf">handle_request</span><span class="p">(</span><span class="err">#</span><span class="p">{</span><span class="n">method</span> <span class="p">:</span><span class="o">=</span> <span class="nb">get</span><span class="p">,</span> <span class="n">path</span> <span class="p">:</span><span class="o">=</span> <span class="nv">Path</span><span class="p">})</span> <span class="o">-&gt;</span>
+    <span class="nf">serve_page</span><span class="p">(</span><span class="nv">Path</span><span class="p">);</span>
+<span class="nf">handle_request</span><span class="p">(</span><span class="err">#</span><span class="p">{</span><span class="n">method</span> <span class="p">:</span><span class="o">=</span> <span class="n">post</span><span class="p">,</span> <span class="n">body</span> <span class="p">:</span><span class="o">=</span> <span class="nv">Body</span><span class="p">})</span> <span class="o">-&gt;</span>
+    <span class="nf">process_body</span><span class="p">(</span><span class="nv">Body</span><span class="p">).</span>
+</code></pre>
+<h2><a href="#processes--concurrency" aria-hidden="true" class="anchor" id="processes--concurrency"></a>Processes &amp; Concurrency</h2>
+<pre class="highlight"><code><span class="c">% Spawn a process
+</span><span class="nv">Pid</span> <span class="o">=</span> <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Hello from process</span><span class="si">~n</span><span class="s">"</span><span class="p">)</span> <span class="k">end</span><span class="p">).</span>
+
+<span class="c">% Spawn with module/function/args
+</span><span class="nv">Pid</span> <span class="o">=</span> <span class="nb">spawn</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="p">[</span><span class="nv">Arg1</span><span class="p">,</span> <span class="nv">Arg2</span><span class="p">]).</span>
+
+<span class="c">% Send message
+</span><span class="nv">Pid</span> <span class="o">!</span> <span class="p">{</span><span class="nf">self</span><span class="p">(),</span> <span class="n">hello</span><span class="p">}.</span>
+
+<span class="c">% Receive message
+</span><span class="k">receive</span>
+    <span class="p">{</span><span class="nv">From</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="nv">From</span> <span class="o">!</span> <span class="p">{</span><span class="nf">self</span><span class="p">(),</span> <span class="n">received</span><span class="p">},</span>
+        <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Got: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Msg</span><span class="p">])</span>
+<span class="k">after</span>
+    <span class="mi">5000</span> <span class="o">-&gt;</span> <span class="n">timeout</span>
+<span class="k">end</span><span class="p">.</span>
+
+<span class="c">% Self
+</span><span class="nf">self</span><span class="p">().</span>                               <span class="c">% Current process PID
+</span>
+<span class="c">% Links (bidirectional — crash together)
+</span><span class="nb">link</span><span class="p">(</span><span class="nv">Pid</span><span class="p">).</span>
+<span class="nb">spawn_link</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nf">error</span><span class="p">(</span><span class="n">boom</span><span class="p">)</span> <span class="k">end</span><span class="p">).</span>
+
+<span class="c">% Monitors (unidirectional — get notified, don't crash)
+</span><span class="nv">Ref</span> <span class="o">=</span> <span class="nb">monitor</span><span class="p">(</span><span class="n">process</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">).</span>
+<span class="k">receive</span>
+    <span class="p">{</span><span class="n">'DOWN'</span><span class="p">,</span> <span class="nv">Ref</span><span class="p">,</span> <span class="n">process</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Process died: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Reason</span><span class="p">])</span>
+<span class="k">end</span><span class="p">.</span>
+
+<span class="c">% Register process by name
+</span><span class="nb">register</span><span class="p">(</span><span class="n">my_server</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">).</span>
+<span class="n">my_server</span> <span class="o">!</span> <span class="p">{</span><span class="nf">self</span><span class="p">(),</span> <span class="n">hello</span><span class="p">}.</span>          <span class="c">% Send by name
+</span>
+<span class="c">% Process info
+</span><span class="nb">is_process_alive</span><span class="p">(</span><span class="nv">Pid</span><span class="p">).</span>
+<span class="nb">process_info</span><span class="p">(</span><span class="nv">Pid</span><span class="p">).</span>
+</code></pre>
+<h3><a href="#simple-client-server-pattern" aria-hidden="true" class="anchor" id="simple-client-server-pattern"></a>Simple Client-Server Pattern</h3>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">counter</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">increment</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="nb">get</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nf">loop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">end</span><span class="p">).</span>
+
+<span class="nf">increment</span><span class="p">(</span><span class="nv">Pid</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nv">Pid</span> <span class="o">!</span> <span class="n">increment</span><span class="p">.</span>
+
+<span class="nb">get</span><span class="p">(</span><span class="nv">Pid</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="nv">Pid</span> <span class="o">!</span> <span class="p">{</span><span class="nb">get</span><span class="p">,</span> <span class="nf">self</span><span class="p">()},</span>
+    <span class="k">receive</span>
+        <span class="p">{</span><span class="n">count</span><span class="p">,</span> <span class="nv">N</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nv">N</span>
+    <span class="k">after</span>
+        <span class="mi">1000</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">timeout</span><span class="p">}</span>
+    <span class="k">end</span><span class="p">.</span>
+
+<span class="nf">loop</span><span class="p">(</span><span class="nv">Count</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="k">receive</span>
+        <span class="n">increment</span> <span class="o">-&gt;</span>
+            <span class="nf">loop</span><span class="p">(</span><span class="nv">Count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">{</span><span class="nb">get</span><span class="p">,</span> <span class="nv">From</span><span class="p">}</span> <span class="o">-&gt;</span>
+            <span class="nv">From</span> <span class="o">!</span> <span class="p">{</span><span class="n">count</span><span class="p">,</span> <span class="nv">Count</span><span class="p">},</span>
+            <span class="nf">loop</span><span class="p">(</span><span class="nv">Count</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">.</span>
+</code></pre>
+<h2><a href="#otp-gen_server" aria-hidden="true" class="anchor" id="otp-gen_server"></a>OTP: gen_server</h2>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">counter</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">gen_server</span><span class="p">).</span>
+
+<span class="c">%% API
+</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">increment</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_count</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+<span class="c">%% gen_server callbacks
+</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">handle_call</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">handle_cast</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+
+<span class="c">%%% API %%%
+</span><span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">gen_server</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[]).</span>
+
+<span class="nf">increment</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">gen_server</span><span class="p">:</span><span class="nf">cast</span><span class="p">(</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="n">increment</span><span class="p">).</span>
+
+<span class="nf">get_count</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">gen_server</span><span class="p">:</span><span class="nf">call</span><span class="p">(</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nb">get</span><span class="p">).</span>
+
+<span class="c">%%% Callbacks %%%
+</span><span class="nf">init</span><span class="p">(</span><span class="nv">Initial</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Initial</span><span class="p">}.</span>
+
+<span class="nf">handle_cast</span><span class="p">(</span><span class="n">increment</span><span class="p">,</span> <span class="nv">Count</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">Count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}.</span>
+
+<span class="nf">handle_call</span><span class="p">(</span><span class="nb">get</span><span class="p">,</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">Count</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="nv">Count</span><span class="p">,</span> <span class="nv">Count</span><span class="p">}.</span>
+</code></pre>
+<h3><a href="#gen_server-callback-return-values" aria-hidden="true" class="anchor" id="gen_server-callback-return-values"></a>gen_server Callback Return Values</h3>
+<table>
+<thead>
+<tr>
+<th>Callback</th>
+<th>Return</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>init/1</code></td>
+<td><code>{ok, State}</code></td>
+<td>Start with State</td>
+</tr>
+<tr>
+<td><code>init/1</code></td>
+<td><code>{stop, Reason}</code></td>
+<td>Don't start</td>
+</tr>
+<tr>
+<td><code>handle_call/3</code></td>
+<td><code>{reply, Reply, NewState}</code></td>
+<td>Send Reply to caller</td>
+</tr>
+<tr>
+<td><code>handle_call/3</code></td>
+<td><code>{noreply, NewState}</code></td>
+<td>Don't reply yet</td>
+</tr>
+<tr>
+<td><code>handle_cast/2</code></td>
+<td><code>{noreply, NewState}</code></td>
+<td>Continue</td>
+</tr>
+<tr>
+<td><code>handle_cast/2</code></td>
+<td><code>{stop, Reason, NewState}</code></td>
+<td>Shutdown</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#otp-supervisors" aria-hidden="true" class="anchor" id="otp-supervisors"></a>OTP: Supervisors</h2>
+<pre class="highlight"><code><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">my_sup</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">supervisor</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">supervisor</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">[]).</span>
+
+<span class="nf">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+    <span class="nv">SupFlags</span> <span class="o">=</span> <span class="err">#</span><span class="p">{</span>
+        <span class="n">strategy</span> <span class="o">=&gt;</span> <span class="n">one_for_one</span><span class="p">,</span>
+        <span class="n">intensity</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>           <span class="c">% Max 5 restarts
+</span>        <span class="n">period</span> <span class="o">=&gt;</span> <span class="mi">60</span>              <span class="c">% Per 60 seconds
+</span>    <span class="p">},</span>
+    <span class="nv">Children</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="err">#</span><span class="p">{</span>
+            <span class="n">id</span> <span class="o">=&gt;</span> <span class="n">counter</span><span class="p">,</span>
+            <span class="n">start</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="n">counter</span><span class="p">,</span> <span class="n">start_link</span><span class="p">,</span> <span class="p">[]},</span>
+            <span class="n">restart</span> <span class="o">=&gt;</span> <span class="n">permanent</span><span class="p">,</span>
+            <span class="n">type</span> <span class="o">=&gt;</span> <span class="n">worker</span>
+        <span class="p">},</span>
+        <span class="err">#</span><span class="p">{</span>
+            <span class="n">id</span> <span class="o">=&gt;</span> <span class="n">logger</span><span class="p">,</span>
+            <span class="n">start</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="n">my_logger</span><span class="p">,</span> <span class="n">start_link</span><span class="p">,</span> <span class="p">[]},</span>
+            <span class="n">restart</span> <span class="o">=&gt;</span> <span class="n">transient</span><span class="p">,</span>    <span class="c">% Only restart on abnormal exit
+</span>            <span class="n">type</span> <span class="o">=&gt;</span> <span class="n">worker</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">{</span><span class="nv">SupFlags</span><span class="p">,</span> <span class="nv">Children</span><span class="p">}}.</span>
+</code></pre>
+<h3><a href="#supervision-strategies" aria-hidden="true" class="anchor" id="supervision-strategies"></a>Supervision Strategies</h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>one_for_one</code></td>
+<td>Only restart the failed child</td>
+</tr>
+<tr>
+<td><code>one_for_all</code></td>
+<td>Restart all children if one fails</td>
+</tr>
+<tr>
+<td><code>rest_for_one</code></td>
+<td>Restart the failed child and all started after it</td>
+</tr>
+<tr>
+<td><code>simple_one_for_one</code></td>
+<td>Dynamic children, all same spec (deprecated — use <code>simple_one_for_one</code> or DynamicSupervisor in Elixir)</td>
+</tr>
+</tbody>
+</table>
+<h3><a href="#restart-types" aria-hidden="true" class="anchor" id="restart-types"></a>Restart Types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>When to Restart</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>permanent</code></td>
+<td>Always restart (default)</td>
+</tr>
+<tr>
+<td><code>transient</code></td>
+<td>Only restart on abnormal exit</td>
+</tr>
+<tr>
+<td><code>temporary</code></td>
+<td>Never restart</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#error-handling" aria-hidden="true" class="anchor" id="error-handling"></a>Error Handling</h2>
+<pre class="highlight"><code><span class="c">% Pattern matching on tagged tuples (preferred)
+</span><span class="k">case</span> <span class="nn">file</span><span class="p">:</span><span class="nf">read</span><span class="p">(</span><span class="s">"data.txt"</span><span class="p">)</span> <span class="k">of</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Contents</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nf">process</span><span class="p">(</span><span class="nv">Contents</span><span class="p">);</span>
+    <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="n">enoent</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Not found</span><span class="si">~n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">{</span><span class="n">error</span><span class="p">,</span> <span class="nv">Reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Error: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Reason</span><span class="p">])</span>
+<span class="k">end</span><span class="p">.</span>
+
+<span class="c">% try/catch
+</span><span class="k">try</span>
+    <span class="nf">risky_operation</span><span class="p">()</span>
+<span class="k">catch</span>
+    <span class="nn">throw</span><span class="p">:</span><span class="nv">Reason</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Thrown: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Reason</span><span class="p">]);</span>
+    <span class="nn">error</span><span class="p">:</span><span class="nv">Reason</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Error: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Reason</span><span class="p">]);</span>
+    <span class="nb">exit</span><span class="p">:</span><span class="nv">Reason</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Exit: </span><span class="si">~p~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="nv">Reason</span><span class="p">])</span>
+<span class="k">after</span>
+    <span class="nf">cleanup</span><span class="p">()</span>
+<span class="k">end</span><span class="p">.</span>
+
+<span class="c">% Three kinds of exceptions
+</span><span class="nf">throw</span><span class="p">(</span><span class="n">my_reason</span><span class="p">).</span>          <span class="c">% Deliberate non-local return (catchable)
+</span><span class="nf">error</span><span class="p">(</span><span class="n">bad_argument</span><span class="p">).</span>       <span class="c">% Runtime error (usually a bug)
+</span><span class="nb">exit</span><span class="p">(</span><span class="n">shutdown</span><span class="p">).</span>            <span class="c">% Process exit signal
+</span>
+<span class="c">% catch expression (older style — prefer try/catch)
+</span><span class="nv">Result</span> <span class="o">=</span> <span class="p">(</span><span class="k">catch</span> <span class="nf">some_function</span><span class="p">()).</span>  <span class="c">% Returns {'EXIT', Reason} on error
+</span></code></pre>
+<h3><a href="#exception-types" aria-hidden="true" class="anchor" id="exception-types"></a>Exception Types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Raised By</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>throw</code></td>
+<td>Expected, deliberate, non-local return</td>
+<td><code>throw(Reason)</code></td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Runtime errors, bugs</td>
+<td><code>error(Reason)</code>, badmatch, badarith, etc.</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>Process termination signal</td>
+<td><code>exit(Reason)</code></td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#ets-erlang-term-storage" aria-hidden="true" class="anchor" id="ets-erlang-term-storage"></a>ETS (Erlang Term Storage)</h2>
+<pre class="highlight"><code><span class="c">% In-memory key-value storage shared between processes
+</span><span class="nv">Tab</span> <span class="o">=</span> <span class="nn">ets</span><span class="p">:</span><span class="nf">new</span><span class="p">(</span><span class="n">my_table</span><span class="p">,</span> <span class="p">[</span><span class="n">set</span><span class="p">,</span> <span class="n">named_table</span><span class="p">,</span> <span class="n">public</span><span class="p">]).</span>
+
+<span class="nn">ets</span><span class="p">:</span><span class="nf">insert</span><span class="p">(</span><span class="n">my_table</span><span class="p">,</span> <span class="p">{</span><span class="n">key</span><span class="p">,</span> <span class="s">"value"</span><span class="p">}).</span>
+<span class="nn">ets</span><span class="p">:</span><span class="nf">lookup</span><span class="p">(</span><span class="n">my_table</span><span class="p">,</span> <span class="n">key</span><span class="p">).</span>            <span class="c">% =&gt; [{key, "value"}]
+</span><span class="nn">ets</span><span class="p">:</span><span class="nf">delete</span><span class="p">(</span><span class="n">my_table</span><span class="p">,</span> <span class="n">key</span><span class="p">).</span>
+<span class="nn">ets</span><span class="p">:</span><span class="nf">match</span><span class="p">(</span><span class="n">my_table</span><span class="p">,</span> <span class="p">{</span><span class="n">'$1'</span><span class="p">,</span> <span class="s">"value"</span><span class="p">}).</span> <span class="c">% =&gt; [[key]]
+</span>
+<span class="c">% Table types
+% set       — unique keys (default)
+% ordered_set — unique keys, sorted
+% bag       — duplicate keys allowed, unique {key, value}
+% duplicate_bag — fully duplicate entries allowed
+</span></code></pre>
+<h2><a href="#binary--bit-syntax" aria-hidden="true" class="anchor" id="binary--bit-syntax"></a>Binary &amp; Bit Syntax</h2>
+<pre class="highlight"><code><span class="c">% Binaries are byte sequences
+</span><span class="nv">Bin</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="s">"hello"</span><span class="o">&gt;&gt;</span><span class="p">.</span>
+<span class="o">&lt;&lt;</span><span class="nv">H</span><span class="p">,</span> <span class="nv">Rest</span><span class="o">/</span><span class="n">binary</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="s">"hello"</span><span class="o">&gt;&gt;</span><span class="p">.</span>    <span class="c">% H = 104, Rest = &lt;&lt;"ello"&gt;&gt;
+</span>
+<span class="c">% Bit syntax for protocol parsing
+</span><span class="o">&lt;&lt;</span><span class="nv">Version</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="nv">Type</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="nv">Length</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span> <span class="nv">Payload</span><span class="o">/</span><span class="n">binary</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="nv">Packet</span><span class="p">.</span>
+
+<span class="c">% Construct binaries
+</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="mi">256</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span> <span class="s">"data"</span><span class="o">/</span><span class="n">binary</span><span class="o">&gt;&gt;</span><span class="p">.</span>
+
+<span class="c">% Binary comprehensions
+</span><span class="o">&lt;&lt;</span> <span class="o">&lt;&lt;</span><span class="p">(</span><span class="nv">X</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">&gt;&gt;</span> <span class="p">||</span> <span class="o">&lt;&lt;</span><span class="nv">X</span><span class="o">&gt;&gt;</span> <span class="o">&lt;=</span> <span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;&gt;</span> <span class="o">&gt;&gt;</span><span class="p">.</span>  <span class="c">% =&gt; &lt;&lt;2, 4, 6&gt;&gt;
+</span></code></pre>
+<h2><a href="#common-built-in-functions-bifs" aria-hidden="true" class="anchor" id="common-built-in-functions-bifs"></a>Common Built-in Functions (BIFs)</h2>
+<pre class="highlight"><code><span class="c">% Type conversions
+</span><span class="nb">list_to_binary</span><span class="p">(</span><span class="s">"hello"</span><span class="p">).</span>              <span class="c">% =&gt; &lt;&lt;"hello"&gt;&gt;
+</span><span class="nb">binary_to_list</span><span class="p">(</span><span class="o">&lt;&lt;</span><span class="s">"hello"</span><span class="o">&gt;&gt;</span><span class="p">).</span>          <span class="c">% =&gt; "hello"
+</span><span class="nb">integer_to_list</span><span class="p">(</span><span class="mi">42</span><span class="p">).</span>                  <span class="c">% =&gt; "42"
+</span><span class="nb">list_to_integer</span><span class="p">(</span><span class="s">"42"</span><span class="p">).</span>                <span class="c">% =&gt; 42
+</span><span class="nb">atom_to_list</span><span class="p">(</span><span class="n">hello</span><span class="p">).</span>                  <span class="c">% =&gt; "hello"
+</span><span class="nb">list_to_atom</span><span class="p">(</span><span class="s">"hello"</span><span class="p">).</span>                <span class="c">% =&gt; hello
+</span><span class="nb">term_to_binary</span><span class="p">(</span><span class="nv">Any</span><span class="p">).</span>                  <span class="c">% Serialize any term
+</span><span class="nb">binary_to_term</span><span class="p">(</span><span class="nv">Bin</span><span class="p">).</span>                  <span class="c">% Deserialize
+</span>
+<span class="c">% Tuple operations
+</span><span class="nb">tuple_size</span><span class="p">({</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">}).</span>                <span class="c">% =&gt; 3
+</span><span class="nb">element</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">}).</span>                <span class="c">% =&gt; b (1-indexed)
+</span><span class="nb">setelement</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">},</span> <span class="n">x</span><span class="p">).</span>         <span class="c">% =&gt; {a, x, c}
+</span>
+<span class="c">% I/O
+</span><span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">"Hello </span><span class="si">~s</span><span class="s">, you are </span><span class="si">~p</span><span class="s"> years old</span><span class="si">~n</span><span class="s">"</span><span class="p">,</span> <span class="p">[</span><span class="s">"Tom"</span><span class="p">,</span> <span class="mi">30</span><span class="p">]).</span>
+<span class="c">% ~s = string, ~p = pretty-print any term, ~w = write, ~n = newline
+% ~B = integer (base 10), ~.2f = float with 2 decimals
+</span></code></pre>
+<h2><a href="#the-shell-erl" aria-hidden="true" class="anchor" id="the-shell-erl"></a>The Shell (erl)</h2>
+<pre class="highlight"><code><span class="c">% Start
+</span><span class="n">erl</span>                                    <span class="c">% Start Erlang shell
+</span><span class="n">erl</span> <span class="o">-</span><span class="n">pa</span> <span class="n">ebin</span>                           <span class="c">% Add path to code search
+</span><span class="n">erl</span> <span class="o">-</span><span class="n">name</span> <span class="nb">node</span><span class="p">@</span><span class="n">host</span>                    <span class="c">% Start distributed node
+</span>
+<span class="c">% Shell commands
+</span><span class="nf">help</span><span class="p">().</span>                                <span class="c">% Show help
+</span><span class="nf">q</span><span class="p">().</span>                                   <span class="c">% Quit
+</span><span class="nf">c</span><span class="p">(</span><span class="n">module</span><span class="p">).</span>                             <span class="c">% Compile module
+</span><span class="nf">l</span><span class="p">(</span><span class="n">module</span><span class="p">).</span>                             <span class="c">% Load/reload module
+</span><span class="nf">m</span><span class="p">(</span><span class="n">module</span><span class="p">).</span>                             <span class="c">% Module info
+</span><span class="nf">f</span><span class="p">().</span>                                   <span class="c">% Forget all bindings
+</span><span class="nf">f</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>                                  <span class="c">% Forget binding for X
+</span><span class="nf">rr</span><span class="p">(</span><span class="n">module</span><span class="p">).</span>                            <span class="c">% Read record definitions
+</span></code></pre>
+<h2><a href="#build-tools" aria-hidden="true" class="anchor" id="build-tools"></a>Build Tools</h2>
+<pre class="highlight"><code><span class="c"># rebar3 (standard build tool)</span>
+rebar3 new app myapp                   <span class="c"># Create new application</span>
+rebar3 new release myrelease           <span class="c"># Create new release project</span>
+rebar3 compile                         <span class="c"># Compile</span>
+rebar3 eunit                           <span class="c"># Run EUnit tests</span>
+rebar3 ct                              <span class="c"># Run Common Test suites</span>
+rebar3 shell                           <span class="c"># Start shell with project loaded</span>
+rebar3 dialyzer                        <span class="c"># Static type analysis</span>
+rebar3 release                         <span class="c"># Build release</span>
+
+<span class="c"># erlc (compiler)</span>
+erlc module.erl                        <span class="c"># Compile single module</span>
+erlc <span class="nt">-o</span> ebin src/<span class="k">*</span>.erl                 <span class="c"># Compile to output directory</span>
+</code></pre>
+<h2><a href="#dependencies-rebarconfig" aria-hidden="true" class="anchor" id="dependencies-rebarconfig"></a>Dependencies (rebar.config)</h2>
+<pre class="highlight"><code><span class="c">% rebar.config
+</span><span class="p">{</span><span class="n">erl_opts</span><span class="p">,</span> <span class="p">[</span><span class="n">debug_info</span><span class="p">]}.</span>
+
+<span class="p">{</span><span class="n">deps</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">{</span><span class="n">cowboy</span><span class="p">,</span> <span class="s">"2.10.0"</span><span class="p">},</span>                <span class="c">% Hex package
+</span>    <span class="p">{</span><span class="n">jsx</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">"https://github.com/talentdeficit/jsx.git"</span><span class="p">,</span> <span class="p">{</span><span class="n">tag</span><span class="p">,</span> <span class="s">"v3.1.0"</span><span class="p">}}}</span>
+<span class="p">]}.</span>
+
+<span class="p">{</span><span class="n">profiles</span><span class="p">,</span> <span class="p">[</span>
+    <span class="p">{</span><span class="n">test</span><span class="p">,</span> <span class="p">[</span>
+        <span class="p">{</span><span class="n">deps</span><span class="p">,</span> <span class="p">[{</span><span class="n">meck</span><span class="p">,</span> <span class="s">"0.9.2"</span><span class="p">}]}</span>     <span class="c">% Test-only dependency
+</span>    <span class="p">]}</span>
+<span class="p">]}.</span>
+</code></pre>
+<h2><a href="#key-differences-from-other-languages" aria-hidden="true" class="anchor" id="key-differences-from-other-languages"></a>Key Differences from Other Languages</h2>
+<ul>
+<li>Variables are Uppercase, atoms are lowercase — easy to confuse at first</li>
+<li>Single assignment — once a variable is bound, it cannot be rebound</li>
+<li>Statements end with periods (<code>.</code>), not semicolons</li>
+<li>Semicolons (<code>;</code>) separate clauses, commas (<code>,</code>) separate expressions</li>
+<li>Strings are lists of integers — use binaries (<code>&lt;&lt;&quot;hello&quot;&gt;&gt;</code>) for real text handling</li>
+<li>No string interpolation — use <code>io_lib:format/2</code> or <code>lists:concat/1</code></li>
+<li>No objects, no classes — modules and functions only</li>
+<li>Arity is part of the function identity: <code>add/2</code> and <code>add/3</code> are different functions</li>
+<li>No exceptions for flow control — use tagged tuples (<code>{ok, Val}</code> / <code>{error, Reason}</code>)</li>
+<li>The shell does NOT support defining modules — only expressions (use files and <code>c(module)</code>)</li>
+<li><strong>Erlang is NOT Elixir</strong>: Elixir runs on the same VM and can call Erlang directly, but they have different syntax, conventions, and tooling</li>
+</ul>
+<p>That's the essential Erlang. The rest is mastering OTP patterns, understanding the BEAM's scheduling and memory model, and exploring the extensive standard library.</p>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>

@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phoenix Quick Reference for Experienced Programmers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#phoenix-quick-reference-for-experienced-programmers" aria-hidden="true" class="anchor" id="phoenix-quick-reference-for-experienced-programmers"></a>Phoenix Quick Reference for Experienced Programmers</h1>
+<h2><a href="#for-more-see" aria-hidden="true" class="anchor" id="for-more-see"></a>For more see:</h2>
+<ul>
+<li><a href="https://hexdocs.pm/phoenix/overview.html">Phoenix Guides</a></li>
+<li><a href="https://hexdocs.pm/phoenix/">Phoenix HexDocs</a></li>
+</ul>
+<h2><a href="#what-is-phoenix" aria-hidden="true" class="anchor" id="what-is-phoenix"></a>What is Phoenix?</h2>
+<ul>
+<li><strong>Web framework for Elixir</strong>: Like Rails for Ruby, but built on the BEAM VM.</li>
+<li><strong>Real-time first</strong>: Channels/LiveView built in — WebSockets are a first-class citizen.</li>
+<li><strong>Functional MVC</strong>: Controllers are just modules with functions. No inheritance, no instance variables.</li>
+<li><strong>Speed</strong>: Microsecond response times. The BEAM handles millions of concurrent connections.</li>
+</ul>
+<h2><a href="#architecture-overview" aria-hidden="true" class="anchor" id="architecture-overview"></a>Architecture Overview</h2>
+<ul>
+<li><strong>Endpoint</strong>: Entry point. Plugs for parsing, static files, session, router.</li>
+<li><strong>Router</strong>: Maps HTTP verbs + paths to controller actions. Pipelines group middleware.</li>
+<li><strong>Controllers</strong>: Receive conn (connection struct), call context functions, render response.</li>
+<li><strong>Views / Components</strong>: HEEx templates. Function components. No instance variables — explicit assigns.</li>
+<li><strong>Contexts</strong>: Business logic boundary modules (e.g., <code>Accounts</code>, <code>Blog</code>). Keep controllers thin.</li>
+<li><strong>Schemas</strong>: Ecto schemas map to database tables. Changesets handle validation and casting.</li>
+</ul>
+<h2><a href="#convention-over-configuration" aria-hidden="true" class="anchor" id="convention-over-configuration"></a>Convention Over Configuration</h2>
+<ul>
+<li><code>lib/my_app_web/</code> — Web layer (controllers, components, router)</li>
+<li><code>lib/my_app/</code> — Business logic (contexts, schemas)</li>
+<li>Module names match file paths: <code>lib/my_app_web/controllers/user_controller.ex</code> → <code>MyAppWeb.UserController</code></li>
+<li>Schema <code>User</code> → table <code>users</code></li>
+</ul>
+<h2><a href="#directory-layout" aria-hidden="true" class="anchor" id="directory-layout"></a>Directory Layout</h2>
+<pre><code>lib/
+  my_app/                        # Business logic
+    accounts/                    # Context directory
+      user.ex                    # Ecto schema
+    accounts.ex                  # Context module (public API)
+    repo.ex                      # Database repo
+    application.ex               # Supervision tree
+  my_app_web/                    # Web layer
+    controllers/
+      user_controller.ex
+      user_html.ex               # View module
+      user_html/
+        index.html.heex          # Template
+        show.html.heex
+    components/
+      core_components.ex         # Shared UI components
+      layouts.ex                 # Layout components
+      layouts/
+        app.html.heex
+        root.html.heex
+    live/                        # LiveView modules
+      user_live/
+        index.ex
+        show.ex
+    router.ex
+    endpoint.ex
+config/
+  config.exs                     # Shared config
+  dev.exs                        # Dev config
+  prod.exs                       # Prod config
+  runtime.exs                    # Runtime config (env vars)
+priv/
+  repo/migrations/               # Database migrations
+  static/                        # Static assets
+test/
+  my_app/                        # Context tests
+  my_app_web/                    # Web layer tests
+  support/                       # Test helpers
+</code></pre>
+<h2><a href="#router" aria-hidden="true" class="anchor" id="router"></a>Router</h2>
+<pre class="highlight"><code><span class="c1"># lib/my_app_web/router.ex</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Router</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="p">,</span> <span class="ss">:router</span>
+
+  <span class="n">pipeline</span> <span class="ss">:browser</span> <span class="k">do</span>
+    <span class="n">plug</span> <span class="ss">:accepts</span><span class="p">,</span> <span class="p">[</span><span class="s2">"html"</span><span class="p">]</span>
+    <span class="n">plug</span> <span class="ss">:fetch_session</span>
+    <span class="n">plug</span> <span class="ss">:fetch_live_flash</span>
+    <span class="n">plug</span> <span class="ss">:put_root_layout</span><span class="p">,</span> <span class="ss">html:</span> <span class="p">{</span><span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Layouts</span><span class="p">,</span> <span class="ss">:root</span><span class="p">}</span>
+    <span class="n">plug</span> <span class="ss">:protect_from_forgery</span>
+    <span class="n">plug</span> <span class="ss">:put_secure_browser_headers</span>
+  <span class="k">end</span>
+
+  <span class="n">pipeline</span> <span class="ss">:api</span> <span class="k">do</span>
+    <span class="n">plug</span> <span class="ss">:accepts</span><span class="p">,</span> <span class="p">[</span><span class="s2">"json"</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="n">scope</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">MyAppWeb</span> <span class="k">do</span>
+    <span class="n">pipe_through</span> <span class="ss">:browser</span>
+
+    <span class="n">get</span> <span class="s2">"/"</span><span class="p">,</span> <span class="no">PageController</span><span class="p">,</span> <span class="ss">:home</span>
+    <span class="n">resources</span> <span class="s2">"/users"</span><span class="p">,</span> <span class="no">UserController</span>         <span class="c1"># 7 RESTful routes</span>
+    <span class="n">resources</span> <span class="s2">"/posts"</span><span class="p">,</span> <span class="no">PostController</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">:index</span><span class="p">,</span> <span class="ss">:show</span><span class="p">]</span>
+    <span class="n">resources</span> <span class="s2">"/posts"</span><span class="p">,</span> <span class="no">PostController</span><span class="p">,</span> <span class="ss">except:</span> <span class="p">[</span><span class="ss">:delete</span><span class="p">]</span>
+
+    <span class="c1"># Nested resources</span>
+    <span class="n">resources</span> <span class="s2">"/posts"</span><span class="p">,</span> <span class="no">PostController</span> <span class="k">do</span>
+      <span class="n">resources</span> <span class="s2">"/comments"</span><span class="p">,</span> <span class="no">CommentController</span>
+    <span class="k">end</span>
+
+    <span class="c1"># LiveView routes</span>
+    <span class="n">live</span> <span class="s2">"/dashboard"</span><span class="p">,</span> <span class="no">DashboardLive</span>
+    <span class="n">live</span> <span class="s2">"/users/:id/edit"</span><span class="p">,</span> <span class="no">UserLive</span><span class="o">.</span><span class="no">Edit</span>
+  <span class="k">end</span>
+
+  <span class="n">scope</span> <span class="s2">"/api"</span><span class="p">,</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">API</span><span class="p">,</span> <span class="ss">as:</span> <span class="ss">:api</span> <span class="k">do</span>
+    <span class="n">pipe_through</span> <span class="ss">:api</span>
+
+    <span class="n">resources</span> <span class="s2">"/users"</span><span class="p">,</span> <span class="no">UserController</span><span class="p">,</span> <span class="ss">except:</span> <span class="p">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#restful-routes-from-resources" aria-hidden="true" class="anchor" id="restful-routes-from-resources"></a>RESTful Routes from <code>resources</code></h3>
+<pre class="highlight"><code><span class="n">resources</span> <span class="s2">"/posts"</span><span class="p">,</span> <span class="no">PostController</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>HTTP Verb</th>
+<th>Path</th>
+<th>Controller Action</th>
+<th>Helper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/posts</td>
+<td>:index</td>
+<td>~p&quot;/posts&quot;</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/posts/new</td>
+<td>:new</td>
+<td>~p&quot;/posts/new&quot;</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/posts</td>
+<td>:create</td>
+<td>~p&quot;/posts&quot;</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/posts/:id</td>
+<td>:show</td>
+<td>~p&quot;/posts/#{post}&quot;</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/posts/:id/edit</td>
+<td>:edit</td>
+<td>~p&quot;/posts/#{post}/edit&quot;</td>
+</tr>
+<tr>
+<td>PATCH/PUT</td>
+<td>/posts/:id</td>
+<td>:update</td>
+<td>~p&quot;/posts/#{post}&quot;</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td>/posts/:id</td>
+<td>:delete</td>
+<td>~p&quot;/posts/#{post}&quot;</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#plug-middleware" aria-hidden="true" class="anchor" id="plug-middleware"></a>Plug (Middleware)</h2>
+<pre class="highlight"><code><span class="c1"># Plug is the specification for composable web middleware</span>
+<span class="c1"># Every request is a %Plug.Conn{} struct passed through plugs</span>
+
+<span class="c1"># Function plug</span>
+<span class="k">def</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="n">get_session</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:user_id</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">conn</span>
+  <span class="k">else</span>
+    <span class="n">conn</span>
+    <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"You must be logged in"</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="sx">~p"/login"</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">halt</span><span class="p">()</span>              <span class="c1"># Stop the plug pipeline</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Module plug</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Plugs</span><span class="o">.</span><span class="no">Authenticate</span> <span class="k">do</span>
+  <span class="kn">import</span> <span class="no">Plug</span><span class="o">.</span><span class="no">Conn</span>
+  <span class="kn">import</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">Controller</span>
+
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">opts</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">opts</span>
+
+  <span class="k">def</span> <span class="n">call</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">conn</span><span class="o">.</span><span class="n">assigns</span><span class="p">[</span><span class="ss">:current_user</span><span class="p">]</span> <span class="k">do</span>
+      <span class="n">conn</span>
+    <span class="k">else</span>
+      <span class="n">conn</span>
+      <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="ss">:unauthorized</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">put_view</span><span class="p">(</span><span class="no">MyAppWeb</span><span class="o">.</span><span class="no">ErrorJSON</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="s2">"401.json"</span><span class="p">)</span>
+      <span class="o">|&gt;</span> <span class="n">halt</span><span class="p">()</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Use in router pipeline</span>
+<span class="n">pipeline</span> <span class="ss">:authenticated</span> <span class="k">do</span>
+  <span class="n">plug</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">Plugs</span><span class="o">.</span><span class="no">Authenticate</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#controllers" aria-hidden="true" class="anchor" id="controllers"></a>Controllers</h2>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">UserController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="p">,</span> <span class="ss">:controller</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span>
+
+  <span class="k">def</span> <span class="n">index</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">list_users</span><span class="p">()</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">users:</span> <span class="n">users</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">show</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">user:</span> <span class="n">user</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">changeset</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">change_user</span><span class="p">(%</span><span class="no">User</span><span class="p">{})</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="n">user_params</span><span class="p">})</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"User created."</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="sx">~p"/users/#{user}"</span><span class="p">)</span>
+
+      <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="p">{}</span> <span class="o">=</span> <span class="n">changeset</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">update</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">,</span> <span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="n">user_params</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">case</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">update_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">user_params</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"User updated."</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="sx">~p"/users/#{user}"</span><span class="p">)</span>
+
+      <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="p">{}</span> <span class="o">=</span> <span class="n">changeset</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">user:</span> <span class="n">user</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">delete</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_user</span><span class="p">}</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">delete_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+    <span class="n">conn</span>
+    <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"User deleted."</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">redirect</span><span class="p">(</span><span class="ss">to:</span> <span class="sx">~p"/users"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#json-controllers" aria-hidden="true" class="anchor" id="json-controllers"></a>JSON Controllers</h3>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">API</span><span class="o">.</span><span class="no">UserController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="p">,</span> <span class="ss">:controller</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span>
+
+  <span class="k">def</span> <span class="n">index</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">users</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">list_users</span><span class="p">()</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:index</span><span class="p">,</span> <span class="ss">users:</span> <span class="n">users</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">show</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="n">id</span><span class="p">})</span> <span class="k">do</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">get_user!</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">user:</span> <span class="n">user</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">create</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="n">user_params</span><span class="p">})</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="n">user_params</span><span class="p">)</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="ss">:created</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">put_resp_header</span><span class="p">(</span><span class="s2">"location"</span><span class="p">,</span> <span class="sx">~p"/api/users/#{user}"</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">user:</span> <span class="n">user</span><span class="p">)</span>
+
+      <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">changeset</span><span class="p">}</span> <span class="o">-&gt;</span>
+        <span class="n">conn</span>
+        <span class="o">|&gt;</span> <span class="n">put_status</span><span class="p">(</span><span class="ss">:unprocessable_entity</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">put_view</span><span class="p">(</span><span class="no">MyAppWeb</span><span class="o">.</span><span class="no">ChangesetJSON</span><span class="p">)</span>
+        <span class="o">|&gt;</span> <span class="n">render</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># JSON view</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">API</span><span class="o">.</span><span class="no">UserJSON</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">index</span><span class="p">(%{</span><span class="ss">users:</span> <span class="n">users</span><span class="p">})</span> <span class="k">do</span>
+    <span class="p">%{</span><span class="ss">data:</span> <span class="n">for</span><span class="p">(</span><span class="n">user</span> <span class="o">&lt;-</span> <span class="n">users</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">data</span><span class="p">(</span><span class="n">user</span><span class="p">))}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">show</span><span class="p">(%{</span><span class="ss">user:</span> <span class="n">user</span><span class="p">})</span> <span class="k">do</span>
+    <span class="p">%{</span><span class="ss">data:</span> <span class="n">data</span><span class="p">(</span><span class="n">user</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">data</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">%{</span>
+      <span class="ss">id:</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+      <span class="ss">name:</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="ss">email:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#contexts-business-logic-layer" aria-hidden="true" class="anchor" id="contexts-business-logic-layer"></a>Contexts (Business Logic Layer)</h2>
+<pre class="highlight"><code><span class="c1"># lib/my_app/accounts.ex</span>
+<span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Repo</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span><span class="o">.</span><span class="no">User</span>
+
+  <span class="k">def</span> <span class="n">list_users</span> <span class="k">do</span>
+    <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="no">User</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">get_user!</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Repo</span><span class="o">.</span><span class="n">get!</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">create_user</span><span class="p">(</span><span class="n">attrs</span> <span class="p">\\</span> <span class="p">%{})</span> <span class="k">do</span>
+    <span class="p">%</span><span class="no">User</span><span class="p">{}</span>
+    <span class="o">|&gt;</span> <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">update_user</span><span class="p">(%</span><span class="no">User</span><span class="p">{}</span> <span class="o">=</span> <span class="n">user</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">user</span>
+    <span class="o">|&gt;</span> <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">delete_user</span><span class="p">(%</span><span class="no">User</span><span class="p">{}</span> <span class="o">=</span> <span class="n">user</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Repo</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">change_user</span><span class="p">(%</span><span class="no">User</span><span class="p">{}</span> <span class="o">=</span> <span class="n">user</span><span class="p">,</span> <span class="n">attrs</span> <span class="p">\\</span> <span class="p">%{})</span> <span class="k">do</span>
+    <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#why-contexts" aria-hidden="true" class="anchor" id="why-contexts"></a>Why Contexts?</h3>
+<ul>
+<li>Decouple web layer from business logic</li>
+<li>Controllers don't touch <code>Repo</code> directly</li>
+<li>Group related schemas and operations (e.g., <code>Accounts</code> manages <code>User</code>, <code>Credential</code>, <code>Token</code>)</li>
+<li>Makes code testable without the web layer</li>
+</ul>
+<h2><a href="#ecto-schemas--changesets" aria-hidden="true" class="anchor" id="ecto-schemas--changesets"></a>Ecto Schemas &amp; Changesets</h2>
+<pre class="highlight"><code><span class="c1"># lib/my_app/accounts/user.ex</span>
+<span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>
+  <span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">field</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span>
+    <span class="n">field</span> <span class="ss">:active</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">true</span>
+    <span class="n">field</span> <span class="ss">:role</span><span class="p">,</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Enum</span><span class="p">,</span> <span class="ss">values:</span> <span class="p">[</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:admin</span><span class="p">]</span>
+
+    <span class="n">has_many</span> <span class="ss">:posts</span><span class="p">,</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Blog</span><span class="o">.</span><span class="no">Post</span>
+    <span class="n">belongs_to</span> <span class="ss">:organization</span><span class="p">,</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Organizations</span><span class="o">.</span><span class="no">Org</span>
+    <span class="n">many_to_many</span> <span class="ss">:tags</span><span class="p">,</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Tags</span><span class="o">.</span><span class="no">Tag</span><span class="p">,</span> <span class="ss">join_through:</span> <span class="s2">"users_tags"</span>
+
+    <span class="n">timestamps</span><span class="p">()</span>                       <span class="c1"># inserted_at, updated_at</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">changeset</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">user</span>
+    <span class="o">|&gt;</span> <span class="n">cast</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:role</span><span class="p">])</span>
+    <span class="o">|&gt;</span> <span class="n">validate_required</span><span class="p">([</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">])</span>
+    <span class="o">|&gt;</span> <span class="n">validate_format</span><span class="p">(</span><span class="ss">:email</span><span class="p">,</span> <span class="sr">~r/@/</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_length</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">min:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">max:</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_number</span><span class="p">(</span><span class="ss">:age</span><span class="p">,</span> <span class="ss">greater_than:</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="n">validate_inclusion</span><span class="p">(</span><span class="ss">:role</span><span class="p">,</span> <span class="p">[</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:admin</span><span class="p">])</span>
+    <span class="o">|&gt;</span> <span class="n">unique_constraint</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#changeset-flow" aria-hidden="true" class="anchor" id="changeset-flow"></a>Changeset Flow</h3>
+<pre class="highlight"><code><span class="c1"># Changesets track changes, validations, and constraints</span>
+<span class="n">attrs</span> <span class="o">=</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"tom@test.com"</span><span class="p">}</span>
+
+<span class="n">changeset</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">User</span><span class="p">{},</span> <span class="n">attrs</span><span class="p">)</span>
+<span class="n">changeset</span><span class="o">.</span><span class="n">valid?</span>     <span class="c1"># =&gt; true</span>
+<span class="n">changeset</span><span class="o">.</span><span class="n">changes</span>    <span class="c1"># =&gt; %{name: "Tom", email: "tom@test.com"}</span>
+<span class="n">changeset</span><span class="o">.</span><span class="n">errors</span>     <span class="c1"># =&gt; []</span>
+
+<span class="c1"># Invalid changeset</span>
+<span class="n">bad</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(%</span><span class="no">User</span><span class="p">{},</span> <span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">""</span><span class="p">})</span>
+<span class="n">bad</span><span class="o">.</span><span class="n">valid?</span>           <span class="c1"># =&gt; false</span>
+<span class="n">bad</span><span class="o">.</span><span class="n">errors</span>           <span class="c1"># =&gt; [name: {"can't be blank", [validation: :required]}]</span>
+</code></pre>
+<h2><a href="#ecto-queries" aria-hidden="true" class="anchor" id="ecto-queries"></a>Ecto Queries</h2>
+<pre class="highlight"><code><span class="kn">import</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Query</span>
+
+<span class="c1"># Basic queries</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="no">User</span><span class="p">)</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>                              <span class="c1"># nil if not found</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">get!</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>                             <span class="c1"># raises if not found</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">get_by</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="ss">email:</span> <span class="s2">"tom@test.com"</span><span class="p">)</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">one</span><span class="p">(</span><span class="n">from</span> <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span> <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Keyword syntax</span>
+<span class="n">from</span> <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span>
+  <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">active</span> <span class="o">==</span> <span class="no">true</span><span class="p">,</span>
+  <span class="ss">where:</span> <span class="n">u</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">,</span>
+  <span class="ss">order_by:</span> <span class="p">[</span><span class="ss">asc:</span> <span class="n">u</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
+  <span class="ss">limit:</span> <span class="mi">10</span><span class="p">,</span>
+  <span class="ss">select:</span> <span class="n">u</span>
+
+<span class="c1"># Pipe syntax</span>
+<span class="no">User</span>
+<span class="o">|&gt;</span> <span class="n">where</span><span class="p">([</span><span class="n">u</span><span class="p">],</span> <span class="n">u</span><span class="o">.</span><span class="n">active</span> <span class="o">==</span> <span class="no">true</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">where</span><span class="p">([</span><span class="n">u</span><span class="p">],</span> <span class="n">u</span><span class="o">.</span><span class="n">age</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">order_by</span><span class="p">([</span><span class="n">u</span><span class="p">],</span> <span class="ss">asc:</span> <span class="n">u</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="n">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+<span class="c1"># Preloading associations</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">from</span> <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span> <span class="ss">preload:</span> <span class="p">[</span><span class="ss">:posts</span><span class="p">])</span>
+<span class="n">user</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">preload</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span>
+
+<span class="c1"># Aggregates</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="ss">:count</span><span class="p">)</span>
+<span class="n">from</span><span class="p">(</span><span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span> <span class="ss">select:</span> <span class="n">avg</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">age</span><span class="p">))</span> <span class="o">|&gt;</span> <span class="no">Repo</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+<span class="c1"># Fragments (raw SQL)</span>
+<span class="n">from</span> <span class="n">u</span> <span class="ow">in</span> <span class="no">User</span><span class="p">,</span> <span class="ss">where:</span> <span class="n">fragment</span><span class="p">(</span><span class="s2">"lower(?) = ?"</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">email</span><span class="p">,</span> <span class="o">^</span><span class="n">email</span><span class="p">)</span>
+
+<span class="c1"># Insert / Update / Delete</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">insert</span><span class="p">(%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">})</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">changeset</span><span class="p">)</span>
+<span class="no">Repo</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</code></pre>
+<h2><a href="#migrations" aria-hidden="true" class="anchor" id="migrations"></a>Migrations</h2>
+<pre class="highlight"><code><span class="c1"># priv/repo/migrations/20240115120000_create_users.exs</span>
+<span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Repo</span><span class="o">.</span><span class="no">Migrations</span><span class="o">.</span><span class="no">CreateUsers</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Migration</span>
+
+  <span class="k">def</span> <span class="n">change</span> <span class="k">do</span>
+    <span class="n">create</span> <span class="n">table</span><span class="p">(</span><span class="ss">:users</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">add</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">null:</span> <span class="no">false</span>
+      <span class="n">add</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">null:</span> <span class="no">false</span>
+      <span class="n">add</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:integer</span>
+      <span class="n">add</span> <span class="ss">:active</span><span class="p">,</span> <span class="ss">:boolean</span><span class="p">,</span> <span class="ss">default:</span> <span class="no">true</span>
+      <span class="n">add</span> <span class="ss">:organization_id</span><span class="p">,</span> <span class="n">references</span><span class="p">(</span><span class="ss">:organizations</span><span class="p">,</span> <span class="ss">on_delete:</span> <span class="ss">:nothing</span><span class="p">)</span>
+
+      <span class="n">timestamps</span><span class="p">()</span>
+    <span class="k">end</span>
+
+    <span class="n">create</span> <span class="n">unique_index</span><span class="p">(</span><span class="ss">:users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:email</span><span class="p">])</span>
+    <span class="n">create</span> <span class="n">index</span><span class="p">(</span><span class="ss">:users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:organization_id</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<pre class="highlight"><code>mix ecto.gen.migration create_users    <span class="c"># Generate migration</span>
+mix ecto.migrate                       <span class="c"># Run migrations</span>
+mix ecto.rollback                      <span class="c"># Undo last migration</span>
+mix ecto.rollback <span class="nt">--step</span> 3             <span class="c"># Undo last 3</span>
+mix ecto.reset                         <span class="c"># Drop, create, migrate</span>
+mix ecto.setup                         <span class="c"># Create, migrate, seed</span>
+</code></pre>
+<h2><a href="#templates--components-heex" aria-hidden="true" class="anchor" id="templates--components-heex"></a>Templates &amp; Components (HEEx)</h2>
+<pre class="highlight"><code><span class="c">&lt;%# lib/my_app_web/controllers/user_html/index.html.heex %&gt;</span>
+
+<span class="nt">&lt;</span><span class="err">.</span><span class="na">header</span><span class="nt">&gt;</span>
+  Users
+  <span class="nt">&lt;:actions&gt;</span>
+    <span class="nt">&lt;</span><span class="err">.</span><span class="na">link</span> <span class="na">href=</span><span class="s">{~p"/users/new"}</span><span class="nt">&gt;</span>New User<span class="nt">&lt;/</span><span class="err">.</span><span class="nt">link&gt;</span>
+  <span class="nt">&lt;/:actions&gt;</span>
+<span class="nt">&lt;/</span><span class="err">.</span><span class="nt">header&gt;</span>
+
+<span class="nt">&lt;</span><span class="err">.</span><span class="na">table</span> <span class="na">id=</span><span class="s">"users"</span> <span class="na">rows=</span><span class="s">{@users}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;:col</span> <span class="na">:let=</span><span class="s">{user}</span> <span class="na">label=</span><span class="s">"Name"</span><span class="nt">&gt;</span><span class="cp">&lt;%=</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="nt">&lt;/:col&gt;</span>
+  <span class="nt">&lt;:col</span> <span class="na">:let=</span><span class="s">{user}</span> <span class="na">label=</span><span class="s">"Email"</span><span class="nt">&gt;</span><span class="cp">&lt;%=</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span> <span class="cp">%&gt;</span><span class="nt">&lt;/:col&gt;</span>
+  <span class="nt">&lt;:action</span> <span class="na">:let=</span><span class="s">{user}</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;</span><span class="err">.</span><span class="na">link</span> <span class="na">href=</span><span class="s">{~p"/users/#{user}"}</span><span class="nt">&gt;</span>Show<span class="nt">&lt;/</span><span class="err">.</span><span class="nt">link&gt;</span>
+    <span class="nt">&lt;</span><span class="err">.</span><span class="na">link</span> <span class="na">href=</span><span class="s">{~p"/users/#{user}/edit"}</span><span class="nt">&gt;</span>Edit<span class="nt">&lt;/</span><span class="err">.</span><span class="nt">link&gt;</span>
+  <span class="nt">&lt;/:action&gt;</span>
+<span class="nt">&lt;/</span><span class="err">.</span><span class="nt">table&gt;</span>
+</code></pre>
+<h3><a href="#function-components" aria-hidden="true" class="anchor" id="function-components"></a>Function Components</h3>
+<pre class="highlight"><code><span class="c1"># lib/my_app_web/components/core_components.ex</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">CoreComponents</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">Component</span>
+
+  <span class="n">attr</span> <span class="ss">:type</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">default:</span> <span class="s2">"info"</span>
+  <span class="n">attr</span> <span class="ss">:message</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">required:</span> <span class="no">true</span>
+
+  <span class="k">def</span> <span class="n">flash</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~H""</span><span class="s2">"
+    &lt;div class={"</span><span class="n">alert</span> <span class="n">alert</span><span class="o">-</span><span class="c1">#{@type}"}&gt;</span>
+      <span class="o">&lt;%=</span> <span class="nv">@message</span> <span class="p">%</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="sd">"""
+  end
+
+  attr :id, :string, required: true
+  attr :rows, :list, required: true
+  slot :col, required: true do
+    attr :label, :string
+  end
+  slot :action
+
+  def table(assigns) do
+    ~H"""</span>
+    <span class="o">&lt;</span><span class="n">table</span> <span class="n">id</span><span class="o">=</span><span class="p">{</span><span class="nv">@id</span><span class="p">}</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">thead</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">th</span> <span class="ss">:for=</span><span class="p">{</span><span class="n">col</span> <span class="o">&lt;-</span> <span class="nv">@col</span><span class="p">}</span><span class="err">&gt;</span><span class="o">&lt;%=</span> <span class="n">col</span><span class="p">[</span><span class="ss">:label</span><span class="p">]</span> <span class="p">%</span><span class="err">&gt;</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">th</span> <span class="ss">:if=</span><span class="p">{</span><span class="nv">@action</span> <span class="o">!=</span> <span class="p">[]}</span><span class="o">&gt;</span><span class="no">Actions</span><span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">tr</span> <span class="ss">:for=</span><span class="p">{</span><span class="n">row</span> <span class="o">&lt;-</span> <span class="nv">@rows</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">td</span> <span class="ss">:for=</span><span class="p">{</span><span class="n">col</span> <span class="o">&lt;-</span> <span class="nv">@col</span><span class="p">}</span><span class="err">&gt;</span><span class="o">&lt;%=</span> <span class="n">render_slot</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="p">%</span><span class="err">&gt;</span><span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="n">td</span> <span class="ss">:if=</span><span class="p">{</span><span class="nv">@action</span> <span class="o">!=</span> <span class="p">[]}</span><span class="o">&gt;</span>
+            <span class="o">&lt;%=</span> <span class="n">for</span> <span class="n">action</span> <span class="o">&lt;-</span> <span class="nv">@action</span> <span class="k">do</span> <span class="p">%</span><span class="o">&gt;</span>
+              <span class="o">&lt;%=</span> <span class="n">render_slot</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="p">%</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="p">%</span> <span class="k">end</span> <span class="p">%</span><span class="o">&gt;</span>
+          <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
+    <span class="s2">"""
+  end
+end
+</span></code></pre>
+<h3><a href="#template-syntax-summary" aria-hidden="true" class="anchor" id="template-syntax-summary"></a>Template Syntax Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Syntax</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;%= expr %&gt;</code></td>
+<td>Output expression (escaped)</td>
+</tr>
+<tr>
+<td><code>&lt;% expr %&gt;</code></td>
+<td>Execute expression (no output)</td>
+</tr>
+<tr>
+<td><code>{@assign}</code></td>
+<td>Access assign in attributes</td>
+</tr>
+<tr>
+<td><code>&lt;.component /&gt;</code></td>
+<td>Call function component</td>
+</tr>
+<tr>
+<td><code>:let={var}</code></td>
+<td>Bind slot variable</td>
+</tr>
+<tr>
+<td><code>:for={x &lt;- list}</code></td>
+<td>Iterate (comprehension)</td>
+</tr>
+<tr>
+<td><code>:if={condition}</code></td>
+<td>Conditional rendering</td>
+</tr>
+<tr>
+<td><code>&lt;:slot_name&gt;</code></td>
+<td>Named slot content</td>
+</tr>
+<tr>
+<td><code>~p&quot;/path&quot;</code></td>
+<td>Verified route</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#liveview" aria-hidden="true" class="anchor" id="liveview"></a>LiveView</h2>
+<pre class="highlight"><code><span class="c1"># lib/my_app_web/live/counter_live.ex</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">CounterLive</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="p">,</span> <span class="ss">:live_view</span>
+
+  <span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_params</span><span class="p">,</span> <span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">count:</span> <span class="mi">0</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"increment"</span><span class="p">,</span> <span class="n">_params</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">update</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:count</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"decrement"</span><span class="p">,</span> <span class="n">_params</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">update</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:count</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">render</span><span class="p">(</span><span class="n">assigns</span><span class="p">)</span> <span class="k">do</span>
+    <span class="sx">~H""</span><span class="s2">"
+    &lt;div&gt;
+      &lt;h1&gt;Count: &lt;%= @count %&gt;&lt;/h1&gt;
+      &lt;button phx-click="</span><span class="n">increment</span><span class="s2">"&gt;+&lt;/button&gt;
+      &lt;button phx-click="</span><span class="n">decrement</span><span class="s2">"&gt;-&lt;/button&gt;
+    &lt;/div&gt;
+    """</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#liveview-lifecycle" aria-hidden="true" class="anchor" id="liveview-lifecycle"></a>LiveView Lifecycle</h3>
+<ol>
+<li><code>mount/3</code> — Initial state (runs twice: once for static HTML, once for WebSocket)</li>
+<li><code>handle_params/3</code> — URL changes (navigation)</li>
+<li><code>handle_event/3</code> — User interactions (clicks, form submits)</li>
+<li><code>handle_info/2</code> — Server-side messages (PubSub, process messages)</li>
+<li><code>render/1</code> — Returns HEEx template (re-runs on every assign change, diffs sent over WebSocket)</li>
+</ol>
+<h3><a href="#common-liveview-patterns" aria-hidden="true" class="anchor" id="common-liveview-patterns"></a>Common LiveView Patterns</h3>
+<pre class="highlight"><code><span class="c1"># Form handling</span>
+<span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"validate"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">changeset</span> <span class="o">=</span>
+    <span class="p">%</span><span class="no">User</span><span class="p">{}</span>
+    <span class="o">|&gt;</span> <span class="no">User</span><span class="o">.</span><span class="n">changeset</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="o">|&gt;</span> <span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="ss">:action</span><span class="p">,</span> <span class="ss">:validate</span><span class="p">)</span>
+
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_event</span><span class="p">(</span><span class="s2">"save"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">case</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span>
+       <span class="n">socket</span>
+       <span class="o">|&gt;</span> <span class="n">put_flash</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="s2">"User created!"</span><span class="p">)</span>
+       <span class="o">|&gt;</span> <span class="n">push_navigate</span><span class="p">(</span><span class="ss">to:</span> <span class="sx">~p"/users/#{user}"</span><span class="p">)}</span>
+
+    <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">changeset</span><span class="p">}</span> <span class="o">-&gt;</span>
+      <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">changeset:</span> <span class="n">changeset</span><span class="p">)}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Real-time updates via PubSub</span>
+<span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_params</span><span class="p">,</span> <span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="n">connected?</span><span class="p">(</span><span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Phoenix</span><span class="o">.</span><span class="no">PubSub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="no">MyApp</span><span class="o">.</span><span class="no">PubSub</span><span class="p">,</span> <span class="s2">"users"</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">users:</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">list_users</span><span class="p">())}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">({</span><span class="ss">:user_created</span><span class="p">,</span> <span class="n">user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">update</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:users</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">[</span><span class="n">user</span> <span class="o">|</span> <span class="nv">&amp;1</span><span class="p">])}</span>
+<span class="k">end</span>
+
+<span class="c1"># Streams (efficient large lists)</span>
+<span class="k">def</span> <span class="n">mount</span><span class="p">(</span><span class="n">_params</span><span class="p">,</span> <span class="n">_session</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">stream</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:users</span><span class="p">,</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">list_users</span><span class="p">())}</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">({</span><span class="ss">:user_created</span><span class="p">,</span> <span class="n">user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">stream_insert</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:users</span><span class="p">,</span> <span class="n">user</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#channels-websockets" aria-hidden="true" class="anchor" id="channels-websockets"></a>Channels (WebSockets)</h2>
+<pre class="highlight"><code><span class="c1"># lib/my_app_web/channels/room_channel.ex</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">RoomChannel</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="p">,</span> <span class="ss">:channel</span>
+
+  <span class="k">def</span> <span class="n">join</span><span class="p">(</span><span class="s2">"room:"</span> <span class="o">&lt;&gt;</span> <span class="n">room_id</span><span class="p">,</span> <span class="n">_payload</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">assign</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:room_id</span><span class="p">,</span> <span class="n">room_id</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_in</span><span class="p">(</span><span class="s2">"new_msg"</span><span class="p">,</span> <span class="p">%{</span><span class="s2">"body"</span> <span class="o">=&gt;</span> <span class="n">body</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">broadcast!</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="s2">"new_msg"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">body:</span> <span class="n">body</span><span class="p">,</span> <span class="ss">user:</span> <span class="n">socket</span><span class="o">.</span><span class="n">assigns</span><span class="o">.</span><span class="n">user</span><span class="p">})</span>
+    <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">handle_in</span><span class="p">(</span><span class="s2">"typing"</span><span class="p">,</span> <span class="n">_payload</span><span class="p">,</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">broadcast_from!</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="s2">"typing"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">user:</span> <span class="n">socket</span><span class="o">.</span><span class="n">assigns</span><span class="o">.</span><span class="n">user</span><span class="p">})</span>
+    <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="ss">:ok</span><span class="p">,</span> <span class="n">socket</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#pubsub" aria-hidden="true" class="anchor" id="pubsub"></a>PubSub</h2>
+<pre class="highlight"><code><span class="c1"># Broadcast</span>
+<span class="no">Phoenix</span><span class="o">.</span><span class="no">PubSub</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="no">MyApp</span><span class="o">.</span><span class="no">PubSub</span><span class="p">,</span> <span class="s2">"users"</span><span class="p">,</span> <span class="p">{</span><span class="ss">:user_created</span><span class="p">,</span> <span class="n">user</span><span class="p">})</span>
+
+<span class="c1"># Subscribe (in LiveView mount or GenServer init)</span>
+<span class="no">Phoenix</span><span class="o">.</span><span class="no">PubSub</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="no">MyApp</span><span class="o">.</span><span class="no">PubSub</span><span class="p">,</span> <span class="s2">"users"</span><span class="p">)</span>
+
+<span class="c1"># Handle in LiveView</span>
+<span class="k">def</span> <span class="n">handle_info</span><span class="p">({</span><span class="ss">:user_created</span><span class="p">,</span> <span class="n">user</span><span class="p">},</span> <span class="n">socket</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">update</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="ss">:users</span><span class="p">,</span> <span class="k">fn</span> <span class="n">users</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">user</span> <span class="o">|</span> <span class="n">users</span><span class="p">]</span> <span class="k">end</span><span class="p">)}</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#testing" aria-hidden="true" class="anchor" id="testing"></a>Testing</h2>
+<pre class="highlight"><code><span class="c1"># test/my_app_web/controllers/user_controller_test.exs</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">UserControllerTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">ConnCase</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span>
+
+  <span class="nv">@create_attrs</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">email:</span> <span class="s2">"tom@test.com"</span><span class="p">}</span>
+  <span class="nv">@invalid_attrs</span> <span class="p">%{</span><span class="ss">name:</span> <span class="no">nil</span><span class="p">,</span> <span class="ss">email:</span> <span class="no">nil</span><span class="p">}</span>
+
+  <span class="n">setup</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="nv">@create_attrs</span><span class="p">)</span>
+    <span class="p">%{</span><span class="ss">user:</span> <span class="n">user</span><span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">"GET /users"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"lists all users"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">conn:</span> <span class="n">conn</span><span class="p">}</span> <span class="k">do</span>
+      <span class="n">conn</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="sx">~p"/users"</span><span class="p">)</span>
+      <span class="n">assert</span> <span class="n">html_response</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">=~</span> <span class="s2">"Users"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">"POST /users"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"creates user with valid data"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">conn:</span> <span class="n">conn</span><span class="p">}</span> <span class="k">do</span>
+      <span class="n">conn</span> <span class="o">=</span> <span class="n">post</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="sx">~p"/users"</span><span class="p">,</span> <span class="ss">user:</span> <span class="nv">@create_attrs</span><span class="p">)</span>
+      <span class="n">assert</span> <span class="n">redirected_to</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span> <span class="o">=~</span> <span class="sx">~p"/users/"</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"renders errors with invalid data"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">conn:</span> <span class="n">conn</span><span class="p">}</span> <span class="k">do</span>
+      <span class="n">conn</span> <span class="o">=</span> <span class="n">post</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="sx">~p"/users"</span><span class="p">,</span> <span class="ss">user:</span> <span class="nv">@invalid_attrs</span><span class="p">)</span>
+      <span class="n">assert</span> <span class="n">html_response</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> <span class="o">=~</span> <span class="s2">"can&amp;#39;t be blank"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># test/my_app/accounts_test.exs</span>
+<span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">AccountsTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">DataCase</span>
+
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span>
+
+  <span class="n">describe</span> <span class="s2">"users"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"list_users/0 returns all users"</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="n">user_fixture</span><span class="p">()</span>
+      <span class="n">assert</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">list_users</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="n">user</span><span class="p">]</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"create_user/1 with valid data"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%</span><span class="no">User</span><span class="p">{}</span> <span class="o">=</span> <span class="n">user</span><span class="p">}</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p">(%{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">email:</span> <span class="s2">"tom@t.com"</span><span class="p">})</span>
+      <span class="n">assert</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"Tom"</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"create_user/1 with invalid data"</span> <span class="k">do</span>
+      <span class="n">assert</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="p">%</span><span class="no">Ecto</span><span class="o">.</span><span class="no">Changeset</span><span class="p">{}}</span> <span class="o">=</span> <span class="no">Accounts</span><span class="o">.</span><span class="n">create_user</span><span class="p">(%{</span><span class="ss">name:</span> <span class="no">nil</span><span class="p">})</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#liveview-testing" aria-hidden="true" class="anchor" id="liveview-testing"></a>LiveView Testing</h3>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">CounterLiveTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">ConnCase</span>
+  <span class="kn">import</span> <span class="no">Phoenix</span><span class="o">.</span><span class="no">LiveViewTest</span>
+
+  <span class="n">test</span> <span class="s2">"increments count"</span><span class="p">,</span> <span class="p">%{</span><span class="ss">conn:</span> <span class="n">conn</span><span class="p">}</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">html</span><span class="p">}</span> <span class="o">=</span> <span class="n">live</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="sx">~p"/counter"</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="n">html</span> <span class="o">=~</span> <span class="s2">"Count: 0"</span>
+
+    <span class="n">assert</span> <span class="n">view</span>
+           <span class="o">|&gt;</span> <span class="n">element</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="s2">"+"</span><span class="p">)</span>
+           <span class="o">|&gt;</span> <span class="n">render_click</span><span class="p">()</span> <span class="o">=~</span> <span class="s2">"Count: 1"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#cli-essentials" aria-hidden="true" class="anchor" id="cli-essentials"></a>CLI Essentials</h2>
+<pre class="highlight"><code>mix phx.new myapp                      <span class="c"># Create new Phoenix project</span>
+mix phx.new myapp <span class="nt">--no-ecto</span>            <span class="c"># Without database</span>
+mix phx.new myapp <span class="nt">--no-html</span>            <span class="c"># API only</span>
+mix phx.server                         <span class="c"># Start dev server (port 4000)</span>
+iex <span class="nt">-S</span> mix phx.server                  <span class="c"># Start with IEx shell</span>
+
+mix phx.gen.html Accounts User <span class="nb">users </span>name:string email:string
+                                       <span class="c"># Generate context + schema + controller + views</span>
+mix phx.gen.json Accounts User <span class="nb">users </span>name:string email:string
+                                       <span class="c"># Generate JSON API</span>
+mix phx.gen.live Accounts User <span class="nb">users </span>name:string email:string
+                                       <span class="c"># Generate LiveView CRUD</span>
+mix phx.gen.context Accounts User <span class="nb">users </span>name:string
+                                       <span class="c"># Generate context + schema only (no web layer)</span>
+mix phx.gen.schema User <span class="nb">users </span>name:string
+                                       <span class="c"># Generate schema + migration only</span>
+mix phx.gen.auth Accounts User <span class="nb">users</span>
+                                       <span class="c"># Generate full authentication system</span>
+
+mix phx.routes                         <span class="c"># Show all routes</span>
+mix ecto.gen.migration add_users       <span class="c"># Generate migration</span>
+mix ecto.migrate                       <span class="c"># Run migrations</span>
+mix ecto.reset                         <span class="c"># Drop + create + migrate</span>
+
+mix <span class="nb">test</span>                               <span class="c"># Run all tests</span>
+mix <span class="nb">test test</span>/my_app_web/              <span class="c"># Run directory</span>
+mix <span class="nb">test test</span>/my_app_web/controllers/user_controller_test.exs:15
+                                       <span class="c"># Run specific line</span>
+</code></pre>
+<h2><a href="#phoenix-is-not-elixir" aria-hidden="true" class="anchor" id="phoenix-is-not-elixir"></a>Phoenix is NOT Elixir</h2>
+<h3><a href="#this-is-elixir-works-anywhere" aria-hidden="true" class="anchor" id="this-is-elixir-works-anywhere"></a>This is Elixir (works anywhere)</h3>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">active:</span> <span class="no">true</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="n">full_name</span><span class="p">(%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="n">name</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+<span class="no">User</span><span class="o">.</span><span class="n">full_name</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#this-is-phoenixecto-needs-phoenix-app" aria-hidden="true" class="anchor" id="this-is-phoenixecto-needs-phoenix-app"></a>This is Phoenix/Ecto (needs Phoenix app)</h3>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span><span class="o">.</span><span class="no">User</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Ecto</span><span class="o">.</span><span class="no">Schema</span>                      <span class="c1"># Ecto (database)</span>
+
+  <span class="n">schema</span> <span class="s2">"users"</span> <span class="k">do</span>                    <span class="c1"># Maps to DB table</span>
+    <span class="n">field</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+    <span class="n">has_many</span> <span class="ss">:posts</span><span class="p">,</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Blog</span><span class="o">.</span><span class="no">Post</span>   <span class="c1"># Ecto association</span>
+    <span class="n">timestamps</span><span class="p">()</span>                       <span class="c1"># Ecto timestamps</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Phoenix controller</span>
+<span class="k">defmodule</span> <span class="no">MyAppWeb</span><span class="o">.</span><span class="no">UserController</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">MyAppWeb</span><span class="p">,</span> <span class="ss">:controller</span>            <span class="c1"># Phoenix macro</span>
+
+  <span class="k">def</span> <span class="n">index</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_params</span><span class="p">)</span> <span class="k">do</span>          <span class="c1"># conn is Phoenix</span>
+    <span class="n">render</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">:index</span><span class="p">)</span>               <span class="c1"># Phoenix rendering</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#common-confusion-points" aria-hidden="true" class="anchor" id="common-confusion-points"></a>Common Confusion Points</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Elixir or Phoenix?</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>defmodule</code>, <code>def</code>, <code>defp</code></td>
+<td><strong>Elixir</strong></td>
+<td>Core language</td>
+</tr>
+<tr>
+<td><code>defstruct</code></td>
+<td><strong>Elixir</strong></td>
+<td>Core language</td>
+</tr>
+<tr>
+<td>Pattern matching, pipes</td>
+<td><strong>Elixir</strong></td>
+<td>Core language</td>
+</tr>
+<tr>
+<td><code>Enum</code>, <code>Stream</code>, <code>Map</code></td>
+<td><strong>Elixir</strong></td>
+<td>Standard library</td>
+</tr>
+<tr>
+<td><code>GenServer</code>, <code>Supervisor</code></td>
+<td><strong>Elixir/OTP</strong></td>
+<td>Ships with Elixir</td>
+</tr>
+<tr>
+<td><code>use Ecto.Schema</code></td>
+<td><strong>Ecto</strong></td>
+<td>Separate library (used by Phoenix)</td>
+</tr>
+<tr>
+<td><code>Repo.all</code>, <code>Repo.insert</code></td>
+<td><strong>Ecto</strong></td>
+<td>Database operations</td>
+</tr>
+<tr>
+<td>Changesets, validations</td>
+<td><strong>Ecto</strong></td>
+<td>Data validation</td>
+</tr>
+<tr>
+<td><code>conn</code>, <code>render</code>, <code>redirect</code></td>
+<td><strong>Phoenix</strong></td>
+<td>Web layer</td>
+</tr>
+<tr>
+<td><code>~p&quot;/path&quot;</code></td>
+<td><strong>Phoenix</strong></td>
+<td>Verified routes</td>
+</tr>
+<tr>
+<td>LiveView, Channels</td>
+<td><strong>Phoenix</strong></td>
+<td>Real-time features</td>
+</tr>
+<tr>
+<td><code>mix phx.*</code></td>
+<td><strong>Phoenix</strong></td>
+<td>Phoenix generators</td>
+</tr>
+<tr>
+<td><code>mix ecto.*</code></td>
+<td><strong>Ecto</strong></td>
+<td>Database tasks</td>
+</tr>
+<tr>
+<td>PubSub</td>
+<td><strong>Phoenix</strong></td>
+<td>Distributed messaging</td>
+</tr>
+<tr>
+<td>HEEx templates</td>
+<td><strong>Phoenix</strong></td>
+<td>HTML templating</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#key-differences-from-rails" aria-hidden="true" class="anchor" id="key-differences-from-rails"></a>Key Differences from Rails</h2>
+<ul>
+<li><strong>No inheritance</strong>: Controllers are modules, not subclasses. Shared behavior comes from <code>use</code>, <code>import</code>, and plugs.</li>
+<li><strong>No instance variables in views</strong>: Templates receive explicit assigns (<code>@name</code>, not <code>@user.name</code> from a controller ivar).</li>
+<li><strong>Contexts over fat models</strong>: Business logic lives in context modules, not in schemas.</li>
+<li><strong>Changesets over callbacks</strong>: Validation and data transformation happen in explicit changeset functions, not model callbacks.</li>
+<li><strong>Immutable conn</strong>: The connection struct is passed through and transformed — not mutated in place.</li>
+<li><strong>Real-time built in</strong>: LiveView and Channels are core, not bolted on.</li>
+<li><strong>No ActiveRecord</strong>: Ecto is explicit — no implicit queries, no lazy loading, no <code>user.posts</code> triggering SQL behind the scenes.</li>
+<li><strong>Functional everything</strong>: No <code>before_action</code> magic — plug pipelines are explicit and composable.</li>
+</ul>
+<p>That's the essential Phoenix. The rest is mastering LiveView patterns, Ecto's query DSL, and building real-time features with PubSub and Channels.</p>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>

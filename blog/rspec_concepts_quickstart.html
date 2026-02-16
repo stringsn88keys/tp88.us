@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSpec Quick Reference for Experienced Programmers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#rspec-quick-reference-for-experienced-programmers" aria-hidden="true" class="anchor" id="rspec-quick-reference-for-experienced-programmers"></a>RSpec Quick Reference for Experienced Programmers</h1>
+<h2><a href="#for-more-see" aria-hidden="true" class="anchor" id="for-more-see"></a>For more see:</h2>
+<ul>
+<li><a href="https://rspec.info/documentation/">RSpec Documentation</a></li>
+<li><a href="https://www.betterspecs.org/">Better Specs</a></li>
+</ul>
+<h2><a href="#core-structure" aria-hidden="true" class="anchor" id="core-structure"></a>Core Structure</h2>
+<ul>
+<li><strong>describe/context</strong>: Group examples by class, method, or scenario. <code>describe</code> for what you're testing, <code>context</code> for conditions.</li>
+<li><strong>it/specify</strong>: Individual test cases (examples). The string describes expected behavior.</li>
+<li><strong>expect</strong>: Assertion syntax. <code>expect(x).to eq(y)</code> replaces older <code>should</code> syntax.</li>
+<li><strong>before/after/around</strong>: Hooks for setup/teardown at different scopes.</li>
+</ul>
+<h2><a href="#basic-anatomy" aria-hidden="true" class="anchor" id="basic-anatomy"></a>Basic Anatomy</h2>
+<pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">"#full_name"</span> <span class="k">do</span>              <span class="c1"># Instance method</span>
+    <span class="n">context</span> <span class="s2">"when first and last name are present"</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s2">"returns the full name"</span> <span class="k">do</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">first: </span><span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">last: </span><span class="s2">"Powell"</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">full_name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom Powell"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">context</span> <span class="s2">"when last name is missing"</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s2">"returns just the first name"</span> <span class="k">do</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">first: </span><span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">last: </span><span class="kp">nil</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">full_name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">".create_guest"</span> <span class="k">do</span>           <span class="c1"># Class method</span>
+    <span class="n">it</span> <span class="s2">"creates a user with guest role"</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">create_guest</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">role</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"guest"</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#naming-conventions" aria-hidden="true" class="anchor" id="naming-conventions"></a>Naming Conventions</h3>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>#method</code></td>
+<td>Instance method</td>
+<td><code>describe &quot;#save&quot;</code></td>
+</tr>
+<tr>
+<td><code>.method</code></td>
+<td>Class method</td>
+<td><code>describe &quot;.find&quot;</code></td>
+</tr>
+<tr>
+<td><code>context &quot;when...&quot;</code></td>
+<td>Conditional state</td>
+<td><code>context &quot;when logged in&quot;</code></td>
+</tr>
+<tr>
+<td><code>context &quot;with...&quot;</code></td>
+<td>Input variation</td>
+<td><code>context &quot;with invalid email&quot;</code></td>
+</tr>
+<tr>
+<td><code>context &quot;without...&quot;</code></td>
+<td>Absence</td>
+<td><code>context &quot;without a name&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#matchers" aria-hidden="true" class="anchor" id="matchers"></a>Matchers</h2>
+<h3><a href="#equality" aria-hidden="true" class="anchor" id="equality"></a>Equality</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                    <span class="c1"># Value equality (==)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">eql</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                   <span class="c1"># Type + value equality (eql?)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">equal</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                 <span class="c1"># Object identity (equal? / same object)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>                    <span class="c1"># Same as equal (object identity)</span>
+</code></pre>
+<h3><a href="#comparison" aria-hidden="true" class="anchor" id="comparison"></a>Comparison</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="o">&gt;</span> <span class="mi">5</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="o">&lt;</span> <span class="mi">10</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_between</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nf">inclusive</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_within</span><span class="p">(</span><span class="mf">0.01</span><span class="p">).</span><span class="nf">of</span><span class="p">(</span><span class="mf">3.14</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#truthiness" aria-hidden="true" class="anchor" id="truthiness"></a>Truthiness</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>                  <span class="c1"># Exactly true</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">false</span>                 <span class="c1"># Exactly false</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_truthy</span>                <span class="c1"># Anything except false/nil</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_falsey</span>                <span class="c1"># false or nil</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_nil</span>                   <span class="c1"># Exactly nil</span>
+</code></pre>
+<h3><a href="#collections" aria-hidden="true" class="anchor" id="collections"></a>Collections</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>          <span class="c1"># Contains elements</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">contain_exactly</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># Exact elements, any order</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">match_array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span> <span class="c1"># Same as contain_exactly</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">start_with</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">end_with</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">all</span><span class="p">(</span><span class="n">be</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>            <span class="c1"># Every element matches</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_empty</span>
+<span class="n">expect</span><span class="p">(</span><span class="nb">hash</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span>  <span class="c1"># Hash key/value</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">arr</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_attributes</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span>  <span class="c1"># Object attributes</span>
+</code></pre>
+<h3><a href="#strings--regex" aria-hidden="true" class="anchor" id="strings--regex"></a>Strings / Regex</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">str</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">str</span><span class="p">).</span><span class="nf">to</span> <span class="n">start_with</span><span class="p">(</span><span class="s2">"he"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">str</span><span class="p">).</span><span class="nf">to</span> <span class="n">end_with</span><span class="p">(</span><span class="s2">"lo"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">str</span><span class="p">).</span><span class="nf">to</span> <span class="n">match</span><span class="p">(</span><span class="sr">/^hello/</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#types" aria-hidden="true" class="anchor" id="types"></a>Types</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_a</span><span class="p">(</span><span class="no">User</span><span class="p">)</span>             <span class="c1"># is_a? check</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_an</span><span class="p">(</span><span class="no">Array</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_an_instance_of</span><span class="p">(</span><span class="no">User</span><span class="p">)</span> <span class="c1"># Exact class (no subclasses)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:save</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">arguments</span>
+</code></pre>
+<h3><a href="#changes" aria-hidden="true" class="anchor" id="changes"></a>Changes</h3>
+<pre class="highlight"><code><span class="n">expect</span> <span class="p">{</span> <span class="n">user</span><span class="p">.</span><span class="nf">save</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:updated_at</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">user</span><span class="p">.</span><span class="nf">activate</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="ss">:active</span><span class="p">).</span><span class="nf">from</span><span class="p">(</span><span class="kp">false</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">list</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="ss">:length</span><span class="p">).</span><span class="nf">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="no">User</span><span class="p">.</span><span class="nf">create</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="ss">:count</span><span class="p">).</span><span class="nf">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Block form</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span> <span class="p">{</span> <span class="n">x</span> <span class="p">}.</span><span class="nf">from</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#errors--exceptions" aria-hidden="true" class="anchor" id="errors--exceptions"></a>Errors / Exceptions</h3>
+<pre class="highlight"><code><span class="n">expect</span> <span class="p">{</span> <span class="k">raise</span> <span class="s2">"boom"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="k">raise</span> <span class="s2">"boom"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">RuntimeError</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="k">raise</span> <span class="s2">"boom"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="s2">"boom"</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="k">raise</span> <span class="s2">"boom"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="sr">/boom/</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s2">"bad"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">,</span> <span class="s2">"bad"</span><span class="p">)</span>
+
+<span class="c1"># No error</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">safe_call</span> <span class="p">}.</span><span class="nf">not_to</span> <span class="n">raise_error</span>
+</code></pre>
+<h3><a href="#output" aria-hidden="true" class="anchor" id="output"></a>Output</h3>
+<pre class="highlight"><code><span class="n">expect</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">"hello"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">output</span><span class="p">(</span><span class="s2">"hello</span><span class="se">\n</span><span class="s2">"</span><span class="p">).</span><span class="nf">to_stdout</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="nb">warn</span> <span class="s2">"oops"</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">output</span><span class="p">(</span><span class="sr">/oops/</span><span class="p">).</span><span class="nf">to_stderr</span>
+</code></pre>
+<h3><a href="#predicate-matchers-dynamic" aria-hidden="true" class="anchor" id="predicate-matchers-dynamic"></a>Predicate Matchers (Dynamic)</h3>
+<pre class="highlight"><code><span class="c1"># RSpec auto-generates matchers from predicate methods (methods ending in ?)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_active</span>              <span class="c1"># Calls user.active?</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">list</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_empty</span>              <span class="c1"># Calls list.empty?</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_valid</span>              <span class="c1"># Calls user.valid?</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">value</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_zero</span>              <span class="c1"># Calls value.zero?</span>
+
+<span class="c1"># "have_" prefix for has_? methods</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_posts</span>            <span class="c1"># Calls user.has_posts?</span>
+<span class="n">expect</span><span class="p">(</span><span class="nb">hash</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_key</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>       <span class="c1"># Calls hash.has_key?(:name)</span>
+</code></pre>
+<h3><a href="#negation" aria-hidden="true" class="anchor" id="negation"></a>Negation</h3>
+<pre class="highlight"><code><span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>                <span class="c1"># Any matcher can be negated</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="nf">to_not</span> <span class="n">eq</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>                <span class="c1"># Alternative (same thing)</span>
+</code></pre>
+<h2><a href="#let-and-let" aria-hidden="true" class="anchor" id="let-and-let"></a>let and let!</h2>
+<pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span> <span class="p">}</span>        <span class="c1"># Lazy - created on first use</span>
+  <span class="n">let!</span><span class="p">(</span><span class="ss">:admin</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">role: </span><span class="s2">"admin"</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># Eager - created before each example</span>
+
+  <span class="n">it</span> <span class="s2">"has a name"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>     <span class="c1"># user is created here</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#let-vs-instance-variables" aria-hidden="true" class="anchor" id="let-vs-instance-variables"></a>let vs instance variables</h3>
+<pre class="highlight"><code><span class="c1"># Prefer let over instance variables in before blocks</span>
+<span class="c1"># Bad</span>
+<span class="n">before</span> <span class="p">{</span> <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1"># Good</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span> <span class="p">}</span>
+</code></pre>
+<p><strong>Why</strong>: <code>let</code> is lazy (only created when referenced), memoized per example, and scoped properly. Instance variables return <code>nil</code> silently if you typo the name.</p>
+<h2><a href="#subject" aria-hidden="true" class="anchor" id="subject"></a>subject</h2>
+<pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="c1"># Implicit subject - calls User.new</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="c1"># Named subject</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">be_valid</span> <span class="p">}</span>
+
+  <span class="c1"># Explicit use</span>
+  <span class="n">it</span> <span class="s2">"has a name"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+    <span class="c1"># or</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#hooks-before--after--around" aria-hidden="true" class="anchor" id="hooks-before--after--around"></a>Hooks (before / after / around)</h2>
+<pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>    <span class="c1"># Runs before each example (default scope)</span>
+    <span class="vi">@count</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+  <span class="n">before</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span> <span class="k">do</span>     <span class="c1"># Runs once before all examples in this group</span>
+    <span class="no">DatabaseCleaner</span><span class="p">.</span><span class="nf">start</span>
+  <span class="k">end</span>
+
+  <span class="n">after</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>     <span class="c1"># Runs after each example</span>
+    <span class="n">cleanup</span>
+  <span class="k">end</span>
+
+  <span class="n">after</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span> <span class="k">do</span>      <span class="c1"># Runs once after all examples</span>
+    <span class="no">DatabaseCleaner</span><span class="p">.</span><span class="nf">clean</span>
+  <span class="k">end</span>
+
+  <span class="n">around</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">example</span><span class="o">|</span>
+    <span class="no">Timeout</span><span class="p">.</span><span class="nf">timeout</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">{</span> <span class="n">example</span><span class="p">.</span><span class="nf">run</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Alias</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:each</code></td>
+<td><code>:example</code></td>
+<td>Before/after every single <code>it</code> block</td>
+</tr>
+<tr>
+<td><code>:all</code></td>
+<td><code>:context</code></td>
+<td>Once per <code>describe</code>/<code>context</code> group</td>
+</tr>
+<tr>
+<td><code>:suite</code></td>
+<td>-</td>
+<td>Once for the entire test run (in <code>spec_helper.rb</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Warning</strong>: <code>before(:all)</code> state isn't rolled back between examples. Don't use it for database records in transactional tests.</p>
+<h2><a href="#shared-examples--shared-contexts" aria-hidden="true" class="anchor" id="shared-examples--shared-contexts"></a>Shared Examples &amp; Shared Contexts</h2>
+<pre class="highlight"><code><span class="c1"># Shared examples - reusable test groups</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">shared_examples</span> <span class="s2">"a timestamped model"</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">"has created_at"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has updated_at"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_to</span><span class="p">(</span><span class="ss">:updated_at</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">it_behaves_like</span> <span class="s2">"a timestamped model"</span>
+<span class="k">end</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">Post</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">Post</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">it_behaves_like</span> <span class="s2">"a timestamped model"</span>
+<span class="k">end</span>
+
+<span class="c1"># Shared context - reusable setup</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">shared_context</span> <span class="s2">"with authenticated user"</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">before</span> <span class="p">{</span> <span class="n">sign_in</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s2">"Dashboard"</span> <span class="k">do</span>
+  <span class="n">include_context</span> <span class="s2">"with authenticated user"</span>
+
+  <span class="n">it</span> <span class="s2">"shows welcome message"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_content</span><span class="p">(</span><span class="s2">"Welcome"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#mocks-and-stubs-test-doubles" aria-hidden="true" class="anchor" id="mocks-and-stubs-test-doubles"></a>Mocks and Stubs (Test Doubles)</h2>
+<h3><a href="#stubs-method-return-values" aria-hidden="true" class="anchor" id="stubs-method-return-values"></a>Stubs (Method Return Values)</h3>
+<pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="s2">"User"</span><span class="p">)</span>                       <span class="c1"># Generic test double</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">name</span>  <span class="c1"># =&gt; "Tom"</span>
+
+<span class="c1"># Stub on real object</span>
+<span class="n">allow</span><span class="p">(</span><span class="no">User</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:find</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+<span class="c1"># Multiple return values</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">die</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:roll</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">die</span><span class="p">.</span><span class="nf">roll</span>  <span class="c1"># =&gt; 1</span>
+<span class="n">die</span><span class="p">.</span><span class="nf">roll</span>  <span class="c1"># =&gt; 2</span>
+<span class="n">die</span><span class="p">.</span><span class="nf">roll</span>  <span class="c1"># =&gt; 3</span>
+
+<span class="c1"># Stub with block</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:age</span><span class="p">)</span> <span class="p">{</span> <span class="mi">25</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">}</span>
+
+<span class="c1"># Stub and call original</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">and_call_original</span>
+
+<span class="c1"># Raise error</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">api</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:fetch</span><span class="p">).</span><span class="nf">and_raise</span><span class="p">(</span><span class="no">Timeout</span><span class="o">::</span><span class="no">Error</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#mocks-message-expectations" aria-hidden="true" class="anchor" id="mocks-message-expectations"></a>Mocks (Message Expectations)</h3>
+<pre class="highlight"><code><span class="c1"># Expect a method to be called</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">mailer</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:send_welcome</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<span class="n">mailer</span><span class="p">.</span><span class="nf">send_welcome</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>                   <span class="c1"># Must happen or test fails</span>
+
+<span class="c1"># Called specific number of times</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">logger</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:info</span><span class="p">).</span><span class="nf">exactly</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nf">times</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">logger</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:info</span><span class="p">).</span><span class="nf">at_least</span><span class="p">(</span><span class="ss">:once</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">logger</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:info</span><span class="p">).</span><span class="nf">at_most</span><span class="p">(</span><span class="ss">:twice</span><span class="p">)</span>
+
+<span class="c1"># Not called</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">mailer</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:send_spam</span><span class="p">)</span>
+
+<span class="c1"># With argument matchers</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">api</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:post</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="s2">"/users"</span><span class="p">,</span> <span class="n">hash_including</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">))</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">api</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:get</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">anything</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">api</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:get</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">instance_of</span><span class="p">(</span><span class="no">String</span><span class="p">))</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">api</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:post</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">a_string_matching</span><span class="p">(</span><span class="sr">/users/</span><span class="p">))</span>
+</code></pre>
+<h3><a href="#verified-doubles" aria-hidden="true" class="anchor" id="verified-doubles"></a>Verified Doubles</h3>
+<pre class="highlight"><code><span class="c1"># Verified doubles check that methods actually exist on the real class</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">instance_double</span><span class="p">(</span><span class="s2">"User"</span><span class="p">,</span> <span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span>  <span class="c1"># Only allows methods User has</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">class_double</span><span class="p">(</span><span class="s2">"User"</span><span class="p">)</span>                  <span class="c1"># For class methods</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">object_double</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">)</span>               <span class="c1"># Based on specific instance</span>
+
+<span class="c1"># Will raise if User doesn't have a #name method</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+
+<span class="c1"># Will raise - :nonexistent isn't a real method</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:nonexistent</span><span class="p">)</span>  <span class="c1"># Error!</span>
+</code></pre>
+<h3><a href="#spies-assert-after-the-fact" aria-hidden="true" class="anchor" id="spies-assert-after-the-fact"></a>Spies (Assert After the Fact)</h3>
+<pre class="highlight"><code><span class="n">mailer</span> <span class="o">=</span> <span class="n">spy</span><span class="p">(</span><span class="s2">"Mailer"</span><span class="p">)</span>                       <span class="c1"># Records all calls</span>
+<span class="n">mailer</span><span class="p">.</span><span class="nf">send_welcome</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>                    <span class="c1"># Just records it</span>
+
+<span class="c1"># Assert after</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">mailer</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_received</span><span class="p">(</span><span class="ss">:send_welcome</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+<span class="c1"># On real objects</span>
+<span class="n">allow</span><span class="p">(</span><span class="no">UserMailer</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:welcome</span><span class="p">)</span>
+<span class="no">UserMailer</span><span class="p">.</span><span class="nf">welcome</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="no">UserMailer</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_received</span><span class="p">(</span><span class="ss">:welcome</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</code></pre>
+<h3><a href="#partial-doubles-stubbing-real-objects" aria-hidden="true" class="anchor" id="partial-doubles-stubbing-real-objects"></a>Partial Doubles (Stubbing Real Objects)</h3>
+<pre class="highlight"><code><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">)</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:admin?</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+
+<span class="c1"># Now user.admin? returns true but everything else is real</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">admin?</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>
+</code></pre>
+<h2><a href="#factory-bot-common-with-rspec-in-rails" aria-hidden="true" class="anchor" id="factory-bot-common-with-rspec-in-rails"></a>Factory Bot (Common with RSpec in Rails)</h2>
+<pre class="highlight"><code><span class="c1"># spec/factories/users.rb</span>
+<span class="no">FactoryBot</span><span class="p">.</span><span class="nf">define</span> <span class="k">do</span>
+  <span class="n">factory</span> <span class="ss">:user</span> <span class="k">do</span>
+    <span class="nb">name</span> <span class="p">{</span> <span class="s2">"Tom"</span> <span class="p">}</span>
+    <span class="n">email</span> <span class="p">{</span> <span class="s2">"tom@example.com"</span> <span class="p">}</span>
+    <span class="n">sequence</span><span class="p">(</span><span class="ss">:username</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="s2">"user_</span><span class="si">#{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span> <span class="p">}</span>
+
+    <span class="n">trait</span> <span class="ss">:admin</span> <span class="k">do</span>
+      <span class="n">role</span> <span class="p">{</span> <span class="s2">"admin"</span> <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="n">trait</span> <span class="ss">:with_posts</span> <span class="k">do</span>
+      <span class="n">after</span><span class="p">(</span><span class="ss">:create</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+        <span class="n">create_list</span><span class="p">(</span><span class="ss">:post</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">user: </span><span class="n">user</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Usage in specs</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>                 <span class="c1"># Persisted to DB</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">build</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>                  <span class="c1"># In memory only</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:admin</span><span class="p">)</span> <span class="p">{</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:admin</span><span class="p">)</span> <span class="p">}</span>        <span class="c1"># With trait</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:with_posts</span><span class="p">)</span> <span class="p">}</span>    <span class="c1"># With callback trait</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">build_stubbed</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>          <span class="c1"># Fake persistence (fastest)</span>
+</code></pre>
+<h2><a href="#rails-specific-rspec-rspec-rails" aria-hidden="true" class="anchor" id="rails-specific-rspec-rspec-rails"></a>Rails-Specific RSpec (rspec-rails)</h2>
+<h3><a href="#model-specs" aria-hidden="true" class="anchor" id="model-specs"></a>Model Specs</h3>
+<pre class="highlight"><code><span class="c1"># spec/models/user_spec.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span><span class="p">,</span> <span class="ss">type: :model</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">"validations"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_presence_of</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_uniqueness_of</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_length_of</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">is_at_most</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">"associations"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have_many</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">dependent</span><span class="p">(</span><span class="ss">:destroy</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">belong_to</span><span class="p">(</span><span class="ss">:organization</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have_one</span><span class="p">(</span><span class="ss">:profile</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">"#deactivate!"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s2">"sets active to false"</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">active: </span><span class="kp">true</span><span class="p">)</span>
+      <span class="n">user</span><span class="p">.</span><span class="nf">deactivate!</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">reload</span><span class="p">.</span><span class="nf">active</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">false</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#request-specs-preferred-over-controller-specs" aria-hidden="true" class="anchor" id="request-specs-preferred-over-controller-specs"></a>Request Specs (Preferred Over Controller Specs)</h3>
+<pre class="highlight"><code><span class="c1"># spec/requests/users_spec.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s2">"Users"</span><span class="p">,</span> <span class="ss">type: :request</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">"GET /users"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s2">"returns a successful response"</span> <span class="k">do</span>
+      <span class="n">get</span> <span class="n">users_path</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">it</span> <span class="s2">"returns JSON list of users"</span> <span class="k">do</span>
+      <span class="n">create_list</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+      <span class="n">get</span> <span class="n">users_path</span><span class="p">,</span> <span class="ss">as: :json</span>
+      <span class="n">expect</span><span class="p">(</span><span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">length</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">describe</span> <span class="s2">"POST /users"</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:valid_params</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span> <span class="ss">user: </span><span class="p">{</span> <span class="ss">name: </span><span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">email: </span><span class="s2">"tom@example.com"</span> <span class="p">}</span> <span class="p">}</span> <span class="p">}</span>
+
+    <span class="n">it</span> <span class="s2">"creates a new user"</span> <span class="k">do</span>
+      <span class="n">expect</span> <span class="p">{</span>
+        <span class="n">post</span> <span class="n">users_path</span><span class="p">,</span> <span class="ss">params: </span><span class="n">valid_params</span>
+      <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="no">User</span><span class="p">,</span> <span class="ss">:count</span><span class="p">).</span><span class="nf">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">it</span> <span class="s2">"returns unprocessable entity with invalid params"</span> <span class="k">do</span>
+      <span class="n">post</span> <span class="n">users_path</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">user: </span><span class="p">{</span> <span class="ss">name: </span><span class="s2">""</span> <span class="p">}</span> <span class="p">}</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:unprocessable_entity</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#system-specs-integration--feature-tests" aria-hidden="true" class="anchor" id="system-specs-integration--feature-tests"></a>System Specs (Integration / Feature Tests)</h3>
+<pre class="highlight"><code><span class="c1"># spec/system/user_registration_spec.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s2">"User Registration"</span><span class="p">,</span> <span class="ss">type: :system</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="p">{</span> <span class="n">driven_by</span><span class="p">(</span><span class="ss">:rack_test</span><span class="p">)</span> <span class="p">}</span>  <span class="c1"># or :selenium_chrome_headless</span>
+
+  <span class="n">it</span> <span class="s2">"allows a user to register"</span> <span class="k">do</span>
+    <span class="n">visit</span> <span class="n">new_user_registration_path</span>
+    <span class="n">fill_in</span> <span class="s2">"Name"</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"Tom"</span>
+    <span class="n">fill_in</span> <span class="s2">"Email"</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"tom@example.com"</span>
+    <span class="n">fill_in</span> <span class="s2">"Password"</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"password123"</span>
+    <span class="n">click_button</span> <span class="s2">"Sign Up"</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_content</span><span class="p">(</span><span class="s2">"Welcome, Tom"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#mailer-specs" aria-hidden="true" class="anchor" id="mailer-specs"></a>Mailer Specs</h3>
+<pre class="highlight"><code><span class="c1"># spec/mailers/user_mailer_spec.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UserMailer</span><span class="p">,</span> <span class="ss">type: :mailer</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">"#welcome"</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:mail</span><span class="p">)</span> <span class="p">{</span> <span class="n">described_class</span><span class="p">.</span><span class="nf">welcome</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="n">it</span> <span class="s2">"renders the subject"</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">mail</span><span class="p">.</span><span class="nf">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Welcome!"</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">it</span> <span class="s2">"sends to the user's email"</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">mail</span><span class="p">.</span><span class="nf">to</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">([</span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">])</span>
+    <span class="k">end</span>
+
+    <span class="n">it</span> <span class="s2">"includes the user's name"</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">mail</span><span class="p">.</span><span class="nf">body</span><span class="p">.</span><span class="nf">encoded</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#job-specs" aria-hidden="true" class="anchor" id="job-specs"></a>Job Specs</h3>
+<pre class="highlight"><code><span class="c1"># spec/jobs/cleanup_job_spec.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">CleanupJob</span><span class="p">,</span> <span class="ss">type: :job</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">"enqueues the job"</span> <span class="k">do</span>
+    <span class="n">expect</span> <span class="p">{</span>
+      <span class="n">described_class</span><span class="p">.</span><span class="nf">perform_later</span>
+    <span class="p">}.</span><span class="nf">to</span> <span class="n">have_enqueued_job</span><span class="p">(</span><span class="n">described_class</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"performs cleanup"</span> <span class="k">do</span>
+    <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">expired: </span><span class="kp">true</span><span class="p">)</span>
+    <span class="n">described_class</span><span class="p">.</span><span class="nf">perform_now</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">expired: </span><span class="kp">true</span><span class="p">)).</span><span class="nf">to</span> <span class="n">be_empty</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#shoulda-matchers-common-addon" aria-hidden="true" class="anchor" id="shoulda-matchers-common-addon"></a>Shoulda Matchers (Common Addon)</h2>
+<pre class="highlight"><code><span class="c1"># One-liner validations and associations</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_presence_of</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_uniqueness_of</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">case_insensitive</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_numericality_of</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">is_greater_than</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">validate_inclusion_of</span><span class="p">(</span><span class="ss">:role</span><span class="p">).</span><span class="nf">in_array</span><span class="p">(</span><span class="sx">%w[admin user]</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have_many</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">belong_to</span><span class="p">(</span><span class="ss">:organization</span><span class="p">).</span><span class="nf">optional</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have_db_column</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">of_type</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have_db_index</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">unique</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">delegate_method</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="ss">:organization</span><span class="p">).</span><span class="nf">with_prefix</span> <span class="p">}</span>
+</code></pre>
+<h2><a href="#cli-essentials" aria-hidden="true" class="anchor" id="cli-essentials"></a>CLI Essentials</h2>
+<pre class="highlight"><code>bundle <span class="nb">exec </span>rspec                        <span class="c"># Run all specs</span>
+bundle <span class="nb">exec </span>rspec spec/models/           <span class="c"># Run directory</span>
+bundle <span class="nb">exec </span>rspec spec/models/user_spec.rb        <span class="c"># Run file</span>
+bundle <span class="nb">exec </span>rspec spec/models/user_spec.rb:15     <span class="c"># Run specific line</span>
+bundle <span class="nb">exec </span>rspec <span class="nt">--tag</span> focus            <span class="c"># Run focused tests</span>
+bundle <span class="nb">exec </span>rspec <span class="nt">--format</span> documentation <span class="c"># Verbose output</span>
+bundle <span class="nb">exec </span>rspec <span class="nt">--fail-fast</span>            <span class="c"># Stop on first failure</span>
+bundle <span class="nb">exec </span>rspec <span class="nt">--only-failures</span>        <span class="c"># Re-run failures (needs config)</span>
+bundle <span class="nb">exec </span>rspec <span class="nt">--seed</span> 12345           <span class="c"># Reproduce random order</span>
+bundle <span class="nb">exec </span>rspec <span class="nt">--profile</span>              <span class="c"># Show slowest examples</span>
+</code></pre>
+<h2><a href="#filtering--focus" aria-hidden="true" class="anchor" id="filtering--focus"></a>Filtering &amp; Focus</h2>
+<pre class="highlight"><code><span class="c1"># Focus on specific tests</span>
+<span class="n">fit</span> <span class="s2">"this test only"</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>          <span class="c1"># focus + it</span>
+<span class="n">fdescribe</span> <span class="s2">"this group only"</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>   <span class="c1"># focus + describe</span>
+<span class="n">fcontext</span> <span class="s2">"this context only"</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>  <span class="c1"># focus + context</span>
+
+<span class="c1"># Skip tests</span>
+<span class="n">xit</span> <span class="s2">"skip this"</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>               <span class="c1"># Pending</span>
+<span class="n">xdescribe</span> <span class="s2">"skip group"</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+<span class="n">pending</span> <span class="s2">"not implemented yet"</span>            <span class="c1"># Inside an example</span>
+
+<span class="c1"># Tag-based filtering</span>
+<span class="n">it</span> <span class="s2">"slow test"</span><span class="p">,</span> <span class="ss">:slow</span> <span class="k">do</span> <span class="o">...</span> <span class="k">end</span>
+<span class="c1"># Run with: rspec --tag slow</span>
+<span class="c1"># Exclude:  rspec --tag ~slow</span>
+</code></pre>
+<h2><a href="#configuration-spec_helperrb--rails_helperrb" aria-hidden="true" class="anchor" id="configuration-spec_helperrb--rails_helperrb"></a>Configuration (spec_helper.rb / rails_helper.rb)</h2>
+<pre class="highlight"><code><span class="c1"># spec/spec_helper.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">expect_with</span> <span class="ss">:rspec</span> <span class="k">do</span> <span class="o">|</span><span class="n">expectations</span><span class="o">|</span>
+    <span class="n">expectations</span><span class="p">.</span><span class="nf">include_chain_clauses_in_custom_matcher_descriptions</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">mock_with</span> <span class="ss">:rspec</span> <span class="k">do</span> <span class="o">|</span><span class="n">mocks</span><span class="o">|</span>
+    <span class="n">mocks</span><span class="p">.</span><span class="nf">verify_partial_doubles</span> <span class="o">=</span> <span class="kp">true</span>  <span class="c1"># Catch stubbing nonexistent methods</span>
+  <span class="k">end</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">shared_context_metadata_behavior</span> <span class="o">=</span> <span class="ss">:apply_to_host_groups</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">filter_run_when_matching</span> <span class="ss">:focus</span>  <span class="c1"># Enable fit/fdescribe</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">example_status_persistence_file_path</span> <span class="o">=</span> <span class="s2">"spec/examples.txt"</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">disable_monkey_patching!</span>         <span class="c1"># No should syntax</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">order</span> <span class="o">=</span> <span class="ss">:random</span>                  <span class="c1"># Randomize test order</span>
+<span class="k">end</span>
+
+<span class="c1"># spec/rails_helper.rb (Rails only)</span>
+<span class="nb">require</span> <span class="s2">"spec_helper"</span>
+<span class="no">ENV</span><span class="p">[</span><span class="s2">"RAILS_ENV"</span><span class="p">]</span> <span class="o">||=</span> <span class="s2">"test"</span>
+<span class="nb">require_relative</span> <span class="s2">"../config/environment"</span>
+<span class="nb">require</span> <span class="s2">"rspec/rails"</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">fixture_paths</span> <span class="o">=</span> <span class="p">[</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s2">"spec/fixtures"</span><span class="p">)]</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">use_transactional_fixtures</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">infer_spec_type_from_file_location!</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">filter_rails_from_backtrace!</span>
+
+  <span class="c1"># FactoryBot</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">include</span> <span class="no">FactoryBot</span><span class="o">::</span><span class="no">Syntax</span><span class="o">::</span><span class="no">Methods</span>
+
+  <span class="c1"># Shoulda Matchers</span>
+  <span class="no">Shoulda</span><span class="o">::</span><span class="no">Matchers</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">integrate</span> <span class="k">do</span> <span class="o">|</span><span class="n">with</span><span class="o">|</span>
+      <span class="n">with</span><span class="p">.</span><span class="nf">test_framework</span> <span class="ss">:rspec</span>
+      <span class="n">with</span><span class="p">.</span><span class="nf">library</span> <span class="ss">:rails</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#directory-layout" aria-hidden="true" class="anchor" id="directory-layout"></a>Directory Layout</h2>
+<pre><code>spec/
+  spec_helper.rb          # Core RSpec config
+  rails_helper.rb         # Rails-specific config (loads Rails env)
+  models/                 # Model specs
+  requests/               # Request/API specs (preferred over controllers/)
+  system/                 # Browser integration tests
+  jobs/                   # Background job specs
+  mailers/                # Mailer specs
+  services/               # Service object specs
+  support/                # Shared helpers, custom matchers, configs
+    factory_bot.rb
+    shoulda_matchers.rb
+  factories/              # FactoryBot factory definitions
+    users.rb
+    posts.rb
+  fixtures/               # Test data files
+</code></pre>
+<h2><a href="#custom-matchers" aria-hidden="true" class="anchor" id="custom-matchers"></a>Custom Matchers</h2>
+<pre class="highlight"><code><span class="c1"># spec/support/matchers/be_valid_email.rb</span>
+<span class="no">RSpec</span><span class="o">::</span><span class="no">Matchers</span><span class="p">.</span><span class="nf">define</span> <span class="ss">:be_valid_email</span> <span class="k">do</span>
+  <span class="n">match</span> <span class="k">do</span> <span class="o">|</span><span class="n">actual</span><span class="o">|</span>
+    <span class="n">actual</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="sr">/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">failure_message</span> <span class="k">do</span> <span class="o">|</span><span class="n">actual</span><span class="o">|</span>
+    <span class="s2">"expected '</span><span class="si">#{</span><span class="n">actual</span><span class="si">}</span><span class="s2">' to be a valid email address"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Usage</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_valid_email</span>
+</code></pre>
+<h2><a href="#aggregate-failures" aria-hidden="true" class="anchor" id="aggregate-failures"></a>Aggregate Failures</h2>
+<pre class="highlight"><code><span class="c1"># Group multiple expectations - reports all failures, not just the first</span>
+<span class="n">it</span> <span class="s2">"has correct attributes"</span> <span class="k">do</span>
+  <span class="n">aggregate_failures</span> <span class="s2">"user attributes"</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"tom@example.com"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">role</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"admin"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Or via metadata</span>
+<span class="n">it</span> <span class="s2">"has correct attributes"</span><span class="p">,</span> <span class="ss">:aggregate_failures</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Tom"</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"tom@example.com"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#common-patterns" aria-hidden="true" class="anchor" id="common-patterns"></a>Common Patterns</h2>
+<h3><a href="#testing-scopes" aria-hidden="true" class="anchor" id="testing-scopes"></a>Testing Scopes</h3>
+<pre class="highlight"><code><span class="n">describe</span> <span class="s2">".active"</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">"returns only active users"</span> <span class="k">do</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">active: </span><span class="kp">true</span><span class="p">)</span>
+    <span class="n">inactive</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">active: </span><span class="kp">false</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">active</span><span class="p">).</span><span class="nf">to</span> <span class="n">contain_exactly</span><span class="p">(</span><span class="n">active</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#testing-time-dependent-code" aria-hidden="true" class="anchor" id="testing-time-dependent-code"></a>Testing Time-Dependent Code</h3>
+<pre class="highlight"><code><span class="n">it</span> <span class="s2">"expires after 24 hours"</span> <span class="k">do</span>
+  <span class="n">token</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:token</span><span class="p">)</span>
+  <span class="n">travel_to</span> <span class="mi">25</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">from_now</span> <span class="k">do</span>   <span class="c1"># Rails time helper</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_expired</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#testing-callbacks" aria-hidden="true" class="anchor" id="testing-callbacks"></a>Testing Callbacks</h3>
+<pre class="highlight"><code><span class="n">it</span> <span class="s2">"normalizes email before save"</span> <span class="k">do</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">email: </span><span class="s2">"TOM@Example.COM"</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"tom@example.com"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#key-differences-from-other-test-frameworks" aria-hidden="true" class="anchor" id="key-differences-from-other-test-frameworks"></a>Key Differences from Other Test Frameworks</h2>
+<ul>
+<li><strong>BDD style</strong>: <code>describe</code>/<code>context</code>/<code>it</code> reads like documentation</li>
+<li><strong>Lazy evaluation</strong>: <code>let</code> only runs when referenced</li>
+<li><strong>Rich matchers</strong>: Composable, readable, custom-friendly</li>
+<li><strong>No <code>assert</code></strong>: Uses <code>expect(...).to</code> syntax exclusively</li>
+<li><strong>Implicit subject</strong>: <code>described_class.new</code> is automatic</li>
+<li><strong>Verified doubles</strong>: Catch stubbing errors at test time</li>
+<li><strong>Metadata tags</strong>: Filter, configure, and customize per-example behavior</li>
+<li><strong><code>before(:all)</code> pitfall</strong>: Shared state won't be rolled back transactionally</li>
+<li><strong>Prefer <code>let</code> over <code>before</code> + instance vars</strong>: Lazy, memoized, typo-safe</li>
+</ul>
+<p>That's the essential RSpec. The rest is mastering matcher composition and keeping tests fast and focused.</p>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>
