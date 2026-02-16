@@ -1,3 +1,5 @@
 index.html
 tmp/*
 scripts/*.html
+data/Goodreads/
+**/.DS_Store

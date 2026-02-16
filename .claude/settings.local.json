@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:photoseek.com)"
+      "WebFetch(domain:photoseek.com)",
+      "Bash(unzip:*)",
+      "Bash(python3:*)",
+      "Bash(ruby -ryaml -e:*)",
+      "Bash(ruby -ryaml -rdate -e:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []

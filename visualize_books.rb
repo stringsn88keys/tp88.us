@@ -6,6 +6,7 @@ require 'date'
 require 'erb'
 require 'json'
 require 'optparse'
+require 'set'
 
 # Parse command line options
 options = { show_all: true }
@@ -32,9 +33,23 @@ end.parse!
 
 options[:output] ||= "books_visualization.html"
 
-# Load books data
+# Load books data from both sources
 books_file = File.join(__dir__, 'data', 'books.yml')
 books = YAML.load_file(books_file, permitted_classes: [Date])
+books.each { |b| b['source'] ||= 'manual' }
+
+goodreads_file = File.join(__dir__, 'data', 'books_goodreads.yml')
+if File.exist?(goodreads_file)
+  goodreads_books = YAML.load_file(goodreads_file, permitted_classes: [Date]) || []
+  # Deduplicate: prefer manual books.yml entries over Goodreads
+  manual_titles = books.map { |b| b['title'].to_s.downcase.strip }.to_set
+  goodreads_books.each do |gb|
+    unless manual_titles.include?(gb['title'].to_s.downcase.strip)
+      books << gb
+    end
+  end
+  puts "Loaded #{goodreads_books.size} Goodreads books (#{books.size} total after dedup)"
+end
 
 # Helper to parse page count from string like "325 pages"
 def parse_pages(print_length)
@@ -136,7 +151,9 @@ filtered_books.each do |book|
       date: date,
       completed: true,
       month_key: month_key,
-      associates_link: book['associates_link']
+      associates_link: book['associates_link'],
+      rating: book['rating'],
+      source: book['source'] || 'manual'
     }
   else
     # In-progress books: distribute pages evenly from date_started to today
@@ -180,7 +197,9 @@ filtered_books.each do |book|
       date: Date.today,
       completed: false,
       month_key: Date.today.strftime("%Y-%m"),
-      associates_link: book['associates_link']
+      associates_link: book['associates_link'],
+      rating: book['rating'],
+      source: book['source'] || 'manual'
     }
   end
 end
@@ -238,15 +257,24 @@ table_rows = book_details.sort_by { |b| b[:date] }.reverse.map do |b|
   if b[:associates_link]
     title_html += " <sub><a href=\"#{ERB::Util.html_escape(b[:associates_link])}\">(affiliate link)</a></sub>"
   end
+  rating_html = if b[:rating] && b[:rating] > 0
+                  stars = "\u2605" * b[:rating] + "\u2606" * (5 - b[:rating])
+                  "<span title=\"#{b[:rating]}/5\">#{stars}</span>"
+                else
+                  "\u2014"
+                end
+  source_html = b[:source] == 'goodreads' ? '<span class="source-goodreads">GR</span>' : '<span class="source-manual">Manual</span>'
   <<~ROW
     <tr>
       <td>#{title_html}</td>
       <td>#{ERB::Util.html_escape(b[:author])}</td>
+      <td>#{rating_html}</td>
       <td>#{b[:pages_read]}</td>
       <td>#{b[:total_pages]}</td>
       <td>#{progress}</td>
       <td>#{b[:date].strftime("%Y-%m-%d")}</td>
       <td class="#{status_class}">#{status_text}</td>
+      <td>#{source_html}</td>
     </tr>
   ROW
 end.join
@@ -333,6 +361,8 @@ html_output = <<~HTML
     .books-table tr:hover { background: #f8f9fa; }
     .status-completed { color: #27ae60; font-weight: bold; }
     .status-reading { color: #f39c12; font-weight: bold; }
+    .source-goodreads { color: #999; font-size: 0.8em; }
+    .source-manual { color: #3498db; font-size: 0.8em; }
     .filter-info {
       background: #e8f4fd;
       padding: 10px 15px;
@@ -393,11 +423,13 @@ html_output = <<~HTML
       <tr>
         <th>Title</th>
         <th>Author</th>
+        <th>Rating</th>
         <th>Pages Read</th>
         <th>Total Pages</th>
         <th>Progress</th>
         <th>Date</th>
         <th>Status</th>
+        <th>Source</th>
       </tr>
     </thead>
     <tbody>

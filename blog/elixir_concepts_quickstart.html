@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elixir Quick Reference for Experienced Programmers</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#elixir-quick-reference-for-experienced-programmers" aria-hidden="true" class="anchor" id="elixir-quick-reference-for-experienced-programmers"></a>Elixir Quick Reference for Experienced Programmers</h1>
+<h2><a href="#for-more-see" aria-hidden="true" class="anchor" id="for-more-see"></a>For more see:</h2>
+<ul>
+<li><a href="https://elixir-lang.org/getting-started/introduction.html">Elixir Getting Started Guide</a></li>
+<li><a href="https://elixirschool.com/">Elixir School</a></li>
+</ul>
+<h2><a href="#language-basics" aria-hidden="true" class="anchor" id="language-basics"></a>Language Basics</h2>
+<ul>
+<li><strong>Functional language</strong>: No objects, no mutation. Data in, data out.</li>
+<li><strong>Runs on the BEAM</strong>: Erlang VM — battle-tested concurrency, fault tolerance, hot code reloading.</li>
+<li><strong>Immutable data</strong>: Variables can be rebound, but data structures are never mutated.</li>
+<li><strong>Pattern matching everywhere</strong>: <code>=</code> is match, not assignment. Destructuring is the norm.</li>
+<li><strong>Processes are cheap</strong>: Not OS processes — lightweight BEAM processes (millions possible).</li>
+<li><strong>&quot;Let it crash&quot;</strong>: Supervisors restart failed processes. Don't program defensively — let things fail and recover.</li>
+</ul>
+<h2><a href="#data-types" aria-hidden="true" class="anchor" id="data-types"></a>Data Types</h2>
+<pre class="highlight"><code><span class="c1"># Atoms (like Ruby symbols)</span>
+<span class="ss">:ok</span>
+<span class="ss">:error</span>
+<span class="no">true</span>                      <span class="c1"># true/false/nil are atoms</span>
+
+<span class="c1"># Numbers</span>
+<span class="mi">42</span>                        <span class="c1"># Integer</span>
+<span class="mf">3.14</span>                      <span class="c1"># Float</span>
+
+<span class="c1"># Strings (UTF-8 binaries)</span>
+<span class="s2">"hello"</span>                   <span class="c1"># Double quotes = string (binary)</span>
+<span class="s1">'hello'</span>                   <span class="c1"># Single quotes = charlist (Erlang compat, rarely used)</span>
+
+<span class="c1"># Tuples (fixed-size, contiguous memory)</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">"result"</span><span class="p">}</span>
+<span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">"not found"</span><span class="p">}</span>
+
+<span class="c1"># Lists (linked lists)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="p">[</span><span class="n">head</span> <span class="o">|</span> <span class="n">tail</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># head = 1, tail = [2, 3]</span>
+
+<span class="c1"># Keyword lists (list of {atom, value} tuples)</span>
+<span class="p">[</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">age:</span> <span class="mi">30</span><span class="p">]</span>   <span class="c1"># Same as [{:name, "Tom"}, {:age, 30}]</span>
+<span class="c1"># Allows duplicate keys, ordered — used for options</span>
+
+<span class="c1"># Maps (key-value, any key type)</span>
+<span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">age:</span> <span class="mi">30</span><span class="p">}</span>  <span class="c1"># Atom keys (shorthand)</span>
+<span class="p">%{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Tom"</span><span class="p">}</span>        <span class="c1"># String keys</span>
+
+<span class="c1"># Structs (typed maps with compile-time checks)</span>
+<span class="k">defmodule</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">active:</span> <span class="no">true</span><span class="p">]</span>
+<span class="k">end</span>
+<span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">email:</span> <span class="s2">"tom@example.com"</span><span class="p">}</span>
+
+<span class="c1"># Ranges</span>
+<span class="mi">1</span><span class="o">..</span><span class="mi">10</span>
+<span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="o">//</span><span class="mi">2</span>                  <span class="c1"># Step of 2 (Elixir 1.12+)</span>
+</code></pre>
+<h2><a href="#pattern-matching" aria-hidden="true" class="anchor" id="pattern-matching"></a>Pattern Matching</h2>
+<pre class="highlight"><code><span class="c1"># The = operator is match, not assignment</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="mi">42</span><span class="p">}</span>    <span class="c1"># result = 42</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="s2">""</span><span class="p">}</span>  <span class="c1"># ** (MatchError)</span>
+
+<span class="c1"># In function heads</span>
+<span class="k">def</span> <span class="n">process</span><span class="p">({</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">data</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="n">handle_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">def</span> <span class="n">process</span><span class="p">({</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="n">log_error</span><span class="p">(</span><span class="n">reason</span><span class="p">)</span>
+
+<span class="c1"># In case</span>
+<span class="k">case</span> <span class="no">HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">status:</span> <span class="mi">200</span><span class="p">,</span> <span class="ss">body:</span> <span class="n">body</span><span class="p">}}</span> <span class="o">-&gt;</span> <span class="n">parse</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">status:</span> <span class="mi">404</span><span class="p">}}</span> <span class="o">-&gt;</span> <span class="ss">:not_found</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># Pin operator (match against existing value, don't rebind)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="o">^</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># Matches</span>
+<span class="o">^</span><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>    <span class="c1"># ** (MatchError)</span>
+
+<span class="c1"># Destructuring maps</span>
+<span class="p">%{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">,</span> <span class="ss">age:</span> <span class="n">age</span><span class="p">}</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">age:</span> <span class="mi">30</span><span class="p">,</span> <span class="ss">extra:</span> <span class="s2">"ignored"</span><span class="p">}</span>
+<span class="c1"># name = "Tom", age = 30</span>
+
+<span class="c1"># Destructuring in function params</span>
+<span class="k">def</span> <span class="n">greet</span><span class="p">(%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">}),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"Hello, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+</code></pre>
+<h2><a href="#functions" aria-hidden="true" class="anchor" id="functions"></a>Functions</h2>
+<h3><a href="#named-functions-in-modules" aria-hidden="true" class="anchor" id="named-functions-in-modules"></a>Named Functions (in modules)</h3>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Math</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>           <span class="c1"># Public</span>
+
+  <span class="k">defp</span> <span class="n">validate</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">when</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">n</span>  <span class="c1"># Private</span>
+  <span class="k">defp</span> <span class="n">validate</span><span class="p">(</span><span class="n">_</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="k">raise</span> <span class="s2">"must be positive"</span>
+
+  <span class="c1"># Multi-clause with guards</span>
+  <span class="k">def</span> <span class="n">divide</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:division_by_zero</span><span class="p">}</span>
+  <span class="k">def</span> <span class="n">divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_number</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_number</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">}</span>
+
+  <span class="c1"># Default arguments</span>
+  <span class="k">def</span> <span class="n">increment</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">step</span> <span class="p">\\</span> <span class="mi">1</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">n</span> <span class="o">+</span> <span class="n">step</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#anonymous-functions" aria-hidden="true" class="anchor" id="anonymous-functions"></a>Anonymous Functions</h3>
+<pre class="highlight"><code><span class="n">add</span> <span class="o">=</span> <span class="k">fn</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">end</span>
+<span class="n">add</span><span class="o">.</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>                    <span class="c1"># =&gt; 3 (note the dot)</span>
+
+<span class="c1"># Shorthand capture syntax</span>
+<span class="n">add</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="nv">&amp;2</span><span class="p">)</span>
+<span class="n">add</span><span class="o">.</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>                    <span class="c1"># =&gt; 3</span>
+
+<span class="n">double</span> <span class="o">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">double</span><span class="p">)</span>  <span class="c1"># =&gt; [2, 4, 6]</span>
+
+<span class="c1"># Capture named function</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="no">Math</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">upcase</span> <span class="o">=</span> <span class="o">&amp;</span><span class="no">String</span><span class="o">.</span><span class="n">upcase</span><span class="o">/</span><span class="mi">1</span>     <span class="c1"># Capture with arity</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span> <span class="n">upcase</span><span class="p">)</span> <span class="c1"># =&gt; ["A", "B"]</span>
+</code></pre>
+<h3><a href="#key-distinction-named-vs-anonymous" aria-hidden="true" class="anchor" id="key-distinction-named-vs-anonymous"></a>Key Distinction: Named vs Anonymous</h3>
+<pre class="highlight"><code><span class="c1"># Named function - called without dot</span>
+<span class="no">Math</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Anonymous function - called WITH dot</span>
+<span class="n">add</span> <span class="o">=</span> <span class="k">fn</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">end</span>
+<span class="n">add</span><span class="o">.</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre>
+<h2><a href="#the-pipe-operator" aria-hidden="true" class="anchor" id="the-pipe-operator"></a>The Pipe Operator</h2>
+<pre class="highlight"><code><span class="c1"># Without pipe (nested calls)</span>
+<span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">trim</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">downcase</span><span class="p">(</span><span class="s2">"  HELLO WORLD  "</span><span class="p">)))</span>
+
+<span class="c1"># With pipe (left-to-right, result becomes first arg)</span>
+<span class="s2">"  HELLO WORLD  "</span>
+<span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">downcase</span><span class="p">()</span>
+<span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>
+<span class="o">|&gt;</span> <span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="c1"># =&gt; ["hello", "world"]</span>
+
+<span class="c1"># Common pattern with Enum</span>
+<span class="n">users</span>
+<span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span><span class="o">.</span><span class="n">active</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span> <span class="nv">&amp;1</span><span class="o">.</span><span class="n">email</span><span class="p">)</span>
+<span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre>
+<h2><a href="#control-flow" aria-hidden="true" class="anchor" id="control-flow"></a>Control Flow</h2>
+<pre class="highlight"><code><span class="c1"># if/else (rare in idiomatic Elixir — prefer pattern matching)</span>
+<span class="k">if</span> <span class="n">condition</span> <span class="k">do</span>
+  <span class="s2">"yes"</span>
+<span class="k">else</span>
+  <span class="s2">"no"</span>
+<span class="k">end</span>
+
+<span class="c1"># unless</span>
+<span class="k">unless</span> <span class="n">logged_in?</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">redirect</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="ss">to:</span> <span class="s2">"/login"</span><span class="p">)</span>
+
+<span class="c1"># cond (first truthy match)</span>
+<span class="k">cond</span> <span class="k">do</span>
+  <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">13</span> <span class="o">-&gt;</span> <span class="s2">"child"</span>
+  <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">18</span> <span class="o">-&gt;</span> <span class="s2">"teenager"</span>
+  <span class="no">true</span> <span class="o">-&gt;</span> <span class="s2">"adult"</span>         <span class="c1"># Default clause</span>
+<span class="k">end</span>
+
+<span class="c1"># case (pattern matching)</span>
+<span class="k">case</span> <span class="n">value</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">result</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">result</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:not_found</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">nil</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="k">raise</span> <span class="n">reason</span>
+<span class="k">end</span>
+
+<span class="c1"># with (happy path chaining — early exit on mismatch)</span>
+<span class="n">with</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">user</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="n">fetch_user</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+     <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">profile</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="n">fetch_profile</span><span class="p">(</span><span class="n">user</span><span class="p">),</span>
+     <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">avatar</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="n">fetch_avatar</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="p">%{</span><span class="ss">user:</span> <span class="n">user</span><span class="p">,</span> <span class="ss">avatar:</span> <span class="n">avatar</span><span class="p">}}</span>
+<span class="k">else</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#modules--behaviours" aria-hidden="true" class="anchor" id="modules--behaviours"></a>Modules &amp; Behaviours</h2>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Greeter</span> <span class="k">do</span>
+  <span class="nv">@moduledoc</span> <span class="s2">"Handles greetings"</span>     <span class="c1"># Module documentation</span>
+  <span class="nv">@greeting</span> <span class="s2">"Hello"</span>                   <span class="c1"># Module attribute (compile-time constant)</span>
+
+  <span class="nv">@doc</span> <span class="s2">"Greets a person by name"</span>
+  <span class="k">def</span> <span class="n">greet</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="s2">"</span><span class="si">#{</span><span class="nv">@greeting</span><span class="si">}</span><span class="s2">, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">!"</span>
+<span class="k">end</span>
+
+<span class="c1"># Behaviours (like interfaces)</span>
+<span class="k">defmodule</span> <span class="no">Parser</span> <span class="k">do</span>
+  <span class="nv">@callback</span> <span class="n">parse</span><span class="p">(</span><span class="no">String</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="p">::</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">term</span><span class="p">()}</span> <span class="o">|</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="no">String</span><span class="o">.</span><span class="n">t</span><span class="p">()}</span>
+<span class="k">end</span>
+
+<span class="k">defmodule</span> <span class="no">JSONParser</span> <span class="k">do</span>
+  <span class="nv">@behaviour</span> <span class="no">Parser</span>
+
+  <span class="nv">@impl</span> <span class="no">Parser</span>
+  <span class="k">def</span> <span class="n">parse</span><span class="p">(</span><span class="n">str</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Jason</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#use-import-alias-require" aria-hidden="true" class="anchor" id="use-import-alias-require"></a>use, import, alias, require</h3>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyModule</span> <span class="k">do</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span><span class="o">.</span><span class="no">User</span>         <span class="c1"># User instead of MyApp.Accounts.User</span>
+  <span class="n">alias</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Accounts</span><span class="o">.</span><span class="p">{</span><span class="no">User</span><span class="p">,</span> <span class="no">Role</span><span class="p">}</span> <span class="c1"># Multiple aliases</span>
+
+  <span class="kn">import</span> <span class="no">Enum</span><span class="p">,</span> <span class="ss">only:</span> <span class="p">[</span><span class="ss">map:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">filter:</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Bring functions into scope</span>
+  <span class="kn">import</span> <span class="no">Enum</span><span class="p">,</span> <span class="ss">except:</span> <span class="p">[</span><span class="ss">split:</span> <span class="mi">2</span><span class="p">]</span>
+
+  <span class="kn">require</span> <span class="no">Logger</span>                    <span class="c1"># Needed for macros (compile-time)</span>
+
+  <span class="kn">use</span> <span class="no">GenServer</span>                     <span class="c1"># Calls GenServer.__using__/1 macro</span>
+  <span class="c1"># 'use' injects code — it's a macro that typically adds functions/behaviour</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#enum--stream" aria-hidden="true" class="anchor" id="enum--stream"></a>Enum &amp; Stream</h2>
+<pre class="highlight"><code><span class="c1"># Enum (eager — processes entire collection)</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>              <span class="c1"># =&gt; [2, 4, 6]</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))</span>           <span class="c1"># =&gt; [2, 3]</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">reject</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))</span>           <span class="c1"># =&gt; [1]</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="nv">&amp;2</span><span class="p">))</span>       <span class="c1"># =&gt; 6</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">any?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">))</span>             <span class="c1"># =&gt; true</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">all?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span>             <span class="c1"># =&gt; true</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">find</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))</span>             <span class="c1"># =&gt; 2</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">count</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>                        <span class="c1"># =&gt; 3</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">sort_by</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="o">&amp;</span> <span class="nv">&amp;1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="o">&amp;</span> <span class="nv">&amp;1</span><span class="o">.</span><span class="n">role</span><span class="p">)</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">zip</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">])</span>                  <span class="c1"># =&gt; [{1, :a}, {2, :b}]</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">flat_map</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]],</span> <span class="o">&amp;</span><span class="no">Function</span><span class="o">.</span><span class="n">identity</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># =&gt; [1, 2, 3]</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">chunk_every</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="mi">2</span><span class="p">)</span>        <span class="c1"># =&gt; [[1, 2], [3, 4], [5]]</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="o">&amp;</span><span class="no">IO</span><span class="o">.</span><span class="n">inspect</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span>              <span class="c1"># Side effects (returns :ok)</span>
+
+<span class="c1"># Stream (lazy — computes on demand)</span>
+<span class="mi">1</span><span class="o">..</span><span class="mi">1_000_000</span>
+<span class="o">|&gt;</span> <span class="no">Stream</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">rem</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="no">Stream</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+<span class="o">|&gt;</span> <span class="no">Enum</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>                              <span class="c1"># Only computes 5 values</span>
+<span class="c1"># =&gt; [4, 8, 12, 16, 20]</span>
+
+<span class="c1"># Infinite streams</span>
+<span class="no">Stream</span><span class="o">.</span><span class="n">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>                <span class="c1"># 0, 1, 2, 3, ...</span>
+<span class="no">Stream</span><span class="o">.</span><span class="n">cycle</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>                      <span class="c1"># 1, 2, 3, 1, 2, 3, ...</span>
+<span class="no">Stream</span><span class="o">.</span><span class="n">repeatedly</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="ss">:rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="k">end</span><span class="p">)</span> <span class="c1"># Random numbers forever</span>
+</code></pre>
+<h2><a href="#maps--structs" aria-hidden="true" class="anchor" id="maps--structs"></a>Maps &amp; Structs</h2>
+<pre class="highlight"><code><span class="c1"># Map operations</span>
+<span class="n">map</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">age:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="n">map</span><span class="o">.</span><span class="n">name</span>                              <span class="c1"># =&gt; "Tom" (atom key access)</span>
+<span class="n">map</span><span class="p">[</span><span class="ss">:name</span><span class="p">]</span>                            <span class="c1"># =&gt; "Tom" (bracket access, returns nil for missing)</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>                   <span class="c1"># =&gt; "Tom"</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:missing</span><span class="p">,</span> <span class="s2">"default"</span><span class="p">)</span>     <span class="c1"># =&gt; "default"</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="s2">"tom@test.com"</span><span class="p">)</span>  <span class="c1"># Returns new map</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="p">%{</span><span class="ss">age:</span> <span class="mi">31</span><span class="p">})</span>           <span class="c1"># Returns new map</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:age</span><span class="p">)</span>                 <span class="c1"># Returns new map</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">keys</span><span class="p">(</span><span class="n">map</span><span class="p">)</span>                         <span class="c1"># =&gt; [:age, :name]</span>
+<span class="no">Map</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">map</span><span class="p">)</span>                       <span class="c1"># =&gt; [30, "Tom"]</span>
+
+<span class="c1"># Update syntax (key must exist)</span>
+<span class="p">%{</span><span class="n">map</span> <span class="o">|</span> <span class="ss">age:</span> <span class="mi">31</span><span class="p">}</span>                      <span class="c1"># =&gt; %{name: "Tom", age: 31}</span>
+<span class="p">%{</span><span class="n">map</span> <span class="o">|</span> <span class="ss">missing:</span> <span class="s2">"x"</span><span class="p">}</span>                 <span class="c1"># ** (KeyError)</span>
+
+<span class="c1"># Nested access/update</span>
+<span class="n">users</span> <span class="o">=</span> <span class="p">%{</span><span class="ss">tom:</span> <span class="p">%{</span><span class="ss">age:</span> <span class="mi">30</span><span class="p">}}</span>
+<span class="n">get_in</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:tom</span><span class="p">,</span> <span class="ss">:age</span><span class="p">])</span>           <span class="c1"># =&gt; 30</span>
+<span class="n">put_in</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:tom</span><span class="p">,</span> <span class="ss">:age</span><span class="p">],</span> <span class="mi">31</span><span class="p">)</span>       <span class="c1"># =&gt; %{tom: %{age: 31}}</span>
+<span class="n">update_in</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="p">[</span><span class="ss">:tom</span><span class="p">,</span> <span class="ss">:age</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="nv">&amp;1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Structs</span>
+<span class="k">defmodule</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="k">defstruct</span> <span class="p">[</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">active:</span> <span class="no">true</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="n">new</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span> <span class="k">do</span>
+    <span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">,</span> <span class="ss">email:</span> <span class="n">email</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">}</span>
+<span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="n">name</span><span class="p">}</span> <span class="o">=</span> <span class="n">user</span>              <span class="c1"># Pattern match on struct type</span>
+<span class="n">user</span><span class="o">.</span><span class="n">active</span>                            <span class="c1"># =&gt; true</span>
+<span class="p">%{</span><span class="n">user</span> <span class="o">|</span> <span class="ss">active:</span> <span class="no">false</span><span class="p">}</span>                <span class="c1"># Update (same syntax as maps)</span>
+</code></pre>
+<h2><a href="#processes--concurrency" aria-hidden="true" class="anchor" id="processes--concurrency"></a>Processes &amp; Concurrency</h2>
+<pre class="highlight"><code><span class="c1"># Spawn a process</span>
+<span class="n">pid</span> <span class="o">=</span> <span class="n">spawn</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello from process"</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+
+<span class="c1"># Send and receive messages</span>
+<span class="n">pid</span> <span class="o">=</span> <span class="n">spawn</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span>
+  <span class="k">receive</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:greet</span><span class="p">,</span> <span class="n">name</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Hello, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="n">send</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:greet</span><span class="p">,</span> <span class="s2">"Tom"</span><span class="p">})</span>
+
+<span class="c1"># Self</span>
+<span class="n">self</span><span class="p">()</span>                                <span class="c1"># Current process PID</span>
+
+<span class="c1"># Process links (crash together)</span>
+<span class="n">spawn_link</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="k">raise</span> <span class="s2">"boom"</span> <span class="k">end</span><span class="p">)</span>   <span class="c1"># Crashes the caller too</span>
+
+<span class="c1"># Monitors (notification on crash, no crash propagation)</span>
+<span class="n">ref</span> <span class="o">=</span> <span class="no">Process</span><span class="o">.</span><span class="n">monitor</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+<span class="k">receive</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:DOWN</span><span class="p">,</span> <span class="o">^</span><span class="n">ref</span><span class="p">,</span> <span class="ss">:process</span><span class="p">,</span> <span class="o">^</span><span class="n">pid</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Process died: </span><span class="si">#{</span><span class="n">reason</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Tasks (high-level async)</span>
+<span class="n">task</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="n">expensive_work</span><span class="p">()</span> <span class="k">end</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">await</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>             <span class="c1"># Blocks until done (5s default timeout)</span>
+
+<span class="c1"># Multiple tasks</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="no">Enum</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">urls</span><span class="p">,</span> <span class="o">&amp;</span><span class="no">Task</span><span class="o">.</span><span class="n">async</span><span class="p">(</span><span class="k">fn</span> <span class="o">-&gt;</span> <span class="no">HTTP</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nv">&amp;1</span><span class="p">)</span> <span class="k">end</span><span class="p">))</span>
+<span class="n">results</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">await_many</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+</code></pre>
+<h2><a href="#genserver-generic-server" aria-hidden="true" class="anchor" id="genserver-generic-server"></a>GenServer (Generic Server)</h2>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">Counter</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">GenServer</span>
+
+  <span class="c1"># Client API</span>
+  <span class="k">def</span> <span class="n">start_link</span><span class="p">(</span><span class="n">initial</span> <span class="p">\\</span> <span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">GenServer</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="ss">name:</span> <span class="bp">__MODULE__</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">increment</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:increment</span><span class="p">)</span>
+  <span class="k">def</span> <span class="n">get_count</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="no">GenServer</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="bp">__MODULE__</span><span class="p">,</span> <span class="ss">:get</span><span class="p">)</span>
+
+  <span class="c1"># Server callbacks</span>
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">init</span><span class="p">(</span><span class="n">initial</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">initial</span><span class="p">}</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">handle_cast</span><span class="p">(</span><span class="ss">:increment</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:noreply</span><span class="p">,</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">}</span>
+
+  <span class="nv">@impl</span> <span class="no">true</span>
+  <span class="k">def</span> <span class="n">handle_call</span><span class="p">(</span><span class="ss">:get</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="ss">:reply</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">count</span><span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># Usage</span>
+<span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">_pid</span><span class="p">}</span> <span class="o">=</span> <span class="no">Counter</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="no">Counter</span><span class="o">.</span><span class="n">increment</span><span class="p">()</span>
+<span class="no">Counter</span><span class="o">.</span><span class="n">get_count</span><span class="p">()</span>   <span class="c1"># =&gt; 1</span>
+</code></pre>
+<h3><a href="#genserver-call-vs-cast" aria-hidden="true" class="anchor" id="genserver-call-vs-cast"></a>GenServer Call vs Cast</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>call</code></th>
+<th><code>cast</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Synchronous?</td>
+<td>Yes (blocks caller)</td>
+<td>No (fire-and-forget)</td>
+</tr>
+<tr>
+<td>Returns</td>
+<td>Reply value</td>
+<td><code>:ok</code></td>
+</tr>
+<tr>
+<td>Callback</td>
+<td><code>handle_call/3</code></td>
+<td><code>handle_cast/2</code></td>
+</tr>
+<tr>
+<td>Use when</td>
+<td>You need the result</td>
+<td>You don't need a response</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#supervisors" aria-hidden="true" class="anchor" id="supervisors"></a>Supervisors</h2>
+<pre class="highlight"><code><span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Application</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Application</span>
+
+  <span class="k">def</span> <span class="n">start</span><span class="p">(</span><span class="n">_type</span><span class="p">,</span> <span class="n">_args</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="no">Counter</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span>                           <span class="c1"># Child spec</span>
+      <span class="p">{</span><span class="no">MyApp</span><span class="o">.</span><span class="no">Worker</span><span class="p">,</span> <span class="p">[]},</span>
+      <span class="p">{</span><span class="no">Task</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">TaskSupervisor</span><span class="p">},</span>
+    <span class="p">]</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="p">[</span><span class="ss">strategy:</span> <span class="ss">:one_for_one</span><span class="p">,</span> <span class="ss">name:</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">Supervisor</span><span class="p">]</span>
+    <span class="no">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#supervision-strategies" aria-hidden="true" class="anchor" id="supervision-strategies"></a>Supervision Strategies</h3>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>:one_for_one</code></td>
+<td>Only restart the failed child</td>
+</tr>
+<tr>
+<td><code>:one_for_all</code></td>
+<td>Restart all children if one fails</td>
+</tr>
+<tr>
+<td><code>:rest_for_one</code></td>
+<td>Restart the failed child and all children started after it</td>
+</tr>
+</tbody>
+</table>
+<h2><a href="#error-handling" aria-hidden="true" class="anchor" id="error-handling"></a>Error Handling</h2>
+<pre class="highlight"><code><span class="c1"># Pattern matching on tagged tuples (preferred)</span>
+<span class="k">case</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"data.txt"</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">contents</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="n">process</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">:enoent</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"File not found"</span><span class="p">)</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">reason</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Error: </span><span class="si">#{</span><span class="n">reason</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># try/rescue (rare — for unexpected errors)</span>
+<span class="k">try</span> <span class="k">do</span>
+  <span class="n">risky_operation</span><span class="p">()</span>
+<span class="k">rescue</span>
+  <span class="n">e</span> <span class="ow">in</span> <span class="no">RuntimeError</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Runtime error: </span><span class="si">#{</span><span class="n">e</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="no">ArgumentError</span> <span class="o">-&gt;</span> <span class="no">IO</span><span class="o">.</span><span class="n">puts</span><span class="p">(</span><span class="s2">"Bad argument"</span><span class="p">)</span>
+<span class="k">after</span>
+  <span class="n">cleanup</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="c1"># raise / throw</span>
+<span class="k">raise</span> <span class="s2">"something went wrong"</span>
+<span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="ss">message:</span> <span class="s2">"bad value"</span>
+
+<span class="c1"># Bang functions (raise on error)</span>
+<span class="no">File</span><span class="o">.</span><span class="n">read!</span><span class="p">(</span><span class="s2">"data.txt"</span><span class="p">)</span>               <span class="c1"># Returns contents or raises</span>
+<span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"data.txt"</span><span class="p">)</span>                <span class="c1"># Returns {:ok, contents} or {:error, reason}</span>
+</code></pre>
+<h3><a href="#convention--functions" aria-hidden="true" class="anchor" id="convention--functions"></a>Convention: <code>!</code> Functions</h3>
+<pre class="highlight"><code><span class="c1"># Functions often come in pairs:</span>
+<span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">"f.txt"</span><span class="p">)</span>      <span class="c1"># =&gt; {:ok, "..."} or {:error, reason}</span>
+<span class="no">File</span><span class="o">.</span><span class="n">read!</span><span class="p">(</span><span class="s2">"f.txt"</span><span class="p">)</span>     <span class="c1"># =&gt; "..." or raises File.Error</span>
+
+<span class="no">Enum</span><span class="o">.</span><span class="n">fetch</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>    <span class="c1"># =&gt; {:ok, 1}</span>
+<span class="no">Enum</span><span class="o">.</span><span class="n">fetch!</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># =&gt; 1</span>
+
+<span class="c1"># Use non-bang when you want to handle the error</span>
+<span class="c1"># Use bang when failure is unexpected / should crash</span>
+</code></pre>
+<h2><a href="#strings--sigils" aria-hidden="true" class="anchor" id="strings--sigils"></a>Strings &amp; Sigils</h2>
+<pre class="highlight"><code><span class="c1"># Interpolation</span>
+<span class="s2">"Hello, </span><span class="si">#{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="c1"># Multiline</span>
+<span class="sd">"""
+Hello,
+World
+"""</span>
+
+<span class="c1"># Sigils</span>
+<span class="sx">~s(string with "quotes")</span>             <span class="c1"># String</span>
+<span class="sr">~r/regex pattern/</span>                      <span class="c1"># Regex</span>
+<span class="sx">~w(foo bar baz)</span>                        <span class="c1"># Word list =&gt; ["foo", "bar", "baz"]</span>
+<span class="sx">~w(foo bar baz)a</span>                       <span class="c1"># Atom word list =&gt; [:foo, :bar, :baz]</span>
+<span class="sx">~D[2024-01-15]</span>                         <span class="c1"># Date</span>
+<span class="sx">~T[13:45:00]</span>                           <span class="c1"># Time</span>
+<span class="sx">~U[2024-01-15 13:45:00Z]</span>              <span class="c1"># UTC DateTime</span>
+
+<span class="c1"># String functions</span>
+<span class="no">String</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>                 <span class="c1"># =&gt; 5</span>
+<span class="no">String</span><span class="o">.</span><span class="n">upcase</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>                 <span class="c1"># =&gt; "HELLO"</span>
+<span class="no">String</span><span class="o">.</span><span class="n">downcase</span><span class="p">(</span><span class="s2">"HELLO"</span><span class="p">)</span>              <span class="c1"># =&gt; "hello"</span>
+<span class="no">String</span><span class="o">.</span><span class="n">trim</span><span class="p">(</span><span class="s2">"  hello  "</span><span class="p">)</span>              <span class="c1"># =&gt; "hello"</span>
+<span class="no">String</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"a,b,c"</span><span class="p">,</span> <span class="s2">","</span><span class="p">)</span>           <span class="c1"># =&gt; ["a", "b", "c"]</span>
+<span class="no">String</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"l"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>    <span class="c1"># =&gt; "herro"</span>
+<span class="no">String</span><span class="o">.</span><span class="n">starts_with?</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"he"</span><span class="p">)</span>   <span class="c1"># =&gt; true</span>
+<span class="no">String</span><span class="o">.</span><span class="n">contains?</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"ell"</span><span class="p">)</span>     <span class="c1"># =&gt; true</span>
+<span class="no">String</span><span class="o">.</span><span class="n">to_integer</span><span class="p">(</span><span class="s2">"42"</span><span class="p">)</span>              <span class="c1"># =&gt; 42</span>
+</code></pre>
+<h2><a href="#comprehensions" aria-hidden="true" class="anchor" id="comprehensions"></a>Comprehensions</h2>
+<pre class="highlight"><code><span class="c1"># for (not a loop — returns a list by default)</span>
+<span class="n">for</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">do</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="c1"># =&gt; [2, 4, 6]</span>
+
+<span class="c1"># With filter</span>
+<span class="n">for</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">,</span> <span class="n">rem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="k">do</span><span class="p">:</span> <span class="n">x</span>
+<span class="c1"># =&gt; [2, 4, 6, 8, 10]</span>
+
+<span class="c1"># Multiple generators (nested)</span>
+<span class="n">for</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">y</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">],</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">}</span>
+<span class="c1"># =&gt; [{1, :a}, {1, :b}, {2, :a}, {2, :b}]</span>
+
+<span class="c1"># Into (collect into different types)</span>
+<span class="n">for</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="p">%{</span><span class="ss">a:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b:</span> <span class="mi">2</span><span class="p">},</span> <span class="ss">into:</span> <span class="p">%{},</span> <span class="k">do</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}</span>
+<span class="c1"># =&gt; %{a: 2, b: 4}</span>
+
+<span class="c1"># Pattern matching in generators</span>
+<span class="n">for</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">val</span><span class="p">}</span> <span class="o">&lt;-</span> <span class="p">[{</span><span class="ss">:ok</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="mi">3</span><span class="p">}],</span> <span class="k">do</span><span class="p">:</span> <span class="n">val</span>
+<span class="c1"># =&gt; [1, 3] (errors silently skipped)</span>
+</code></pre>
+<h2><a href="#protocols-polymorphism" aria-hidden="true" class="anchor" id="protocols-polymorphism"></a>Protocols (Polymorphism)</h2>
+<pre class="highlight"><code><span class="c1"># Define a protocol</span>
+<span class="k">defprotocol</span> <span class="no">Printable</span> <span class="k">do</span>
+  <span class="nv">@doc</span> <span class="s2">"Converts data to a printable string"</span>
+  <span class="k">def</span> <span class="n">to_str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Implement for different types</span>
+<span class="k">defimpl</span> <span class="no">Printable</span><span class="p">,</span> <span class="ss">for:</span> <span class="no">Integer</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">to_str</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="no">Integer</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">defimpl</span> <span class="no">Printable</span><span class="p">,</span> <span class="ss">for:</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="n">to_str</span><span class="p">(</span><span class="n">user</span><span class="p">),</span> <span class="k">do</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span>
+<span class="k">end</span>
+
+<span class="c1"># Usage</span>
+<span class="no">Printable</span><span class="o">.</span><span class="n">to_str</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>                  <span class="c1"># =&gt; "42"</span>
+<span class="no">Printable</span><span class="o">.</span><span class="n">to_str</span><span class="p">(%</span><span class="no">User</span><span class="p">{</span><span class="ss">name:</span> <span class="s2">"Tom"</span><span class="p">})</span>  <span class="c1"># =&gt; "Tom"</span>
+</code></pre>
+<h2><a href="#testing-exunit" aria-hidden="true" class="anchor" id="testing-exunit"></a>Testing (ExUnit)</h2>
+<pre class="highlight"><code><span class="c1"># test/user_test.exs</span>
+<span class="k">defmodule</span> <span class="no">UserTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">ExUnit</span><span class="o">.</span><span class="no">Case</span><span class="p">,</span> <span class="ss">async:</span> <span class="no">true</span>        <span class="c1"># async: true runs in parallel</span>
+
+  <span class="n">describe</span> <span class="s2">"full_name/1"</span> <span class="k">do</span>
+    <span class="n">test</span> <span class="s2">"returns first and last name"</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">first:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">last:</span> <span class="s2">"Powell"</span><span class="p">}</span>
+      <span class="n">assert</span> <span class="no">User</span><span class="o">.</span><span class="n">full_name</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"Tom Powell"</span>
+    <span class="k">end</span>
+
+    <span class="n">test</span> <span class="s2">"handles missing last name"</span> <span class="k">do</span>
+      <span class="n">user</span> <span class="o">=</span> <span class="p">%</span><span class="no">User</span><span class="p">{</span><span class="ss">first:</span> <span class="s2">"Tom"</span><span class="p">,</span> <span class="ss">last:</span> <span class="no">nil</span><span class="p">}</span>
+      <span class="n">assert</span> <span class="no">User</span><span class="o">.</span><span class="n">full_name</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"Tom"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">test</span> <span class="s2">"raises on invalid input"</span> <span class="k">do</span>
+    <span class="n">assert_raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span>
+      <span class="no">User</span><span class="o">.</span><span class="n">full_name</span><span class="p">(</span><span class="no">nil</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3><a href="#common-assertions" aria-hidden="true" class="anchor" id="common-assertions"></a>Common Assertions</h3>
+<pre class="highlight"><code><span class="n">assert</span> <span class="n">value</span>                           <span class="c1"># Truthy</span>
+<span class="n">refute</span> <span class="n">value</span>                           <span class="c1"># Falsy</span>
+<span class="n">assert</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>                          <span class="c1"># Equality</span>
+<span class="n">assert</span> <span class="n">x</span> <span class="o">=~</span> <span class="sr">~r/pattern/</span>               <span class="c1"># Regex match</span>
+<span class="n">assert_raise</span> <span class="no">RuntimeError</span><span class="p">,</span> <span class="k">fn</span> <span class="o">-&gt;</span> <span class="o">...</span> <span class="k">end</span>
+<span class="n">assert_receive</span> <span class="p">{</span><span class="ss">:msg</span><span class="p">,</span> <span class="n">_</span><span class="p">},</span> <span class="mi">500</span>         <span class="c1"># Process message (with timeout)</span>
+<span class="n">refute_receive</span> <span class="p">{</span><span class="ss">:msg</span><span class="p">,</span> <span class="n">_</span><span class="p">}</span>
+</code></pre>
+<h2><a href="#mix-build-tool" aria-hidden="true" class="anchor" id="mix-build-tool"></a>Mix (Build Tool)</h2>
+<pre class="highlight"><code>mix new myapp                          <span class="c"># Create new project</span>
+mix new myapp <span class="nt">--sup</span>                    <span class="c"># With supervision tree</span>
+mix deps.get                           <span class="c"># Install dependencies</span>
+mix compile                            <span class="c"># Compile project</span>
+mix <span class="nb">test</span>                               <span class="c"># Run tests</span>
+mix <span class="nb">test test</span>/user_test.exs            <span class="c"># Run specific file</span>
+mix <span class="nb">test test</span>/user_test.exs:15         <span class="c"># Run specific line</span>
+mix format                             <span class="c"># Auto-format code</span>
+mix hex.info package_name              <span class="c"># Package info</span>
+iex <span class="nt">-S</span> mix                             <span class="c"># Interactive shell with project loaded</span>
+</code></pre>
+<h2><a href="#dependencies-mixexs" aria-hidden="true" class="anchor" id="dependencies-mixexs"></a>Dependencies (mix.exs)</h2>
+<pre class="highlight"><code><span class="c1"># mix.exs</span>
+<span class="k">defmodule</span> <span class="no">MyApp</span><span class="o">.</span><span class="no">MixProject</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="no">Mix</span><span class="o">.</span><span class="no">Project</span>
+
+  <span class="k">def</span> <span class="n">project</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">app:</span> <span class="ss">:my_app</span><span class="p">,</span>
+      <span class="ss">version:</span> <span class="s2">"0.1.0"</span><span class="p">,</span>
+      <span class="ss">elixir:</span> <span class="s2">"~&gt; 1.15"</span><span class="p">,</span>
+      <span class="ss">deps:</span> <span class="n">deps</span><span class="p">()</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="n">application</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="ss">extra_applications:</span> <span class="p">[</span><span class="ss">:logger</span><span class="p">],</span>
+      <span class="ss">mod:</span> <span class="p">{</span><span class="no">MyApp</span><span class="o">.</span><span class="no">Application</span><span class="p">,</span> <span class="p">[]}</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">defp</span> <span class="n">deps</span> <span class="k">do</span>
+    <span class="p">[</span>
+      <span class="p">{</span><span class="ss">:jason</span><span class="p">,</span> <span class="s2">"~&gt; 1.4"</span><span class="p">},</span>              <span class="c1"># JSON parser</span>
+      <span class="p">{</span><span class="ss">:httpoison</span><span class="p">,</span> <span class="s2">"~&gt; 2.0"</span><span class="p">},</span>          <span class="c1"># HTTP client</span>
+      <span class="p">{</span><span class="ss">:ecto</span><span class="p">,</span> <span class="s2">"~&gt; 3.10"</span><span class="p">},</span>              <span class="c1"># Database wrapper</span>
+      <span class="p">{</span><span class="ss">:ex_machina</span><span class="p">,</span> <span class="s2">"~&gt; 2.7"</span><span class="p">,</span> <span class="ss">only:</span> <span class="ss">:test</span><span class="p">},</span>  <span class="c1"># Test factories</span>
+    <span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2><a href="#key-differences-from-other-languages" aria-hidden="true" class="anchor" id="key-differences-from-other-languages"></a>Key Differences from Other Languages</h2>
+<ul>
+<li>No objects, no classes — modules and functions only</li>
+<li>No mutation — all data is immutable, functions return new data</li>
+<li><code>=</code> is pattern matching, not assignment</li>
+<li>Anonymous functions use <code>.()</code> to call: <code>func.(args)</code></li>
+<li>No <code>for</code> loops in the traditional sense — use <code>Enum</code>, <code>Stream</code>, or comprehensions</li>
+<li>No <code>null</code> — use <code>nil</code>, and tagged tuples (<code>{:ok, val}</code> / <code>{:error, reason}</code>) for control flow</li>
+<li>Processes are not threads — they're isolated, share nothing, communicate via messages</li>
+<li>&quot;Let it crash&quot; — don't code defensively, let supervisors handle failures</li>
+<li>Tail-call optimization is real — recursion replaces loops</li>
+<li><strong>Elixir is NOT Erlang</strong>: Elixir compiles to BEAM bytecode and can call Erlang directly, but has its own syntax, tooling, and standard library</li>
+</ul>
+<p>That's the essential Elixir. The rest is exploring OTP patterns, the rich standard library, and the ecosystem of Hex packages.</p>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>
