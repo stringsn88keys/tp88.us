@@ -378,6 +378,67 @@
 
 <span class="n">greet</span> <span class="p">{</span> <span class="o">|</span><span class="nb">name</span><span class="o">|</span> <span class="s2">"Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span> <span class="p">}</span>
 </code></pre>
+<h2><a href="#branching" aria-hidden="true" class="anchor" id="branching"></a>Branching</h2>
+<pre class="highlight"><code><span class="c1"># if/elsif/else</span>
+<span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">90</span>
+  <span class="s2">"A"</span>
+<span class="k">elsif</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">80</span>
+  <span class="s2">"B"</span>
+<span class="k">else</span>
+  <span class="s2">"C"</span>
+<span class="k">end</span>
+
+<span class="c1"># if as expression (returns a value)</span>
+<span class="n">grade</span> <span class="o">=</span> <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="k">then</span> <span class="s2">"A"</span> <span class="k">elsif</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">80</span> <span class="k">then</span> <span class="s2">"B"</span> <span class="k">else</span> <span class="s2">"C"</span> <span class="k">end</span>
+
+<span class="c1"># Inline if (modifier form)</span>
+<span class="nb">puts</span> <span class="s2">"passed"</span> <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">60</span>
+
+<span class="c1"># unless (inverse of if)</span>
+<span class="k">unless</span> <span class="n">user</span><span class="p">.</span><span class="nf">admin?</span>
+  <span class="n">redirect_to</span> <span class="n">root_path</span>
+<span class="k">end</span>
+
+<span class="c1"># Inline unless</span>
+<span class="k">raise</span> <span class="s2">"unauthorized"</span> <span class="k">unless</span> <span class="n">user</span><span class="p">.</span><span class="nf">admin?</span>
+
+<span class="c1"># case/when (uses === for matching)</span>
+<span class="k">case</span> <span class="n">value</span>
+<span class="k">when</span> <span class="no">String</span>
+  <span class="s2">"it's a string"</span>
+<span class="k">when</span> <span class="mi">1</span><span class="o">..</span><span class="mi">10</span>
+  <span class="s2">"between 1 and 10"</span>
+<span class="k">when</span> <span class="sr">/\A\d+\z/</span>
+  <span class="s2">"looks like digits"</span>
+<span class="k">when</span> <span class="ss">:active</span><span class="p">,</span> <span class="ss">:pending</span>
+  <span class="s2">"one of these symbols"</span>
+<span class="k">else</span>
+  <span class="s2">"something else"</span>
+<span class="k">end</span>
+
+<span class="c1"># case with no argument (acts like if/elsif)</span>
+<span class="k">case</span>
+<span class="k">when</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="k">then</span> <span class="s2">"A"</span>
+<span class="k">when</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="mi">80</span> <span class="k">then</span> <span class="s2">"B"</span>
+<span class="k">else</span> <span class="s2">"C"</span>
+<span class="k">end</span>
+
+<span class="c1"># case/in - pattern matching (Ruby 3.0+)</span>
+<span class="k">case</span> <span class="n">response</span>
+<span class="k">in</span> <span class="p">{</span> <span class="ss">status: </span><span class="mi">200</span><span class="p">,</span> <span class="ss">body: </span><span class="no">String</span> <span class="o">=&gt;</span> <span class="n">body</span> <span class="p">}</span>
+  <span class="n">process</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+<span class="k">in</span> <span class="p">{</span> <span class="ss">status: </span><span class="mi">404</span> <span class="p">}</span>
+  <span class="n">not_found</span>
+<span class="k">in</span> <span class="p">{</span> <span class="ss">status: </span><span class="p">(</span><span class="mi">500</span><span class="o">..</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">server_error</span>
+<span class="k">end</span>
+</code></pre>
+<p><strong>Key notes</strong>:</p>
+<ul>
+<li><code>case/when</code> uses <code>===</code> (case equality), so classes, ranges, and regexes all work in <code>when</code> clauses</li>
+<li><code>unless</code> doesn't support <code>elsif</code> — use <code>if/elsif</code> instead if you need multiple branches</li>
+<li>Everything is an expression: <code>if</code>, <code>unless</code>, and <code>case</code> all return values</li>
+</ul>
 <h2><a href="#control-flow-next-break-return-in-different-contexts" aria-hidden="true" class="anchor" id="control-flow-next-break-return-in-different-contexts"></a>Control Flow: next, break, return in Different Contexts</h2>
 <h3><a href="#in-loops" aria-hidden="true" class="anchor" id="in-loops"></a>In Loops</h3>
 <pre class="highlight"><code><span class="c1"># while loop</span>
