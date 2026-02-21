@@ -1,5 +1,5 @@
 #!/bin/bash
-
+## Reset branch to a remote branch and clean out untracked changes
 set -euo pipefail
 
 if [ $# -lt 1 ]; then

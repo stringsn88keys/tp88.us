@@ -8,7 +8,7 @@ require 'json'
 require 'optparse'
 
 OZ_TO_GRAMS = 28.3495
-SIMULTANEOUS_THRESHOLD_OZ_PER_DAY = 3.0
+DEFAULT_G_PER_DAY = 10.0  # fallback projection rate when no finished-bag history
 
 options = { output: 'coffee.html' }
 OptionParser.new do |opts|
@@ -17,147 +17,184 @@ OptionParser.new do |opts|
   opts.on("-h", "--help", "Show this help message") { puts opts; exit }
 end.parse!
 
+def parse_date(str)
+  return nil if str.nil? || str.strip.empty?
+  Date.parse(str.strip.tr('/', '-'))
+end
+
 # Load coffee data
 csv_file = File.join(__dir__, 'data', 'coffee.csv')
 bags = CSV.read(csv_file, headers: true).map do |row|
-  date_str = row['Date'].tr('/', '-')
+  purchased = parse_date(row['Start Date'])
+  opened    = purchased
+  finished  = parse_date(row['End Date'])
   {
-    date: Date.parse(date_str),
-    cost: row['Cost'].to_s.gsub(/[^0-9.]/, '').to_f,
-    store: row['Store'].to_s.strip,
-    name: row['Name'].to_s.strip,
-    size_oz: row['Size'].to_s.gsub(/[^0-9.]/, '').to_f
+    date:     purchased,
+    opened:   opened,
+    finished: finished,
+    cost:     row['Cost'].to_s.gsub(/[^0-9.]/, '').to_f,
+    store:    row['Store'].to_s.strip,
+    name:     row['Name'].to_s.strip,
+    size_oz:  row['Size'].to_s.gsub(/[^0-9.]/, '').to_f
   }
-end.sort_by { |b| b[:date] }
+end.sort_by { |b| b[:opened] }
 
-# Group bags into consumption periods.
-# If consuming the current group's total oz in the time before the next purchase
-# would exceed 3oz/day, the next bag is concurrent (open simultaneously).
-groups = []
-current_group = [bags.first]
-
-bags.each_cons(2) do |_prev, nxt|
-  group_start = current_group.first[:date]
-  days_to_next = (nxt[:date] - group_start).to_i
-  group_oz = current_group.sum { |b| b[:size_oz] }
-
-  if days_to_next > 0 && (group_oz.to_f / days_to_next) > SIMULTANEOUS_THRESHOLD_OZ_PER_DAY
-    # Too fast — bags must be open simultaneously
-    current_group << nxt
-  else
-    # Finalize current group, start new one
-    groups << { bags: current_group, start: group_start, end_date: nxt[:date] }
-    current_group = [nxt]
-  end
+# Determine historical average g/day from bags with known end dates
+finished_bags = bags.select { |b| b[:finished] }
+historical_gpd = if finished_bags.any?
+  total_g    = finished_bags.sum { |b| b[:size_oz] * OZ_TO_GRAMS }
+  total_days = finished_bags.sum { |b| [(b[:finished] - b[:opened]).to_i, 1].max }
+  total_g / total_days.to_f
+else
+  DEFAULT_G_PER_DAY
 end
 
-# Last group: project end date using 30-day trailing average consumption rate
-groups << { bags: current_group, start: current_group.first[:date], end_date: Date.today }
+# Assign end_date to each bag (explicit or projected)
+bags.each do |b|
+  if b[:finished]
+    b[:end_date]  = b[:finished]
+    b[:projected] = false
+  else
+    days          = (b[:size_oz] * OZ_TO_GRAMS / historical_gpd).ceil
+    b[:end_date]  = b[:opened] + days
+    b[:projected] = true
+  end
+  span           = [(b[:end_date] - b[:opened]).to_i, 1].max
+  b[:days]       = span
+  b[:g_per_day]  = b[:size_oz] * OZ_TO_GRAMS / span.to_f
+  b[:cost_per_day] = b[:cost] / span.to_f
+end
 
-if groups.length > 1
-  last_group = groups.last
-  lookback_start = last_group[:start] - 30
-  last_group_oz = last_group[:bags].sum { |b| b[:size_oz] }
+# Group overlapping bags into consumption periods
+groups = []
+unless bags.empty?
+  current_group = [bags.first]
+  group_end = bags.first[:end_date]
 
-  trailing_grams = 0.0
-  trailing_days = 0
-
-  groups[0..-2].each do |g|
-    g_total_oz = g[:bags].sum { |b| b[:size_oz] }
-    g_days = (g[:end_date] - g[:start]).to_i
-    g_days = 1 if g_days < 1
-    g_rate_gpd = g_total_oz * OZ_TO_GRAMS / g_days.to_f
-
-    overlap_start = [g[:start], lookback_start].max
-    overlap_end = [g[:end_date], last_group[:start]].min
-    overlap_days = (overlap_end - overlap_start).to_i
-
-    if overlap_days > 0
-      trailing_grams += overlap_days * g_rate_gpd
-      trailing_days += overlap_days
+  bags[1..].each do |bag|
+    if bag[:opened] < group_end
+      current_group << bag
+      group_end = [group_end, bag[:end_date]].max
+    else
+      groups << current_group
+      current_group = [bag]
+      group_end = bag[:end_date]
     end
   end
-
-  if trailing_days > 0
-    avg_gpd = trailing_grams / trailing_days.to_f
-    projected_days = (last_group_oz * OZ_TO_GRAMS / avg_gpd).ceil
-    last_group[:end_date] = last_group[:start] + projected_days
-    last_group[:projected] = true
-  end
+  groups << current_group
 end
 
-# Calculate per-group metrics
-groups.each do |g|
-  days = (g[:end_date] - g[:start]).to_i
-  days = 1 if days < 1
-  g[:days] = days
-  g[:total_oz] = g[:bags].sum { |b| b[:size_oz] }
-  g[:total_cost] = g[:bags].sum { |b| b[:cost] }
-  g[:oz_per_day] = g[:total_oz] / days.to_f
-  g[:g_per_day] = g[:oz_per_day] * OZ_TO_GRAMS
-  g[:cost_per_day] = g[:total_cost] / days.to_f
+group_data = groups.map do |gbags|
+  start_date = gbags.map { |b| b[:opened] }.min
+  end_date   = gbags.map { |b| b[:end_date] }.max
+  projected  = gbags.any? { |b| b[:projected] }
+  days       = [(end_date - start_date).to_i, 1].max
+  {
+    bags:         gbags,
+    start:        start_date,
+    end_date:     end_date,
+    projected:    projected,
+    days:         days,
+    total_oz:     gbags.sum { |b| b[:size_oz] },
+    total_cost:   gbags.sum { |b| b[:cost] },
+    g_per_day:    gbags.sum { |b| b[:g_per_day] },
+    cost_per_day: gbags.sum { |b| b[:cost_per_day] }
+  }
 end
 
-# Aggregate by month: for each group, distribute its days across months
+# Monthly aggregation: spread each bag's consumption across the months it spans
 monthly_grams = Hash.new(0.0)
-monthly_cost = Hash.new(0.0)
-monthly_days = Hash.new(0)
+monthly_cost  = Hash.new(0.0)
 
-groups.each do |g|
-  current = g[:start]
-  while current < g[:end_date]
-    month_key = current.strftime("%Y-%m")
-    month_end = Date.new(current.year, current.month, -1) + 1 # first of next month
-    period_end = [month_end, g[:end_date]].min
-    days_in_month = (period_end - current).to_i
+bags.each do |b|
+  current = b[:opened]
+  while current < b[:end_date]
+    month_key  = current.strftime("%Y-%m")
+    month_end  = Date.new(current.year, current.month, -1) + 1
+    period_end = [month_end, b[:end_date]].min
+    days_in    = (period_end - current).to_i
 
-    monthly_grams[month_key] += days_in_month * g[:g_per_day]
-    monthly_cost[month_key] += days_in_month * g[:cost_per_day]
-    monthly_days[month_key] += days_in_month
-
+    monthly_grams[month_key] += days_in * b[:g_per_day]
+    monthly_cost[month_key]  += days_in * b[:cost_per_day]
     current = period_end
   end
 end
 
 sorted_months = monthly_grams.keys.sort
 
-# Monthly averages (g/day and $/day for each month)
-monthly_g_per_day = sorted_months.map { |m| (monthly_grams[m] / monthly_days[m]).round(1) }
-monthly_cost_per_day = sorted_months.map { |m| (monthly_cost[m] / monthly_days[m]).round(2) }
+# Unique calendar days covered per month (union of all bag intervals)
+monthly_covered_days = {}
+sorted_months.each do |m|
+  year, month_num = m.split('-').map(&:to_i)
+  month_start = Date.new(year, month_num, 1)
+  next_month  = month_num == 12 ? Date.new(year + 1, 1, 1) : Date.new(year, month_num + 1, 1)
+
+  intervals = bags.filter_map do |b|
+    s = [b[:opened], month_start].max
+    e = [b[:end_date], next_month].min
+    s < e ? [s, e] : nil
+  end.sort_by(&:first)
+
+  covered = 0
+  curr_s = curr_e = nil
+  intervals.each do |s, e|
+    if curr_e.nil?
+      curr_s = s; curr_e = e
+    elsif s <= curr_e
+      curr_e = [curr_e, e].max
+    else
+      covered += (curr_e - curr_s).to_i
+      curr_s = s; curr_e = e
+    end
+  end
+  covered += (curr_e - curr_s).to_i unless curr_e.nil?
+  monthly_covered_days[m] = [covered, 1].max
+end
+
+monthly_g_per_day    = sorted_months.map { |m| (monthly_grams[m] / monthly_covered_days[m]).round(1) }
+monthly_cost_per_day = sorted_months.map { |m| (monthly_cost[m]  / monthly_covered_days[m]).round(2) }
 monthly_grams_totals = sorted_months.map { |m| monthly_grams[m].round(0) }
-monthly_cost_totals = sorted_months.map { |m| monthly_cost[m].round(2) }
+monthly_cost_totals  = sorted_months.map { |m| monthly_cost[m].round(2) }
 
 # Yearly aggregation
 yearly_grams = Hash.new(0.0)
-yearly_cost = Hash.new(0.0)
-yearly_days = Hash.new(0)
+yearly_cost  = Hash.new(0.0)
+yearly_days  = Hash.new(0)
 
 sorted_months.each do |m|
   year = m.split('-').first.to_i
   yearly_grams[year] += monthly_grams[m]
-  yearly_cost[year] += monthly_cost[m]
-  yearly_days[year] += monthly_days[m]
+  yearly_cost[year]  += monthly_cost[m]
+  yearly_days[year]  += monthly_covered_days[m]
 end
 
-sorted_years = yearly_grams.keys.sort
-yearly_g_per_day = sorted_years.map { |y| (yearly_grams[y] / yearly_days[y]).round(1) }
-yearly_cost_per_day = sorted_years.map { |y| (yearly_cost[y] / yearly_days[y]).round(2) }
+sorted_years        = yearly_grams.keys.sort
+yearly_g_per_day    = sorted_years.map { |y| (yearly_grams[y] / yearly_days[y]).round(1) }
+yearly_cost_per_day = sorted_years.map { |y| (yearly_cost[y]  / yearly_days[y]).round(2) }
 yearly_grams_totals = sorted_years.map { |y| yearly_grams[y].round(0) }
-yearly_cost_totals = sorted_years.map { |y| yearly_cost[y].round(2) }
+yearly_cost_totals  = sorted_years.map { |y| yearly_cost[y].round(2) }
 
 # Summary stats
-total_bags = bags.length
-total_spent = bags.sum { |b| b[:cost] }
-total_days = (Date.today - bags.first[:date]).to_i
-total_days = 1 if total_days < 1
-total_oz = bags.sum { |b| b[:size_oz] }
-avg_g_per_day = (total_oz * OZ_TO_GRAMS / total_days).round(1)
+total_bags       = bags.length
+total_spent      = bags.sum { |b| b[:cost] }
+total_oz         = bags.sum { |b| b[:size_oz] }
+first_date       = bags.first[:opened]
+total_days       = [(Date.today - first_date).to_i, 1].max
+avg_g_per_day    = (total_oz * OZ_TO_GRAMS / total_days).round(1)
 avg_cost_per_day = (total_spent / total_days).round(2)
 
-# Build table rows
+# Build purchase history rows
 table_rows = bags.reverse.map do |b|
-  name_html = b[:name].empty? ? '<em>unnamed</em>' : ERB::Util.html_escape(b[:name])
-  store_html = b[:store].empty? ? '<em>unknown</em>' : ERB::Util.html_escape(b[:store])
+  name_html  = b[:name].empty?  ? '<em>unnamed</em>'  : ERB::Util.html_escape(b[:name])
+  store_html = b[:store].empty? ? '<em>unknown</em>'  : ERB::Util.html_escape(b[:store])
+  opened_str = ERB::Util.html_escape(b[:opened].strftime("%Y-%m-%d"))
+  finished_str = if b[:finished]
+    ERB::Util.html_escape(b[:finished].strftime("%Y-%m-%d"))
+  elsif b[:projected]
+    "<em>~#{b[:end_date].strftime("%Y-%m-%d")} (est.)</em>"
+  else
+    '<em>in use</em>'
+  end
   <<~ROW
     <tr>
       <td>#{ERB::Util.html_escape(b[:date].strftime("%Y-%m-%d"))}</td>
@@ -165,16 +202,18 @@ table_rows = bags.reverse.map do |b|
       <td>#{store_html}</td>
       <td>#{b[:size_oz]}oz (#{(b[:size_oz] * OZ_TO_GRAMS).round(0)}g)</td>
       <td>$#{'%.2f' % b[:cost]}</td>
+      <td>#{opened_str}</td>
+      <td>#{finished_str}</td>
     </tr>
   ROW
 end.join
 
-# Build group detail rows
-group_rows = groups.map do |g|
-  bag_names = g[:bags].map { |b| b[:name].empty? ? 'unnamed' : b[:name] }.join(' + ')
+# Build consumption period rows
+group_rows = group_data.map do |g|
+  bag_names    = g[:bags].map { |b| b[:name].empty? ? 'unnamed' : b[:name] }.join(' + ')
   simultaneous = g[:bags].length > 1 ? ' (simultaneous)' : ''
-  end_label = g[:end_date].strftime("%Y-%m-%d")
-  end_label = "~#{end_label} (est.)" if g[:projected]
+  end_label    = g[:end_date].strftime("%Y-%m-%d")
+  end_label    = "~#{end_label} (est.)" if g[:projected]
   <<~ROW
     <tr>
       <td>#{g[:start].strftime("%Y-%m-%d")} &rarr; #{end_label}</td>
@@ -325,11 +364,13 @@ html_output = <<~HTML
   <table class="coffee-table">
     <thead>
       <tr>
-        <th>Date</th>
+        <th>Purchased</th>
         <th>Name</th>
         <th>Store</th>
         <th>Size</th>
         <th>Cost</th>
+        <th>Opened</th>
+        <th>Finished</th>
       </tr>
     </thead>
     <tbody>

@@ -1,4 +1,3 @@
-"aixopenssl3.sh" 23 lines, 693 characters
 ## Try to build openssl 3.0 with ruby 3.0
 curl -k https://www.openssl.org/source/openssl-3.0.11.tar.gz --output openssl-3.0.11.tar.gz
 gzip -d openssl-3.0.11.tar.gz
