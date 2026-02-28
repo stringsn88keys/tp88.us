@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+## Deploy an Apache virtual host with WordPress and Let's Encrypt SSL (domain-only variant)
 
 require 'erb'
 require 'etc'

@@ -4,6 +4,8 @@ require 'open-uri'
 require 'rouge' # For syntax highlighting
 require 'commonmarker' # For GFM rendering
 
+SITE_BASE_URL = 'https://tp88.us'
+
 # Generate the CSS for Rouge's syntax highlighting
 def rouge_css
   theme = Rouge::Themes::ThankfulEyes.new # You can choose a different theme if you prefer
@@ -41,6 +43,53 @@ def file_description(file, base_dir)
            end
          end
   desc == '' ? '' : " - #{desc}"
+end
+
+# Return just the description text (no dash prefix) for a script source file
+def script_description_text(file)
+  case file
+  when /\.ps1/
+    content = File.read(file)
+    if content =~ /\.SYNOPSIS\s*\n\s*(.+)/
+      $1.strip
+    else
+      (content.each_line.grep(/^##/).first || '').gsub(/^##/, '').strip
+    end
+  when /\.rb/, /\.sh/
+    (File.read(file).each_line.grep(/^##/).first || '').gsub(/^##/, '').strip
+  else
+    ''
+  end
+end
+
+# Inject SEO <meta> tags into an HTML file's <head> after the viewport meta.
+# Skips if a meta[name=description] is already present.
+def add_seo_meta(file_path, description:, keywords:, og_title: nil, og_type: 'website', canonical_path: nil)
+  content = File.read(file_path)
+  return if content.include?('name="description"')
+
+  title_match = content.match(/<title>(.*?)<\/title>/im)
+  page_title = og_title || (title_match ? title_match[1].strip : File.basename(file_path))
+  canonical_url = canonical_path ? "#{SITE_BASE_URL}/#{canonical_path}" : nil
+
+  seo_block = +''
+  seo_block << %(\n    <meta name="description" content="#{description}">)
+  seo_block << %(\n    <meta name="keywords" content="#{keywords}">)
+  seo_block << %(\n    <meta name="author" content="Thomas Powell">)
+  seo_block << %(\n    <meta property="og:title" content="#{page_title}">)
+  seo_block << %(\n    <meta property="og:description" content="#{description}">)
+  seo_block << %(\n    <meta property="og:type" content="#{og_type}">)
+  if canonical_url
+    seo_block << %(\n    <meta property="og:url" content="#{canonical_url}">)
+    seo_block << %(\n    <link rel="canonical" href="#{canonical_url}">)
+  end
+
+  # Insert after the viewport meta tag line
+  updated = content.sub(
+    /(<meta\s+name="viewport"[^>]*>)/i,
+    "\\1#{seo_block}"
+  )
+  File.write(file_path, updated)
 end
 
 # Add Google Analytics to existing HTML files
@@ -86,6 +135,11 @@ def generate_highlighted_html(file)
 
   # Get the raw script filename (without path)
   raw_file = File.basename(file)
+  desc_text = script_description_text(file)
+  page_title = File.basename(file)
+  seo_description = desc_text.empty? ? "#{page_title} - a script by Thomas Powell on tp88.us" : desc_text
+  seo_keywords = "#{page_title}, script, Thomas Powell, tp88.us, #{File.extname(file).delete('.')}"
+  canonical_path = "#{file}.html"
 
   File.open("#{file}.html", 'wt') do |f|
     f.puts <<~HTML
@@ -95,6 +149,14 @@ def generate_highlighted_html(file)
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>#{file}</title>
+        <meta name="description" content="#{seo_description}">
+        <meta name="keywords" content="#{seo_keywords}">
+        <meta name="author" content="Thomas Powell">
+        <meta property="og:title" content="#{page_title}">
+        <meta property="og:description" content="#{seo_description}">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="#{SITE_BASE_URL}/#{canonical_path}">
+        <link rel="canonical" href="#{SITE_BASE_URL}/#{canonical_path}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
           body {
@@ -183,7 +245,13 @@ def render_blog_markdown(md_file)
     %(<pre class="highlight"><code>#{highlighted}</code></pre>)
   end
 
+  # Extract a plain-text description from the first non-heading paragraph
+  first_para = markdown.each_line.map(&:rstrip).drop_while { |l| l.start_with?('#') || l.strip.empty? }.first(3).join(' ').gsub(/[`*_]/, '').squeeze(' ').strip
+  blog_description = first_para.length > 20 ? first_para.slice(0, 160).strip : "#{title} - a quick reference guide by Thomas Powell."
+  blog_keywords = "#{title}, Thomas Powell, programming, quick reference, #{File.basename(md_file, '.md').tr('_', ' ')}"
   html_file = md_file.sub(/\.md$/, '.html')
+  blog_canonical_path = html_file
+
   File.open(html_file, 'wt') do |f|
     f.puts <<~HTML
       <!DOCTYPE html>
@@ -192,6 +260,14 @@ def render_blog_markdown(md_file)
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>#{title}</title>
+        <meta name="description" content="#{blog_description}">
+        <meta name="keywords" content="#{blog_keywords}">
+        <meta name="author" content="Thomas Powell">
+        <meta property="og:title" content="#{title}">
+        <meta property="og:description" content="#{blog_description}">
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="#{SITE_BASE_URL}/#{blog_canonical_path}">
+        <link rel="canonical" href="#{SITE_BASE_URL}/#{blog_canonical_path}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
           body {
@@ -294,17 +370,32 @@ end
 # Generate coffee visualization HTML file
 system('ruby', File.join(__dir__, 'visualize_coffee.rb'), '-o', 'coffee.html')
 
-# Add Google Analytics to books HTML files
+# Add Google Analytics and SEO meta to books HTML files
 Dir["books_*.html"].each do |file|
   add_google_analytics(file)
+  add_seo_meta(file,
+    description: "Thomas Powell's reading visualization — interactive chart of books read, #{File.basename(file, '.html').include?('completed') ? 'completed books only' : 'all books including in-progress'}.",
+    keywords: "Thomas Powell, books, reading list, book visualization, Goodreads, reading tracker",
+    canonical_path: file
+  )
 end
 
-# Add Google Analytics to coffee HTML file
+# Add Google Analytics and SEO meta to coffee HTML file
 add_google_analytics('coffee.html')
+add_seo_meta('coffee.html',
+  description: "Thomas Powell's coffee consumption visualization — an interactive chart tracking coffee drinks over time.",
+  keywords: "Thomas Powell, coffee, coffee tracker, visualization, coffee consumption",
+  canonical_path: 'coffee.html'
+)
 
-# Add Google Analytics to calculator HTML files (after ERB rendering)
+# Add Google Analytics and SEO meta to calculator HTML files (after ERB rendering)
 Dir["calculators/*.html"].each do |file|
   add_google_analytics(file)
+  add_seo_meta(file,
+    description: (File.read(file).match(/<title>(.*?)<\/title>/im)&.[](1)&.strip || File.basename(file)) + " — an interactive calculator by Thomas Powell.",
+    keywords: "calculator, #{File.basename(file, '.html').tr('-_', ' ')}, Thomas Powell, tp88.us",
+    canonical_path: file
+  )
 end
 
 # Render GFM markdown files from blog/ to HTML
@@ -328,6 +419,14 @@ File.open('index.html', 'wt') do |f|
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Thomas Powell's File Index</title>
+      <meta name="description" content="Thomas Powell's personal site - scripts, calculators, resumes, blog posts, and book and coffee visualizations.">
+      <meta name="keywords" content="Thomas Powell, scripts, calculators, resumes, Ruby, PowerShell, shell scripts, AWS, DevOps, blog, books, coffee">
+      <meta name="author" content="Thomas Powell">
+      <meta property="og:title" content="Thomas Powell's File Index">
+      <meta property="og:description" content="Thomas Powell's personal site - scripts, calculators, resumes, blog posts, and visualizations.">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="#{SITE_BASE_URL}/">
+      <link rel="canonical" href="#{SITE_BASE_URL}/">
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
       <style>
         body {
@@ -486,6 +585,65 @@ File.open('index.html', 'wt') do |f|
     </html>
   HTML
 end
+
+# Generate robots.txt
+File.write('robots.txt', <<~ROBOTS)
+  User-agent: *
+  Allow: /
+
+  Sitemap: #{SITE_BASE_URL}/sitemap.xml
+ROBOTS
+
+# Generate sitemap.xml
+sitemap_urls = []
+
+# Root index
+sitemap_urls << { loc: "#{SITE_BASE_URL}/", priority: '1.0', changefreq: 'weekly' }
+
+# Resumes
+Dir["resumes/*.html"].each do |f|
+  sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.8', changefreq: 'monthly' }
+end
+
+# Blog
+Dir["blog/*.html"].each do |f|
+  sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.8', changefreq: 'monthly' }
+end
+
+# Books
+%w[books_all.html books_completed.html].each do |f|
+  sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.6', changefreq: 'weekly' }
+end
+
+# Coffee
+sitemap_urls << { loc: "#{SITE_BASE_URL}/coffee.html", priority: '0.5', changefreq: 'weekly' }
+
+# Calculators
+Dir["calculators/*.html"].each do |f|
+  sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.7', changefreq: 'monthly' }
+end
+
+# Scripts
+Dir["scripts/*.sh.html", "scripts/*.rb.html", "scripts/*.ps1.html", "scripts/*.bat.html"].each do |f|
+  sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.5', changefreq: 'monthly' }
+end
+
+today = Time.now.strftime('%Y-%m-%d')
+File.open('sitemap.xml', 'wt') do |f|
+  f.puts '<?xml version="1.0" encoding="UTF-8"?>'
+  f.puts '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+  sitemap_urls.each do |url|
+    f.puts '  <url>'
+    f.puts "    <loc>#{url[:loc]}</loc>"
+    f.puts "    <lastmod>#{today}</lastmod>"
+    f.puts "    <changefreq>#{url[:changefreq]}</changefreq>"
+    f.puts "    <priority>#{url[:priority]}</priority>"
+    f.puts '  </url>'
+  end
+  f.puts '</urlset>'
+end
+
+puts "Generated robots.txt and sitemap.xml (#{sitemap_urls.length} URLs)"
 
 # Sync files to S3
 %x|aws s3 sync . s3://tp88.us|

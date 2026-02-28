@@ -1,3 +1,4 @@
+## Serve tp88.us site locally using Sinatra for development and testing
 require 'sinatra'
 require 'erb'
 

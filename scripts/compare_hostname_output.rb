@@ -1,3 +1,4 @@
+## Compare hostname resolution methods using deprecated and modern Ruby Socket APIs
 require "socket" unless defined?(Socket)
 require "ipaddr" unless defined?(IPAddr)
 

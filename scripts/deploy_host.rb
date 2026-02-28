@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+## Deploy an Apache virtual host with WordPress, MySQL, and Let's Encrypt SSL on Ubuntu
 
 require 'erb'
 require 'etc'

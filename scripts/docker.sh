@@ -1,3 +1,4 @@
+## Build and run a Docker container for OpenSSL and Ruby cross-platform testing
 cd docker
 docker build -t myopensslandruby .
 cd ..

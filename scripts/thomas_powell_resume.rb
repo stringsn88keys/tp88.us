@@ -1,3 +1,4 @@
+## Thomas Powell resume as a Ruby class with experience, skills, education, and certifications
 class ThomasPowell
   attr_reader :name, :title, :website, :objective, :skills, :experience, :education, :certifications
 
