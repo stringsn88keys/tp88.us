@@ -5,6 +5,7 @@ GEM
     commonmarker (2.6.3)
       rb_sys (~> 0.9)
     commonmarker (2.6.3-arm64-darwin)
+    commonmarker (2.6.3-x64-mingw-ucrt)
     logger (1.7.0)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
@@ -33,6 +34,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   ruby
+  x64-mingw-ucrt
 
 DEPENDENCIES
   commonmarker
