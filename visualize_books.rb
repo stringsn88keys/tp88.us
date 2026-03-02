@@ -84,6 +84,12 @@ def calculate_pages_read(book)
     return total_pages
   end
 
+  # Check for explicit pages_read field
+  if book['pages_read']
+    explicit = parse_pages(book['pages_read'].to_s)
+    return explicit if explicit > 0
+  end
+
   # Check for percent_complete
   if book['percent_complete']
     percent = parse_percent(book['percent_complete'])

@@ -37,7 +37,7 @@ bags = CSV.read(csv_file, headers: true).map do |row|
     name:     row['Name'].to_s.strip,
     size_oz:  row['Size'].to_s.gsub(/[^0-9.]/, '').to_f
   }
-end.sort_by { |b| b[:opened] }
+end.sort_by { |b| b[:opened] || Date.new(9999) }
 
 # Determine historical average g/day from bags with known end dates
 finished_bags = bags.select { |b| b[:finished] }
@@ -54,15 +54,24 @@ bags.each do |b|
   if b[:finished]
     b[:end_date]  = b[:finished]
     b[:projected] = false
-  else
+  elsif b[:opened]
     days          = (b[:size_oz] * OZ_TO_GRAMS / historical_gpd).ceil
     b[:end_date]  = b[:opened] + days
     b[:projected] = true
+  else
+    b[:end_date]  = nil
+    b[:projected] = true
   end
-  span           = [(b[:end_date] - b[:opened]).to_i, 1].max
-  b[:days]       = span
-  b[:g_per_day]  = b[:size_oz] * OZ_TO_GRAMS / span.to_f
-  b[:cost_per_day] = b[:cost] / span.to_f
+  if b[:opened] && b[:end_date]
+    span             = [(b[:end_date] - b[:opened]).to_i, 1].max
+    b[:days]         = span
+    b[:g_per_day]    = b[:size_oz] * OZ_TO_GRAMS / span.to_f
+    b[:cost_per_day] = b[:cost] / span.to_f
+  else
+    b[:days]         = nil
+    b[:g_per_day]    = nil
+    b[:cost_per_day] = nil
+  end
 end
 
 # Group overlapping bags into consumption periods
@@ -72,9 +81,9 @@ unless bags.empty?
   group_end = bags.first[:end_date]
 
   bags[1..].each do |bag|
-    if bag[:opened] < group_end
+    if bag[:opened].nil? || group_end.nil? || bag[:opened] < group_end
       current_group << bag
-      group_end = [group_end, bag[:end_date]].max
+      group_end = [group_end, bag[:end_date]].compact.max
     else
       groups << current_group
       current_group = [bag]
@@ -85,10 +94,10 @@ unless bags.empty?
 end
 
 group_data = groups.map do |gbags|
-  start_date = gbags.map { |b| b[:opened] }.min
-  end_date   = gbags.map { |b| b[:end_date] }.max
+  start_date = gbags.map { |b| b[:opened] }.compact.min
+  end_date   = gbags.map { |b| b[:end_date] }.compact.max
   projected  = gbags.any? { |b| b[:projected] }
-  days       = [(end_date - start_date).to_i, 1].max
+  days       = (start_date && end_date) ? [(end_date - start_date).to_i, 1].max : nil
   {
     bags:         gbags,
     start:        start_date,
@@ -97,8 +106,8 @@ group_data = groups.map do |gbags|
     days:         days,
     total_oz:     gbags.sum { |b| b[:size_oz] },
     total_cost:   gbags.sum { |b| b[:cost] },
-    g_per_day:    gbags.sum { |b| b[:g_per_day] },
-    cost_per_day: gbags.sum { |b| b[:cost_per_day] }
+    g_per_day:    gbags.sum { |b| b[:g_per_day].to_f },
+    cost_per_day: gbags.sum { |b| b[:cost_per_day].to_f }
   }
 end
 
@@ -107,6 +116,7 @@ monthly_grams = Hash.new(0.0)
 monthly_cost  = Hash.new(0.0)
 
 bags.each do |b|
+  next unless b[:opened] && b[:end_date]
   current = b[:opened]
   while current < b[:end_date]
     month_key  = current.strftime("%Y-%m")
@@ -130,6 +140,7 @@ sorted_months.each do |m|
   next_month  = month_num == 12 ? Date.new(year + 1, 1, 1) : Date.new(year, month_num + 1, 1)
 
   intervals = bags.filter_map do |b|
+    next nil unless b[:opened] && b[:end_date]
     s = [b[:opened], month_start].max
     e = [b[:end_date], next_month].min
     s < e ? [s, e] : nil
@@ -187,17 +198,20 @@ avg_cost_per_day = (total_spent / total_days).round(2)
 table_rows = bags.reverse.map do |b|
   name_html  = b[:name].empty?  ? '<em>unnamed</em>'  : ERB::Util.html_escape(b[:name])
   store_html = b[:store].empty? ? '<em>unknown</em>'  : ERB::Util.html_escape(b[:store])
-  opened_str = ERB::Util.html_escape(b[:opened].strftime("%Y-%m-%d"))
+  opened_str = b[:opened] ? ERB::Util.html_escape(b[:opened].strftime("%Y-%m-%d")) : '<em>not opened</em>'
   finished_str = if b[:finished]
     ERB::Util.html_escape(b[:finished].strftime("%Y-%m-%d"))
-  elsif b[:projected]
+  elsif b[:opened] && b[:projected]
     "<em>~#{b[:end_date].strftime("%Y-%m-%d")} (est.)</em>"
+  elsif b[:projected]
+    '<em>not opened yet</em>'
   else
     '<em>in use</em>'
   end
+  purchased_str = b[:date] ? ERB::Util.html_escape(b[:date].strftime("%Y-%m-%d")) : '<em>unknown</em>'
   <<~ROW
     <tr>
-      <td>#{ERB::Util.html_escape(b[:date].strftime("%Y-%m-%d"))}</td>
+      <td>#{purchased_str}</td>
       <td>#{name_html}</td>
       <td>#{store_html}</td>
       <td>#{b[:size_oz]}oz (#{(b[:size_oz] * OZ_TO_GRAMS).round(0)}g)</td>
@@ -212,8 +226,8 @@ end.join
 group_rows = group_data.map do |g|
   bag_names    = g[:bags].map { |b| b[:name].empty? ? 'unnamed' : b[:name] }.join(' + ')
   simultaneous = g[:bags].length > 1 ? ' (simultaneous)' : ''
-  end_label    = g[:end_date].strftime("%Y-%m-%d")
-  end_label    = "~#{end_label} (est.)" if g[:projected]
+  end_label    = g[:end_date] ? g[:end_date].strftime("%Y-%m-%d") : 'unknown'
+  end_label    = "~#{end_label} (est.)" if g[:projected] && g[:end_date]
   <<~ROW
     <tr>
       <td>#{g[:start].strftime("%Y-%m-%d")} &rarr; #{end_label}</td>
