@@ -184,6 +184,59 @@ function Get-UruRubies {
     return @()
 }
 
+# Function to remove uru registrations for rubies no longer installed
+# uru ls format: "    335         : ruby 3.3.5 (2024-09-03 ...) [x64-mingw-ucrt]"
+function Remove-StaleUruRubies {
+    param([array]$InstalledRubies)
+
+    Write-Host "`nChecking for stale uru ruby registrations..." -ForegroundColor Cyan
+
+    $uruList = Get-UruRubies
+    $removed = 0
+
+    foreach ($line in $uruList) {
+        if (-not $line.Trim()) { continue }
+
+        # Extract tag — first non-whitespace token, ignoring the "=>" active marker
+        $tag = $null
+        if ($line -match '^\s*(?:=>\s*)?(\S+)\s+:') {
+            $tag = $matches[1]
+        }
+
+        # Extract version from the description (": ruby X.Y.Z ...")
+        $version = $null
+        if ($line -match ':\s+ruby\s+(\d+\.\d+\.\d+)') {
+            $version = $matches[1]
+        }
+
+        if ($tag -and $version) {
+            $stillInstalled = $InstalledRubies | Where-Object { $_.Version -eq $version }
+            if (-not $stillInstalled) {
+                Write-Host "  Removing stale: $tag (Ruby $version not found)" -ForegroundColor Yellow
+                try {
+                    $uruCmd = if ($script:UruCommand -and (Test-Path $script:UruCommand)) { $script:UruCommand } else { "uru" }
+                    "y" | & $uruCmd admin rm $tag
+                    if ($LASTEXITCODE -eq 0) {
+                        $removed++
+                        Write-Host "    Successfully removed!" -ForegroundColor Green
+                    } else {
+                        Write-Host "    Failed to remove (exit code: $LASTEXITCODE)" -ForegroundColor Red
+                    }
+                }
+                catch {
+                    Write-Host "    Failed to remove: $_" -ForegroundColor Red
+                }
+            }
+        }
+    }
+
+    if ($removed -eq 0) {
+        Write-Host "  No stale registrations found." -ForegroundColor Gray
+    }
+
+    return $removed
+}
+
 # Function to invoke uru command
 function Invoke-Uru {
     param([string[]]$Arguments)
@@ -255,6 +308,9 @@ else {
 # Find all Ruby installations
 $rubyInstalls = Find-RubyInstallations
 
+# Remove stale registrations (rubies registered in uru but no longer installed)
+$removed = Remove-StaleUruRubies -InstalledRubies $rubyInstalls
+
 if ($rubyInstalls.Count -eq 0) {
     Write-Host "`nNo Ruby installations found on this system." -ForegroundColor Yellow
     exit 0
@@ -310,6 +366,7 @@ foreach ($ruby in $rubyInstalls) {
 
 Write-Host "`n=== Summary ===" -ForegroundColor Cyan
 Write-Host "Total Ruby installations found: $($rubyInstalls.Count)" -ForegroundColor White
+Write-Host "Stale registrations removed: $removed" -ForegroundColor White
 Write-Host "Already registered: $skipped" -ForegroundColor White
 Write-Host "Newly registered: $registered" -ForegroundColor White
 
