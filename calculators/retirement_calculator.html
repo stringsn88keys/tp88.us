@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Money Calculator — How Long Will It Last?</title>
+    <meta name="description" content="Calculate how long your retirement savings will last given your spending, Social Security income, and investment return rate. Answer questions like: Can I spend $11k/month on $2.2M?">
+    <meta name="keywords" content="retirement calculator, how long will retirement money last, retirement savings calculator, Social Security income, withdrawal rate, portfolio longevity, retirement planning">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="Retirement Money Calculator — How Long Will It Last?">
+    <meta property="og:description" content="See exactly how long your retirement savings will last based on your spending, Social Security income, and investment returns.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tp88.us/calculators/retirement_calculator.html">
+    <link rel="canonical" href="https://tp88.us/calculators/retirement_calculator.html">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a9850 0%, #006837 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a9850 0%, #006837 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .header p { font-size: 1.05em; opacity: 0.9; }
+
+        .scenario-banner {
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin-top: 20px;
+            font-size: 1.05em;
+            font-style: italic;
+        }
+
+        .content { padding: 40px; }
+
+        .input-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .input-section h2 { color: #333; margin-bottom: 25px; }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 7px;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 11px 13px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.05em;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #1a9850;
+        }
+
+        .input-hint {
+            font-size: 0.82em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .button-group { margin-top: 28px; }
+
+        button.primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a9850 0%, #006837 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.15em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(26,152,80,0.35);
+        }
+
+        /* ---- VERDICT ---- */
+        .verdict {
+            display: none;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .verdict.safe { background: linear-gradient(135deg, #1a9850 0%, #006837 100%); }
+        .verdict.caution { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
+        .verdict.danger { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .verdict.infinite { background: linear-gradient(135deg, #2980b9 0%, #1a5276 100%); }
+
+        .verdict h2 { font-size: 2em; margin-bottom: 8px; }
+        .verdict .age { font-size: 3.5em; font-weight: 900; line-height: 1; margin: 10px 0; }
+        .verdict .sub { font-size: 1.1em; opacity: 0.9; }
+        .verdict .detail { font-size: 0.95em; opacity: 0.85; margin-top: 12px; line-height: 1.6; }
+
+        /* ---- SUMMARY CARDS ---- */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .card .value {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #1a9850;
+        }
+
+        .card .value.red { color: #e74c3c; }
+        .card .value.blue { color: #2980b9; }
+
+        /* ---- CHART ---- */
+        .chart-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-section h2 { color: #333; margin-bottom: 20px; }
+
+        canvas {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* ---- TABLE ---- */
+        .table-section { margin-bottom: 30px; }
+        .table-section h2 { color: #333; margin-bottom: 16px; }
+
+        .table-scroll {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95em;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: right;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th:first-child, td:first-child { text-align: left; }
+
+        th {
+            background: linear-gradient(135deg, #1a9850 0%, #006837 100%);
+            color: white;
+            font-size: 0.82em;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        tr:hover { background: #f8f9fa; }
+
+        td.zero { color: #e74c3c; font-weight: 700; }
+        td.low { color: #f39c12; }
+        td.good { color: #1a9850; }
+
+        .toggle-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #1a9850;
+            border: 2px solid #1a9850;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover { background: #1a9850; color: white; }
+
+        .table-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .table-wrapper.open { max-height: 6000px; }
+
+        /* ---- INFO BOXES ---- */
+        .info-box {
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 20px;
+            line-height: 1.65;
+        }
+
+        .info-box.tip {
+            background: #e8f5e9;
+            border-left: 5px solid #1a9850;
+            color: #1b5e20;
+        }
+
+        .info-box.warn {
+            background: #fff8e1;
+            border-left: 5px solid #f39c12;
+            color: #7d5a00;
+        }
+
+        .info-box h4 { margin-bottom: 8px; font-size: 1em; }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.05em;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            display: inline-block;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .footer-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        @media (max-width: 640px) {
+            .header h1 { font-size: 1.6em; }
+            .content { padding: 20px; }
+            .verdict .age { font-size: 2.6em; }
+            th, td { padding: 9px 10px; font-size: 0.88em; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>How Long Will My Retirement Money Last?</h1>
+        <p>Enter your savings, spending, Social Security, and expected returns to find out.</p>
+        <div class="scenario-banner">
+            "I'm 69 with $2.2M. Can I spend $11,000/month without running out?"
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="input-section">
+            <h2>Your Numbers</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="savings">Current Savings ($)</label>
+                    <input type="number" id="savings" value="2200000" step="10000" min="0">
+                    <div class="input-hint">Total investable retirement assets</div>
+                </div>
+                <div class="input-group">
+                    <label for="age">Current Age</label>
+                    <input type="number" id="age" value="69" step="1" min="50" max="100">
+                </div>
+                <div class="input-group">
+                    <label for="spending">Monthly Spending ($)</label>
+                    <input type="number" id="spending" value="11000" step="100" min="0">
+                    <div class="input-hint">Total monthly expenses (today's dollars)</div>
+                </div>
+                <div class="input-group">
+                    <label for="ssi">Social Security / Pension ($/mo)</label>
+                    <input type="number" id="ssi" value="2000" step="100" min="0">
+                    <div class="input-hint">Combined SSI, pension, or annuity income</div>
+                </div>
+                <div class="input-group">
+                    <label for="returnRate">Expected Annual Return (%)</label>
+                    <input type="number" id="returnRate" value="6" step="0.5" min="0" max="15">
+                    <div class="input-hint">Conservative: 4–5% · Moderate: 6–7% · Aggressive: 8%+</div>
+                </div>
+                <div class="input-group">
+                    <label for="inflation">Annual Inflation (%)</label>
+                    <input type="number" id="inflation" value="3" step="0.5" min="0" max="10">
+                    <div class="input-hint">Historical avg ~3%. Your spending grows each year.</div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="primary" onclick="calculate()">Calculate</button>
+            </div>
+        </div>
+
+        <!-- VERDICT -->
+        <div class="verdict" id="verdict">
+            <h2 id="verdictHeading"></h2>
+            <div class="age" id="verdictAge"></div>
+            <div class="sub" id="verdictSub"></div>
+            <div class="detail" id="verdictDetail"></div>
+        </div>
+
+        <!-- SUMMARY CARDS -->
+        <div class="summary-grid" id="summaryGrid" style="display:none;">
+            <div class="card">
+                <h3>Net Monthly Draw</h3>
+                <div class="value" id="cardNet"></div>
+            </div>
+            <div class="card">
+                <h3>Withdrawal Rate</h3>
+                <div class="value" id="cardRate"></div>
+            </div>
+            <div class="card">
+                <h3>Portfolio Peak</h3>
+                <div class="value blue" id="cardPeak"></div>
+            </div>
+            <div class="card">
+                <h3>Remaining at 90</h3>
+                <div class="value" id="cardAt90"></div>
+            </div>
+        </div>
+
+        <!-- CHART -->
+        <div class="chart-section" id="chartSection" style="display:none;">
+            <h2>Portfolio Balance Over Time</h2>
+            <canvas id="chart" height="320"></canvas>
+        </div>
+
+        <!-- INFO BOXES -->
+        <div id="infoBoxes" style="display:none;">
+            <div class="info-box tip" id="infoTip"></div>
+            <div class="info-box warn" id="infoWarn" style="display:none;"></div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-section" id="tableSection" style="display:none;">
+            <button class="toggle-btn" onclick="toggleTable()">
+                <span id="tableToggleText">Show Year-by-Year Table</span>
+            </button>
+            <div class="table-wrapper" id="tableWrapper">
+                <div class="table-scroll">
+                    <table id="yearTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align:center; padding: 20px;">
+    <a href="/" class="footer-link">&larr; Back to tp88.us</a>
+</div>
+
+<script>
+function fmt(n) {
+    if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return '$' + Math.round(n).toLocaleString();
+    return '$' + Math.round(n).toLocaleString();
+}
+
+function fmtFull(n) {
+    return '$' + Math.round(n).toLocaleString();
+}
+
+function calculate() {
+    const savings   = parseFloat(document.getElementById('savings').value)   || 0;
+    const age       = parseInt(document.getElementById('age').value)          || 65;
+    const spending  = parseFloat(document.getElementById('spending').value)   || 0;
+    const ssi       = parseFloat(document.getElementById('ssi').value)        || 0;
+    const retRate   = parseFloat(document.getElementById('returnRate').value) || 0;
+    const infRate   = parseFloat(document.getElementById('inflation').value)  || 0;
+
+    const monthlyReturn = retRate / 100 / 12;
+    const annualInflation = infRate / 100;
+
+    // Simulate year by year
+    const years = [];
+    let balance = savings;
+    let depleted = false;
+    let depletionAge = null;
+    let peakBalance = savings;
+    let peakAge = age;
+    let balanceAt90 = null;
+    const maxAge = 110;
+
+    for (let yr = 0; yr <= maxAge - age; yr++) {
+        const currentAge = age + yr;
+        const inflFactor = Math.pow(1 + annualInflation, yr);
+        const grossSpend = spending * inflFactor;
+        const netDraw = Math.max(0, grossSpend - ssi);
+        const netDrawAnnual = netDraw * 12;
+
+        // Simulate 12 months
+        let startBal = balance;
+        for (let m = 0; m < 12; m++) {
+            balance = balance * (1 + monthlyReturn) - netDraw;
+            if (balance <= 0) {
+                balance = 0;
+                if (!depleted) {
+                    depleted = true;
+                    // Interpolate within the year
+                    depletionAge = currentAge + m / 12;
+                }
+                break;
+            }
+        }
+
+        if (balance > peakBalance) {
+            peakBalance = balance;
+            peakAge = currentAge + 1;
+        }
+
+        if (currentAge === 90) balanceAt90 = balance;
+
+        years.push({
+            age: currentAge,
+            startBalance: startBal,
+            endBalance: balance,
+            grossSpend: grossSpend,
+            netDraw: netDraw,
+            ssi: ssi,
+        });
+
+        if (depleted) break;
+    }
+
+    if (balanceAt90 === null) {
+        // If we never reached 90 or never depleted before 90
+        const lastYear = years[years.length - 1];
+        if (lastYear.age >= 90) {
+            balanceAt90 = lastYear.endBalance;
+        } else if (!depleted) {
+            // Extend to 90 if we have money left (shouldn't happen given maxAge=110)
+            balanceAt90 = balance;
+        } else {
+            balanceAt90 = 0;
+        }
+    }
+
+    const netMonthly = Math.max(0, spending - ssi);
+    const withdrawalRate = savings > 0 ? (netMonthly * 12 / savings) * 100 : 0;
+
+    // --- VERDICT ---
+    const verdictEl   = document.getElementById('verdict');
+    const verdictAge  = document.getElementById('verdictAge');
+    const verdictHead = document.getElementById('verdictHeading');
+    const verdictSub  = document.getElementById('verdictSub');
+    const verdictDet  = document.getElementById('verdictDetail');
+
+    verdictEl.className = 'verdict';
+    verdictEl.style.display = 'block';
+
+    if (!depleted) {
+        verdictEl.classList.add('infinite');
+        verdictHead.textContent = 'Your money never runs out';
+        verdictAge.textContent = '∞';
+        verdictSub.textContent = `Balance at age ${maxAge}: ${fmt(balance)}`;
+        verdictDet.textContent =
+            `At a ${withdrawalRate.toFixed(1)}% net withdrawal rate, your portfolio grows or sustains indefinitely ` +
+            `through age ${maxAge} under these assumptions. You are in excellent shape.`;
+    } else {
+        const yearsLeft = depletionAge - age;
+        const ageLabel = depletionAge >= 100 ? depletionAge.toFixed(0) : depletionAge.toFixed(1);
+
+        if (depletionAge >= 95) {
+            verdictEl.classList.add('safe');
+            verdictHead.textContent = 'Money lasts until age';
+        } else if (depletionAge >= 85) {
+            verdictEl.classList.add('caution');
+            verdictHead.textContent = 'Caution — runs out at age';
+        } else {
+            verdictEl.classList.add('danger');
+            verdictHead.textContent = 'Warning — runs out at age';
+        }
+
+        verdictAge.textContent = ageLabel;
+        verdictSub.textContent = `That's ${yearsLeft.toFixed(1)} years from now (${new Date().getFullYear() + Math.floor(yearsLeft)})`;
+        verdictDet.textContent =
+            `Net withdrawal rate: ${withdrawalRate.toFixed(1)}% of portfolio per year. ` +
+            (depletionAge < 90
+                ? 'Consider reducing spending or increasing SSI/pension income.'
+                : 'Your plan looks solid for typical life expectancy.');
+    }
+
+    // --- SUMMARY CARDS ---
+    document.getElementById('summaryGrid').style.display = 'grid';
+    document.getElementById('cardNet').textContent = fmtFull(netMonthly) + '/mo';
+    const rateEl = document.getElementById('cardRate');
+    rateEl.textContent = withdrawalRate.toFixed(1) + '%';
+    rateEl.className = 'value' + (withdrawalRate > 5 ? ' red' : '');
+    document.getElementById('cardPeak').textContent = fmt(peakBalance) + (peakAge !== age ? ` (age ${peakAge})` : '');
+    const at90El = document.getElementById('cardAt90');
+    at90El.textContent = balanceAt90 > 0 ? fmt(balanceAt90) : 'Depleted';
+    at90El.className = 'value' + (balanceAt90 <= 0 ? ' red' : '');
+
+    // --- INFO BOXES ---
+    document.getElementById('infoBoxes').style.display = 'block';
+    const tipEl  = document.getElementById('infoTip');
+    const warnEl = document.getElementById('infoWarn');
+
+    tipEl.innerHTML = `<h4>Your Scenario</h4>` +
+        `You need <strong>${fmtFull(netMonthly)}/month</strong> from your portfolio after ` +
+        `<strong>${fmtFull(ssi)}/month</strong> in Social Security/pension income covers part of your ` +
+        `<strong>${fmtFull(spending)}/month</strong> in spending. ` +
+        `That's a <strong>${withdrawalRate.toFixed(1)}% annual withdrawal rate</strong>. ` +
+        `The classic "4% rule" suggests 4% is a safe floor for a 30-year retirement. ` +
+        (withdrawalRate <= 4
+            ? 'You are comfortably below the 4% threshold.'
+            : withdrawalRate <= 5
+            ? 'You are slightly above 4% — still manageable with good returns.'
+            : 'You are above 5% — consider cutting spending or boosting income sources.');
+
+    if (infRate > 0 && spending > 0) {
+        const spendIn20 = spending * Math.pow(1 + infRate / 100, 20);
+        warnEl.style.display = 'block';
+        warnEl.innerHTML = `<h4>Inflation Impact</h4>` +
+            `At ${infRate}% inflation, today's <strong>${fmtFull(spending)}/month</strong> spending ` +
+            `becomes <strong>${fmtFull(spendIn20)}/month</strong> in 20 years. ` +
+            `Your Social Security income typically gets annual COLA adjustments, but other fixed income may not keep up.`;
+    } else {
+        warnEl.style.display = 'none';
+    }
+
+    // --- CHART ---
+    document.getElementById('chartSection').style.display = 'block';
+    drawChart(years, savings);
+
+    // --- TABLE ---
+    document.getElementById('tableSection').style.display = 'block';
+    buildTable(years);
+
+    // Scroll to verdict
+    document.getElementById('verdict').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function drawChart(years, savings) {
+    const canvas = document.getElementById('chart');
+    const dpr = window.devicePixelRatio || 1;
+    const displayW = canvas.parentElement.clientWidth - 60;
+    const displayH = 300;
+
+    canvas.style.width  = displayW + 'px';
+    canvas.style.height = displayH + 'px';
+    canvas.width  = displayW * dpr;
+    canvas.height = displayH * dpr;
+
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const W = displayW, H = displayH;
+    const pad = { top: 20, right: 20, bottom: 40, left: 70 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    const maxBal = Math.max(savings, ...years.map(y => y.endBalance)) * 1.05;
+    const ages = years.map(y => y.age);
+    const minAge = ages[0], maxAge = ages[ages.length - 1];
+
+    function xPos(a) { return pad.left + (a - minAge) / (maxAge - minAge) * plotW; }
+    function yPos(v) { return pad.top + (1 - v / maxBal) * plotH; }
+
+    // Grid lines
+    ctx.strokeStyle = '#e9ecef';
+    ctx.lineWidth = 1;
+    for (let i = 0; i <= 4; i++) {
+        const v = maxBal * i / 4;
+        const y = yPos(v);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(pad.left + plotW, y);
+        ctx.stroke();
+
+        // Y labels
+        ctx.fillStyle = '#888';
+        ctx.font = '11px sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText(fmt(v), pad.left - 6, y + 4);
+    }
+
+    // Age axis labels
+    ctx.fillStyle = '#888';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center';
+    const ageStep = maxAge - minAge > 30 ? 10 : 5;
+    for (let a = Math.ceil(minAge / ageStep) * ageStep; a <= maxAge; a += ageStep) {
+        const x = xPos(a);
+        ctx.fillText('Age ' + a, x, H - pad.bottom + 18);
+        ctx.strokeStyle = '#e9ecef';
+        ctx.beginPath();
+        ctx.moveTo(x, pad.top);
+        ctx.lineTo(x, pad.top + plotH);
+        ctx.stroke();
+    }
+
+    // Danger zone background (below 20% of original)
+    const dangerLevel = savings * 0.2;
+    const dangerY = yPos(dangerLevel);
+    ctx.fillStyle = 'rgba(231,76,60,0.07)';
+    ctx.fillRect(pad.left, dangerY, plotW, pad.top + plotH - dangerY);
+
+    // Draw balance line
+    ctx.beginPath();
+    ctx.strokeStyle = '#1a9850';
+    ctx.lineWidth = 3;
+    ctx.lineJoin = 'round';
+
+    years.forEach((yr, i) => {
+        const x = xPos(yr.age);
+        const y = yPos(yr.endBalance);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    // Fill under the line
+    ctx.lineTo(xPos(years[years.length - 1].age), pad.top + plotH);
+    ctx.lineTo(xPos(years[0].age), pad.top + plotH);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(26,152,80,0.12)';
+    ctx.fill();
+
+    // Starting point dot
+    ctx.beginPath();
+    ctx.arc(xPos(years[0].age), yPos(years[0].startBalance), 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a9850';
+    ctx.fill();
+}
+
+function buildTable(years) {
+    const table = document.getElementById('yearTable');
+    let html = `<thead><tr>
+        <th>Age</th>
+        <th>Portfolio (Start)</th>
+        <th>Annual Spending</th>
+        <th>SSI Income</th>
+        <th>Net Draw</th>
+        <th>Portfolio (End)</th>
+    </tr></thead><tbody>`;
+
+    years.forEach(yr => {
+        const balClass = yr.endBalance <= 0 ? 'zero' : yr.endBalance < 200000 ? 'low' : 'good';
+        html += `<tr>
+            <td>${yr.age}</td>
+            <td>${fmtFull(yr.startBalance)}</td>
+            <td>${fmtFull(yr.grossSpend * 12)}</td>
+            <td>${fmtFull(yr.ssi * 12)}</td>
+            <td>${fmtFull(yr.netDraw * 12)}</td>
+            <td class="${balClass}">${yr.endBalance <= 0 ? 'Depleted' : fmtFull(yr.endBalance)}</td>
+        </tr>`;
+    });
+
+    html += '</tbody>';
+    table.innerHTML = html;
+}
+
+function toggleTable() {
+    const wrapper = document.getElementById('tableWrapper');
+    const text    = document.getElementById('tableToggleText');
+    const open    = wrapper.classList.toggle('open');
+    text.textContent = open ? 'Hide Year-by-Year Table' : 'Show Year-by-Year Table';
+}
+
+// Run on load with defaults
+window.addEventListener('load', calculate);
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>
