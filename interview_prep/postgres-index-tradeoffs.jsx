@@ -1,0 +1,622 @@
+import { useState, useEffect, useRef } from "react";
+
+const COLORS = {
+  bg: "#0a0e17",
+  surface: "#111827",
+  surfaceAlt: "#1a2235",
+  border: "#1e2d4a",
+  accent: "#22d3ee",
+  accentDim: "#0e7490",
+  warning: "#f59e0b",
+  danger: "#ef4444",
+  success: "#10b981",
+  text: "#e2e8f0",
+  textDim: "#64748b",
+  textMuted: "#475569",
+  heap: "#6366f1",
+  index: "#22d3ee",
+  vacuum: "#a855f7",
+  write: "#f97316",
+};
+
+const font = `'JetBrains Mono', 'Fira Code', 'SF Mono', monospace`;
+const sansFont = `'DM Sans', 'Segoe UI', system-ui, sans-serif`;
+
+// Mini bar chart component
+function MiniBar({ value, max, color, label, unit = "" }) {
+  const pct = Math.min((value / max) * 100, 100);
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+        <span style={{ fontSize: 11, color: COLORS.textDim, fontFamily: sansFont }}>{label}</span>
+        <span style={{ fontSize: 11, color, fontFamily: font, fontWeight: 600 }}>
+          {typeof value === "number" ? value.toFixed(1) : value}{unit}
+        </span>
+      </div>
+      <div style={{ height: 6, background: COLORS.surfaceAlt, borderRadius: 3, overflow: "hidden" }}>
+        <div
+          style={{
+            height: "100%",
+            width: `${pct}%`,
+            background: `linear-gradient(90deg, ${color}88, ${color})`,
+            borderRadius: 3,
+            transition: "width 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+// Animated counter
+function AnimNum({ value, decimals = 1, style = {} }) {
+  const [display, setDisplay] = useState(value);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    let start = display;
+    let end = value;
+    let startTime = null;
+    const duration = 400;
+    function step(ts) {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(start + (end - start) * eased);
+      if (progress < 1) ref.current = requestAnimationFrame(step);
+    }
+    ref.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(ref.current);
+  }, [value]);
+
+  return <span style={style}>{display.toFixed(decimals)}</span>;
+}
+
+// Selectivity demo
+function SelectivityDemo() {
+  const [selectivity, setSelectivity] = useState(0.05);
+  const totalRows = 100;
+  const selectedRows = Math.round(totalRows * selectivity);
+  const seqScanCost = totalRows * 0.3;
+  const indexScanCost = selectedRows * 1.2 + 4;
+  const plannerChoice = indexScanCost < seqScanCost ? "Index Scan" : "Seq Scan";
+  const crossover = 0.15;
+
+  const rows = [];
+  for (let i = 0; i < totalRows; i++) {
+    const isSelected = i < selectedRows;
+    rows.push(
+      <div
+        key={i}
+        style={{
+          width: 7,
+          height: 7,
+          borderRadius: 2,
+          background: isSelected ? COLORS.accent : COLORS.surfaceAlt,
+          border: `1px solid ${isSelected ? COLORS.accent : COLORS.border}`,
+          transition: "all 0.3s",
+          opacity: isSelected ? 1 : 0.4,
+        }}
+      />
+    );
+  }
+
+  return (
+    <div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <span style={{ fontSize: 12, color: COLORS.textDim, fontFamily: sansFont }}>
+            Selectivity: <span style={{ color: COLORS.accent, fontFamily: font }}>{(selectivity * 100).toFixed(0)}%</span> of rows match
+          </span>
+          <span
+            style={{
+              fontSize: 11,
+              fontFamily: font,
+              padding: "2px 8px",
+              borderRadius: 4,
+              background: plannerChoice === "Index Scan" ? `${COLORS.success}22` : `${COLORS.warning}22`,
+              color: plannerChoice === "Index Scan" ? COLORS.success : COLORS.warning,
+              border: `1px solid ${plannerChoice === "Index Scan" ? COLORS.success : COLORS.warning}44`,
+            }}
+          >
+            → {plannerChoice}
+          </span>
+        </div>
+        <input
+          type="range"
+          min={0.01}
+          max={0.95}
+          step={0.01}
+          value={selectivity}
+          onChange={(e) => setSelectivity(parseFloat(e.target.value))}
+          style={{ width: "100%", accentColor: COLORS.accent }}
+        />
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: COLORS.textMuted, fontFamily: font }}>
+          <span>1%</span>
+          <span style={{ color: COLORS.warning }}>~15% crossover</span>
+          <span>95%</span>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 3,
+          padding: 12,
+          background: COLORS.bg,
+          borderRadius: 8,
+          border: `1px solid ${COLORS.border}`,
+          marginBottom: 12,
+        }}
+      >
+        {rows}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div style={{ padding: 10, background: COLORS.bg, borderRadius: 6, border: `1px solid ${COLORS.border}` }}>
+          <div style={{ fontSize: 10, color: COLORS.textMuted, marginBottom: 4, fontFamily: sansFont }}>Index Scan Cost</div>
+          <div style={{ fontSize: 18, fontFamily: font, color: indexScanCost < seqScanCost ? COLORS.success : COLORS.danger }}>
+            <AnimNum value={indexScanCost} />
+          </div>
+        </div>
+        <div style={{ padding: 10, background: COLORS.bg, borderRadius: 6, border: `1px solid ${COLORS.border}` }}>
+          <div style={{ fontSize: 10, color: COLORS.textMuted, marginBottom: 4, fontFamily: sansFont }}>Seq Scan Cost</div>
+          <div style={{ fontSize: 18, fontFamily: font, color: seqScanCost <= indexScanCost ? COLORS.success : COLORS.danger }}>
+            <AnimNum value={seqScanCost} />
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: 10, fontSize: 11, color: COLORS.textDim, fontFamily: sansFont, lineHeight: 1.5 }}>
+        {selectivity <= crossover
+          ? "✦ Index wins — few enough rows that random heap lookups beat a full scan."
+          : "✦ Seq scan wins — too many rows returned. Random I/O from index lookups costs more than scanning the whole table."}
+      </div>
+    </div>
+  );
+}
+
+// Write amplification demo
+function WriteDemo() {
+  const [indexCount, setIndexCount] = useState(2);
+  const [insertsPerSec, setInsertsPerSec] = useState(500);
+
+  const heapWrites = insertsPerSec;
+  const indexWrites = insertsPerSec * indexCount;
+  const totalWrites = heapWrites + indexWrites;
+  const amplification = totalWrites / heapWrites;
+  const vacuumWork = indexCount * 1.3 + 1;
+  const storageMultiplier = 1 + indexCount * 0.35;
+
+  return (
+    <div>
+      <div style={{ marginBottom: 14 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+          <span style={{ fontSize: 12, color: COLORS.textDim, fontFamily: sansFont }}>
+            Indexes on table: <span style={{ color: COLORS.write, fontFamily: font, fontWeight: 700 }}>{indexCount}</span>
+          </span>
+          <span style={{ fontSize: 12, color: COLORS.textDim, fontFamily: sansFont }}>
+            Inserts/sec: <span style={{ color: COLORS.accent, fontFamily: font }}>{insertsPerSec}</span>
+          </span>
+        </div>
+        <div style={{ display: "flex", gap: 12 }}>
+          <input
+            type="range"
+            min={0}
+            max={20}
+            value={indexCount}
+            onChange={(e) => setIndexCount(parseInt(e.target.value))}
+            style={{ flex: 1, accentColor: COLORS.write }}
+          />
+          <input
+            type="range"
+            min={100}
+            max={5000}
+            step={100}
+            value={insertsPerSec}
+            onChange={(e) => setInsertsPerSec(parseInt(e.target.value))}
+            style={{ flex: 1, accentColor: COLORS.accent }}
+          />
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 10,
+          marginBottom: 14,
+        }}
+      >
+        {[
+          { label: "Write Amplification", value: amplification, unit: "×", color: COLORS.write },
+          { label: "Storage Multiplier", value: storageMultiplier, unit: "×", color: COLORS.heap },
+          { label: "Vacuum Relative Work", value: vacuumWork, unit: "×", color: COLORS.vacuum },
+        ].map(({ label, value, unit, color }) => (
+          <div
+            key={label}
+            style={{
+              padding: 12,
+              background: COLORS.bg,
+              borderRadius: 8,
+              border: `1px solid ${COLORS.border}`,
+              textAlign: "center",
+            }}
+          >
+            <div style={{ fontSize: 10, color: COLORS.textMuted, marginBottom: 6, fontFamily: sansFont }}>{label}</div>
+            <div style={{ fontSize: 22, fontFamily: font, color, fontWeight: 700 }}>
+              <AnimNum value={value} />
+              <span style={{ fontSize: 12 }}>{unit}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <MiniBar value={heapWrites} max={totalWrites} color={COLORS.heap} label="Heap writes/sec" unit="/s" />
+      <MiniBar value={indexWrites} max={totalWrites} color={COLORS.write} label="Index writes/sec" unit="/s" />
+      <MiniBar value={totalWrites} max={50000} color={COLORS.danger} label="Total disk writes/sec" unit="/s" />
+
+      <div style={{ marginTop: 10, padding: 10, background: `${COLORS.write}11`, borderRadius: 6, border: `1px solid ${COLORS.write}33` }}>
+        <div style={{ fontSize: 11, color: COLORS.write, fontFamily: sansFont, lineHeight: 1.5 }}>
+          {indexCount === 0
+            ? "No indexes — fastest writes, but queries will always seq scan."
+            : indexCount <= 5
+            ? `Each INSERT triggers ${indexCount + 1} writes (1 heap + ${indexCount} index B-tree insertions). Manageable.`
+            : indexCount <= 12
+            ? `${indexCount} indexes means every INSERT does ${indexCount + 1} writes. UPDATE is worse — MVCC creates a new row version and ALL ${indexCount} indexes get new entries, even columns that didn't change.`
+            : `${indexCount} indexes is extreme. Writes are ${amplification.toFixed(1)}× amplified. Autovacuum can't keep up, leading to table bloat and degraded read performance — the opposite of what indexes are for.`}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// When NOT to index
+function AntiPatterns() {
+  const patterns = [
+    {
+      title: "Low Cardinality",
+      icon: "◧",
+      example: "status ENUM('active','closed')",
+      why: "80% of rows are 'active' — planner ignores the index and seq scans anyway.",
+      color: COLORS.warning,
+    },
+    {
+      title: "Small Tables",
+      icon: "◻",
+      example: "countries (< 200 rows)",
+      why: "Fits in 1–2 pages. B-tree traversal + heap lookup is slower than reading the whole thing.",
+      color: COLORS.accent,
+    },
+    {
+      title: "Write-Heavy / Read-Light",
+      icon: "▤",
+      example: "event_log (millions inserts/day)",
+      why: "Index maintenance cost 24/7 for a monthly report query is a terrible trade.",
+      color: COLORS.write,
+    },
+    {
+      title: "Leading Wildcard",
+      icon: "◇",
+      example: "WHERE name LIKE '%smith%'",
+      why: "B-tree can't help — needs pg_trgm GIN index, which has its own cost.",
+      color: COLORS.danger,
+    },
+    {
+      title: "Redundant Prefix",
+      icon: "◫",
+      example: "INDEX(a) when INDEX(a,b) exists",
+      why: "Composite index on (a,b) already satisfies queries on just a. Double the maintenance for nothing.",
+      color: COLORS.vacuum,
+    },
+    {
+      title: "Never Queried",
+      icon: "○",
+      example: "internal_notes TEXT",
+      why: "If no WHERE/JOIN/ORDER BY ever touches it, the index is pure overhead. Check pg_stat_user_indexes.",
+      color: COLORS.textMuted,
+    },
+  ];
+
+  const [hoveredIdx, setHoveredIdx] = useState(null);
+
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+      {patterns.map((p, i) => (
+        <div
+          key={i}
+          onMouseEnter={() => setHoveredIdx(i)}
+          onMouseLeave={() => setHoveredIdx(null)}
+          style={{
+            padding: 12,
+            background: hoveredIdx === i ? `${p.color}11` : COLORS.bg,
+            borderRadius: 8,
+            border: `1px solid ${hoveredIdx === i ? p.color + "55" : COLORS.border}`,
+            cursor: "default",
+            transition: "all 0.25s",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+            <span style={{ fontSize: 16, color: p.color }}>{p.icon}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: p.color, fontFamily: sansFont }}>{p.title}</span>
+          </div>
+          <code
+            style={{
+              display: "block",
+              fontSize: 10,
+              color: COLORS.textDim,
+              fontFamily: font,
+              marginBottom: 6,
+              background: COLORS.surfaceAlt,
+              padding: "3px 6px",
+              borderRadius: 4,
+              overflowX: "auto",
+            }}
+          >
+            {p.example}
+          </code>
+          <div style={{ fontSize: 11, color: COLORS.textDim, fontFamily: sansFont, lineHeight: 1.4 }}>{p.why}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Storage visualization
+function StorageViz({ indexCount }) {
+  const heapSize = 100;
+  const indexSizes = Array.from({ length: indexCount }, (_, i) => 15 + Math.random() * 25);
+  const totalIndex = indexSizes.reduce((a, b) => a + b, 0);
+  const total = heapSize + totalIndex;
+  const heapPct = (heapSize / total) * 100;
+
+  return (
+    <div>
+      <div style={{ fontSize: 11, color: COLORS.textDim, fontFamily: sansFont, marginBottom: 8 }}>
+        Disk footprint with <span style={{ color: COLORS.write, fontFamily: font }}>{indexCount}</span> indexes
+      </div>
+      <div style={{ display: "flex", height: 28, borderRadius: 6, overflow: "hidden", border: `1px solid ${COLORS.border}` }}>
+        <div
+          style={{
+            width: `${heapPct}%`,
+            background: `linear-gradient(135deg, ${COLORS.heap}, ${COLORS.heap}cc)`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 9,
+            fontFamily: font,
+            color: "#fff",
+            minWidth: 40,
+            transition: "width 0.5s",
+          }}
+        >
+          HEAP
+        </div>
+        {indexSizes.map((size, i) => {
+          const pct = (size / total) * 100;
+          const hue = 180 + i * 15;
+          return (
+            <div
+              key={i}
+              style={{
+                width: `${pct}%`,
+                background: `hsl(${hue}, 60%, ${30 + (i % 3) * 8}%)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 8,
+                fontFamily: font,
+                color: "#fff9",
+                borderLeft: `1px solid ${COLORS.bg}`,
+                transition: "width 0.5s",
+                minWidth: pct > 3 ? 20 : 0,
+                overflow: "hidden",
+              }}
+            >
+              {pct > 4 ? `idx${i + 1}` : ""}
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4, fontSize: 10, fontFamily: font }}>
+        <span style={{ color: COLORS.heap }}>Heap: {heapSize}MB</span>
+        <span style={{ color: COLORS.index }}>Indexes: {totalIndex.toFixed(0)}MB</span>
+        <span style={{ color: COLORS.text }}>Total: {total.toFixed(0)}MB</span>
+      </div>
+    </div>
+  );
+}
+
+// Main tabs
+const TABS = [
+  { id: "selectivity", label: "Selectivity", icon: "⊕" },
+  { id: "writes", label: "Write Cost", icon: "⟡" },
+  { id: "antipatterns", label: "When NOT To", icon: "⊘" },
+];
+
+export default function IndexTradeoffs() {
+  const [activeTab, setActiveTab] = useState("selectivity");
+  const [indexCount, setIndexCount] = useState(4);
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: COLORS.bg,
+        color: COLORS.text,
+        fontFamily: sansFont,
+        padding: "24px 16px",
+        boxSizing: "border-box",
+      }}
+    >
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+      {/* Header */}
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
+        <div style={{ marginBottom: 6, display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 12, fontFamily: font, color: COLORS.accentDim, letterSpacing: 2, textTransform: "uppercase" }}>
+            PostgreSQL
+          </span>
+        </div>
+        <h1
+          style={{
+            fontSize: 28,
+            fontWeight: 700,
+            margin: "0 0 4px",
+            background: `linear-gradient(135deg, ${COLORS.accent}, ${COLORS.heap})`,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontFamily: sansFont,
+            lineHeight: 1.2,
+          }}
+        >
+          Index Tradeoffs
+        </h1>
+        <p style={{ fontSize: 13, color: COLORS.textDim, margin: "0 0 20px", lineHeight: 1.5 }}>
+          Every index is a B-tree you maintain alongside your heap. More isn't always better.
+        </p>
+
+        {/* Tabs */}
+        <div
+          style={{
+            display: "flex",
+            gap: 4,
+            marginBottom: 20,
+            padding: 4,
+            background: COLORS.surface,
+            borderRadius: 10,
+            border: `1px solid ${COLORS.border}`,
+          }}
+        >
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              style={{
+                flex: 1,
+                padding: "10px 12px",
+                border: "none",
+                borderRadius: 8,
+                background: activeTab === tab.id ? COLORS.surfaceAlt : "transparent",
+                color: activeTab === tab.id ? COLORS.accent : COLORS.textMuted,
+                fontFamily: sansFont,
+                fontSize: 12,
+                fontWeight: activeTab === tab.id ? 700 : 500,
+                cursor: "pointer",
+                transition: "all 0.2s",
+                boxShadow: activeTab === tab.id ? `0 2px 8px ${COLORS.accent}15` : "none",
+              }}
+            >
+              <span style={{ marginRight: 4 }}>{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Content */}
+        <div
+          style={{
+            background: COLORS.surface,
+            borderRadius: 12,
+            border: `1px solid ${COLORS.border}`,
+            padding: 20,
+            marginBottom: 16,
+          }}
+        >
+          {activeTab === "selectivity" && (
+            <div>
+              <h2 style={{ fontSize: 16, margin: "0 0 4px", color: COLORS.text }}>Does the index help?</h2>
+              <p style={{ fontSize: 12, color: COLORS.textDim, margin: "0 0 16px", lineHeight: 1.5 }}>
+                An index only helps when it filters to a <em>small fraction</em> of the table. Drag the slider to see where the planner switches strategy.
+              </p>
+              <SelectivityDemo />
+            </div>
+          )}
+
+          {activeTab === "writes" && (
+            <div>
+              <h2 style={{ fontSize: 16, margin: "0 0 4px", color: COLORS.text }}>The cost of every write</h2>
+              <p style={{ fontSize: 12, color: COLORS.textDim, margin: "0 0 16px", lineHeight: 1.5 }}>
+                Each INSERT/UPDATE must update the heap <em>and</em> every index. PostgreSQL's MVCC makes this worse — UPDATEs create new row versions in all indexes.
+              </p>
+              <WriteDemo />
+            </div>
+          )}
+
+          {activeTab === "antipatterns" && (
+            <div>
+              <h2 style={{ fontSize: 16, margin: "0 0 4px", color: COLORS.text }}>When indexing hurts</h2>
+              <p style={{ fontSize: 12, color: COLORS.textDim, margin: "0 0 16px", lineHeight: 1.5 }}>
+                These are the common cases where adding an index provides no benefit or makes things actively worse.
+              </p>
+              <AntiPatterns />
+            </div>
+          )}
+        </div>
+
+        {/* Storage footer viz */}
+        <div
+          style={{
+            background: COLORS.surface,
+            borderRadius: 12,
+            border: `1px solid ${COLORS.border}`,
+            padding: 16,
+            marginBottom: 16,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            <span style={{ fontSize: 12, color: COLORS.textDim, fontFamily: sansFont }}>Disk footprint simulator</span>
+            <input
+              type="range"
+              min={0}
+              max={20}
+              value={indexCount}
+              onChange={(e) => setIndexCount(parseInt(e.target.value))}
+              style={{ flex: 1, accentColor: COLORS.index }}
+            />
+          </div>
+          <StorageViz indexCount={indexCount} />
+        </div>
+
+        {/* Decision heuristic */}
+        <div
+          style={{
+            background: COLORS.surface,
+            borderRadius: 12,
+            border: `1px solid ${COLORS.border}`,
+            padding: 16,
+          }}
+        >
+          <h3 style={{ fontSize: 13, margin: "0 0 10px", color: COLORS.accent, fontFamily: font }}>-- decision heuristic</h3>
+          <div style={{ fontSize: 12, fontFamily: font, color: COLORS.textDim, lineHeight: 1.8 }}>
+            <div>
+              <span style={{ color: COLORS.success }}>IF</span> column in frequent WHERE/JOIN/ORDER BY
+            </div>
+            <div>
+              <span style={{ color: COLORS.success }}>AND</span> filters to {"<"}15% of rows
+            </div>
+            <div>
+              <span style={{ color: COLORS.success }}>AND</span> table {">"} few thousand rows
+            </div>
+            <div>
+              <span style={{ color: COLORS.success }}>AND</span> not redundant with existing composite
+            </div>
+            <div>
+              <span style={{ color: COLORS.accent }}>THEN</span>{" "}
+              <span style={{ color: COLORS.text }}>CREATE INDEX</span>
+            </div>
+            <div style={{ marginTop: 6 }}>
+              <span style={{ color: COLORS.warning }}>ELSE</span>{" "}
+              <span style={{ color: COLORS.textMuted }}>EXPLAIN (ANALYZE, BUFFERS) first</span>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 16, fontSize: 10, color: COLORS.textMuted, fontFamily: font }}>
+          validate with pg_stat_user_indexes · hypothesize with hypopg
+        </div>
+      </div>
+    </div>
+  );
+}

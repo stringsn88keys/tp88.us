@@ -334,6 +334,77 @@ def render_blog_markdown(md_file)
   end
 end
 
+# Generate a browser-renderable HTML wrapper for a JSX React component.
+# Uses React/ReactDOM UMD globals + Babel standalone so no build step is needed.
+def generate_jsx_html(jsx_file)
+  content = File.read(jsx_file)
+
+  # Extract the default-exported component name (e.g. "TwitterArchitecture")
+  component_name = content[/export\s+default\s+function\s+(\w+)/, 1] || 'App'
+
+  # CamelCase → "Camel Case" for the page title
+  page_title = component_name.gsub(/([A-Z])/, ' \1').strip
+
+  # Transform for browser-side Babel (React UMD globals, no bundler):
+  # 1. Replace named React imports with destructuring from global React
+  transformed = content.gsub(/^import\s*\{([^}]+)\}\s*from\s*['"]react['"]\s*;?\s*$/) do
+    vars = $1.split(',').map(&:strip).join(', ')
+    "const { #{vars} } = React;"
+  end
+  # 2. Drop any remaining import statements
+  transformed = transformed.gsub(/^import\s+\S.*\n/, '')
+  # 3. Strip "export default" from function/class declarations
+  transformed = transformed.gsub(/^export\s+default\s+(?=function|class)/, '')
+
+  output_file = jsx_file.sub(/\.jsx$/, '.html')
+
+  # Write file in two heredoc parts so that `transformed` (which may contain
+  # Ruby interpolation sequences like #{...}) is written verbatim via puts.
+  File.open(output_file, 'wt') do |out|
+    out.print <<~HEADER
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>#{page_title}</title>
+        <meta name="description" content="#{page_title} — systems design interview prep by Thomas Powell.">
+        <meta name="keywords" content="#{page_title}, interview prep, systems design, architecture, Thomas Powell, tp88.us">
+        <meta name="author" content="Thomas Powell">
+        <meta property="og:title" content="#{page_title}">
+        <meta property="og:description" content="#{page_title} — systems design interview prep by Thomas Powell.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="#{SITE_BASE_URL}/#{output_file}">
+        <link rel="canonical" href="#{SITE_BASE_URL}/#{output_file}">
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+      </head>
+      <body>
+        <div id="root"></div>
+        <script type="text/babel" data-presets="react">
+    HEADER
+    out.puts transformed
+    out.print <<~FOOTER
+        ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(#{component_name}));
+      </script>
+
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-QT64MJL0WW');
+      </script>
+    </body>
+    </html>
+    FOOTER
+  end
+
+  puts "Generated #{output_file} from #{jsx_file}"
+end
+
 # Render .erb files to non-.erb versions
 Dir["calculators/*.html.erb"].each do |erb_file|
   rendered_file = erb_file.sub(/\.erb$/, '') # Remove .erb extension
@@ -400,6 +471,9 @@ end
 
 # Render GFM markdown files from blog/ to HTML
 Dir["blog/*.md"].each { |md_file| render_blog_markdown(md_file) }
+
+# Generate HTML wrappers for JSX interview prep files
+Dir["interview_prep/*.jsx"].each { |jsx_file| generate_jsx_html(jsx_file) }
 
 # Add Google Analytics to blog HTML files
 Dir["blog/*.html"].each do |file|
@@ -504,7 +578,33 @@ File.open('index.html', 'wt') do |f|
           <div class="list-group mb-3">
   HTML
 
-  Dir["blog/*.html"].each do |file|
+  Dir["blog/*.html"].reject { |fn| fn.include?('quickstart') }.each do |file|
+    title = File.read(file)[/<title>(.*?)<\/title>/im, 1] || File.basename(file)
+    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{title}</a>|
+  end
+
+  f.puts <<~HTML
+          </div>
+        </details>
+        <details id="quickstart" open>
+          <summary>Technology Quickstart</summary>
+          <div class="list-group mb-3">
+  HTML
+
+  Dir["blog/*quickstart*.html"].each do |file|
+    title = File.read(file)[/<title>(.*?)<\/title>/im, 1] || File.basename(file)
+    f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{title}</a>|
+  end
+
+  f.puts <<~HTML
+          </div>
+        </details>
+        <details id="interview-prep" open>
+          <summary>Interview Prep</summary>
+          <div class="list-group mb-3">
+  HTML
+
+  Dir["interview_prep/*.html"].each do |file|
     title = File.read(file)[/<title>(.*?)<\/title>/im, 1] || File.basename(file)
     f.puts %Q|<a href="#{file}" class="list-group-item list-group-item-action">#{title}</a>|
   end
@@ -623,6 +723,11 @@ Dir["calculators/*.html"].each do |f|
   sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.7', changefreq: 'monthly' }
 end
 
+# Interview Prep
+Dir["interview_prep/*.html"].each do |f|
+  sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.7', changefreq: 'monthly' }
+end
+
 # Scripts
 Dir["scripts/*.sh.html", "scripts/*.rb.html", "scripts/*.ps1.html", "scripts/*.bat.html"].each do |f|
   sitemap_urls << { loc: "#{SITE_BASE_URL}/#{f}", priority: '0.5', changefreq: 'monthly' }
@@ -645,8 +750,8 @@ end
 
 puts "Generated robots.txt and sitemap.xml (#{sitemap_urls.length} URLs)"
 
-# Sync files to S3
-%x|aws s3 sync . s3://tp88.us|
+# Sync files to S3 (exclude JSX source files — HTML wrappers are generated from them)
+%x|aws s3 sync . s3://tp88.us --exclude "*.jsx"|
 
 # Retrieve the CloudFront distribution ID for tp88.us
 distribution_id = %x|aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?@=='tp88.us']].Id" --output text|.strip

@@ -1,0 +1,740 @@
+import { useState } from "react";
+
+const LAYERS = [
+  {
+    id: "edge",
+    label: "Edge & CDN",
+    icon: "🌐",
+    description: "Global traffic ingestion, DDoS protection, and static asset delivery",
+    options: [
+      {
+        tier: "lean",
+        label: "Cloudflare Free/Pro",
+        cost: "$0–$200/mo",
+        robustness: 2,
+        details: "Cloudflare proxying with basic DDoS, global CDN for static assets. Rate limiting via CF Workers. Single origin region.",
+        tradeoffs: "No origin redundancy. CF outages (rare) take you down. Limited custom logic.",
+        tech: ["Cloudflare CDN", "CF Workers (edge logic)", "R2 for assets"],
+      },
+      {
+        tier: "balanced",
+        label: "Cloudflare Enterprise + Multi-Origin",
+        cost: "$3k–$10k/mo",
+        robustness: 3,
+        details: "Enterprise CF with advanced DDoS, load balancing across 2+ origin regions. Argo Smart Routing. Cache API for edge-rendered content.",
+        tradeoffs: "Cost jump is steep. Still dependent on CF as single vendor.",
+        tech: ["Cloudflare Enterprise", "Argo Smart Routing", "Load Balancing", "Cache API"],
+      },
+      {
+        tier: "robust",
+        label: "Multi-CDN + Anycast",
+        cost: "$50k+/mo",
+        robustness: 5,
+        details: "Cloudflare + Fastly + AWS CloudFront in parallel with DNS-level failover. Custom anycast IP space. BGP-level DDoS scrubbing (e.g. Cloudflare Magic Transit). Origin in 3+ regions.",
+        tradeoffs: "Massive operational complexity. Requires dedicated network engineering team.",
+        tech: ["Cloudflare + Fastly + CloudFront", "Magic Transit", "Anycast BGP", "Multi-region origins"],
+      },
+    ],
+  },
+  {
+    id: "api",
+    label: "API Gateway & Auth",
+    icon: "🔑",
+    description: "Request routing, authentication, rate limiting, and API versioning",
+    options: [
+      {
+        tier: "lean",
+        label: "Kong OSS or AWS API Gateway",
+        cost: "$0–$500/mo",
+        robustness: 2,
+        details: "Single-region API Gateway handling JWT validation, rate limiting per user tier, and routing to microservices. OAuth2 via Auth0 or Cognito free tier.",
+        tradeoffs: "No HA for gateway itself. Auth0 free tier has limits. Hard to customize.",
+        tech: ["Kong OSS", "Auth0 Free", "Redis for rate limit state"],
+      },
+      {
+        tier: "balanced",
+        label: "Kong Enterprise or custom Go gateway",
+        cost: "$2k–$8k/mo",
+        robustness: 3,
+        details: "Horizontally scaled gateway pods (k8s), JWT + OAuth2, per-endpoint rate limiting with Redis Cluster. Custom middleware for abuse detection. Blue/green deploys.",
+        tradeoffs: "Redis becomes a critical dependency. Complex to tune rate limits correctly.",
+        tech: ["Kong Enterprise / custom Go", "Redis Cluster", "Keycloak or Auth0 Pro", "Envoy sidecars"],
+      },
+      {
+        tier: "robust",
+        label: "Custom distributed gateway",
+        cost: "$20k+/mo",
+        robustness: 5,
+        details: "In-house gateway (Go/Rust) with distributed rate limiting using token bucket in Redis + fallback local buckets. Multi-region active/active. gRPC internally, REST/GraphQL externally. Dedicated auth service cluster.",
+        tradeoffs: "Requires significant eng investment to build and maintain. Overkill for <100M users.",
+        tech: ["Custom Go/Rust gateway", "Redis Cluster (multi-region)", "gRPC mesh", "Distributed token bucket"],
+      },
+    ],
+  },
+  {
+    id: "fanout",
+    label: "Tweet Fanout & Feed",
+    icon: "📡",
+    description: "The hardest problem: delivering tweets to followers in real-time at scale",
+    options: [
+      {
+        tier: "lean",
+        label: "Pull-on-read (naive)",
+        cost: "$500–$2k/mo",
+        robustness: 1,
+        details: "On feed request, query DB for all followees, fetch their recent tweets, merge and rank. Simple but O(followees) DB reads per user per refresh.",
+        tradeoffs: "Collapses under load. Twitter itself abandoned this. Celebrities with 50M followers destroy DB on every tweet.",
+        tech: ["PostgreSQL", "Simple follow graph query", "Redis cache for hot users"],
+      },
+      {
+        tier: "balanced",
+        label: "Hybrid push/pull with Kafka",
+        cost: "$5k–$20k/mo",
+        robustness: 3,
+        details: "Push fanout via Kafka for users with <10k followers. Pull-on-read for celebrities (>10k followers). Pre-computed feed cache in Redis per user. Async fanout workers consume Kafka partitions.",
+        tradeoffs: "Complex dual-mode logic. Feed cache can grow large. Eventual consistency (feeds update in seconds, not ms).",
+        tech: ["Kafka (fanout topic)", "Redis (feed cache, 800 tweet max)", "Flink for stream processing", "Go fanout workers"],
+      },
+      {
+        tier: "robust",
+        label: "Twitter's actual Earlybird + Summingbird approach",
+        cost: "$100k+/mo",
+        robustness: 5,
+        details: "Full push fanout with tiered fan-out: async workers shard by user_id, write tweet IDs to each follower's Redis timeline. Real-time ranking via ML model (Earlybird). Storm/Flink for stream aggregation. Separate infrastructure for verified/high-follower accounts.",
+        tradeoffs: "Enormous infrastructure. Netflix/Twitter-scale only. Storage cost for 200M DAU * 800 tweet IDs = significant Redis memory.",
+        tech: ["Kafka + Flink", "Redis Cluster (timeline store)", "ML ranking (Earlybird)", "Sharded fanout workers"],
+      },
+    ],
+  },
+  {
+    id: "storage",
+    label: "Primary Storage",
+    icon: "🗄️",
+    description: "Tweets, user data, and social graph storage",
+    options: [
+      {
+        tier: "lean",
+        label: "PostgreSQL (single primary)",
+        cost: "$200–$1k/mo",
+        robustness: 1,
+        details: "RDS PostgreSQL with 1 read replica. Tweets, users, follows all in relational schema. Works fine to ~10M tweets. PgBouncer for connection pooling.",
+        tradeoffs: "Single point of failure. Write throughput caps out around 10k TPS. Schema migrations painful at scale.",
+        tech: ["RDS PostgreSQL", "PgBouncer", "1 read replica"],
+      },
+      {
+        tier: "balanced",
+        label: "PostgreSQL sharded + Cassandra for tweets",
+        cost: "$5k–$30k/mo",
+        robustness: 3,
+        details: "PostgreSQL for user/auth data (sharded by user_id, 4-8 shards). Apache Cassandra for tweet storage (sharded by tweet_id, optimized for time-series write patterns). Redis for hot data.",
+        tradeoffs: "Operational complexity of two databases. Cassandra eventual consistency can surprise. Cross-shard queries become difficult.",
+        tech: ["PostgreSQL (sharded, Citus or manual)", "Cassandra for tweets", "Redis for caching", "Vitess or PgBouncer"],
+      },
+      {
+        tier: "robust",
+        label: "Manhattan (Twitter) / multi-store approach",
+        cost: "$200k+/mo",
+        robustness: 5,
+        details: "Separate purpose-built stores: Cassandra/ScyllaDB for tweets (write-optimized), MySQL/TiDB for relational user data, FlockDB/TAO-like graph DB for social graph. Multiple datacenters, active/active replication. TweetypieDB for tweet metadata.",
+        tradeoffs: "Requires dedicated database infrastructure team. Data consistency across stores is a hard distributed systems problem.",
+        tech: ["ScyllaDB (tweets)", "TiDB or Vitess (users)", "Custom graph store", "Multi-DC replication"],
+      },
+    ],
+  },
+  {
+    id: "search",
+    label: "Search & Indexing",
+    icon: "🔍",
+    description: "Full-text tweet search, trending topics, and content discovery",
+    options: [
+      {
+        tier: "lean",
+        label: "PostgreSQL FTS or Typesense",
+        cost: "$100–$500/mo",
+        robustness: 1,
+        details: "PostgreSQL full-text search with GIN indexes for basic search. Or Typesense (simple, fast) for a real search engine without Elasticsearch complexity.",
+        tradeoffs: "Doesn't scale past ~50M tweets. No semantic search. Trending requires polling queries.",
+        tech: ["PostgreSQL FTS / Typesense", "GIN indexes", "Polling for trends"],
+      },
+      {
+        tier: "balanced",
+        label: "Elasticsearch cluster",
+        cost: "$3k–$15k/mo",
+        robustness: 3,
+        details: "Elasticsearch 3-node cluster with tweet index (sharded by time). Kafka connector for real-time indexing. Kibana for ops. Separate index for users/hashtags. Basic trending via aggregations.",
+        tradeoffs: "ES is operationally heavy. GC pauses. Heap tuning is an art. Index management (ILM) needed.",
+        tech: ["Elasticsearch", "Logstash/Kafka connector", "Kibana", "OpenSearch as OSS alt"],
+      },
+      {
+        tier: "robust",
+        label: "Earlybird (Twitter's real-time search)",
+        cost: "$500k+/mo",
+        robustness: 5,
+        details: "Custom Lucene-based in-memory search (Twitter Earlybird) partitioned by time. Freshness-biased ranking. Blender service merges results across shards. Separate trending detection service using count-min sketch. Semantic search via embedding models.",
+        tradeoffs: "Custom search engines require massive eng investment. Embeddings infra adds ML ops complexity.",
+        tech: ["Custom Lucene (Earlybird)", "Count-min sketch (trends)", "Vector embeddings (semantic)", "Blender merge service"],
+      },
+    ],
+  },
+  {
+    id: "media",
+    label: "Media Storage & Processing",
+    icon: "🖼️",
+    description: "Image, video, and GIF upload, transcoding, and delivery",
+    options: [
+      {
+        tier: "lean",
+        label: "S3 + Lambda transcoding",
+        cost: "$500–$3k/mo",
+        robustness: 2,
+        details: "S3 for storage, Lambda triggered on upload to resize images (sharp) and transcode video (FFmpeg via Lambda or MediaConvert). CloudFront for delivery. Sharp for image processing.",
+        tradeoffs: "Lambda cold starts hurt video uploads. AWS MediaConvert costs add up fast at scale. No adaptive bitrate streaming.",
+        tech: ["S3", "Lambda + Sharp", "AWS Elemental MediaConvert", "CloudFront"],
+      },
+      {
+        tier: "balanced",
+        label: "S3 + dedicated transcoding workers",
+        cost: "$10k–$40k/mo",
+        robustness: 3,
+        details: "S3/R2 for storage. Dedicated Kubernetes workers with FFmpeg for transcoding (HLS adaptive bitrate). Kafka job queue for transcoding tasks. Cloudflare Stream or self-hosted HLS. Separate image CDN (Cloudflare Images or imgix).",
+        tradeoffs: "Transcoding workers need GPU instances for video at scale. Operational overhead for worker fleet.",
+        tech: ["S3 / Cloudflare R2", "FFmpeg workers (k8s)", "HLS / DASH streaming", "imgix or Cloudflare Images"],
+      },
+      {
+        tier: "robust",
+        label: "Custom media pipeline (Twitter BlobStore)",
+        cost: "$200k+/mo",
+        robustness: 5,
+        details: "Custom distributed blob store for durability. Dedicated transcoding cluster with GPU workers (H.264, AV1, VP9). Perceptual hash deduplication. Multi-CDN delivery. NSFW/spam detection on ingest. Multiple quality renditions per upload.",
+        tradeoffs: "Custom blob store is a multi-year engineering project. GPU clusters expensive and hard to right-size.",
+        tech: ["Custom blob store", "GPU transcoding cluster", "Multi-CDN", "Perceptual hashing", "ML content moderation"],
+      },
+    ],
+  },
+  {
+    id: "notifications",
+    label: "Notifications & Real-time",
+    icon: "🔔",
+    description: "Push notifications, WebSocket connections, and real-time feed updates",
+    options: [
+      {
+        tier: "lean",
+        label: "Firebase Cloud Messaging + polling",
+        cost: "$0–$500/mo",
+        robustness: 1,
+        details: "FCM for mobile push (free tier generous). Web uses polling (setInterval, 30s). Server-sent events (SSE) for semi-realtime. Simple. Very limited real-time feel.",
+        tradeoffs: "Polling is wasteful. No true realtime. FCM has delivery delays. Web experience feels dated.",
+        tech: ["Firebase FCM", "Polling / SSE", "Redis pub/sub for server-side fan"],
+      },
+      {
+        tier: "balanced",
+        label: "WebSockets + APNs/FCM",
+        cost: "$3k–$15k/mo",
+        robustness: 3,
+        details: "WebSocket servers (Go/Node) behind a load balancer with sticky sessions. Redis Pub/Sub or Kafka for broadcasting events to correct WebSocket server. APNs (iOS) + FCM (Android) for mobile push via a notification service.",
+        tradeoffs: "Sticky sessions complicate horizontal scaling. WebSocket server becomes stateful. Redis pub/sub doesn't scale to millions of topics.",
+        tech: ["Go WebSocket servers", "Redis Pub/Sub", "APNs + FCM", "Nginx/HAProxy sticky sessions"],
+      },
+      {
+        tier: "robust",
+        label: "Custom notification pipeline",
+        cost: "$50k+/mo",
+        robustness: 5,
+        details: "Dedicated notification service with Kafka consumer groups. Per-user delivery preference engine (quiet hours, digest vs realtime). WebSocket cluster with consistent hashing (not sticky sessions). Notification dedup, rate limiting, and delivery tracking. Multi-channel: push, email, SMS, in-app.",
+        tradeoffs: "Notification infrastructure is a product unto itself. Quiet hours, digest logic, dedup are all hard to get right.",
+        tech: ["Kafka consumer groups", "Consistent hashing WS", "Notification preference engine", "Multi-channel delivery"],
+      },
+    ],
+  },
+  {
+    id: "observability",
+    label: "Observability & Reliability",
+    icon: "📊",
+    description: "Metrics, tracing, alerting, and incident response",
+    options: [
+      {
+        tier: "lean",
+        label: "Grafana Cloud + Sentry",
+        cost: "$200–$1k/mo",
+        robustness: 2,
+        details: "Grafana Cloud (Prometheus-compatible metrics + Loki for logs). Sentry for error tracking and performance monitoring. PagerDuty or OpsGenie free tier for alerting. Simple SLO tracking.",
+        tradeoffs: "Log retention limits. No distributed tracing. Grafana Cloud can get expensive at high cardinality.",
+        tech: ["Grafana Cloud", "Prometheus", "Loki", "Sentry", "PagerDuty"],
+      },
+      {
+        tier: "balanced",
+        label: "Self-hosted observability stack",
+        cost: "$3k–$10k/mo",
+        robustness: 3,
+        details: "Self-hosted Prometheus + Grafana. Jaeger or Tempo for distributed tracing. Structured logging via Fluentd → OpenSearch. SLO/SLI dashboards. Runbook automation. Chaos engineering lite (kill a pod per week).",
+        tradeoffs: "Observability stack itself needs to be maintained and scaled. High cardinality metrics (per-user) expensive.",
+        tech: ["Prometheus + Grafana", "Jaeger/Tempo tracing", "OpenSearch", "Fluentd", "OpsGenie"],
+      },
+      {
+        tier: "robust",
+        label: "Full SRE platform",
+        cost: "$50k+/mo",
+        robustness: 5,
+        details: "Custom metrics pipeline (Twitter Observability). Full distributed tracing (OpenTelemetry). ML-based anomaly detection. Automated runbooks (SRE automation). Game days / chaos engineering. Error budgets enforced in CI. Multi-region failover drills. 5-nines SLA.",
+        tradeoffs: "Requires a dedicated SRE org. The observability platform itself becomes a major infrastructure component.",
+        tech: ["OpenTelemetry", "ML anomaly detection", "Automated runbooks", "Chaos engineering", "Error budget CI gates"],
+      },
+    ],
+  },
+];
+
+const TECH_LINKS = {
+  // Edge & CDN
+  "Cloudflare CDN": "https://www.cloudflare.com/cdn/",
+  "CF Workers (edge logic)": "https://workers.cloudflare.com/",
+  "R2 for assets": "https://www.cloudflare.com/developer-platform/r2/",
+  "Cloudflare Enterprise": "https://www.cloudflare.com/enterprise/",
+  "Argo Smart Routing": "https://www.cloudflare.com/products/argo-smart-routing/",
+  "Load Balancing": "https://www.cloudflare.com/load-balancing/",
+  "Cache API": "https://developers.cloudflare.com/workers/runtime-apis/cache/",
+  "Cloudflare + Fastly + CloudFront": "https://www.fastly.com/",
+  "Magic Transit": "https://www.cloudflare.com/magic-transit/",
+  "Anycast BGP": "https://www.cloudflare.com/learning/cdn/glossary/anycast-network/",
+  // API Gateway & Auth
+  "Kong OSS": "https://github.com/Kong/kong",
+  "Auth0 Free": "https://auth0.com/",
+  "Redis for rate limit state": "https://redis.io/",
+  "Kong Enterprise / custom Go": "https://konghq.com/products/kong-gateway",
+  "Redis Cluster": "https://redis.io/docs/latest/operate/ors/databases/cluster/",
+  "Keycloak or Auth0 Pro": "https://www.keycloak.org/",
+  "Envoy sidecars": "https://www.envoyproxy.io/",
+  "Custom Go/Rust gateway": "https://go.dev/",
+  "Redis Cluster (multi-region)": "https://redis.io/",
+  "gRPC mesh": "https://grpc.io/",
+  "Distributed token bucket": "https://redis.io/glossary/rate-limiting/",
+  // Tweet Fanout
+  "PostgreSQL": "https://www.postgresql.org/",
+  "Simple follow graph query": "https://www.postgresql.org/",
+  "Redis cache for hot users": "https://redis.io/",
+  "Kafka (fanout topic)": "https://kafka.apache.org/",
+  "Redis (feed cache, 800 tweet max)": "https://redis.io/",
+  "Flink for stream processing": "https://flink.apache.org/",
+  "Go fanout workers": "https://go.dev/",
+  "Kafka + Flink": "https://flink.apache.org/",
+  "Redis Cluster (timeline store)": "https://redis.io/",
+  "ML ranking (Earlybird)": "https://blog.twitter.com/engineering/en_us/topics/open-source/2023/twitter-recommendation-algorithm",
+  "Sharded fanout workers": "https://kafka.apache.org/",
+  // Primary Storage
+  "RDS PostgreSQL": "https://aws.amazon.com/rds/postgresql/",
+  "PgBouncer": "https://www.pgbouncer.org/",
+  "1 read replica": "https://aws.amazon.com/rds/features/read-replicas/",
+  "PostgreSQL (sharded, Citus or manual)": "https://www.citusdata.com/",
+  "Cassandra for tweets": "https://cassandra.apache.org/",
+  "Redis for caching": "https://redis.io/",
+  "Vitess or PgBouncer": "https://vitess.io/",
+  "ScyllaDB (tweets)": "https://www.scylladb.com/",
+  "TiDB or Vitess (users)": "https://vitess.io/",
+  "Custom graph store": "https://engineering.twitter.com/",
+  "Multi-DC replication": "https://cassandra.apache.org/doc/latest/cassandra/architecture/dynamo.html",
+  // Search
+  "PostgreSQL FTS / Typesense": "https://typesense.org/",
+  "GIN indexes": "https://www.postgresql.org/docs/current/gin-intro.html",
+  "Polling for trends": "https://www.postgresql.org/",
+  "Elasticsearch": "https://www.elastic.co/elasticsearch",
+  "Logstash/Kafka connector": "https://www.elastic.co/logstash",
+  "Kibana": "https://www.elastic.co/kibana",
+  "OpenSearch as OSS alt": "https://opensearch.org/",
+  "Custom Lucene (Earlybird)": "https://lucene.apache.org/",
+  "Count-min sketch (trends)": "https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch",
+  "Vector embeddings (semantic)": "https://www.pinecone.io/learn/vector-embeddings/",
+  "Blender merge service": "https://blog.twitter.com/engineering/en_us/topics/infrastructure/2016/search-architecture",
+  // Media
+  "S3": "https://aws.amazon.com/s3/",
+  "Lambda + Sharp": "https://sharp.pixelplumbing.com/",
+  "AWS Elemental MediaConvert": "https://aws.amazon.com/mediaconvert/",
+  "CloudFront": "https://aws.amazon.com/cloudfront/",
+  "S3 / Cloudflare R2": "https://www.cloudflare.com/developer-platform/r2/",
+  "FFmpeg workers (k8s)": "https://ffmpeg.org/",
+  "HLS / DASH streaming": "https://developer.apple.com/streaming/",
+  "imgix or Cloudflare Images": "https://www.imgix.com/",
+  "Custom blob store": "https://engineering.twitter.com/",
+  "GPU transcoding cluster": "https://ffmpeg.org/",
+  "Multi-CDN": "https://www.fastly.com/",
+  "Perceptual hashing": "https://www.phash.org/",
+  "ML content moderation": "https://aws.amazon.com/rekognition/",
+  // Notifications
+  "Firebase FCM": "https://firebase.google.com/docs/cloud-messaging",
+  "Polling / SSE": "https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events",
+  "Redis pub/sub for server-side fan": "https://redis.io/docs/latest/develop/interact/pubsub/",
+  "Go WebSocket servers": "https://pkg.go.dev/golang.org/x/net/websocket",
+  "Redis Pub/Sub": "https://redis.io/docs/latest/develop/interact/pubsub/",
+  "APNs + FCM": "https://developer.apple.com/documentation/usernotifications",
+  "Nginx/HAProxy sticky sessions": "https://www.haproxy.org/",
+  "Kafka consumer groups": "https://kafka.apache.org/documentation/#intro_consumers",
+  "Consistent hashing WS": "https://en.wikipedia.org/wiki/Consistent_hashing",
+  "Notification preference engine": "https://kafka.apache.org/",
+  "Multi-channel delivery": "https://firebase.google.com/docs/cloud-messaging",
+  // Observability
+  "Grafana Cloud": "https://grafana.com/products/cloud/",
+  "Prometheus": "https://prometheus.io/",
+  "Loki": "https://grafana.com/oss/loki/",
+  "Sentry": "https://sentry.io/",
+  "PagerDuty": "https://www.pagerduty.com/",
+  "Prometheus + Grafana": "https://grafana.com/",
+  "Jaeger/Tempo tracing": "https://www.jaegertracing.io/",
+  "OpenSearch": "https://opensearch.org/",
+  "Fluentd": "https://www.fluentd.org/",
+  "OpsGenie": "https://www.atlassian.com/software/opsgenie",
+  "OpenTelemetry": "https://opentelemetry.io/",
+  "ML anomaly detection": "https://prometheus.io/docs/alerting/latest/alertmanager/",
+  "Automated runbooks": "https://www.pagerduty.com/resources/learn/what-is-a-runbook/",
+  "Chaos engineering": "https://principlesofchaos.org/",
+  "Error budget CI gates": "https://sre.google/sre-book/embracing-risk/",
+};
+
+const TIER_CONFIG = {
+  lean: { label: "Lean / Startup", color: "#22c55e", bg: "rgba(34,197,94,0.1)", border: "rgba(34,197,94,0.3)" },
+  balanced: { label: "Balanced / Scale-up", color: "#f59e0b", bg: "rgba(245,158,11,0.1)", border: "rgba(245,158,11,0.3)" },
+  robust: { label: "Robust / Twitter-scale", color: "#ef4444", bg: "rgba(239,68,68,0.1)", border: "rgba(239,68,68,0.3)" },
+};
+
+function RobustnessBar({ value, color }) {
+  return (
+    <div style={{ display: "flex", gap: 3, alignItems: "center" }}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div
+          key={i}
+          style={{
+            width: 14,
+            height: 14,
+            borderRadius: 3,
+            background: i <= value ? color : "rgba(255,255,255,0.1)",
+            transition: "background 0.3s",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function LayerCard({ layer, selectedTiers, onTierChange }) {
+  const [expanded, setExpanded] = useState(false);
+  const activeTier = selectedTiers[layer.id] || "balanced";
+  const activeOption = layer.options.find((o) => o.tier === activeTier);
+  const tierConf = TIER_CONFIG[activeTier];
+
+  return (
+    <div
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        border: `1px solid rgba(255,255,255,0.08)`,
+        borderRadius: 12,
+        overflow: "hidden",
+        transition: "border-color 0.3s",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          padding: "16px 20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          cursor: "pointer",
+          borderBottom: expanded ? "1px solid rgba(255,255,255,0.07)" : "none",
+        }}
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <span style={{ fontSize: 22 }}>{layer.icon}</span>
+          <div>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: "#e2e8f0", fontWeight: 600, letterSpacing: "0.05em" }}>
+              {layer.label.toUpperCase()}
+            </div>
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>{layer.description}</div>
+          </div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          {/* Tier selector */}
+          <div style={{ display: "flex", gap: 4 }} onClick={(e) => e.stopPropagation()}>
+            {["lean", "balanced", "robust"].map((t) => (
+              <button
+                key={t}
+                onClick={() => onTierChange(layer.id, t)}
+                style={{
+                  padding: "4px 10px",
+                  borderRadius: 6,
+                  border: `1px solid ${activeTier === t ? TIER_CONFIG[t].border : "rgba(255,255,255,0.1)"}`,
+                  background: activeTier === t ? TIER_CONFIG[t].bg : "transparent",
+                  color: activeTier === t ? TIER_CONFIG[t].color : "rgba(255,255,255,0.35)",
+                  fontSize: 11,
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+          <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 14, transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▼</span>
+        </div>
+      </div>
+
+      {/* Collapsed summary */}
+      {!expanded && (
+        <div style={{ padding: "10px 20px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>{activeOption.label}</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: tierConf.color }}>{activeOption.cost}</span>
+            <RobustnessBar value={activeOption.robustness} color={tierConf.color} />
+          </div>
+        </div>
+      )}
+
+      {/* Expanded detail */}
+      {expanded && (
+        <div style={{ padding: "16px 20px 20px" }}>
+          {layer.options.map((opt) => {
+            const conf = TIER_CONFIG[opt.tier];
+            const isActive = opt.tier === activeTier;
+            return (
+              <div
+                key={opt.tier}
+                onClick={() => onTierChange(layer.id, opt.tier)}
+                style={{
+                  padding: "14px 16px",
+                  borderRadius: 10,
+                  border: `1px solid ${isActive ? conf.border : "rgba(255,255,255,0.06)"}`,
+                  background: isActive ? conf.bg : "rgba(255,255,255,0.02)",
+                  marginBottom: 10,
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+                  <div>
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: conf.color, fontWeight: 700 }}>
+                      [{opt.tier.toUpperCase()}]
+                    </span>
+                    <span style={{ fontSize: 13, color: "#e2e8f0", marginLeft: 8, fontWeight: 500 }}>{opt.label}</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+                    <RobustnessBar value={opt.robustness} color={conf.color} />
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, color: conf.color, minWidth: 120, textAlign: "right" }}>{opt.cost}</span>
+                  </div>
+                </div>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", lineHeight: 1.6, margin: "0 0 8px" }}>{opt.details}</p>
+                <p style={{ fontSize: 11.5, color: "rgba(239,68,68,0.7)", margin: "0 0 10px", lineHeight: 1.5 }}>
+                  ⚠ {opt.tradeoffs}
+                </p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                  {opt.tech.map((t) => {
+                    const url = TECH_LINKS[t];
+                    const pillStyle = {
+                      padding: "2px 8px",
+                      borderRadius: 4,
+                      background: url ? "rgba(99,179,237,0.08)" : "rgba(255,255,255,0.06)",
+                      border: `1px solid ${url ? "rgba(99,179,237,0.25)" : "rgba(255,255,255,0.1)"}`,
+                      fontSize: 11,
+                      fontFamily: "'IBM Plex Mono', monospace",
+                      color: url ? "rgba(147,210,255,0.75)" : "rgba(255,255,255,0.5)",
+                      textDecoration: "none",
+                      cursor: url ? "pointer" : "default",
+                      transition: "background 0.15s, color 0.15s",
+                      display: "inline-block",
+                    };
+                    return url ? (
+                      <a
+                        key={t}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={pillStyle}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(99,179,237,0.18)"; e.currentTarget.style.color = "rgba(186,230,255,1)"; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(99,179,237,0.08)"; e.currentTarget.style.color = "rgba(147,210,255,0.75)"; }}
+                      >
+                        {t} ↗
+                      </a>
+                    ) : (
+                      <span key={t} style={pillStyle}>{t}</span>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CostSummary({ selectedTiers }) {
+  const costRanges = {
+    lean: { min: 0, max: 500 },
+    balanced: { min: 500, max: 5000 },
+    robust: { min: 10000, max: 100000 },
+  };
+
+  let totalMin = 0;
+  let totalMax = 0;
+  let tierCounts = { lean: 0, balanced: 0, robust: 0 };
+
+  LAYERS.forEach((layer) => {
+    const t = selectedTiers[layer.id] || "balanced";
+    totalMin += costRanges[t].min;
+    totalMax += costRanges[t].max;
+    tierCounts[t]++;
+  });
+
+  const fmt = (n) => n >= 1000 ? `$${(n / 1000).toFixed(0)}k` : `$${n}`;
+
+  const overallTier = tierCounts.robust > 4 ? "robust" : tierCounts.lean > 4 ? "lean" : "balanced";
+  const conf = TIER_CONFIG[overallTier];
+
+  return (
+    <div
+      style={{
+        background: `linear-gradient(135deg, rgba(15,20,40,0.95), rgba(20,15,40,0.95))`,
+        border: `1px solid ${conf.border}`,
+        borderRadius: 12,
+        padding: "20px 24px",
+        position: "sticky",
+        top: 20,
+      }}
+    >
+      <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", marginBottom: 12 }}>
+        ESTIMATED MONTHLY COST
+      </div>
+      <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 28, fontWeight: 700, color: conf.color }}>
+        {fmt(totalMin)} – {fmt(totalMax)}
+      </div>
+      <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>per month (rough order of magnitude)</div>
+
+      <div style={{ marginTop: 18, display: "flex", gap: 8 }}>
+        {Object.entries(tierCounts).map(([t, count]) => (
+          <div key={t} style={{ flex: 1, textAlign: "center" }}>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 20, fontWeight: 700, color: TIER_CONFIG[t].color }}>{count}</div>
+            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.35)", marginTop: 2 }}>{t}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 18, padding: "12px", background: "rgba(255,255,255,0.04)", borderRadius: 8, fontSize: 11.5, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>
+        💡 Costs exclude engineer salaries. At Twitter-scale, headcount often exceeds infrastructure spend by 5–10×.
+      </div>
+
+      <div style={{ marginTop: 12, padding: "12px", background: "rgba(255,255,255,0.04)", borderRadius: 8, fontSize: 11.5, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>
+        📌 Start lean. The hardest scaling problems (fanout, graph) only appear at 1M+ DAU.
+      </div>
+    </div>
+  );
+}
+
+export default function TwitterArchitecture() {
+  const [selectedTiers, setSelectedTiers] = useState(
+    Object.fromEntries(LAYERS.map((l) => [l.id, "balanced"]))
+  );
+
+  const handleTierChange = (layerId, tier) => {
+    setSelectedTiers((prev) => ({ ...prev, [layerId]: tier }));
+  };
+
+  const setAll = (tier) => {
+    setSelectedTiers(Object.fromEntries(LAYERS.map((l) => [l.id, tier])));
+  };
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(160deg, #08090f 0%, #0d0f1e 50%, #080c14 100%)",
+        fontFamily: "'Inter', system-ui, sans-serif",
+        color: "#e2e8f0",
+        padding: "32px 24px",
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+        * { box-sizing: border-box; }
+        ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+      `}</style>
+
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        {/* Header */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: "0.2em", color: "rgba(255,255,255,0.3)", marginBottom: 8 }}>
+            SYSTEMS DESIGN
+          </div>
+          <h1 style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 28, fontWeight: 700, margin: 0, letterSpacing: "-0.02em" }}>
+            Building Twitter (X) in 2025
+          </h1>
+          <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 13, marginTop: 8, maxWidth: 640, lineHeight: 1.6 }}>
+            Architecture decisions across 8 layers, each with three tiers: lean startup, balanced scale-up, and full Twitter-scale robustness.
+            Toggle tiers to explore cost vs. reliability trade-offs.
+          </p>
+
+          {/* Quick set all */}
+          <div style={{ display: "flex", gap: 8, marginTop: 16, alignItems: "center" }}>
+            <span style={{ fontSize: 11, color: "rgba(255,255,255,0.3)", fontFamily: "'IBM Plex Mono', monospace" }}>SET ALL →</span>
+            {["lean", "balanced", "robust"].map((t) => (
+              <button
+                key={t}
+                onClick={() => setAll(t)}
+                style={{
+                  padding: "5px 14px",
+                  borderRadius: 6,
+                  border: `1px solid ${TIER_CONFIG[t].border}`,
+                  background: TIER_CONFIG[t].bg,
+                  color: TIER_CONFIG[t].color,
+                  fontSize: 11,
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  cursor: "pointer",
+                }}
+              >
+                {TIER_CONFIG[t].label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: 24, alignItems: "start" }}>
+          {/* Layers */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {LAYERS.map((layer) => (
+              <LayerCard
+                key={layer.id}
+                layer={layer}
+                selectedTiers={selectedTiers}
+                onTierChange={handleTierChange}
+              />
+            ))}
+
+            {/* Architecture notes */}
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 12, padding: "20px 24px", marginTop: 8 }}>
+              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: "0.1em", color: "rgba(255,255,255,0.3)", marginBottom: 14 }}>
+                CROSS-CUTTING CONCERNS
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                {[
+                  { icon: "🏗️", title: "The hardest problem", text: "Tweet fanout. Push to 300M followers for a celebrity tweet = 300M Redis writes in milliseconds. Twitter uses a hybrid: push for normal users, pull for celebrities." },
+                  { icon: "📈", title: "Scaling law", text: "Most systems should start with a boring monolith on RDS. The Twitter-scale problems (sharding, Cassandra, custom search) don't appear until 500k+ DAU." },
+                  { icon: "🔄", title: "Data models matter", text: "The follow graph is a graph, not a table. Naive relational joins for 'get followers of user X' collapse at 10M users. Consider a purpose-built graph store at scale." },
+                  { icon: "⚡", title: "Consistency trade-offs", text: "You do NOT need strong consistency for tweet delivery. Eventual consistency (Cassandra, feed cache) is fine. Use strong consistency only for financial transactions." },
+                  { icon: "🛡️", title: "Abuse at scale", text: "At 300M users, spam/abuse prevention becomes a major infrastructure concern. Dedicate 10-20% of engineering capacity to trust & safety infrastructure." },
+                  { icon: "🌍", title: "Multi-region strategy", text: "Follow the sun: US-East, EU-West, AP-Southeast. Active/active is much harder than active/passive. Start with active/passive failover." },
+                ].map((note) => (
+                  <div key={note.title} style={{ padding: "12px", background: "rgba(255,255,255,0.03)", borderRadius: 8 }}>
+                    <div style={{ fontSize: 16, marginBottom: 4 }}>{note.icon} <span style={{ fontSize: 12, fontWeight: 600, color: "#cbd5e1" }}>{note.title}</span></div>
+                    <div style={{ fontSize: 11.5, color: "rgba(255,255,255,0.45)", lineHeight: 1.6 }}>{note.text}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <CostSummary selectedTiers={selectedTiers} />
+        </div>
+      </div>
+    </div>
+  );
+}

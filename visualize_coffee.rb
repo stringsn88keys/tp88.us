@@ -25,8 +25,8 @@ end
 # Load coffee data
 csv_file = File.join(__dir__, 'data', 'coffee.csv')
 bags = CSV.read(csv_file, headers: true).map do |row|
-  purchased = parse_date(row['Start Date'])
-  opened    = purchased
+  opened    = parse_date(row['Start Date'])
+  purchased = parse_date(row['Purchased']) || opened
   finished  = parse_date(row['End Date'])
   {
     date:     purchased,
@@ -35,7 +35,8 @@ bags = CSV.read(csv_file, headers: true).map do |row|
     cost:     row['Cost'].to_s.gsub(/[^0-9.]/, '').to_f,
     store:    row['Store'].to_s.strip,
     name:     row['Name'].to_s.strip,
-    size_oz:  row['Size'].to_s.gsub(/[^0-9.]/, '').to_f
+    size_oz:  row['Size'].to_s.gsub(/[^0-9.]/, '').to_f,
+    rating:   row['Rating'].to_s.strip.empty? ? nil : row['Rating'].to_i
   }
 end.sort_by { |b| b[:opened] || Date.new(9999) }
 
@@ -194,6 +195,13 @@ total_days       = [(Date.today - first_date).to_i, 1].max
 avg_g_per_day    = (total_oz * OZ_TO_GRAMS / total_days).round(1)
 avg_cost_per_day = (total_spent / total_days).round(2)
 
+def stars_html(rating)
+  return '' if rating.nil?
+  filled = '★' * rating
+  empty  = '☆' * (5 - rating)
+  "<span class=\"stars\" title=\"#{rating}/5\">#{filled}#{empty}</span>"
+end
+
 # Build purchase history rows
 table_rows = bags.reverse.map do |b|
   name_html  = b[:name].empty?  ? '<em>unnamed</em>'  : ERB::Util.html_escape(b[:name])
@@ -218,6 +226,7 @@ table_rows = bags.reverse.map do |b|
       <td>$#{'%.2f' % b[:cost]}</td>
       <td>#{opened_str}</td>
       <td>#{finished_str}</td>
+      <td>#{stars_html(b[:rating])}</td>
     </tr>
   ROW
 end.join
@@ -319,6 +328,7 @@ html_output = <<~HTML
       text-align: center;
       font-size: 14px;
     }
+    .stars { color: #f0a500; letter-spacing: 1px; }
   </style>
 </head>
 <body>
@@ -385,6 +395,7 @@ html_output = <<~HTML
         <th>Cost</th>
         <th>Opened</th>
         <th>Finished</th>
+        <th>Rating</th>
       </tr>
     </thead>
     <tbody>
