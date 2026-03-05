@@ -599,13 +599,45 @@ bundle install              # Install from Gemfile
 bundle update               # Update gems
 bundle exec rake task       # Run with Bundler context
 ```
+
+### Version Specifiers
+
+| Operator | Example | Meaning |
+|----------|---------|---------|
+| `=`  | `"= 7.0.0"` | Exactly 7.0.0 |
+| `!=` | `"!= 7.0.1"` | Any version except 7.0.1 |
+| `>`  | `"> 7.0"` | Greater than 7.0 |
+| `>=` | `">= 7.0"` | 7.0 or higher |
+| `<`  | `"< 8.0"` | Less than 8.0 |
+| `<=` | `"<= 7.1"` | 7.1 or lower |
+| `~>` | `"~> 7.0"` | Pessimistic / compatible |
+
+**Pessimistic version constraint (`~>`)** — allows patch/minor updates but not breaking changes:
+
+```ruby
+"~> 7.0"    # >= 7.0, < 8   (only patch updates: 7.0.x)
+"~> 7.0.0"  # >= 7.0.0, < 7.1 (only micro updates: 7.0.0.x)
+"~> 7"      # >= 7, < 8     (any 7.x.y)
+```
+
+The last version segment is the one allowed to increment freely; all higher segments are locked.
+
+**Combining constraints:**
+
+```ruby
+gem "rails", ">= 7.0", "< 8"   # Range: explicit lower and upper bound
+gem "pg",    "~> 1.5", ">= 1.5.4"  # Pessimistic + minimum patch
+```
+
 ```ruby
 # Gemfile
 source "https://rubygems.org"
 
-gem "rails", "~> 7.0"       # Pessimistic version
-gem "pg"                    # Latest version
-gem "debug", group: :development
+gem "rails",   "~> 7.0"              # Pessimistic: 7.0.x only
+gem "pg",      ">= 1.0"             # Anything 1.0+
+gem "redis",   "~> 5.0", ">= 5.0.6" # Pessimistic + floor
+gem "puma",    "< 7"                 # Avoid next major
+gem "debug",   group: :development   # No constraint = latest
 ```
 
 ## Ruby is NOT Rails

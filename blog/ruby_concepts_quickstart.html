@@ -828,12 +828,39 @@ bundle <span class="nb">install</span>              <span class="c"># Install fr
 bundle update               <span class="c"># Update gems</span>
 bundle <span class="nb">exec </span>rake task       <span class="c"># Run with Bundler context</span>
 </code></pre>
+<h3><a href="#version-specifiers" aria-hidden="true" class="anchor" id="version-specifiers"></a>Version Specifiers</h3>
+<table>
+  <thead>
+    <tr><th>Operator</th><th>Example</th><th>Meaning</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>=</code></td><td><code>"= 7.0.0"</code></td><td>Exactly 7.0.0</td></tr>
+    <tr><td><code>!=</code></td><td><code>"!= 7.0.1"</code></td><td>Any version except 7.0.1</td></tr>
+    <tr><td><code>&gt;</code></td><td><code>"&gt; 7.0"</code></td><td>Greater than 7.0</td></tr>
+    <tr><td><code>&gt;=</code></td><td><code>"&gt;= 7.0"</code></td><td>7.0 or higher</td></tr>
+    <tr><td><code>&lt;</code></td><td><code>"&lt; 8.0"</code></td><td>Less than 8.0</td></tr>
+    <tr><td><code>&lt;=</code></td><td><code>"&lt;= 7.1"</code></td><td>7.1 or lower</td></tr>
+    <tr><td><code>~&gt;</code></td><td><code>"~&gt; 7.0"</code></td><td>Pessimistic / compatible</td></tr>
+  </tbody>
+</table>
+<p><strong>Pessimistic version constraint (<code>~&gt;</code>)</strong> — allows patch/minor updates but not breaking changes:</p>
+<pre class="highlight"><code><span class="s2">"~&gt; 7.0"</span>    <span class="c1"># &gt;= 7.0, &lt; 8   (only patch updates: 7.0.x)</span>
+<span class="s2">"~&gt; 7.0.0"</span>  <span class="c1"># &gt;= 7.0.0, &lt; 7.1 (only micro updates: 7.0.0.x)</span>
+<span class="s2">"~&gt; 7"</span>      <span class="c1"># &gt;= 7, &lt; 8     (any 7.x.y)</span>
+</code></pre>
+<p>The last version segment is the one allowed to increment freely; all higher segments are locked.</p>
+<p><strong>Combining constraints:</strong></p>
+<pre class="highlight"><code><span class="n">gem</span> <span class="s2">"rails"</span><span class="p">,</span> <span class="s2">"&gt;= 7.0"</span><span class="p">,</span> <span class="s2">"&lt; 8"</span>      <span class="c1"># Range: explicit lower and upper bound</span>
+<span class="n">gem</span> <span class="s2">"pg"</span><span class="p">,</span>    <span class="s2">"~&gt; 1.5"</span><span class="p">,</span> <span class="s2">"&gt;= 1.5.4"</span>  <span class="c1"># Pessimistic + minimum patch</span>
+</code></pre>
 <pre class="highlight"><code><span class="c1"># Gemfile</span>
 <span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
 
-<span class="n">gem</span> <span class="s2">"rails"</span><span class="p">,</span> <span class="s2">"~&gt; 7.0"</span>       <span class="c1"># Pessimistic version</span>
-<span class="n">gem</span> <span class="s2">"pg"</span>                    <span class="c1"># Latest version</span>
-<span class="n">gem</span> <span class="s2">"debug"</span><span class="p">,</span> <span class="ss">group: :development</span>
+<span class="n">gem</span> <span class="s2">"rails"</span><span class="p">,</span>   <span class="s2">"~&gt; 7.0"</span>               <span class="c1"># Pessimistic: 7.0.x only</span>
+<span class="n">gem</span> <span class="s2">"pg"</span><span class="p">,</span>      <span class="s2">"&gt;= 1.0"</span>              <span class="c1"># Anything 1.0+</span>
+<span class="n">gem</span> <span class="s2">"redis"</span><span class="p">,</span>   <span class="s2">"~&gt; 5.0"</span><span class="p">,</span> <span class="s2">"&gt;= 5.0.6"</span>  <span class="c1"># Pessimistic + floor</span>
+<span class="n">gem</span> <span class="s2">"puma"</span><span class="p">,</span>    <span class="s2">"&lt; 7"</span>                  <span class="c1"># Avoid next major</span>
+<span class="n">gem</span> <span class="s2">"debug"</span><span class="p">,</span>   <span class="ss">group: :development</span>    <span class="c1"># No constraint = latest</span>
 </code></pre>
 <h2><a href="#ruby-is-not-rails" aria-hidden="true" class="anchor" id="ruby-is-not-rails"></a>Ruby is NOT Rails</h2>
 <p>A common source of confusion: <strong>Ruby is the language, Rails is a web framework written in Ruby.</strong></p>
