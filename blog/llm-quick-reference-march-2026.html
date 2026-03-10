@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LLM Quick Reference — March 2026 — a reference guide by Thomas Powell.">
+    <meta name="keywords" content="Thomas Powell, llm quick reference march 2026, blog, reference, tp88.us">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="LLM Quick Reference — March 2026">
+    <meta property="og:description" content="LLM Quick Reference — March 2026 — a reference guide by Thomas Powell.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tp88.us/blog/llm-quick-reference-march-2026.html">
+    <link rel="canonical" href="https://tp88.us/blog/llm-quick-reference-march-2026.html">
+<title>LLM Quick Reference — March 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0e12;
+    --surface: #14171e;
+    --surface2: #1a1e28;
+    --border: #262b38;
+    --text: #d4d8e4;
+    --text-dim: #7a8099;
+    --accent: #6ee7b7;
+    --accent2: #38bdf8;
+    --accent3: #f472b6;
+    --accent4: #fbbf24;
+    --danger: #f87171;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --display: 'Fraunces', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+  }
+
+  header h1 {
+    font-family: var(--display);
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  header .subtitle {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .toc a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent2);
+    text-decoration: none;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .toc a:hover {
+    border-color: var(--accent2);
+    background: rgba(56, 189, 248, 0.08);
+  }
+
+  section {
+    margin-bottom: 3.5rem;
+  }
+
+  h2 {
+    font-family: var(--display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  h2 .num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(110, 231, 183, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+    margin: 1.5rem 0 0.7rem;
+  }
+
+  p, li {
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+  }
+
+  .card h4 {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .card p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  .badge-green { background: rgba(110,231,183,0.15); color: var(--accent); }
+  .badge-blue { background: rgba(56,189,248,0.15); color: var(--accent2); }
+  .badge-pink { background: rgba(244,114,182,0.15); color: var(--accent3); }
+  .badge-yellow { background: rgba(251,191,36,0.15); color: var(--accent4); }
+  .badge-red { background: rgba(248,113,113,0.15); color: var(--danger); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+  }
+
+  thead th {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:hover {
+    background: rgba(110, 231, 183, 0.03);
+  }
+
+  td.mono {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+  }
+
+  .formula {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    color: var(--accent);
+    margin: 0.75rem 0;
+    overflow-x: auto;
+  }
+
+  .highlight-box {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.25rem;
+    border-radius: 0 6px 6px 0;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+
+  .highlight-box.warn {
+    border-left-color: var(--accent4);
+  }
+
+  .highlight-box.tip {
+    border-left-color: var(--accent2);
+  }
+
+  .vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0;
+  }
+
+  .vs-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
+  .meter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.3rem 0;
+  }
+
+  .meter-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .meter {
+    flex: 1;
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+
+  .meter-value {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    width: 50px;
+    flex-shrink: 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem; font-size: 14px; }
+    header h1 { font-size: 2rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    table { font-size: 0.78rem; }
+    thead th, tbody td { padding: 0.4rem 0.5rem; }
+  }
+
+  .scroll-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dim { color: var(--text-dim); }
+  .white { color: #fff; }
+  .green { color: var(--accent); }
+  .blue { color: var(--accent2); }
+  .pink { color: var(--accent3); }
+  .yellow { color: var(--accent4); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>LLM Performance &amp; Deployment<br>Quick Reference</h1>
+  <div class="subtitle">March 2026 · TPOT / TTFT / MoE / Quantization / Providers</div>
+</header>
+
+<nav class="toc">
+  <a href="#metrics">01 Inference Metrics</a>
+  <a href="#moe">02 MoE Architecture</a>
+  <a href="#quant">03 Quantization</a>
+  <a href="#models">04 Key Models</a>
+  <a href="#local">05 Local Runtimes</a>
+  <a href="#cloud">06 Cloud Providers</a>
+  <a href="#hw">07 Hardware Guide</a>
+</nav>
+
+<!-- ───────── SECTION 1: METRICS ───────── -->
+<section id="metrics">
+  <h2><span class="num">01</span> Inference Performance Metrics</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4 class="green">TTFT <span class="badge badge-green">Latency</span></h4>
+      <p><strong class="white">Time to First Token</strong> — time from sending a request until the first output token arrives. Includes network latency, queuing, and the entire prefill phase (processing all input tokens to build the KV cache). Longer prompts → bigger TTFT.</p>
+      <div class="formula">TTFT = queue_time + prefill_time + network_latency</div>
+      <p>Targets: chatbot &lt;500ms · code completion &lt;100ms · batch OK at seconds</p>
+    </div>
+
+    <div class="card">
+      <h4 class="blue">TPOT <span class="badge badge-blue">Latency</span></h4>
+      <p><strong class="white">Time Per Output Token</strong> — average time between generating each successive token after the first. Measures the decode phase speed. Also called ITL (Inter-Token Latency) in some tools, though ITL is token-weighted while TPOT is request-weighted.</p>
+      <div class="formula">TPOT = (last_token_time − first_token_time) / (output_tokens − 1)</div>
+      <p>30ms TPOT ≈ 33 tok/s ≈ ~1,600 words/min (faster than reading speed)</p>
+    </div>
+
+    <div class="card">
+      <h4 class="pink">E2E Latency <span class="badge badge-pink">Latency</span></h4>
+      <p><strong class="white">End-to-End Request Latency</strong> — total time from request to final token. What the user actually waits for.</p>
+      <div class="formula">E2E = TTFT + TPOT × (output_tokens − 1)</div>
+      <p>A fast TTFT with slow generation still yields poor perceived UX.</p>
+    </div>
+
+    <div class="card">
+      <h4 class="yellow">TPS / RPS / Goodput <span class="badge badge-yellow">Throughput</span></h4>
+      <p><strong class="white">Tokens/sec, Requests/sec, Goodput</strong> — system-level throughput. TPS = total output tokens generated per second across all concurrent requests. RPS = completed requests per second. Goodput = requests/sec that meet your SLO thresholds (e.g. TTFT &lt;500ms AND TPOT &lt;15ms). Goodput is the metric that actually correlates to user satisfaction.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box tip" style="margin-top:1.5rem;">
+    <strong class="blue">Benchmarking gotcha:</strong> Tools disagree on definitions. GenAI-Perf excludes TTFT from TPOT; LLMPerf includes it. Always check which tool generated the numbers and whether they include queuing time.
+  </div>
+
+  <h3>Metric Relationships at a Glance</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Measures</th><th>Affected By</th><th>Optimize When</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono white">TTFT</td><td>Responsiveness start</td><td>Prompt length, KV cache build, queue depth, prefill compute</td><td>Interactive chat, streaming UX</td></tr>
+        <tr><td class="mono white">TPOT / ITL</td><td>Generation smoothness</td><td>Model size, batch size, KV cache growth, decode compute</td><td>Streaming text, real-time apps</td></tr>
+        <tr><td class="mono white">E2E</td><td>Total wait</td><td>TTFT + TPOT × tokens</td><td>Short-response use cases</td></tr>
+        <tr><td class="mono white">TPS</td><td>System capacity</td><td>GPU count, batching strategy, memory bandwidth</td><td>Multi-user serving</td></tr>
+        <tr><td class="mono white">Goodput</td><td>Useful throughput</td><td>All of the above within SLO bounds</td><td>Production SLAs</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ───────── SECTION 2: MoE ───────── -->
+<section id="moe">
+  <h2><span class="num">02</span> Mixture of Experts (MoE)</h2>
+
+  <p>MoE replaces dense FFN layers with multiple specialized expert sub-networks and a learned router/gate that selects a subset of experts per token. Since early 2025, MoE has become the dominant architecture for frontier models — over 60% of major open-source releases use it.</p>
+
+  <div class="two-col" style="margin-top:1.5rem;">
+    <div>
+      <h3 class="green">Advantages</h3>
+      <div class="card" style="margin-top:0.5rem">
+        <p>
+          <strong class="white">Faster training:</strong> MoEs match dense model quality with far less compute.<br><br>
+          <strong class="white">Faster inference FLOPs:</strong> Only active params are computed per token. Qwen3-235B activates only 22B per token — inference compute equivalent to a ~22B dense model.<br><br>
+          <strong class="white">Scaling capacity:</strong> Total param count → capacity. Active params → cost. You can grow capacity without proportional compute increase.<br><br>
+          <strong class="white">Expert specialization:</strong> Different experts learn to handle different domains/token types, improving multi-task generalization.
+        </p>
+      </div>
+    </div>
+    <div>
+      <h3 class="pink">Tradeoffs</h3>
+      <div class="card" style="margin-top:0.5rem">
+        <p>
+          <strong class="white">High VRAM:</strong> ALL experts must be loaded in memory, even though only a subset activate. Mixtral 8×7B has 47B total params but ~12B active. You need RAM for the 47B.<br><br>
+          <strong class="white">Load balancing:</strong> Without auxiliary losses, some experts starve while others are overloaded. Active research area in 2025-26.<br><br>
+          <strong class="white">Fine-tuning fragility:</strong> MoE historically overfits during fine-tuning. Newer techniques (LoRA on shared layers, expert freezing) help.<br><br>
+          <strong class="white">Communication overhead:</strong> Multi-GPU expert parallelism adds latency from all-to-all token routing.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Notable MoE Models (2024–2026)</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Total Params</th><th>Active</th><th>Experts</th><th>Routing</th><th>Context</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono white">Qwen3-235B-A22B</td><td>235B</td><td>22B</td><td>128 (top-8)</td><td>Token-level</td><td>128K</td><td>Hybrid thinking/non-thinking modes, 119+ languages</td></tr>
+        <tr><td class="mono white">Qwen3-30B-A3B</td><td>30B</td><td>3B</td><td>128 (top-8)</td><td>Token-level</td><td>128K</td><td>Runnable on M4 Max 36GB at Q4_K_M</td></tr>
+        <tr><td class="mono white">DeepSeek-V3.1</td><td>671B</td><td>37B</td><td>256 (top-8)</td><td>Fine-grained</td><td>128K</td><td>Multi-head latent attention, strong code</td></tr>
+        <tr><td class="mono white">DeepSeek-R1</td><td>671B</td><td>37B</td><td>256</td><td>Fine-grained</td><td>128K</td><td>Reasoning specialist, FP4 & 1.78-bit variants exist</td></tr>
+        <tr><td class="mono white">Llama 4 Maverick</td><td>400B</td><td>17B</td><td>128 (top-1)</td><td>Token-level</td><td>1M</td><td>Meta's first MoE, multimodal, ultra-long context</td></tr>
+        <tr><td class="mono white">GPT-5</td><td>Undisclosed</td><td>—</td><td>MoE</td><td>Dynamic</td><td>400K</td><td>OpenAI's first confirmed MoE architecture</td></tr>
+        <tr><td class="mono white">GPT-OSS-120B</td><td>120B</td><td>~20B</td><td>MoE</td><td>—</td><td>128K</td><td>Open-source, MXFP4 fits on 1× H100</td></tr>
+        <tr><td class="mono white">Kimi K2</td><td>1T</td><td>32B</td><td>MoE</td><td>—</td><td>128K</td><td>Moonshot, trillion-parameter scale</td></tr>
+        <tr><td class="mono white">Mixtral 8×22B</td><td>141B</td><td>~39B</td><td>8 (top-2)</td><td>Token-level</td><td>65K</td><td>Mistral, strong generalist</td></tr>
+        <tr><td class="mono white">Mistral Large 3</td><td>MoE</td><td>—</td><td>MoE</td><td>—</td><td>128K</td><td>Production frontier from Mistral</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-box">
+    <strong class="green">2025-26 Trend:</strong> Innovation has shifted from simply scaling parameter counts to improving routing reliability, load balancing (similarity-preserving objectives, MaxScore constrained optimization), and controllable compute allocation across modalities. Fine-grained MoE (many small experts, e.g. DeepSeek's 256 experts) is preferred over coarse-grained (few large experts).
+  </div>
+</section>
+
+<!-- ───────── SECTION 3: QUANTIZATION ───────── -->
+<section id="quant">
+  <h2><span class="num">03</span> Quantization</h2>
+
+  <p>Quantization maps FP16/FP32 weights to lower-precision integers, dramatically shrinking model size and speeding inference. The GGUF format (from llama.cpp) is the universal standard for local inference. Key families: legacy (Q4_0, Q8_0), K-quants (Q4_K_M, Q5_K_M, Q6_K), and I-quants (IQ4_XS). For GPU serving, AWQ and GPTQ offer higher throughput via specialized kernels.</p>
+
+  <h3>GGUF Quantization Levels — Quality vs. Size</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Quant</th><th>Bits/Weight</th><th>Size (7B)</th><th>PPL Δ (7B)</th><th>Quality</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono white">Q8_0</td><td>8.0</td><td>~7.2 GB</td><td>+0.004</td>
+          <td><span class="badge badge-green">Near-lossless</span></td>
+          <td>Baseline / when VRAM permits / code & RAG fidelity</td>
+        </tr>
+        <tr>
+          <td class="mono white">Q6_K</td><td>6.6</td><td>~5.5 GB</td><td>+0.009</td>
+          <td><span class="badge badge-green">Excellent</span></td>
+          <td>Production sweet spot if memory allows</td>
+        </tr>
+        <tr>
+          <td class="mono white">Q5_K_M</td><td>5.7</td><td>~4.8 GB</td><td>+0.035</td>
+          <td><span class="badge badge-blue">Very Good</span></td>
+          <td>High quality with real savings; great for code & reasoning</td>
+        </tr>
+        <tr>
+          <td class="mono white">Q4_K_M</td><td>4.9</td><td>~4.1 GB</td><td>+0.054</td>
+          <td><span class="badge badge-blue">Good</span></td>
+          <td>⭐ Most popular — best balance of quality/size/speed</td>
+        </tr>
+        <tr>
+          <td class="mono white">IQ4_XS</td><td>4.5</td><td>~3.8 GB</td><td>~+0.06</td>
+          <td><span class="badge badge-yellow">Good*</span></td>
+          <td>Max compression at 4-bit class; needs good imatrix</td>
+        </tr>
+        <tr>
+          <td class="mono white">Q3_K_M</td><td>3.9</td><td>~3.3 GB</td><td>+0.244</td>
+          <td><span class="badge badge-yellow">Moderate</span></td>
+          <td>Tight VRAM only; noticeable quality loss</td>
+        </tr>
+        <tr>
+          <td class="mono white">Q2_K</td><td>3.4</td><td>~2.9 GB</td><td>+0.870</td>
+          <td><span class="badge badge-red">Poor</span></td>
+          <td>Not recommended — extreme quality loss</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="dim" style="font-size:0.8rem; margin-top:0.25rem;">PPL Δ = perplexity increase vs FP16 baseline. Lower = better. K-quants use block + sub-block grouping for superior quality vs legacy types at the same bit-width. "M" = medium mixed precision (attention layers get higher precision).</p>
+
+  <h3>Quantization Strategy Cheat Sheet</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>🎯 Decision Rule</h4>
+      <p>A larger model at lower quant typically outperforms a smaller model at higher quant. Example: <span class="white">32B @ Q4_K_M &gt; 14B @ Q8_0</span> in most benchmarks. Always pick the biggest model that fits in VRAM at Q4_K_M or above.</p>
+    </div>
+    <div class="card">
+      <h4>📊 By Task</h4>
+      <p>
+        <span class="white">General chat:</span> Q4_K_M (bump to Q5 if inconsistent)<br>
+        <span class="white">Coding:</span> Q5_K_M or Q8_0 for fewer subtle errors<br>
+        <span class="white">Reasoning/math:</span> Q5_K_M+ stabilizes chain-of-thought<br>
+        <span class="white">RAG/retrieval:</span> Q5_K_M or Q8_0 for grounding accuracy
+      </p>
+    </div>
+    <div class="card">
+      <h4>🔧 By Format (GPU Serving)</h4>
+      <p>
+        <span class="white">GGUF:</span> Best for llama.cpp/Ollama on CPU+GPU. Universal format.<br>
+        <span class="white">AWQ:</span> GPU-only, activation-aware. Best with Marlin kernels in vLLM (741 tok/s).<br>
+        <span class="white">GPTQ:</span> GPU-only, Hessian-based. Slightly lower quality than AWQ.<br>
+        <span class="white">MXFP4/NVFP4:</span> Native 4-bit on Blackwell GPUs. 4× cost reduction.
+      </p>
+    </div>
+    <div class="card">
+      <h4>⚡ MoE + Quantization</h4>
+      <p>MoE models benefit enormously from quantization because you need ALL experts in memory but only activate a few. Qwen3-30B-A3B at Q4_K_M fits in ~18GB — runnable on M4 Max 36GB with room for KV cache. DeepSeek-R1 has community 1.78-bit variants for extreme compression.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── SECTION 4: KEY MODELS ───────── -->
+<section id="models">
+  <h2><span class="num">04</span> Key Models — March 2026 Snapshot</h2>
+
+  <h3>Frontier / Cloud API Models</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Provider</th><th>Architecture</th><th>Context</th><th>Input $/1M</th><th>Output $/1M</th><th>Strength</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono white">Claude Opus 4.6</td><td>Anthropic</td><td>Dense</td><td>200K</td><td>$15</td><td>$75</td><td>Most capable reasoning</td></tr>
+        <tr><td class="mono white">Claude Sonnet 4.6</td><td>Anthropic</td><td>Dense</td><td>200K</td><td>$3</td><td>$15</td><td>Best quality/cost ratio</td></tr>
+        <tr><td class="mono white">Claude Haiku 4.5</td><td>Anthropic</td><td>Dense</td><td>200K</td><td>$0.25</td><td>$1.25</td><td>Speed + cost leader</td></tr>
+        <tr><td class="mono white">GPT-5.1</td><td>OpenAI</td><td>MoE</td><td>400K</td><td>$1.25</td><td>$10</td><td>Reasoning, agentic</td></tr>
+        <tr><td class="mono white">GPT-4.1</td><td>OpenAI</td><td>Dense</td><td>1M</td><td>$2</td><td>$8</td><td>Huge context, fast</td></tr>
+        <tr><td class="mono white">Gemini 2.5 Pro</td><td>Google</td><td>MoE</td><td>1M</td><td>$1.25</td><td>$10</td><td>Multimodal, massive context</td></tr>
+        <tr><td class="mono white">Gemini 2.5 Flash</td><td>Google</td><td>MoE</td><td>1M</td><td>$0.15</td><td>$0.60</td><td>Best price-performance</td></tr>
+        <tr><td class="mono white">Grok 4.1 Fast</td><td>xAI</td><td>—</td><td>2M</td><td>$0.20</td><td>—</td><td>Huge context, speed</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Open-Weight Models (Self-Hostable)</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Type</th><th>Total / Active</th><th>Context</th><th>Local Fit</th><th>Strength</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono white">Qwen3-235B-A22B</td><td>MoE</td><td>235B / 22B</td><td>128K</td><td>Multi-GPU (Q4: ~120GB)</td><td>Top-tier open, hybrid thinking</td></tr>
+        <tr><td class="mono white">Qwen3-32B</td><td>Dense</td><td>32B / 32B</td><td>128K</td><td>24GB GPU @ Q4</td><td>Strong all-rounder, great for code</td></tr>
+        <tr><td class="mono white">Qwen3-30B-A3B</td><td>MoE</td><td>30B / 3B</td><td>128K</td><td>M4 Max 36GB @ Q4</td><td>Fast MoE for lightweight local</td></tr>
+        <tr><td class="mono white">DeepSeek-V3.1</td><td>MoE</td><td>671B / 37B</td><td>128K</td><td>Cluster only</td><td>Top coding, reasoning</td></tr>
+        <tr><td class="mono white">DeepSeek-R1</td><td>MoE</td><td>671B / 37B</td><td>128K</td><td>Cluster (1.78-bit fits 24GB!)</td><td>Reasoning specialist</td></tr>
+        <tr><td class="mono white">Llama 4 Maverick</td><td>MoE</td><td>400B / 17B</td><td>1M</td><td>Multi-GPU</td><td>Multimodal, 1M context</td></tr>
+        <tr><td class="mono white">Llama 3.3 70B</td><td>Dense</td><td>70B</td><td>128K</td><td>2× 24GB GPU @ Q4</td><td>Mature, well-supported</td></tr>
+        <tr><td class="mono white">Mistral Large 3</td><td>MoE</td><td>MoE</td><td>128K</td><td>Multi-GPU</td><td>Strong European frontier</td></tr>
+        <tr><td class="mono white">GPT-OSS-120B</td><td>MoE</td><td>120B / ~20B</td><td>128K</td><td>1× H100 @ MXFP4</td><td>OpenAI's first open model</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ───────── SECTION 5: LOCAL ───────── -->
+<section id="local">
+  <h2><span class="num">05</span> Local Inference Runtimes</h2>
+
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Runtime</th><th>Best For</th><th>Format</th><th>Multi-GPU</th><th>Concurrency</th><th>Setup</th><th>Key Feature</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono white">Ollama</td>
+          <td>Dev workflow, single-user, prototyping</td>
+          <td>GGUF</td>
+          <td><span class="badge badge-red">No TP</span></td>
+          <td>Poor (serial)</td>
+          <td><span class="badge badge-green">1 min</span></td>
+          <td>Docker-like UX, model hub, OpenAI-compat API</td>
+        </tr>
+        <tr>
+          <td class="mono white">llama.cpp</td>
+          <td>Edge, CPU, max control, single-user</td>
+          <td>GGUF</td>
+          <td>Layer split + RPC</td>
+          <td>Low</td>
+          <td><span class="badge badge-yellow">Moderate</span></td>
+          <td>MCP client (Mar 2026), pure C++, runs anywhere</td>
+        </tr>
+        <tr>
+          <td class="mono white">vLLM</td>
+          <td>Production serving, multi-user, throughput</td>
+          <td>HF, AWQ, GPTQ, GGUF</td>
+          <td><span class="badge badge-green">Full TP/PP</span></td>
+          <td><span class="badge badge-green">Excellent</span></td>
+          <td><span class="badge badge-pink">Complex</span></td>
+          <td>PagedAttention, continuous batching, 35× RPS vs llama.cpp</td>
+        </tr>
+        <tr>
+          <td class="mono white">LM Studio</td>
+          <td>Desktop GUI, beginners, quick eval</td>
+          <td>GGUF</td>
+          <td>No</td>
+          <td>Low</td>
+          <td><span class="badge badge-green">1 min</span></td>
+          <td>Beautiful UI, model browser, Vulkan for iGPU</td>
+        </tr>
+        <tr>
+          <td class="mono white">SGLang</td>
+          <td>Structured generation, multi-step reasoning</td>
+          <td>HF, AWQ</td>
+          <td>Yes</td>
+          <td>High</td>
+          <td><span class="badge badge-pink">Complex</span></td>
+          <td>Program-level LLM orchestration on vLLM backend</td>
+        </tr>
+        <tr>
+          <td class="mono white">ExLlamaV2</td>
+          <td>NVIDIA GPU max perf, custom quant</td>
+          <td>EXL2, GPTQ</td>
+          <td>Multi-GPU split</td>
+          <td>Moderate</td>
+          <td><span class="badge badge-yellow">Moderate</span></td>
+          <td>Per-layer quant control, fast GPU inference</td>
+        </tr>
+        <tr>
+          <td class="mono white">TensorRT-LLM</td>
+          <td>Enterprise NVIDIA, max throughput</td>
+          <td>Compiled</td>
+          <td><span class="badge badge-green">Full</span></td>
+          <td><span class="badge badge-green">Excellent</span></td>
+          <td><span class="badge badge-red">Hard</span></td>
+          <td>NVIDIA stack, Dynamo, FP4/FP8, NIM</td>
+        </tr>
+        <tr>
+          <td class="mono white">LocalAI</td>
+          <td>OpenAI drop-in replacement, multimodal</td>
+          <td>GGUF, others</td>
+          <td>Limited</td>
+          <td>Moderate</td>
+          <td><span class="badge badge-yellow">Moderate</span></td>
+          <td>Broadest API compat, image/audio/embedding</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-box" style="margin-top:1rem;">
+    <strong class="green">Decision tree:</strong> Just exploring? → <span class="white">Ollama or LM Studio</span>. Building apps? → <span class="white">Ollama</span> (simple) or <span class="white">vLLM</span> (production). Multi-GPU serving? → <span class="white">vLLM</span>. Edge/embedded? → <span class="white">llama.cpp</span>. NVIDIA enterprise? → <span class="white">TensorRT-LLM</span>.
+  </div>
+</section>
+
+<!-- ───────── SECTION 6: CLOUD ───────── -->
+<section id="cloud">
+  <h2><span class="num">06</span> Cloud API Providers</h2>
+
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Provider</th><th>Tier</th><th>Key Models</th><th>Differentiator</th><th>Pricing Tier</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono white">Anthropic</td>
+          <td><span class="badge badge-green">Frontier</span></td>
+          <td>Claude Opus/Sonnet/Haiku 4.x</td>
+          <td>Best coding (SWE-bench 80.9%), 200K context, safety-focused</td>
+          <td>$0.25–$15/M input</td>
+        </tr>
+        <tr>
+          <td class="mono white">OpenAI</td>
+          <td><span class="badge badge-green">Frontier</span></td>
+          <td>GPT-5.1, GPT-4.1, GPT-5-mini</td>
+          <td>Largest ecosystem, 400K–1M context, batch API 50% off</td>
+          <td>$0.25–$2/M input</td>
+        </tr>
+        <tr>
+          <td class="mono white">Google</td>
+          <td><span class="badge badge-green">Frontier</span></td>
+          <td>Gemini 2.5 Pro/Flash/Flash-Lite</td>
+          <td>1M context, multimodal native, free tier (1K req/day)</td>
+          <td>$0.10–$1.25/M input</td>
+        </tr>
+        <tr>
+          <td class="mono white">xAI</td>
+          <td><span class="badge badge-blue">Frontier</span></td>
+          <td>Grok 4.1 Fast</td>
+          <td>2M token context, speed-focused</td>
+          <td>$0.20/M input</td>
+        </tr>
+        <tr>
+          <td class="mono white">DeepSeek</td>
+          <td><span class="badge badge-blue">Value</span></td>
+          <td>V3.1, R1</td>
+          <td>Reasoning at $0.55/M, open-weight, MoE</td>
+          <td>$0.14–$0.55/M input</td>
+        </tr>
+        <tr>
+          <td class="mono white">Mistral AI</td>
+          <td><span class="badge badge-blue">Value</span></td>
+          <td>Mistral Large 3, Codestral</td>
+          <td>Strong European option, open models, competitive pricing</td>
+          <td>$0.15–$2/M input</td>
+        </tr>
+        <tr>
+          <td class="mono white">Fireworks AI</td>
+          <td><span class="badge badge-yellow">Infra</span></td>
+          <td>OSS models (Llama, Qwen, etc.)</td>
+          <td>Fast inference for open models, serverless, competitive</td>
+          <td>$0.10–$0.90/M</td>
+        </tr>
+        <tr>
+          <td class="mono white">Together AI</td>
+          <td><span class="badge badge-yellow">Infra</span></td>
+          <td>OSS models + fine-tuning</td>
+          <td>Fine-tuning platform, serverless & dedicated</td>
+          <td>$0.10–$0.88/M</td>
+        </tr>
+        <tr>
+          <td class="mono white">Groq</td>
+          <td><span class="badge badge-yellow">Speed</span></td>
+          <td>Llama, Mixtral, etc.</td>
+          <td>LPU hardware — lowest latency for open models</td>
+          <td>Competitive</td>
+        </tr>
+        <tr>
+          <td class="mono white">SiliconFlow</td>
+          <td><span class="badge badge-yellow">Value</span></td>
+          <td>DeepSeek, Qwen, MiniMax</td>
+          <td>2.3× faster inference, lowest-cost open model serving</td>
+          <td>Industry-low</td>
+        </tr>
+        <tr>
+          <td class="mono white">Azure OpenAI</td>
+          <td><span class="badge badge-pink">Enterprise</span></td>
+          <td>OpenAI models</td>
+          <td>VPC, HIPAA/SOC/ISO, 99.9% SLA, 27 regions</td>
+          <td>= OpenAI + regional</td>
+        </tr>
+        <tr>
+          <td class="mono white">AWS Bedrock</td>
+          <td><span class="badge badge-pink">Enterprise</span></td>
+          <td>Claude, Llama, Mistral, Titan</td>
+          <td>Multi-model hub, AWS integration, guardrails</td>
+          <td>Varies by model</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-box warn" style="margin-top:1rem;">
+    <strong class="yellow">Cost optimization:</strong> 70-80% of production workloads perform identically on mid-tier models vs premium ones. Always A/B test cheaper tiers first. Use batch APIs (OpenAI 50% off) for non-real-time work. Build abstraction layers (LiteLLM, LangChain) to swap providers without rewrites.
+  </div>
+</section>
+
+<!-- ───────── SECTION 7: HARDWARE ───────── -->
+<section id="hw">
+  <h2><span class="num">07</span> Hardware Quick Guide</h2>
+
+  <p>Local LLM performance is primarily gated by <strong class="white">memory bandwidth</strong> (tok/s during decode) and <strong class="white">total VRAM/RAM</strong> (determines max model size). Compute matters more for prefill (TTFT) than decode (TPOT).</p>
+
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Hardware</th><th>VRAM/RAM</th><th>Bandwidth</th><th>Max Model (Q4)</th><th>Sweet Spot</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono white">RTX 3090</td><td>24 GB</td><td>936 GB/s</td><td>~32B</td><td>Qwen3-32B Q4_K_M, great decode speed</td></tr>
+        <tr><td class="mono white">RTX 4090</td><td>24 GB</td><td>1,008 GB/s</td><td>~32B</td><td>Same fit, faster prefill, FP8 support</td></tr>
+        <tr><td class="mono white">RTX 5090</td><td>32 GB</td><td>1,792 GB/s</td><td>~50B</td><td>Bigger models + faster, FP4 native</td></tr>
+        <tr><td class="mono white">2× RTX 3090</td><td>48 GB</td><td>1,872 GB/s</td><td>~70B</td><td>Llama 70B Q4 via vLLM TP=2 or llama.cpp split</td></tr>
+        <tr><td class="mono white">M4 Max (36 GB)</td><td>36 GB unified</td><td>546 GB/s</td><td>~32B dense, ~30B MoE</td><td>Qwen3-32B Q4 or Qwen3-30B-A3B Q4_K_M</td></tr>
+        <tr><td class="mono white">M4 Max (48 GB)</td><td>48 GB unified</td><td>546 GB/s</td><td>~70B Q3, ~32B Q8</td><td>Bigger context or higher quant</td></tr>
+        <tr><td class="mono white">M5 Max (48 GB)</td><td>48 GB unified</td><td>614 GB/s</td><td>~50B Q4</td><td>12% bandwidth uplift vs M4 Max; watch for 64GB config</td></tr>
+        <tr><td class="mono white">96 GB Mac/PC</td><td>96 GB</td><td>varies</td><td>~120B Q4 / Qwen3-235B Q2-3</td><td>Big MoE models with aggressive quant</td></tr>
+        <tr><td class="mono white">H100 (80 GB)</td><td>80 GB HBM3</td><td>3,350 GB/s</td><td>~120B</td><td>Production serving, GPT-OSS-120B @ MXFP4</td></tr>
+        <tr><td class="mono white">H200 (141 GB)</td><td>141 GB HBM3e</td><td>4,800 GB/s</td><td>~200B+</td><td>DeepSeek-V3 per-node, production frontier</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-box tip" style="margin-top:1rem;">
+    <strong class="blue">Rule of thumb:</strong> Model VRAM ≈ (params_in_billions × bits_per_weight) / 8 + KV cache overhead. For a 32B model at Q4_K_M (~4.9 bpw): 32 × 4.9 / 8 ≈ 19.6 GB for weights alone. Add 2-6 GB for KV cache depending on context length. Apple Silicon unified memory means the full system RAM is available — no separate VRAM pool.
+  </div>
+</section>
+
+<footer>
+  <p>Compiled March 2026. Pricing and specs change frequently — verify before committing. Sources include NVIDIA, MLCommons, HuggingFace, llama.cpp, vLLM, Artificial Analysis, provider docs.</p>
+  <p style="margin-top:0.5rem;">For your hybrid workflow: Qwen3-32B local (Rails/routine) · RTX 3090 (Java boilerplate) · Claude Max (architecture decisions). Per-project CLAUDE.md files + MCP server delegation.</p>
+</footer>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

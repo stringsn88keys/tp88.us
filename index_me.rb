@@ -475,9 +475,17 @@ Dir["blog/*.md"].each { |md_file| render_blog_markdown(md_file) }
 # Generate HTML wrappers for JSX interview prep files
 Dir["interview_prep/*.jsx"].each { |jsx_file| generate_jsx_html(jsx_file) }
 
-# Add Google Analytics to blog HTML files
+# Add Google Analytics and SEO meta to blog HTML files.
+# Covers both .md-generated files and hand-authored HTML-only files.
 Dir["blog/*.html"].each do |file|
   add_google_analytics(file)
+  add_seo_meta(file,
+    description: (File.read(file).match(/<title>(.*?)<\/title>/im)&.[](1)&.strip || File.basename(file, '.html').tr('-_', ' ').capitalize) + " — a reference guide by Thomas Powell.",
+    keywords: "Thomas Powell, #{File.basename(file, '.html').tr('-_', ' ')}, blog, reference, tp88.us",
+    og_title: File.read(file).match(/<title>(.*?)<\/title>/im)&.[](1)&.strip,
+    og_type: 'article',
+    canonical_path: file
+  )
 end
 
 # Add Google Analytics to resumes HTML files

@@ -25,6 +25,7 @@ These files are **not** overwritten by `index_me.rb`. Edit them directly.
 |---|---|
 | `resumes/*.html` | Creative resume pages in various IDE themes |
 | `blog/openssl_pepe_silvia_generated.html` | Standalone blog post (not generated from `.md`) |
+| `blog/llm-quick-reference-march-2026.html` | LLM performance/deployment reference (hand-authored HTML only) |
 | `calculators/annuity_calculator.html` | Standalone calculator |
 | `calculators/camera-sensor.html` | Standalone calculator |
 | `calculators/fake-secrets.html` | Standalone calculator |
@@ -57,7 +58,7 @@ These files are **overwritten every time `index_me.rb` runs**. Do **not** edit t
 | `scripts/*.rb.html` | `scripts/*.rb` | Edit the `.rb` source |
 | `scripts/*.ps1.html` | `scripts/*.ps1` | Edit the `.ps1` source |
 | `scripts/*.bat.html` | `scripts/*.bat` | Edit the `.bat` source |
-| `blog/*.html` (from `.md`) | `blog/*.md` | Edit the `.md` source |
+| `blog/*.html` (generated from `.md`) | `blog/*.md` | Edit the `.md` source |
 | `books_all.html` | `visualize_books.rb` | Edit the visualizer script |
 | `books_completed.html` | `visualize_books.rb` | Edit the visualizer script |
 | `coffee.html` | `visualize_coffee.rb` | Edit the visualizer script |
@@ -104,7 +105,9 @@ Not currently extracted. Add `## description` as a `REM ## description` comment 
 
 ---
 
-## SEO: Blog Posts (Markdown)
+## SEO: Blog Posts
+
+### Markdown-based posts (`blog/*.md`)
 
 Blog posts in `blog/*.md` are rendered to HTML by `index_me.rb`. SEO metadata is extracted automatically:
 
@@ -113,6 +116,16 @@ Blog posts in `blog/*.md` are rendered to HTML by `index_me.rb`. SEO metadata is
 - **Keywords**: title + filename words.
 
 To improve the auto-generated description, start your markdown with a clear, informative paragraph right after the `# Title` heading.
+
+### HTML-only posts (`blog/*.html` without a `.md` source)
+
+Some blog posts are hand-authored HTML files with no `.md` counterpart (e.g. `openssl_pepe_silvia_generated.html`, `llm-quick-reference-march-2026.html`). `index_me.rb` still:
+
+- Adds Google Analytics to the file.
+- Injects SEO `<meta>` tags via `add_seo_meta()` (skipped if `name="description"` already present).
+- Includes the file in `index.html` and `sitemap.xml`.
+
+For full SEO control, embed `<meta name="description">` (and related tags) directly in the file — `add_seo_meta()` will skip it automatically.
 
 ---
 
@@ -155,10 +168,16 @@ DO_INVALIDATION=1 ruby index_me.rb
 2. Add a `##` description comment (or `.SYNOPSIS` for `.ps1`) at the top.
 3. Run `index_me.rb` — the highlighted HTML page and index entry are created automatically.
 
-### New blog post
+### New blog post (Markdown)
 1. Create `blog/my-post.md` with a `# Title` heading.
 2. Write an informative opening paragraph (used as the SEO description).
 3. Run `index_me.rb`.
+
+### New blog post (HTML only)
+1. Create `blog/my-post.html` directly.
+2. Optionally embed `<meta name="description">` and related tags for full SEO control; otherwise `index_me.rb` will auto-inject them from the `<title>`.
+3. Add the file to the hand-authored table in `AGENTS.md`.
+4. Run `index_me.rb` — the file is automatically included in `index.html` and `sitemap.xml`.
 
 ### New standalone HTML calculator or page
 1. Create the HTML file with full SEO meta tags (see template above).
