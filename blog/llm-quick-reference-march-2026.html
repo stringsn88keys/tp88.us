@@ -341,7 +341,7 @@
 
 <header>
   <h1>LLM Performance &amp; Deployment<br>Quick Reference</h1>
-  <div class="subtitle">March 2026 · TPOT / TTFT / MoE / Quantization / Providers</div>
+  <div class="subtitle">March 2026 · TPOT / TTFT / MoE / Quantization / Providers / Gateways</div>
 </header>
 
 <nav class="toc">
@@ -352,6 +352,7 @@
   <a href="#local">05 Local Runtimes</a>
   <a href="#cloud">06 Cloud Providers</a>
   <a href="#hw">07 Hardware Guide</a>
+  <a href="#gateways">08 Model Gateways</a>
 </nav>
 
 <!-- ───────── SECTION 1: METRICS ───────── -->
@@ -818,8 +819,164 @@
   </div>
 </section>
 
+<!-- ───────── SECTION 8: GATEWAYS ───────── -->
+<section id="gateways">
+  <h2><span class="num">08</span> Model Gateways &amp; Access Layers</h2>
+
+  <p>Gateways sit between your application and model providers, adding unified APIs, routing, cost tracking, and caching. Three distinct patterns: <strong class="white">unified routers</strong> (aggregate providers behind one key), <strong class="white">inference platforms</strong> (host open models as a service), and <strong class="white">OSS proxies</strong> (self-hosted middleware).</p>
+
+  <h3>Hugging Face Ecosystem</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4 class="yellow">Hub <span class="badge badge-yellow">Model Registry</span></h4>
+      <p>900K+ models, 200K+ datasets, Spaces for demos. The de facto repository for open-weight models — every local runtime pulls from here. Free to use; paid private storage. GGUF quantizations (bartowski, unsloth, mlx-community) are distributed via Hub.</p>
+    </div>
+    <div class="card">
+      <h4 class="blue">Serverless Inference API <span class="badge badge-blue">Free Tier</span></h4>
+      <p>Instant API access to thousands of Hub models with zero setup. Rate-limited free tier; pay-per-request at scale. No GPU provisioning. Great for prototyping and evaluation but not for sustained production throughput.</p>
+      <div class="formula">POST api-inference.huggingface.co/models/{model_id}</div>
+    </div>
+    <div class="card">
+      <h4 class="green">Inference Endpoints <span class="badge badge-green">Dedicated</span></h4>
+      <p>Deploy any Hub model on dedicated hardware (T4, A10G, A100, H100) in your chosen cloud region. Auto-scaling, private VPC option, OpenAI-compat API. Per-hour from ~$0.60/hr (T4) to $6+/hr (A100). Best for custom fine-tuned models needing stable SLAs.</p>
+    </div>
+    <div class="card">
+      <h4 class="pink">TGI — Text Generation Inference <span class="badge badge-pink">OSS Server</span></h4>
+      <p>HuggingFace's production inference server. Continuous batching, PagedAttention, FlashAttention-2, quantization (GPTQ/AWQ/bitsandbytes), multi-GPU tensor parallelism. Powers HF Inference Endpoints. Self-host via Docker: <span class="white" style="font-family:var(--mono);font-size:0.8rem">ghcr.io/huggingface/text-generation-inference</span></p>
+    </div>
+  </div>
+
+  <h3>Unified API Routers</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Gateway</th><th>Type</th><th>Models / Providers</th><th>Key Feature</th><th>Pricing</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono white">OpenRouter</td>
+          <td><span class="badge badge-green">Router</span></td>
+          <td>300+ models, 30+ providers</td>
+          <td>Single API key for all providers, real-time price comparison, auto-fallback, free-model tier, provider rankings by latency</td>
+          <td>Pass-through + small markup</td>
+        </tr>
+        <tr>
+          <td class="mono white">LiteLLM (proxy)</td>
+          <td><span class="badge badge-blue">OSS Proxy</span></td>
+          <td>100+ providers</td>
+          <td>Self-hosted, per-team cost tracking, rate limits per key, Redis caching, load balancing across providers, budget alerts</td>
+          <td>Free OSS; hosted tier available</td>
+        </tr>
+        <tr>
+          <td class="mono white">Portkey AI</td>
+          <td><span class="badge badge-yellow">Enterprise Router</span></td>
+          <td>250+ models</td>
+          <td>Observability, guardrails, semantic caching, canary deployments, prompt versioning, SOC2</td>
+          <td>Free tier; $49+/mo</td>
+        </tr>
+        <tr>
+          <td class="mono white">Helicone</td>
+          <td><span class="badge badge-yellow">Observability</span></td>
+          <td>Any OpenAI-compat</td>
+          <td>Drop-in logging proxy (one-line header change), cost analytics, prompt management, A/B testing, OSS</td>
+          <td>Free tier; usage-based</td>
+        </tr>
+        <tr>
+          <td class="mono white">AI/ML API</td>
+          <td><span class="badge badge-green">Router</span></td>
+          <td>200+ models</td>
+          <td>Low-cost aggregator focused on open models, free trial credits, OpenAI-compat</td>
+          <td>Competitive; usage-based</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Inference Platforms (Open Models as a Service)</h3>
+  <div class="scroll-table">
+    <table>
+      <thead>
+        <tr><th>Platform</th><th>Model Selection</th><th>Billing</th><th>Standout</th><th>Use Case</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono white">Ollama</td>
+          <td>Hub models via <span style="font-family:var(--mono)">ollama pull</span></td>
+          <td>Free (self-hosted)</td>
+          <td>See §05 Local Runtimes — Docker-like UX, OpenAI-compat API, model library at ollama.com</td>
+          <td>Local dev; see §05 for details</td>
+        </tr>
+        <tr>
+          <td class="mono white">Replicate</td>
+          <td>100K+ community models</td>
+          <td>Per-second GPU time</td>
+          <td>Cog framework for packaging any model; massive community ecosystem; image/video/audio supported</td>
+          <td>Niche models, rapid prototyping, image/video gen</td>
+        </tr>
+        <tr>
+          <td class="mono white">Cloudflare Workers AI</td>
+          <td>50+ curated models</td>
+          <td>Per 1K neurons; 10K/day free</td>
+          <td>Edge inference &lt;50ms globally, no cold starts, serverless-native, zero GPU provisioning</td>
+          <td>Latency-critical, edge apps, low-volume prod</td>
+        </tr>
+        <tr>
+          <td class="mono white">Modal</td>
+          <td>Any model (custom containers)</td>
+          <td>Per-second GPU time</td>
+          <td>Python-native serverless GPU, ~100ms cold starts, great for batch pipelines and fine-tuning jobs</td>
+          <td>Batch inference, research, custom pipelines</td>
+        </tr>
+        <tr>
+          <td class="mono white">Baseten</td>
+          <td>Any HF model</td>
+          <td>Per-hour + compute</td>
+          <td>Fast cold starts (~2s via Truss framework), fine-tuning support, production ML APIs</td>
+          <td>Custom fine-tuned model APIs with SLA needs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>OpenRouter Quick Reference</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4 class="green">Route Configuration</h4>
+      <p>
+        <span class="white">Provider fallback:</span> <span style="font-family:var(--mono);color:var(--accent);font-size:0.82rem">"route": "fallback"</span> tries providers in order<br><br>
+        <span class="white">Load balance:</span> <span style="font-family:var(--mono);color:var(--accent);font-size:0.82rem">"route": "load-balance"</span> distributes across providers<br><br>
+        <span class="white">Provider pinning:</span> <span style="font-family:var(--mono);color:var(--accent);font-size:0.82rem">"provider": {"order": ["Groq","Together"]}</span>
+      </p>
+    </div>
+    <div class="card">
+      <h4 class="blue">Model Naming</h4>
+      <p>OpenRouter uses <span style="font-family:var(--mono);color:var(--accent2);font-size:0.82rem">provider/model-name</span> slugs:<br><br>
+        <span style="font-family:var(--mono);color:var(--text-dim);font-size:0.78rem">anthropic/claude-sonnet-4-6<br>openai/gpt-4.1<br>google/gemini-2.5-pro<br>deepseek/deepseek-r1<br>meta-llama/llama-3.3-70b<br>qwen/qwen3-235b-a22b</span>
+      </p>
+    </div>
+    <div class="card">
+      <h4 class="pink">Free Models Tier</h4>
+      <p>OpenRouter maintains a set of free models (rate-limited): Llama 3.3 70B, DeepSeek variants, Gemma 3, Mistral 7B, and others. Append <span style="font-family:var(--mono);color:var(--accent3);font-size:0.82rem">:free</span> to the model slug to opt in. Rate limits apply per IP. Useful for dev/CI pipelines.</p>
+    </div>
+    <div class="card">
+      <h4 class="yellow">Drop-in OpenAI Replacement</h4>
+      <p>Change two lines — base URL and model slug — to route any OpenAI SDK call through a gateway:<br><br>
+        <span style="font-family:var(--mono);color:var(--accent4);font-size:0.78rem">base_url="https://openrouter.ai/api/v1"<br>model="anthropic/claude-sonnet-4-6"</span><br><br>
+      Works identically with LiteLLM proxy at <span style="font-family:var(--mono);color:var(--accent4);font-size:0.78rem">localhost:4000</span>.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box tip" style="margin-top:1.5rem;">
+    <strong class="blue">LiteLLM vs OpenRouter:</strong> OpenRouter is hosted — fast setup, no infra, ideal for solo devs and quick integrations. LiteLLM proxy is self-hosted — more control, per-team budget enforcement, Redis semantic caching (reuse identical prompts), and request logging to your own store. Both expose OpenAI-compat endpoints so switching is trivial.
+  </div>
+
+  <div class="highlight-box" style="margin-top:1rem;">
+    <strong class="green">Gateway decision tree:</strong> One API key for many providers? → <span class="white">OpenRouter</span>. Self-hosted cost control + logging? → <span class="white">LiteLLM proxy</span>. Niche open model not on major clouds? → <span class="white">Replicate</span>. Global edge inference? → <span class="white">Cloudflare Workers AI</span>. Custom fine-tune with stable SLA? → <span class="white">HF Inference Endpoints</span>. Add observability to existing setup? → <span class="white">Helicone</span>. Serverless GPU batch jobs? → <span class="white">Modal</span>.
+  </div>
+</section>
+
 <footer>
-  <p>Compiled March 2026. Pricing and specs change frequently — verify before committing. Sources include NVIDIA, MLCommons, HuggingFace, llama.cpp, vLLM, Artificial Analysis, provider docs.</p>
+  <p>Compiled March 2026. Pricing and specs change frequently — verify before committing. Sources include NVIDIA, MLCommons, HuggingFace, llama.cpp, vLLM, Artificial Analysis, OpenRouter, LiteLLM, Replicate, Cloudflare, provider docs.</p>
   <p style="margin-top:0.5rem;">For your hybrid workflow: Qwen3-32B local (Rails/routine) · RTX 3090 (Java boilerplate) · Claude Max (architecture decisions). Per-project CLAUDE.md files + MCP server delegation.</p>
 </footer>
 
