@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="macOS Tahoe — Windows Refugee's Field Guide — a reference guide by Thomas Powell.">
+    <meta name="keywords" content="Thomas Powell, macos tahoe cheatsheet, blog, reference, tp88.us">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="macOS Tahoe — Windows Refugee's Field Guide">
+    <meta property="og:description" content="macOS Tahoe — Windows Refugee's Field Guide — a reference guide by Thomas Powell.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tp88.us/blog/macos-tahoe-cheatsheet.html">
+    <link rel="canonical" href="https://tp88.us/blog/macos-tahoe-cheatsheet.html">
+<title>macOS Tahoe — Windows Refugee's Field Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --glass-bg: rgba(255,255,255,0.12);
+    --glass-border: rgba(255,255,255,0.25);
+    --glass-shadow: rgba(0,0,0,0.18);
+    --accent-blue: #0A84FF;
+    --accent-teal: #32D0C4;
+    --accent-purple: #BF5AF2;
+    --accent-orange: #FF9F0A;
+    --accent-green: #30D158;
+    --text-primary: #f0f0f5;
+    --text-secondary: rgba(240,240,245,0.65);
+    --text-muted: rgba(240,240,245,0.4);
+    --bg-dark: #0d1117;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Atmospheric background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 10%, rgba(10,132,255,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 20%, rgba(50,208,196,0.14) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 70% at 50% 90%, rgba(191,90,242,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 80% at 50% 50%, rgba(13,17,23,0) 0%, #0d1117 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Subtle lake texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.008) 2px,
+        rgba(255,255,255,0.008) 4px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #f0f0f5 30%, rgba(50,208,196,0.9) 80%, rgba(10,132,255,0.85) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .header h1 strong {
+    font-weight: 700;
+  }
+
+  .header-sub {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-top: 10px;
+  }
+
+  .version-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 18px;
+    backdrop-filter: blur(12px);
+  }
+
+  .version-pill .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.15);
+    overflow: hidden;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 22px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .section-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .section-accent {
+    width: 4px;
+    height: 16px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* Two-column table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .compare-table thead th {
+    padding: 10px 22px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .compare-table thead th:last-child {
+    color: rgba(10,132,255,0.7);
+  }
+
+  .compare-table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.15s;
+  }
+
+  .compare-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .compare-table tbody tr:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .compare-table td {
+    padding: 13px 22px;
+    font-size: 14px;
+    vertical-align: middle;
+    line-height: 1.45;
+  }
+
+  .compare-table td:first-child {
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  .compare-table td:last-child {
+    color: var(--text-primary);
+    font-weight: 400;
+  }
+
+  .win-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  .mac-label {
+    display: inline-block;
+    background: rgba(10,132,255,0.12);
+    border: 1px solid rgba(10,132,255,0.28);
+    border-radius: 5px;
+    padding: 1px 7px;
+    font-size: 12px;
+    color: #6bbfff;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  kbd {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom: 2px solid rgba(255,255,255,0.12);
+    border-radius: 5px;
+    padding: 1px 8px;
+    font-size: 11.5px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+  }
+
+  /* Feature grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .feature-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 20px 20px 18px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+
+  .feature-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .tag-new { background: rgba(48,209,88,0.15); color: #30D158; border: 1px solid rgba(48,209,88,0.3); }
+  .tag-design { background: rgba(191,90,242,0.15); color: #BF5AF2; border: 1px solid rgba(191,90,242,0.3); }
+  .tag-ai { background: rgba(255,159,10,0.15); color: #FF9F0A; border: 1px solid rgba(255,159,10,0.3); }
+  .tag-productivity { background: rgba(10,132,255,0.15); color: #0A84FF; border: 1px solid rgba(10,132,255,0.3); }
+  .tag-continuity { background: rgba(50,208,196,0.15); color: #32D0C4; border: 1px solid rgba(50,208,196,0.3); }
+
+  .feature-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .feature-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Shortcut rows */
+  .shortcut-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .shortcut-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 12px;
+  }
+
+  .shortcut-grid .shortcut-row:nth-child(odd) {
+    border-right: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .shortcut-row:last-child,
+  .shortcut-row:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
+
+  .shortcut-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .shortcut-keys {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Tips box */
+  .tip-box {
+    background: rgba(255,159,10,0.07);
+    border: 1px solid rgba(255,159,10,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+
+  .tip-box-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-orange);
+    margin-bottom: 10px;
+  }
+
+  .tip-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .tip-list li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .tip-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-orange);
+    font-size: 12px;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .footer strong {
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 600px) {
+    .shortcut-grid { grid-template-columns: 1fr; }
+    .shortcut-grid .shortcut-row:nth-child(odd) { border-right: none; }
+    .compare-table td { padding: 11px 14px; }
+    .compare-table thead th { padding: 10px 14px; }
+    .section-header { padding: 14px 16px; }
+    .shortcut-row { padding: 11px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-eyebrow">Windows Refugee's Field Guide</div>
+    <h1><strong>macOS Tahoe</strong><br>Translation Manual</h1>
+    <p class="header-sub">Everything a Windows 11 user needs to stop saying "where is…"</p>
+    <div class="version-pill">
+      <span class="dot"></span>
+      macOS 26 Tahoe · Current as of 26.3.1 · March 2026
+    </div>
+  </div>
+
+  <!-- Where is my… -->
+  <div class="section-label">The Basics</div>
+  <div class="glass-card section">
+    <div class="section-header">
+      <div class="section-accent" style="background: var(--accent-blue);"></div>
+      <span class="section-icon">🗺️</span>
+      <span class="section-title">Where Is My…</span>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Windows 11</th>
+          <th>macOS Tahoe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="win-label">Start Menu</span></td>
+          <td><span class="mac-label">Spotlight</span> — Press <kbd>⌘ Space</kbd>. Launches apps, finds files, runs actions, browses clipboard. Launchpad is gone in Tahoe.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Taskbar</span></td>
+          <td><span class="mac-label">Dock</span> — Pinned apps at the bottom. Running apps show a dot. Right-click for context options.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">System Tray</span></td>
+          <td><span class="mac-label">Menu Bar + Control Center</span> — Status icons live in the top-right; click the Control Center icon (two toggles) for Wi-Fi, Bluetooth, volume, etc. Now fully transparent in Tahoe.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">File Explorer</span></td>
+          <td><span class="mac-label">Finder</span> — Click the smiley face in the Dock. Works like Explorer but columns-view is your friend.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Settings</span></td>
+          <td><span class="mac-label">System Settings</span> — Apple menu (🍎) → System Settings, or search via Spotlight.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Control Panel</span></td>
+          <td><span class="mac-label">System Settings</span> — Everything is consolidated here now. No separate Control Panel.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Task Manager</span></td>
+          <td><span class="mac-label">Activity Monitor</span> — In Applications → Utilities, or search Spotlight. Same idea: CPU, RAM, processes.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Device Manager</span></td>
+          <td><span class="mac-label">System Information</span> — Apple menu → About This Mac → More Info, or search "System Information."</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Disk Management</span></td>
+          <td><span class="mac-label">Disk Utility</span> — Applications → Utilities → Disk Utility. Format, partition, repair disks.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Programs &amp; Features</span></td>
+          <td><span class="mac-label">Drag to Trash</span> — Most apps uninstall by dragging from Applications to the Trash. No installer/uninstaller needed.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Windows Defender / AV</span></td>
+          <td><span class="mac-label">XProtect + Gatekeeper</span> — Built into macOS silently. No UI to fuss with. FileVault now auto-enables on new installs.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">PowerShell / CMD</span></td>
+          <td><span class="mac-label">Terminal</span> — Got a major visual overhaul in Tahoe with 24-bit color and Powerline font support. Runs zsh by default.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Clipboard History (Win+V)</span></td>
+          <td><span class="mac-label">Spotlight Clipboard</span> — New in Tahoe: <kbd>⌘ Space</kbd> → click Clipboard tab. Apple's first built-in clipboard manager.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Snap Layouts</span></td>
+          <td><span class="mac-label">Stage Manager + Green Button</span> — Hold the green ● button to tile. Stage Manager (Control Center) groups app windows like virtual desktops.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Virtual Desktops</span></td>
+          <td><span class="mac-label">Spaces</span> — Swipe up with 3 fingers (or F3) to see Mission Control. Add spaces at the top.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Action Center / Notifications</span></td>
+          <td><span class="mac-label">Notification Centre</span> — Click the date/time top-right, or swipe left from the right edge on trackpad.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Right-click context menu</span></td>
+          <td><span class="mac-label">Secondary click</span> — Two-finger tap on trackpad, or Ctrl+Click anywhere. Works the same way.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Alt+F4 (close app)</span></td>
+          <td><span class="mac-label">⌘Q</span> — Fully quits the app. Red ● just closes the window; the app keeps running.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">App title bar menus</span></td>
+          <td><span class="mac-label">Menu Bar (top of screen)</span> — Every app's menus live at the very top of the display, not inside the window.</td>
+        </tr>
+        <tr>
+          <td><span class="win-label">Minimize to taskbar</span></td>
+          <td><span class="mac-label">Yellow ● or ⌘M</span> — Minimizes to the Dock. The app is still running.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Key differences to rewire your brain -->
+  <div class="section-label">What's Different — Mentally</div>
+  <div class="tip-box">
+    <div class="tip-box-header">🧠 Rewire Your Brain — Mac Doesn't Work Like This</div>
+    <ul class="tip-list">
+      <li>Closing a window (red ●) does <strong>not</strong> quit the app. Use <kbd>⌘Q</kbd> to quit.</li>
+      <li>There is no "C: drive." Your storage is called <strong>Macintosh HD</strong> (icon updated to an SSD in Tahoe).</li>
+      <li>The equivalent of Ctrl is mostly <strong>⌘ (Command)</strong>, but not always. Ctrl still exists and does different things.</li>
+      <li>App installations are usually just <strong>drag-to-Applications</strong>. No "Next → Next → Finish" wizards.</li>
+      <li>The menu bar at the top belongs to <strong>whichever app has focus</strong> — it changes as you switch apps.</li>
+      <li>Spotlight is your everything launcher now. <strong>Launchpad is gone</strong> in Tahoe; Spotlight's Apps tab replaces it.</li>
+      <li>File paths use <strong>/</strong> (forward slash) and start with <strong>/Users/yourname</strong> not C:\Users\yourname.</li>
+      <li>Disk images (.dmg files) mount like a USB drive. Drag the app out, then eject the disk image — you're done.</li>
+    </ul>
+  </div>
+
+  <!-- What's New in Tahoe -->
+  <div class="section-label">What's New in macOS Tahoe (26)</div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="feature-tag tag-design">Design</span>
+      <h3>Liquid Glass UI</h3>
+      <p>Biggest visual overhaul since 2020. Translucent, reflective surfaces throughout — Dock, sidebars, toolbars, Control Center. The menu bar is now fully transparent by default.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-productivity">Productivity</span>
+      <h3>Supercharged Spotlight</h3>
+      <p>Biggest Spotlight update ever. Four tabs: Apps, Files, Actions, Clipboard. Take hundreds of actions without opening apps. Includes Apple's first built-in clipboard manager.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-new">New App</span>
+      <h3>Phone App</h3>
+      <p>Make and receive iPhone cellular calls directly from your Mac via Continuity. Access Recents, Contacts, Voicemail. Call Screening keeps unknown callers from ringing through.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-design">Personalization</span>
+      <h3>Themes & Icon Tinting</h3>
+      <p>Beyond just Light/Dark. Tint all icons and folders the same color. Color individual folders with emoji or glyphs. New "Clear" look matches iOS's transparent icon option.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-continuity">Continuity</span>
+      <h3>Live Activities on Mac</h3>
+      <p>iPhone Live Activities (sports scores, timers, Uber ETAs) now show in your Mac's menu bar. Click one to open it in iPhone Mirroring.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-ai">Apple Intelligence</span>
+      <h3>Smarter Shortcuts</h3>
+      <p>Shortcuts can now tap directly into Apple Intelligence AI models to automate complex tasks. Live Translation added for cross-language text and audio.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-new">New App</span>
+      <h3>Games App</h3>
+      <p>Central hub for all games on your Mac — App Store, Apple Arcade, and others. Game Overlay for chat and settings without leaving games. Metal 4 for developers.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-productivity">iMessages</span>
+      <h3>Polls in Messages</h3>
+      <p>Create polls with up to 12 choices and send to iMessage groups. Recipients can vote live or add missing options. Requires iOS 26 / Tahoe on all devices.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-new">Terminal</span>
+      <h3>Terminal Refresh</h3>
+      <p>First notable Terminal update in decades. Now supports 24-bit color, Powerline fonts, and Liquid Glass themes. If you use a terminal, this is worth checking out.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-design">Lock Screen</span>
+      <h3>Customizable Clock</h3>
+      <p>Change the color, font, and weight of the lock screen clock — a feature borrowed from iPhone. Finally.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-ai">Reminders</span>
+      <h3>AI Auto-Categorize</h3>
+      <p>Reminders can now auto-categorize any list using Apple Intelligence — not just groceries. Packing list? It'll sort into Clothing, Electronics, Toiletries automatically.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-tag tag-new">Security</span>
+      <h3>FileVault Auto-On</h3>
+      <p>FileVault disk encryption now enables automatically on new setups when signed in with an Apple Account. Recovery handled via your Apple Account.</p>
+    </div>
+  </div>
+
+  <!-- Essential Keyboard Shortcuts -->
+  <div class="section-label">Essential Keyboard Shortcuts</div>
+  <div class="glass-card section">
+    <div class="section-header">
+      <div class="section-accent" style="background: var(--accent-purple);"></div>
+      <span class="section-icon">⌨️</span>
+      <span class="section-title">Windows → Mac Shortcut Mapping</span>
+    </div>
+    <div class="shortcut-grid">
+      <div class="shortcut-row">
+        <span class="shortcut-label">Cut</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>X</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Copy</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>C</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Paste</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>V</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Undo</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>Z</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Select All</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>A</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Save</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>S</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">New Window / Tab</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>N</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Open File</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>O</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Print</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>P</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Find</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>F</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Close Window</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>W</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Quit App Entirely</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>Q</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Switch Apps</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>Tab</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Switch Windows (same app)</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>`</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Spotlight Search</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>Space</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Screenshot (full)</span>
+        <div class="shortcut-keys"><kbd>⌘⇧</kbd><kbd>3</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Screenshot (select area)</span>
+        <div class="shortcut-keys"><kbd>⌘⇧</kbd><kbd>4</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Screenshot to clipboard</span>
+        <div class="shortcut-keys"><kbd>⌘⇧⌃</kbd><kbd>4</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Force Quit</span>
+        <div class="shortcut-keys"><kbd>⌘⌥</kbd><kbd>Esc</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Lock Screen</span>
+        <div class="shortcut-keys"><kbd>⌘⌃</kbd><kbd>Q</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Mission Control (all windows)</span>
+        <div class="shortcut-keys"><kbd>⌃</kbd><kbd>↑</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Show Desktop</span>
+        <div class="shortcut-keys"><kbd>F11</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Delete (like Backspace)</span>
+        <div class="shortcut-keys"><kbd>Delete</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Forward Delete</span>
+        <div class="shortcut-keys"><kbd>Fn</kbd><kbd>Delete</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Move file (Cut+Paste)</span>
+        <div class="shortcut-keys"><kbd>⌘</kbd><kbd>C</kbd> then <kbd>⌘⌥</kbd><kbd>V</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span class="shortcut-label">Empty Trash</span>
+        <div class="shortcut-keys"><kbd>⌘⇧</kbd><kbd>Delete</kbd></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trackpad gestures -->
+  <div class="section-label">Trackpad — Learn These</div>
+  <div class="glass-card section">
+    <div class="section-header">
+      <div class="section-accent" style="background: var(--accent-teal);"></div>
+      <span class="section-icon">👆</span>
+      <span class="section-title">Trackpad Gestures</span>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Gesture</th>
+          <th>What It Does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Two-finger scroll</td>
+          <td>Scroll — feels inverted if you're used to Windows. Flip it: System Settings → Trackpad → Natural scrolling.</td>
+        </tr>
+        <tr>
+          <td>Two-finger tap</td>
+          <td>Right-click (secondary click)</td>
+        </tr>
+        <tr>
+          <td>Two-finger pinch</td>
+          <td>Zoom in/out in browsers, photos, PDFs</td>
+        </tr>
+        <tr>
+          <td>Two-finger swipe left/right</td>
+          <td>Back / Forward in Safari and Finder</td>
+        </tr>
+        <tr>
+          <td>Three-finger swipe up</td>
+          <td>Mission Control — see all open windows</td>
+        </tr>
+        <tr>
+          <td>Three-finger swipe left/right</td>
+          <td>Switch between Spaces (virtual desktops)</td>
+        </tr>
+        <tr>
+          <td>Four-finger pinch closed</td>
+          <td>Show Launchpad / Apps view (Spotlight)</td>
+        </tr>
+        <tr>
+          <td>Four-finger swipe up</td>
+          <td>Mission Control</td>
+        </tr>
+        <tr>
+          <td>Tap to click</td>
+          <td>Off by default — enable in System Settings → Trackpad</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Windows-only things and Mac equivalents -->
+  <div class="section-label">Windows Things That Don't Exist (And What To Do)</div>
+  <div class="glass-card section">
+    <div class="section-header">
+      <div class="section-accent" style="background: var(--accent-orange);"></div>
+      <span class="section-icon">🔄</span>
+      <span class="section-title">Platform Differences</span>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Windows Concept</th>
+          <th>macOS Reality</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Registry</td>
+          <td>Doesn't exist. App prefs live in ~/Library/Preferences as .plist files. Rarely need to touch them.</td>
+        </tr>
+        <tr>
+          <td>.exe installers</td>
+          <td>Apps come as .dmg (disk image, drag to install) or .pkg (installer) or via the App Store.</td>
+        </tr>
+        <tr>
+          <td>Right-click → Properties</td>
+          <td><kbd>⌘I</kbd> (Get Info) on any file or folder. Same concept.</td>
+        </tr>
+        <tr>
+          <td>Rename file (F2)</td>
+          <td>Click filename once to select, press <kbd>Return</kbd> to rename.</td>
+        </tr>
+        <tr>
+          <td>Address bar in Explorer</td>
+          <td>In Finder, press <kbd>⌘⇧G</kbd> to type a path, or View → Show Path Bar.</td>
+        </tr>
+        <tr>
+          <td>Run dialog (Win+R)</td>
+          <td>Use Spotlight (<kbd>⌘Space</kbd>) or open Terminal and type commands there.</td>
+        </tr>
+        <tr>
+          <td>Maximize to full screen</td>
+          <td>Click green ● or <kbd>⌃⌘F</kbd>. True full-screen creates a new Space. Double-click title bar to maximize-without-fullscreen.</td>
+        </tr>
+        <tr>
+          <td>Defragmenting disk</td>
+          <td>Never needed. macOS handles this automatically on SSDs. APFS (the filesystem) does it natively.</td>
+        </tr>
+        <tr>
+          <td>Disk image = virtual drive</td>
+          <td>Same concept. .dmg mounts as a volume, you drag the app out, then eject it (like unplugging a USB).</td>
+        </tr>
+        <tr>
+          <td>C:\ drive in paths</td>
+          <td>Your home folder is /Users/yourname. Hit <kbd>⌘⇧H</kbd> in Finder to go there instantly.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <strong>macOS Tahoe (26)</strong> · Released September 15, 2025 · Current: 26.3.1<br>
+    Last Intel macOS release — macOS 27 will require Apple Silicon<br>
+    <span style="color: var(--text-muted); font-size: 11px; margin-top: 4px; display: block;">⌘ = Command · ⌥ = Option · ⌃ = Control · ⇧ = Shift · Fn = Function</span>
+  </div>
+
+</div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

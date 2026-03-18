@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kafka Cheat Sheet — a reference guide by Thomas Powell.">
+    <meta name="keywords" content="Thomas Powell, kafka cheatsheet, blog, reference, tp88.us">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="Kafka Cheat Sheet">
+    <meta property="og:description" content="Kafka Cheat Sheet — a reference guide by Thomas Powell.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tp88.us/blog/kafka-cheatsheet.html">
+    <link rel="canonical" href="https://tp88.us/blog/kafka-cheatsheet.html">
+<title>Kafka Cheat Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Barlow+Condensed:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0b;
+    --dark: #111114;
+    --panel: #16161a;
+    --border: #252530;
+    --border-bright: #3a3a4a;
+    --orange: #ff6b2b;
+    --orange-dim: #c44d18;
+    --yellow: #f5c518;
+    --green: #39d98a;
+    --blue: #4fa3ff;
+    --purple: #b57aff;
+    --red: #ff4d6a;
+    --text: #d4d4e0;
+    --text-dim: #7a7a90;
+    --text-bright: #f0f0ff;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Barlow Condensed', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* Scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.05) 2px,
+      rgba(0,0,0,0.05) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--orange);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--orange-dim);
+    opacity: 0.12;
+    font-size: 20px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .header-title h1 {
+    font-family: var(--display);
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--text-bright);
+    letter-spacing: -1px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .header-title h1 span {
+    color: var(--orange);
+  }
+
+  .header-title .subtitle {
+    font-family: var(--display);
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .header-meta {
+    text-align: right;
+    color: var(--text-dim);
+    font-size: 10px;
+    line-height: 1.8;
+  }
+
+  .header-meta .version {
+    font-size: 13px;
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  /* Grid layout */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+
+  /* Panel */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--dark);
+  }
+
+  .panel-header .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .panel-header h2 {
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-bright);
+  }
+
+  .panel-header .tag {
+    margin-left: auto;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 1px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .panel-body {
+    padding: 14px;
+  }
+
+  /* Concept cards */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .concept {
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    padding: 10px 12px;
+    border-radius: 1px;
+  }
+
+  .concept .name {
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .concept .desc {
+    color: var(--text-dim);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .concept .badge {
+    font-size: 8px;
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 1px 5px;
+    border-radius: 1px;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  /* Command blocks */
+  .cmd-section {
+    margin-bottom: 12px;
+  }
+
+  .cmd-section:last-child { margin-bottom: 0; }
+
+  .cmd-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cmd-label::before {
+    content: '//';
+    color: var(--border-bright);
+    font-weight: 300;
+  }
+
+  .cmd {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .cmd:last-child { border-bottom: none; }
+
+  .cmd .prompt {
+    color: var(--green);
+    flex-shrink: 0;
+    font-size: 10px;
+    margin-top: 1px;
+    opacity: 0.7;
+  }
+
+  .cmd-text {
+    flex: 1;
+  }
+
+  .cmd-text code {
+    display: block;
+    color: var(--text-bright);
+    font-size: 10px;
+    font-family: var(--mono);
+    word-break: break-all;
+  }
+
+  .cmd-text code .flag {
+    color: var(--yellow);
+  }
+
+  .cmd-text code .value {
+    color: var(--blue);
+  }
+
+  .cmd-text code .kw {
+    color: var(--purple);
+  }
+
+  .cmd-text .comment {
+    color: var(--text-dim);
+    font-size: 9px;
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* Config table */
+  .config-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .config-table thead tr {
+    background: var(--dark);
+    border-bottom: 1px solid var(--border-bright);
+  }
+
+  .config-table th {
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .config-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .config-table tbody tr:hover {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .config-table td:first-child {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--yellow);
+    white-space: nowrap;
+  }
+
+  .config-table td:nth-child(2) {
+    font-size: 10px;
+    color: var(--blue);
+    white-space: nowrap;
+    padding-right: 12px;
+  }
+
+  .config-table td:nth-child(3) {
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  /* Architecture diagram */
+  .arch {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .arch-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .arch-box {
+    background: var(--dark);
+    border: 1px solid;
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 1px;
+    font-family: var(--display);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .arch-arrow {
+    color: var(--text-dim);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .arch-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* Flow arrows */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 8px 0;
+    font-size: 10px;
+  }
+
+  .flow-box {
+    padding: 6px 10px;
+    border: 1px solid;
+    border-radius: 1px;
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    padding: 0 4px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  /* Retention visual */
+  .partition-visual {
+    margin: 10px 0;
+  }
+
+  .partition-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .partition-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    width: 70px;
+    flex-shrink: 0;
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .partition-segments {
+    display: flex;
+    gap: 2px;
+  }
+
+  .seg {
+    width: 22px;
+    height: 16px;
+    border-radius: 1px;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+    font-family: var(--display);
+  }
+
+  .seg.leader { opacity: 1; }
+  .seg.follower { opacity: 0.45; }
+
+  .leader-marker {
+    font-size: 8px;
+    color: var(--green);
+    margin-left: 4px;
+  }
+
+  /* Offset visual */
+  .offset-track {
+    display: flex;
+    gap: 1px;
+    margin: 8px 0;
+    align-items: flex-end;
+  }
+
+  .offset-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .offset-msg {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border-bright);
+    background: var(--dark);
+    border-radius: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text);
+    font-family: var(--display);
+    position: relative;
+  }
+
+  .offset-msg.consumed {
+    background: rgba(57,217,138,0.1);
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  .offset-msg.current {
+    background: rgba(255,107,43,0.15);
+    border-color: var(--orange);
+    color: var(--orange);
+    box-shadow: 0 0 6px rgba(255,107,43,0.3);
+  }
+
+  .offset-num {
+    font-size: 8px;
+    color: var(--text-dim);
+    font-family: var(--display);
+    font-weight: 600;
+  }
+
+  .offset-legend {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+
+  .legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    margin-right: 4px;
+    border: 1px solid;
+    vertical-align: middle;
+  }
+
+  /* Badge colors */
+  .c-orange { color: var(--orange); border-color: var(--orange); }
+  .c-yellow { color: var(--yellow); border-color: var(--yellow); }
+  .c-green { color: var(--green); border-color: var(--green); }
+  .c-blue { color: var(--blue); border-color: var(--blue); }
+  .c-purple { color: var(--purple); border-color: var(--purple); }
+  .c-red { color: var(--red); border-color: var(--red); }
+
+  .bg-orange { background: rgba(255,107,43,0.12); }
+  .bg-yellow { background: rgba(245,197,24,0.1); }
+  .bg-green { background: rgba(57,217,138,0.1); }
+  .bg-blue { background: rgba(79,163,255,0.1); }
+  .bg-purple { background: rgba(181,122,255,0.1); }
+  .bg-red { background: rgba(255,77,106,0.1); }
+
+  /* Section spacing */
+  .section {
+    margin-bottom: 16px;
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 10px 0;
+  }
+
+  /* Pill */
+  .pill {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: var(--display);
+  }
+
+  /* Metrics row */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .metric {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    border-radius: 2px;
+    border-top: 2px solid;
+  }
+
+  .metric .metric-val {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric .metric-label {
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: var(--display);
+    font-weight: 500;
+  }
+
+  .metric .metric-sub {
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* Prop list */
+  .prop-list {
+    list-style: none;
+  }
+
+  .prop-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 10px;
+  }
+
+  .prop-list li:last-child { border-bottom: none; }
+
+  .prop-list .prop-key {
+    color: var(--yellow);
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .prop-list .prop-sep {
+    color: var(--border-bright);
+    flex-shrink: 0;
+  }
+
+  .prop-list .prop-val {
+    color: var(--blue);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .prop-list .prop-desc {
+    color: var(--text-dim);
+    font-size: 9px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-dim);
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .footer .logo-text {
+    font-family: var(--display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--border-bright);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-title">
+      <h1>A<span>PACHE</span> KAFKA</h1>
+      <div class="subtitle">Distributed Event Streaming · Cheat Sheet</div>
+    </div>
+    <div class="header-meta">
+      <div class="version">v3.x</div>
+      <div>Brokers · Topics · Consumers · Producers</div>
+      <div>CLI · Configs · Architecture</div>
+    </div>
+  </div>
+
+  <!-- Key metrics -->
+  <div class="metrics">
+    <div class="metric" style="border-top-color:var(--orange)">
+      <div class="metric-val c-orange">∞</div>
+      <div class="metric-label">Message Retention</div>
+      <div class="metric-sub">Configurable by time or size</div>
+    </div>
+    <div class="metric" style="border-top-color:var(--green)">
+      <div class="metric-val c-green">N+1</div>
+      <div class="metric-label">Replication</div>
+      <div class="metric-sub">ISR-based fault tolerance</div>
+    </div>
+    <div class="metric" style="border-top-color:var(--blue)">
+      <div class="metric-val c-blue">O(1)</div>
+      <div class="metric-label">Read Complexity</div>
+      <div class="metric-sub">Sequential disk access</div>
+    </div>
+    <div class="metric" style="border-top-color:var(--purple)">
+      <div class="metric-val c-purple">ms</div>
+      <div class="metric-label">Latency</div>
+      <div class="metric-sub">End-to-end at scale</div>
+    </div>
+  </div>
+
+  <!-- Row 1: Concepts + Architecture -->
+  <div class="section grid">
+
+    <!-- Core Concepts -->
+    <div class="panel span-2">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--orange)"></div>
+        <h2>Core Concepts</h2>
+        <div class="tag pill bg-orange c-orange">Fundamentals</div>
+      </div>
+      <div class="panel-body">
+        <div class="concept-grid">
+          <div class="concept" style="border-left-color:var(--orange)">
+            <div class="name">
+              <span>🗂 Topic</span>
+              <span class="badge bg-orange c-orange">Core</span>
+            </div>
+            <div class="desc">A named, ordered, immutable log of records. Producers write to topics; consumers read from them. Topics are split into partitions for parallelism.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--yellow)">
+            <div class="name">
+              <span>📦 Partition</span>
+              <span class="badge bg-yellow c-yellow">Scaling</span>
+            </div>
+            <div class="desc">Unit of parallelism within a topic. Messages in a partition are ordered and assigned a sequential offset. Partitions are distributed across brokers.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--green)">
+            <div class="name">
+              <span>⬆ Producer</span>
+              <span class="badge bg-green c-green">Write</span>
+            </div>
+            <div class="desc">Publishes records to topics. Chooses partition via key hash, round-robin, or custom partitioner. Controls acks for durability guarantees.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--blue)">
+            <div class="name">
+              <span>⬇ Consumer</span>
+              <span class="badge bg-blue c-blue">Read</span>
+            </div>
+            <div class="desc">Reads records from partitions. Tracks position via committed offsets. Multiple consumers in a group divide partitions for parallel consumption.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--purple)">
+            <div class="name">
+              <span>👥 Consumer Group</span>
+              <span class="badge bg-purple c-purple">Group</span>
+            </div>
+            <div class="desc">Set of consumers sharing a group.id. Each partition is assigned to exactly one consumer. Enables horizontal scaling; groups are independent.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--red)">
+            <div class="name">
+              <span>🖥 Broker</span>
+              <span class="badge bg-red c-red">Infra</span>
+            </div>
+            <div class="desc">A Kafka server that stores and serves partitions. Each broker handles a subset of topic partitions. One broker acts as controller in the cluster.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--orange)">
+            <div class="name">
+              <span># Offset</span>
+              <span class="badge bg-orange c-orange">State</span>
+            </div>
+            <div class="desc">Integer position of a record in a partition (0-based). Consumers commit offsets to track progress. Can reset to earliest, latest, or specific position.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--yellow)">
+            <div class="name">
+              <span>🔁 Replication</span>
+              <span class="badge bg-yellow c-yellow">HA</span>
+            </div>
+            <div class="desc">Each partition has a leader replica and N-1 followers. Producers/consumers interact with the leader. ISR (In-Sync Replicas) ensures data durability.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--green)">
+            <div class="name">
+              <span>🗜 Log Compaction</span>
+              <span class="badge bg-green c-green">Retention</span>
+            </div>
+            <div class="desc">Retention policy that keeps only the latest value per key. Deletes older records with duplicate keys. Useful for changelog/event-sourcing patterns.</div>
+          </div>
+          <div class="concept" style="border-left-color:var(--blue)">
+            <div class="name">
+              <span>🏷 Record / Message</span>
+              <span class="badge bg-blue c-blue">Data</span>
+            </div>
+            <div class="desc">Unit of data: optional key, value bytes, timestamp, optional headers. Key determines partition assignment. Value is opaque bytes (Avro, JSON, etc.).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture + Data Flow -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="dot" style="background:var(--blue)"></div>
+          <h2>Data Flow</h2>
+          <div class="tag pill bg-blue c-blue">Architecture</div>
+        </div>
+        <div class="panel-body">
+          <div class="flow">
+            <div class="flow-box c-green" style="background:rgba(57,217,138,0.1)">Producers</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box c-orange" style="background:rgba(255,107,43,0.1)">Broker Cluster</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box c-blue" style="background:rgba(79,163,255,0.1)">Consumers</div>
+          </div>
+          <div class="divider"></div>
+          <div style="font-size:9px;color:var(--text-dim);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;font-family:var(--display);font-weight:700;">Partition Replication</div>
+          <div class="partition-visual">
+            <div class="partition-row">
+              <div class="partition-label">Broker 1</div>
+              <div class="partition-segments">
+                <div class="seg leader c-orange bg-orange">P0</div>
+                <div class="seg follower c-blue bg-blue">P1</div>
+                <div class="seg follower c-purple bg-purple">P2</div>
+              </div>
+              <div class="leader-marker">← Leader P0</div>
+            </div>
+            <div class="partition-row">
+              <div class="partition-label">Broker 2</div>
+              <div class="partition-segments">
+                <div class="seg follower c-orange bg-orange">P0</div>
+                <div class="seg leader c-blue bg-blue">P1</div>
+                <div class="seg follower c-purple bg-purple">P2</div>
+              </div>
+              <div class="leader-marker">← Leader P1</div>
+            </div>
+            <div class="partition-row">
+              <div class="partition-label">Broker 3</div>
+              <div class="partition-segments">
+                <div class="seg follower c-orange bg-orange">P0</div>
+                <div class="seg follower c-blue bg-blue">P1</div>
+                <div class="seg leader c-purple bg-purple">P2</div>
+              </div>
+              <div class="leader-marker">← Leader P2</div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div style="font-size:9px;color:var(--text-dim);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;font-family:var(--display);font-weight:700;">Consumer Offset Tracking</div>
+          <div class="offset-track">
+            <div class="offset-slot"><div class="offset-msg consumed">M</div><div class="offset-num">0</div></div>
+            <div class="offset-slot"><div class="offset-msg consumed">M</div><div class="offset-num">1</div></div>
+            <div class="offset-slot"><div class="offset-msg consumed">M</div><div class="offset-num">2</div></div>
+            <div class="offset-slot"><div class="offset-msg current">M</div><div class="offset-num">3</div></div>
+            <div class="offset-slot"><div class="offset-msg">M</div><div class="offset-num">4</div></div>
+            <div class="offset-slot"><div class="offset-msg">M</div><div class="offset-num">5</div></div>
+            <div class="offset-slot"><div class="offset-msg">M</div><div class="offset-num">6</div></div>
+          </div>
+          <div class="offset-legend">
+            <span><span class="legend-dot" style="background:rgba(57,217,138,0.2);border-color:var(--green)"></span>committed</span>
+            <span><span class="legend-dot" style="background:rgba(255,107,43,0.2);border-color:var(--orange)"></span>current</span>
+            <span><span class="legend-dot" style="background:var(--dark);border-color:var(--border-bright)"></span>unread</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: Commands -->
+  <div class="section grid">
+
+    <!-- Topic Commands -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--yellow)"></div>
+        <h2>Topic Commands</h2>
+        <div class="tag pill bg-yellow c-yellow">kafka-topics.sh</div>
+      </div>
+      <div class="panel-body">
+        <div class="cmd-section">
+          <div class="cmd-label">Create &amp; Delete</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-topics.sh <span class="flag">--create</span> <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--partitions</span> <span class="value">3</span> <span class="flag">--replication-factor</span> <span class="value">2</span></code>
+              <div class="comment">Create topic with 3 partitions, RF=2</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-topics.sh <span class="flag">--delete</span> <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span></code>
+              <div class="comment">Delete topic permanently</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">Inspect</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-topics.sh <span class="flag">--list</span> <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span></code>
+              <div class="comment">List all topics</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-topics.sh <span class="flag">--describe</span> <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span></code>
+              <div class="comment">Show partitions, leaders, ISR</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-topics.sh <span class="flag">--describe</span> <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--under-replicated-partitions</span></code>
+              <div class="comment">Find under-replicated partitions</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">Alter</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-topics.sh <span class="flag">--alter</span> <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--partitions</span> <span class="value">6</span></code>
+              <div class="comment">Increase partitions only (can't decrease)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producer/Consumer Commands -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--green)"></div>
+        <h2>Produce &amp; Consume</h2>
+        <div class="tag pill bg-green c-green">Console Tools</div>
+      </div>
+      <div class="panel-body">
+        <div class="cmd-section">
+          <div class="cmd-label">Console Producer</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-console-producer.sh <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span></code>
+              <div class="comment">Send messages interactively (stdin)</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-console-producer.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--property</span> <span class="value">parse.key=true</span> <span class="flag">--property</span> <span class="value">key.separator=:</span></code>
+              <div class="comment">Send with keys (key:value per line)</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">Console Consumer</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-console-consumer.sh <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--from-beginning</span></code>
+              <div class="comment">Read all messages from start</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-console-consumer.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--group</span> <span class="value">my-group</span> <span class="flag">--max-messages</span> <span class="value">100</span></code>
+              <div class="comment">Consume with group, limit to 100 msgs</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-console-consumer.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--partition</span> <span class="value">0</span> <span class="flag">--offset</span> <span class="value">42</span></code>
+              <div class="comment">Read from specific partition + offset</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-console-consumer.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--property</span> <span class="value">print.key=true</span> <span class="flag">--property</span> <span class="value">print.timestamp=true</span></code>
+              <div class="comment">Print keys + timestamps with messages</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consumer Group Commands -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--purple)"></div>
+        <h2>Consumer Groups</h2>
+        <div class="tag pill bg-purple c-purple">kafka-consumer-groups.sh</div>
+      </div>
+      <div class="panel-body">
+        <div class="cmd-section">
+          <div class="cmd-label">Monitor &amp; Inspect</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--list</span></code>
+              <div class="comment">List all consumer groups</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--describe</span> <span class="flag">--group</span> <span class="value">my-group</span></code>
+              <div class="comment">Show lag, offsets, member assignment</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--describe</span> <span class="flag">--all-groups</span></code>
+              <div class="comment">Describe all groups at once</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">Offset Reset</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--group</span> <span class="value">my-group</span> <span class="flag">--reset-offsets</span> <span class="flag">--to-earliest</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--execute</span></code>
+              <div class="comment">Reset to beginning of topic</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--group</span> <span class="value">my-group</span> <span class="flag">--reset-offsets</span> <span class="flag">--to-datetime</span> <span class="value">2024-01-01T00:00:00.000</span> <span class="flag">--topic</span> <span class="value">my-topic</span> <span class="flag">--execute</span></code>
+              <div class="comment">Reset to specific timestamp</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--group</span> <span class="value">my-group</span> <span class="flag">--reset-offsets</span> <span class="flag">--shift-by</span> <span class="value">-100</span> <span class="flag">--all-topics</span> <span class="flag">--execute</span></code>
+              <div class="comment">Shift back 100 messages across all topics</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">Delete</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-groups.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--delete</span> <span class="flag">--group</span> <span class="value">my-group</span></code>
+              <div class="comment">Remove inactive consumer group</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 3: Configs -->
+  <div class="section grid">
+
+    <!-- Producer Config -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--green)"></div>
+        <h2>Producer Config</h2>
+        <div class="tag pill bg-green c-green">Key Settings</div>
+      </div>
+      <div class="panel-body">
+        <ul class="prop-list">
+          <li><span class="prop-key">acks</span><span class="prop-sep">=</span><span class="prop-val">all</span><span class="prop-desc">0=fire&amp;forget, 1=leader, all=ISR (strongest)</span></li>
+          <li><span class="prop-key">retries</span><span class="prop-sep">=</span><span class="prop-val">2147483647</span><span class="prop-desc">Max retry attempts; use with idempotence</span></li>
+          <li><span class="prop-key">enable.idempotence</span><span class="prop-sep">=</span><span class="prop-val">true</span><span class="prop-desc">Exactly-once delivery semantics</span></li>
+          <li><span class="prop-key">batch.size</span><span class="prop-sep">=</span><span class="prop-val">16384</span><span class="prop-desc">Max bytes per batch (increase for throughput)</span></li>
+          <li><span class="prop-key">linger.ms</span><span class="prop-sep">=</span><span class="prop-val">5</span><span class="prop-desc">Wait before sending batch (0=low latency)</span></li>
+          <li><span class="prop-key">compression.type</span><span class="prop-sep">=</span><span class="prop-val">snappy</span><span class="prop-desc">none, gzip, snappy, lz4, zstd</span></li>
+          <li><span class="prop-key">max.in.flight.requests</span><span class="prop-sep">=</span><span class="prop-val">5</span><span class="prop-desc">Set to 1 for strict ordering without idempotence</span></li>
+          <li><span class="prop-key">delivery.timeout.ms</span><span class="prop-sep">=</span><span class="prop-val">120000</span><span class="prop-desc">Upper bound on total delivery time</span></li>
+          <li><span class="prop-key">buffer.memory</span><span class="prop-sep">=</span><span class="prop-val">33554432</span><span class="prop-desc">Total memory for buffering unsent records</span></li>
+          <li><span class="prop-key">key.serializer</span><span class="prop-sep">=</span><span class="prop-val">StringSerializer</span><span class="prop-desc">Key serializer class</span></li>
+          <li><span class="prop-key">value.serializer</span><span class="prop-sep">=</span><span class="prop-val">StringSerializer</span><span class="prop-desc">Value serializer class</span></li>
+          <li><span class="prop-key">partitioner.class</span><span class="prop-sep">=</span><span class="prop-val">DefaultPartitioner</span><span class="prop-desc">Custom partitioner for routing logic</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Consumer Config -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--blue)"></div>
+        <h2>Consumer Config</h2>
+        <div class="tag pill bg-blue c-blue">Key Settings</div>
+      </div>
+      <div class="panel-body">
+        <ul class="prop-list">
+          <li><span class="prop-key">group.id</span><span class="prop-sep">=</span><span class="prop-val">my-app-group</span><span class="prop-desc">Consumer group identifier (required)</span></li>
+          <li><span class="prop-key">auto.offset.reset</span><span class="prop-sep">=</span><span class="prop-val">earliest</span><span class="prop-desc">earliest | latest | none (no prior offset)</span></li>
+          <li><span class="prop-key">enable.auto.commit</span><span class="prop-sep">=</span><span class="prop-val">true</span><span class="prop-desc">False = manual offset control</span></li>
+          <li><span class="prop-key">auto.commit.interval.ms</span><span class="prop-sep">=</span><span class="prop-val">5000</span><span class="prop-desc">Frequency of automatic offset commits</span></li>
+          <li><span class="prop-key">fetch.min.bytes</span><span class="prop-sep">=</span><span class="prop-val">1</span><span class="prop-desc">Min data before server responds to fetch</span></li>
+          <li><span class="prop-key">fetch.max.wait.ms</span><span class="prop-sep">=</span><span class="prop-val">500</span><span class="prop-desc">Max wait if fetch.min.bytes not satisfied</span></li>
+          <li><span class="prop-key">max.poll.records</span><span class="prop-sep">=</span><span class="prop-val">500</span><span class="prop-desc">Max records per poll() call</span></li>
+          <li><span class="prop-key">max.poll.interval.ms</span><span class="prop-sep">=</span><span class="prop-val">300000</span><span class="prop-desc">Max time between polls before rebalance</span></li>
+          <li><span class="prop-key">session.timeout.ms</span><span class="prop-sep">=</span><span class="prop-val">45000</span><span class="prop-desc">Heartbeat timeout before member removed</span></li>
+          <li><span class="prop-key">heartbeat.interval.ms</span><span class="prop-sep">=</span><span class="prop-val">3000</span><span class="prop-desc">Frequency of heartbeats to coordinator</span></li>
+          <li><span class="prop-key">isolation.level</span><span class="prop-sep">=</span><span class="prop-val">read_committed</span><span class="prop-desc">read_uncommitted | read_committed (EOS)</span></li>
+          <li><span class="prop-key">partition.assignment.strategy</span><span class="prop-sep">=</span><span class="prop-val">RangeAssignor</span><span class="prop-desc">RangeAssignor, RoundRobin, StickyAssignor</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Broker/Topic Config -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--red)"></div>
+        <h2>Broker &amp; Topic Config</h2>
+        <div class="tag pill bg-red c-red">server.properties</div>
+      </div>
+      <div class="panel-body">
+        <div style="font-size:9px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-family:var(--display);font-weight:700;">// Broker</div>
+        <ul class="prop-list" style="margin-bottom:10px;">
+          <li><span class="prop-key">num.partitions</span><span class="prop-sep">=</span><span class="prop-val">1</span><span class="prop-desc">Default partitions for new topics</span></li>
+          <li><span class="prop-key">default.replication.factor</span><span class="prop-sep">=</span><span class="prop-val">1</span><span class="prop-desc">Default RF (use 3 in production)</span></li>
+          <li><span class="prop-key">min.insync.replicas</span><span class="prop-sep">=</span><span class="prop-val">2</span><span class="prop-desc">Min ISR before producer acks=all fails</span></li>
+          <li><span class="prop-key">log.retention.hours</span><span class="prop-sep">=</span><span class="prop-val">168</span><span class="prop-desc">Data retention period (168h = 7 days)</span></li>
+          <li><span class="prop-key">log.retention.bytes</span><span class="prop-sep">=</span><span class="prop-val">-1</span><span class="prop-desc">Max log size per partition (-1 = unlimited)</span></li>
+          <li><span class="prop-key">log.segment.bytes</span><span class="prop-sep">=</span><span class="prop-val">1073741824</span><span class="prop-desc">Max segment file size (1 GB)</span></li>
+          <li><span class="prop-key">num.network.threads</span><span class="prop-sep">=</span><span class="prop-val">3</span><span class="prop-desc">Threads for network I/O</span></li>
+          <li><span class="prop-key">num.io.threads</span><span class="prop-sep">=</span><span class="prop-val">8</span><span class="prop-desc">Threads for disk I/O</span></li>
+        </ul>
+        <div style="font-size:9px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-family:var(--display);font-weight:700;">// Per-Topic Override (kafka-configs.sh)</div>
+        <div class="cmd" style="padding:0">
+          <div class="prompt">$</div>
+          <div class="cmd-text">
+            <code>kafka-configs.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--entity-type</span> <span class="value">topics</span> <span class="flag">--entity-name</span> <span class="value">my-topic</span> <span class="flag">--alter</span> <span class="flag">--add-config</span> <span class="value">retention.ms=86400000</span></code>
+            <div class="comment">Set 1-day retention on specific topic</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 4: Advanced + Misc -->
+  <div class="section grid-2col">
+
+    <!-- Admin Commands -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="dot" style="background:var(--orange)"></div>
+        <h2>Admin &amp; Diagnostics</h2>
+        <div class="tag pill bg-orange c-orange">Operations</div>
+      </div>
+      <div class="panel-body">
+        <div class="cmd-section">
+          <div class="cmd-label">Cluster Info</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-broker-api-versions.sh <span class="flag">--bootstrap-server</span> <span class="value">localhost:9092</span></code>
+              <div class="comment">List broker API versions</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-log-dirs.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic-list</span> <span class="value">my-topic</span></code>
+              <div class="comment">Show log directories and sizes</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-get-offsets.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">my-topic</span></code>
+              <div class="comment">Get latest offsets per partition</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">Performance Testing</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-producer-perf-test.sh <span class="flag">--topic</span> <span class="value">perf-test</span> <span class="flag">--num-records</span> <span class="value">1000000</span> <span class="flag">--record-size</span> <span class="value">1000</span> <span class="flag">--throughput</span> <span class="value">-1</span> <span class="flag">--producer-props</span> <span class="value">bootstrap.servers=localhost:9092</span></code>
+              <div class="comment">Produce 1M records, max throughput</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-consumer-perf-test.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--topic</span> <span class="value">perf-test</span> <span class="flag">--messages</span> <span class="value">1000000</span></code>
+              <div class="comment">Consume perf test</div>
+            </div>
+          </div>
+        </div>
+        <div class="cmd-section">
+          <div class="cmd-label">KRaft Mode (Kafka 3.x / ZK-less)</div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-storage.sh <span class="kw">format</span> <span class="flag">-t</span> <span class="value">$(kafka-storage.sh random-uuid)</span> <span class="flag">-c</span> <span class="value">config/kraft/server.properties</span></code>
+              <div class="comment">Format storage for KRaft mode</div>
+            </div>
+          </div>
+          <div class="cmd">
+            <div class="prompt">$</div>
+            <div class="cmd-text">
+              <code>kafka-metadata-quorum.sh <span class="flag">--bootstrap-server</span> <span class="value">:9092</span> <span class="flag">--describe</span> <span class="flag">--status</span></code>
+              <div class="comment">Check KRaft quorum status</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery Semantics + Patterns -->
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="dot" style="background:var(--purple)"></div>
+          <h2>Delivery Semantics</h2>
+          <div class="tag pill bg-purple c-purple">Guarantees</div>
+        </div>
+        <div class="panel-body">
+          <div class="concept-grid">
+            <div class="concept" style="border-left-color:var(--yellow)">
+              <div class="name">At-Most-Once</div>
+              <div class="desc"><code style="font-size:9px;color:var(--text-dim)">acks=0, retries=0</code><br>Messages may be lost. Highest throughput. Use when loss is acceptable.</div>
+            </div>
+            <div class="concept" style="border-left-color:var(--blue)">
+              <div class="name">At-Least-Once</div>
+              <div class="desc"><code style="font-size:9px;color:var(--text-dim)">acks=all, retries=N</code><br>No loss but duplicates possible. Default for most workloads.</div>
+            </div>
+            <div class="concept" style="border-left-color:var(--green)">
+              <div class="name">Exactly-Once (EOS)</div>
+              <div class="desc"><code style="font-size:9px;color:var(--text-dim)">idempotence + transactions</code><br>No loss, no duplicates. Requires <code style="color:var(--yellow);font-size:9px">enable.idempotence=true</code> + transaction API.</div>
+            </div>
+            <div class="concept" style="border-left-color:var(--orange)">
+              <div class="name">Transactions</div>
+              <div class="desc"><code style="font-size:9px;color:var(--text-dim)">transactional.id=X</code><br>Atomic writes across multiple partitions/topics. Use <code style="color:var(--yellow);font-size:9px">read_committed</code> on consumer.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="dot" style="background:var(--yellow)"></div>
+          <h2>Common Patterns</h2>
+          <div class="tag pill bg-yellow c-yellow">Recipes</div>
+        </div>
+        <div class="panel-body">
+          <table class="config-table">
+            <thead>
+              <tr>
+                <th>Pattern</th>
+                <th>Key Config</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>High throughput</td>
+                <td style="color:var(--blue);font-size:10px;">linger.ms=20, batch.size=65536, compression=lz4</td>
+                <td>Trade latency for throughput</td>
+              </tr>
+              <tr>
+                <td>Low latency</td>
+                <td style="color:var(--blue);font-size:10px;">linger.ms=0, acks=1</td>
+                <td>Accept weaker guarantees</td>
+              </tr>
+              <tr>
+                <td>Dead letter queue</td>
+                <td style="color:var(--blue);font-size:10px;">separate topic, catch exceptions</td>
+                <td>Route failed msgs to DLQ topic</td>
+              </tr>
+              <tr>
+                <td>Fan-out</td>
+                <td style="color:var(--blue);font-size:10px;">multiple consumer groups</td>
+                <td>Each group reads all messages</td>
+              </tr>
+              <tr>
+                <td>Queue</td>
+                <td style="color:var(--blue);font-size:10px;">1 partition, 1 consumer group</td>
+                <td>FIFO processing</td>
+              </tr>
+              <tr>
+                <td>Log compaction</td>
+                <td style="color:var(--blue);font-size:10px;">cleanup.policy=compact</td>
+                <td>Latest value per key retained</td>
+              </tr>
+              <tr>
+                <td>Event sourcing</td>
+                <td style="color:var(--blue);font-size:10px;">retention.ms=-1, compact</td>
+                <td>Infinite retention + compaction</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="logo-text">Apache Kafka Cheat Sheet</div>
+    <div>kafka-topics · kafka-console-producer · kafka-console-consumer · kafka-consumer-groups · kafka-configs · kafka-storage</div>
+    <div>v3.x · KRaft-compatible</div>
+  </div>
+
+</div>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>
