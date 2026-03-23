@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerShell Quick Reference for bash/zsh/cmd Users</title>
+  <meta name="description" content="PowerShell is a cross-platform shell and scripting language built on .NET. Unlike cmd or bash, it passes objects through pipelines, not text — which changes how">
+  <meta name="keywords" content="PowerShell Quick Reference for bash/zsh/cmd Users, Thomas Powell, programming, quick reference, to powershell">
+  <meta name="author" content="Thomas Powell">
+  <meta property="og:title" content="PowerShell Quick Reference for bash/zsh/cmd Users">
+  <meta property="og:description" content="PowerShell is a cross-platform shell and scripting language built on .NET. Unlike cmd or bash, it passes objects through pipelines, not text — which changes how">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://tp88.us/blog/to_powershell.html">
+  <link rel="canonical" href="https://tp88.us/blog/to_powershell.html">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f4f4;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    h1 {
+      color: #ff4500;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ffefd5;
+    }
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  color: #faf6e4;
+  background-color: #122b3b;
+}
+.highlight .gl {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .gp {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #6c8b9f;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .err {
+  color: #fefeec;
+  background-color: #cc0000;
+}
+.highlight .gr {
+  color: #cc0000;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .k, .highlight .kd, .highlight .kv {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .o, .highlight .ow {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .p, .highlight .pi {
+  color: #4df4ff;
+}
+.highlight .gd {
+  color: #cc0000;
+}
+.highlight .gi {
+  color: #b2fd6d;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .ges {
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #dee5e7;
+  background-color: #4e5d62;
+}
+.highlight .kc {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gh {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nc {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nd {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .bp {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #b2fd6d;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #ffb000;
+  font-weight: bold;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ld {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .ss {
+  color: #f696db;
+  font-weight: bold;
+}
+.highlight .s, .highlight .sb, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .sr, .highlight .s1 {
+  color: #fff0a6;
+  font-weight: bold;
+}
+.highlight .sa {
+  color: #f6dd62;
+  font-weight: bold;
+}
+.highlight .se {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .sc {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .si {
+  color: #4df4ff;
+  font-weight: bold;
+}
+.highlight .nb {
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #BBBBBB;
+}
+.highlight .go {
+  color: #BBBBBB;
+}
+.highlight .nf, .highlight .fm {
+  color: #a8e1fe;
+}
+.highlight .py {
+  color: #a8e1fe;
+}
+.highlight .na {
+  color: #a8e1fe;
+}
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm {
+  color: #a8e1fe;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><a href="#powershell-quick-reference-for-bashzshcmd-users" aria-hidden="true" class="anchor" id="powershell-quick-reference-for-bashzshcmd-users"></a>PowerShell Quick Reference for bash/zsh/cmd Users</h1>
+<p>PowerShell is a cross-platform shell and scripting language built on .NET. Unlike cmd or bash,<br />
+it passes <strong>objects</strong> through pipelines, not text — which changes how filtering, sorting, and<br />
+formatting work. Aliases exist for most common bash/cmd commands so muscle memory still works,<br />
+but the full cmdlet names are more predictable and composable.</p>
+<p><strong>Key concepts:</strong></p>
+<ul>
+<li>Cmdlets follow a <code>Verb-Noun</code> convention: <code>Get-Process</code>, <code>Set-Content</code>, <code>Remove-Item</code></li>
+<li>The pipeline passes .NET objects, not strings — use <code>.Property</code> access instead of <code>awk</code>/<code>cut</code></li>
+<li>Tab completion works on cmdlet names, parameters, and property names</li>
+<li><code>$_</code> is the current pipeline object (like <code>$item</code> in a <code>for</code> loop)</li>
+<li>Most cmdlets have short aliases: <code>gci</code> = <code>Get-ChildItem</code>, <code>gc</code> = <code>Get-Content</code>, etc.</li>
+<li><code>$env:VAR</code> accesses environment variables; <code>$VAR</code> is a local shell variable</li>
+</ul>
+<hr />
+<h2><a href="#navigation" aria-hidden="true" class="anchor" id="navigation"></a>Navigation</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pwd</code></td>
+<td>bash</td>
+<td><code>Get-Location</code></td>
+<td><code>gl</code> or just <code>pwd</code></td>
+</tr>
+<tr>
+<td><code>cd /path</code></td>
+<td>bash/cmd</td>
+<td><code>Set-Location /path</code></td>
+<td><code>cd /path</code></td>
+</tr>
+<tr>
+<td><code>cd -</code></td>
+<td>bash</td>
+<td><code>Set-Location -</code></td>
+<td><code>cd -</code></td>
+</tr>
+<tr>
+<td><code>pushd /path</code></td>
+<td>bash/cmd</td>
+<td><code>Push-Location /path</code></td>
+<td><code>pushd /path</code></td>
+</tr>
+<tr>
+<td><code>popd</code></td>
+<td>bash/cmd</td>
+<td><code>Pop-Location</code></td>
+<td><code>popd</code></td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem</code></td>
+<td><code>ls</code> or <code>gci</code></td>
+</tr>
+<tr>
+<td><code>ls -la</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Force</code></td>
+<td><code>ls -Force</code></td>
+</tr>
+<tr>
+<td><code>ls -lart</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem | Sort-Object LastWriteTime</code></td>
+<td><code>ls | sort LastWriteTime</code></td>
+</tr>
+<tr>
+<td><code>dir /o:d</code></td>
+<td>cmd.exe</td>
+<td><code>Get-ChildItem | Sort-Object LastWriteTime</code></td>
+<td><code>ls | sort LastWriteTime</code></td>
+</tr>
+<tr>
+<td><code>ls -larS</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem | Sort-Object Length</code></td>
+<td><code>ls | sort Length</code></td>
+</tr>
+<tr>
+<td><code>dir /o:s</code></td>
+<td>cmd.exe</td>
+<td><code>Get-ChildItem | Sort-Object Length</code></td>
+<td><code>ls | sort Length</code></td>
+</tr>
+<tr>
+<td><code>find . -name '*wildcard*'</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Path . -Include '*wildcard*' -Recurse</code></td>
+<td><code>gci . -inc '*wildcard*' -R</code></td>
+</tr>
+<tr>
+<td><code>find . -type f</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Recurse -File</code></td>
+<td><code>gci -R -File</code></td>
+</tr>
+<tr>
+<td><code>find . -type d</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Recurse -Directory</code></td>
+<td><code>gci -R -Directory</code></td>
+</tr>
+<tr>
+<td><code>find . -mtime -1</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Recurse | Where-Object { $_.LastWriteTime -gt (Get-Date).AddDays(-1) }</code></td>
+<td><code>gci -R | ? { $_.LastWriteTime -gt (Get-Date).AddDays(-1) }</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#file-operations" aria-hidden="true" class="anchor" id="file-operations"></a>File Operations</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat file.txt</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt</code></td>
+<td><code>gc file.txt</code></td>
+</tr>
+<tr>
+<td><code>type file.txt</code></td>
+<td>cmd.exe</td>
+<td><code>Get-Content file.txt</code></td>
+<td><code>gc file.txt</code></td>
+</tr>
+<tr>
+<td><code>head -n 20 file.txt</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt -TotalCount 20</code></td>
+<td><code>gc file.txt -Head 20</code></td>
+</tr>
+<tr>
+<td><code>tail -n 20 file.txt</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt -Tail 20</code></td>
+<td><code>gc file.txt -Tail 20</code></td>
+</tr>
+<tr>
+<td><code>tail -f logfile.log</code></td>
+<td>bash</td>
+<td><code>Get-Content logfile.log -Wait</code></td>
+<td><code>gc logfile.log -Wait</code></td>
+</tr>
+<tr>
+<td><code>cp src dst</code></td>
+<td>bash</td>
+<td><code>Copy-Item src dst</code></td>
+<td><code>cp src dst</code></td>
+</tr>
+<tr>
+<td><code>cp -r src/ dst/</code></td>
+<td>bash</td>
+<td><code>Copy-Item -Recurse src dst</code></td>
+<td><code>cp -R src dst</code></td>
+</tr>
+<tr>
+<td><code>xcopy /s src dst</code></td>
+<td>cmd.exe</td>
+<td><code>Copy-Item -Recurse src dst</code></td>
+<td><code>cp -R src dst</code></td>
+</tr>
+<tr>
+<td><code>mv src dst</code></td>
+<td>bash/cmd</td>
+<td><code>Move-Item src dst</code></td>
+<td><code>mv src dst</code></td>
+</tr>
+<tr>
+<td><code>rm file.txt</code></td>
+<td>bash</td>
+<td><code>Remove-Item file.txt</code></td>
+<td><code>rm file.txt</code></td>
+</tr>
+<tr>
+<td><code>rm -rf dir/</code></td>
+<td>bash</td>
+<td><code>Remove-Item -Recurse -Force dir</code></td>
+<td><code>rm -r -fo dir</code></td>
+</tr>
+<tr>
+<td><code>rmdir /q /s dir</code></td>
+<td>cmd.exe</td>
+<td><code>Remove-Item -Recurse -Force dir</code></td>
+<td><code>rm -r -fo dir</code></td>
+</tr>
+<tr>
+<td><code>mkdir dir</code></td>
+<td>bash/cmd</td>
+<td><code>New-Item -ItemType Directory dir</code></td>
+<td><code>ni -ItemType Directory dir</code></td>
+</tr>
+<tr>
+<td><code>mkdir -p a/b/c</code></td>
+<td>bash</td>
+<td><code>New-Item -ItemType Directory -Force a/b/c</code></td>
+<td><code>ni -ItemType Directory -Force a/b/c</code></td>
+</tr>
+<tr>
+<td><code>touch file.txt</code></td>
+<td>bash</td>
+<td><code>New-Item file.txt -ItemType File</code></td>
+<td><code>ni file.txt</code></td>
+</tr>
+<tr>
+<td><code>touch file.txt</code> (update mtime)</td>
+<td>bash</td>
+<td><code>(Get-Item file.txt).LastWriteTime = Get-Date</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>ln -s target link</code></td>
+<td>bash</td>
+<td><code>New-Item -ItemType SymbolicLink -Path link -Target target</code></td>
+<td><code>ni -ItemType SymbolicLink -Path link -Target target</code></td>
+</tr>
+<tr>
+<td><code>stat file.txt</code></td>
+<td>bash</td>
+<td><code>Get-Item file.txt | Select-Object *</code></td>
+<td><code>gi file.txt | select *</code></td>
+</tr>
+<tr>
+<td><code>chmod +x file</code></td>
+<td>bash</td>
+<td><code>(no direct equivalent — use ACLs)</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>chown user file</code></td>
+<td>bash</td>
+<td><code>(Get-Acl / Set-Acl)</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#text-processing" aria-hidden="true" class="anchor" id="text-processing"></a>Text Processing</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grep 'pattern' file.txt</code></td>
+<td>bash</td>
+<td><code>Select-String -Pattern 'pattern' file.txt</code></td>
+<td><code>sls 'pattern' file.txt</code></td>
+</tr>
+<tr>
+<td><code>grep -r 'pattern' .</code></td>
+<td>bash</td>
+<td><code>Select-String -Path . -Pattern 'pattern' -Recurse</code></td>
+<td><code>sls -Path . 'pattern' -R</code></td>
+</tr>
+<tr>
+<td><code>grep -rn 'pattern' .</code></td>
+<td>bash</td>
+<td><code>Select-String -Path . -Pattern 'pattern' -Recurse | Select-Object Filename, LineNumber, Line</code></td>
+<td><code>sls -Path . 'pattern' -R | select Filename, LineNumber, Line</code></td>
+</tr>
+<tr>
+<td><code>grep -v 'pattern' file</code></td>
+<td>bash</td>
+<td><code>Get-Content file | Where-Object { $_ -notmatch 'pattern' }</code></td>
+<td><code>gc file | ? { $_ -notmatch 'pattern' }</code></td>
+</tr>
+<tr>
+<td><code>grep -c 'pattern' file</code></td>
+<td>bash</td>
+<td><code>(Select-String 'pattern' file).Count</code></td>
+<td><code>(sls 'pattern' file).Count</code></td>
+</tr>
+<tr>
+<td><code>grep -i 'pattern' file</code></td>
+<td>bash</td>
+<td><code>Select-String -Pattern 'pattern' -CaseSensitive:$false file</code></td>
+<td><code>sls 'pattern' file</code> (case-insensitive by default)</td>
+</tr>
+<tr>
+<td><code>wc -l file.txt</code></td>
+<td>bash</td>
+<td><code>(Get-Content file.txt).Count</code></td>
+<td><code>(gc file.txt).Count</code></td>
+</tr>
+<tr>
+<td><code>wc -w file.txt</code></td>
+<td>bash</td>
+<td><code>(Get-Content file.txt | Measure-Object -Word).Words</code></td>
+<td><code>(gc file.txt | measure -Word).Words</code></td>
+</tr>
+<tr>
+<td><code>sort file.txt</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt | Sort-Object</code></td>
+<td><code>gc file.txt | sort</code></td>
+</tr>
+<tr>
+<td><code>sort -r file.txt</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt | Sort-Object -Descending</code></td>
+<td><code>gc file.txt | sort -desc</code></td>
+</tr>
+<tr>
+<td><code>sort file.txt | uniq</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt | Sort-Object -Unique</code></td>
+<td><code>gc file.txt | sort -Unique</code></td>
+</tr>
+<tr>
+<td><code>sort file.txt | uniq -c</code></td>
+<td>bash</td>
+<td><code>Get-Content file.txt | Group-Object | Select-Object Count, Name</code></td>
+<td><code>gc file.txt | group | select Count, Name</code></td>
+</tr>
+<tr>
+<td><code>cut -d: -f1 file</code></td>
+<td>bash</td>
+<td><code>Get-Content file | ForEach-Object { $_.Split(':')[0] }</code></td>
+<td><code>gc file | % { $_.Split(':')[0] }</code></td>
+</tr>
+<tr>
+<td><code>awk '{print $2}' file</code></td>
+<td>bash</td>
+<td><code>Get-Content file | ForEach-Object { ($_ -split '\s+')[1] }</code></td>
+<td><code>gc file | % { ($_ -split '\s+')[1] }</code></td>
+</tr>
+<tr>
+<td><code>sed -i 's/foo/bar/g' file.txt</code></td>
+<td>bash</td>
+<td><code>(Get-Content file.txt) -replace 'foo','bar' | Set-Content file.txt</code></td>
+<td><code>(gc file.txt) -replace 'foo','bar' | sc file.txt</code></td>
+</tr>
+<tr>
+<td><code>sed 's/foo/bar/g' file</code> (stdout)</td>
+<td>bash</td>
+<td><code>(Get-Content file) -replace 'foo','bar'</code></td>
+<td><code>(gc file) -replace 'foo','bar'</code></td>
+</tr>
+<tr>
+<td><code>tr '[:upper:]' '[:lower:]'</code></td>
+<td>bash</td>
+<td><code>$str.ToLower()</code> or <code>&quot;$str&quot;.ToLower()</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>echo &quot;text&quot; | tee file.txt</code></td>
+<td>bash</td>
+<td><code>&quot;text&quot; | Tee-Object file.txt</code></td>
+<td><code>&quot;text&quot; | tee file.txt</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#line-counting-by-file-type" aria-hidden="true" class="anchor" id="line-counting-by-file-type"></a>Line Counting by File Type</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find . -name '*.py' | xargs wc -l | tail -1</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Recurse -Filter '*.py' | Get-Content | Measure-Object -Line | Select-Object -ExpandProperty Lines</code></td>
+<td><code>gci -R -fil '*.py' | gc | measure -Line | % Lines</code></td>
+</tr>
+<tr>
+<td><code>find . -name '*.py' | xargs wc -l | sort -rn</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Recurse -Filter '*.py' | ForEach-Object { [PSCustomObject]@{ File=$_.FullName; Lines=(Get-Content $_).Count } } | Sort-Object Lines -Descending</code></td>
+<td><code>gci -R -fil '*.py' | % { [psc]@{File=$_.FullName;Lines=(gc $_).Count} } | sort Lines -desc</code></td>
+</tr>
+<tr>
+<td>Count lines grouped by extension</td>
+<td>bash (complex)</td>
+<td><code>Get-ChildItem -Recurse -File | Group-Object Extension | ForEach-Object { [PSCustomObject]@{ Extension=$_.Name; Lines=($_.Group | Get-Content | Measure-Object -Line).Lines } } | Sort-Object Lines -Descending</code></td>
+<td><code>gci -R -File | group Extension | % { [psc]@{Ext=$_.Name;Lines=($_.Group|gc|measure -Line).Lines} } | sort Lines -desc</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#hex--binary-inspection" aria-hidden="true" class="anchor" id="hex--binary-inspection"></a>Hex / Binary Inspection</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>xxd file</code></td>
+<td>bash</td>
+<td><code>Format-Hex file</code></td>
+<td><code>fhx file</code></td>
+</tr>
+<tr>
+<td><code>find . -name '*wildcard*' | xargs -I {} xxd {}</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem -Path . -Include '*wildcard*' -Recurse | ForEach-Object { Format-Hex $_ }</code></td>
+<td><code>gci '*wildcard*' -R | foreach { fhx $_ }</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#environment-variables" aria-hidden="true" class="anchor" id="environment-variables"></a>Environment Variables</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>echo $VAR</code></td>
+<td>bash</td>
+<td><code>Write-Output $env:VAR</code></td>
+<td><code>$env:VAR</code></td>
+</tr>
+<tr>
+<td><code>echo %VAR%</code></td>
+<td>cmd.exe</td>
+<td><code>Write-Output $env:VAR</code></td>
+<td><code>$env:VAR</code></td>
+</tr>
+<tr>
+<td><code>export VAR=value</code></td>
+<td>bash</td>
+<td><code>$env:VAR = 'value'</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>set VAR=value</code></td>
+<td>cmd.exe</td>
+<td><code>$env:VAR = 'value'</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem Env:</code></td>
+<td><code>ls Env:</code></td>
+</tr>
+<tr>
+<td><code>printenv PATH</code></td>
+<td>bash</td>
+<td><code>$env:PATH</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>unset VAR</code></td>
+<td>bash</td>
+<td><code>Remove-Item Env:VAR</code></td>
+<td><code>ri Env:VAR</code></td>
+</tr>
+<tr>
+<td><code>VAR=x command</code> (inline)</td>
+<td>bash</td>
+<td><code>$env:VAR = 'x'; command; Remove-Item Env:VAR</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#process-management" aria-hidden="true" class="anchor" id="process-management"></a>Process Management</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ps aux</code></td>
+<td>bash</td>
+<td><code>Get-Process</code></td>
+<td><code>gps</code></td>
+</tr>
+<tr>
+<td><code>ps aux | grep name</code></td>
+<td>bash</td>
+<td><code>Get-Process -Name '*name*'</code></td>
+<td><code>gps -Name '*name*'</code></td>
+</tr>
+<tr>
+<td><code>kill -9 PID</code></td>
+<td>bash</td>
+<td><code>Stop-Process -Id PID -Force</code></td>
+<td><code>kill -Id PID -Force</code></td>
+</tr>
+<tr>
+<td><code>kill -9 $(pgrep name)</code></td>
+<td>bash</td>
+<td><code>Get-Process -Name name | Stop-Process -Force</code></td>
+<td><code>gps name | kill -Force</code></td>
+</tr>
+<tr>
+<td><code>tasklist</code></td>
+<td>cmd.exe</td>
+<td><code>Get-Process</code></td>
+<td><code>gps</code></td>
+</tr>
+<tr>
+<td><code>taskkill /F /PID PID</code></td>
+<td>cmd.exe</td>
+<td><code>Stop-Process -Id PID -Force</code></td>
+<td><code>kill -Id PID -Force</code></td>
+</tr>
+<tr>
+<td><code>taskkill /F /IM name.exe</code></td>
+<td>cmd.exe</td>
+<td><code>Stop-Process -Name name -Force</code></td>
+<td><code>kill -Name name -Force</code></td>
+</tr>
+<tr>
+<td><code>top</code> / <code>htop</code></td>
+<td>bash</td>
+<td><code>Get-Process | Sort-Object CPU -Descending | Select-Object -First 20</code></td>
+<td><code>gps | sort CPU -desc | select -First 20</code></td>
+</tr>
+<tr>
+<td><code>time {command}</code></td>
+<td>bash</td>
+<td><code>Measure-Command { command }</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>nohup cmd &amp;</code></td>
+<td>bash</td>
+<td><code>Start-Process cmd -NoNewWindow</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>jobs</code></td>
+<td>bash</td>
+<td><code>Get-Job</code></td>
+<td><code>gjb</code></td>
+</tr>
+<tr>
+<td><code>bg</code> / <code>fg</code></td>
+<td>bash</td>
+<td><code>Start-Job</code> / <code>Receive-Job</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#network" aria-hidden="true" class="anchor" id="network"></a>Network</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ping -c 4 host</code></td>
+<td>bash</td>
+<td><code>Test-Connection -Count 4 host</code></td>
+<td><code>tnc host -Count 4</code></td>
+</tr>
+<tr>
+<td><code>ping host</code></td>
+<td>cmd.exe</td>
+<td><code>Test-Connection host</code></td>
+<td><code>tnc host</code></td>
+</tr>
+<tr>
+<td><code>traceroute host</code></td>
+<td>bash</td>
+<td><code>Test-NetConnection -TraceRoute host</code></td>
+<td><code>tnc host -TraceRoute</code></td>
+</tr>
+<tr>
+<td><code>tracert host</code></td>
+<td>cmd.exe</td>
+<td><code>Test-NetConnection -TraceRoute host</code></td>
+<td><code>tnc host -TraceRoute</code></td>
+</tr>
+<tr>
+<td><code>netstat -an</code></td>
+<td>bash/cmd</td>
+<td><code>Get-NetTCPConnection</code></td>
+<td><code>gntc</code></td>
+</tr>
+<tr>
+<td><code>netstat -tlnp</code></td>
+<td>bash</td>
+<td><code>Get-NetTCPConnection -State Listen</code></td>
+<td><code>gntc -State Listen</code></td>
+</tr>
+<tr>
+<td><code>ss -tlnp</code></td>
+<td>bash</td>
+<td><code>Get-NetTCPConnection -State Listen</code></td>
+<td><code>gntc -State Listen</code></td>
+</tr>
+<tr>
+<td><code>nslookup host</code></td>
+<td>bash/cmd</td>
+<td><code>Resolve-DnsName host</code></td>
+<td><code>rdns host</code></td>
+</tr>
+<tr>
+<td><code>dig host</code></td>
+<td>bash</td>
+<td><code>Resolve-DnsName host</code></td>
+<td><code>rdns host</code></td>
+</tr>
+<tr>
+<td><code>curl -o out.txt URL</code></td>
+<td>bash</td>
+<td><code>Invoke-WebRequest -Uri URL -OutFile out.txt</code></td>
+<td><code>iwr URL -OutFile out.txt</code></td>
+</tr>
+<tr>
+<td><code>curl -s URL</code></td>
+<td>bash</td>
+<td><code>(Invoke-WebRequest URL).Content</code></td>
+<td><code>(iwr URL).Content</code></td>
+</tr>
+<tr>
+<td><code>curl -I URL</code></td>
+<td>bash</td>
+<td><code>Invoke-WebRequest URL -Method Head</code></td>
+<td><code>iwr URL -Method Head</code></td>
+</tr>
+<tr>
+<td><code>wget URL</code></td>
+<td>bash</td>
+<td><code>Invoke-WebRequest -Uri URL -OutFile filename</code></td>
+<td><code>iwr URL -OutFile filename</code></td>
+</tr>
+<tr>
+<td><code>curl -X POST -d data URL</code></td>
+<td>bash</td>
+<td><code>Invoke-RestMethod -Method Post -Body data -Uri URL</code></td>
+<td><code>irm -Method Post -Body data URL</code></td>
+</tr>
+<tr>
+<td><code>curl -s URL | jq .</code></td>
+<td>bash</td>
+<td><code>Invoke-RestMethod URL | ConvertTo-Json</code></td>
+<td><code>irm URL | ConvertTo-Json</code></td>
+</tr>
+<tr>
+<td><code>hostname</code></td>
+<td>bash/cmd</td>
+<td><code>hostname</code> or <code>$env:COMPUTERNAME</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>ifconfig</code> / <code>ip addr</code></td>
+<td>bash</td>
+<td><code>Get-NetIPAddress</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#disk--storage" aria-hidden="true" class="anchor" id="disk--storage"></a>Disk &amp; Storage</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>df -h</code></td>
+<td>bash</td>
+<td><code>Get-PSDrive</code></td>
+<td><code>gdr</code></td>
+</tr>
+<tr>
+<td><code>df -h /path</code></td>
+<td>bash</td>
+<td><code>Get-PSDrive -Name C</code></td>
+<td><code>gdr C</code></td>
+</tr>
+<tr>
+<td><code>du -sh .</code></td>
+<td>bash</td>
+<td><code>(Get-ChildItem -Recurse | Measure-Object Length -Sum).Sum / 1MB</code></td>
+<td><code>(gci -R | measure Length -Sum).Sum / 1MB</code></td>
+</tr>
+<tr>
+<td><code>du -sh dir/*</code></td>
+<td>bash</td>
+<td><code>Get-ChildItem | ForEach-Object { [PSCustomObject]@{ Name=$_.Name; SizeMB=((gci $_ -R -ea SilentlyContinue | measure Length -Sum).Sum/1MB) } }</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#archives" aria-hidden="true" class="anchor" id="archives"></a>Archives</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tar -czf archive.tar.gz dir/</code></td>
+<td>bash</td>
+<td><code>Compress-Archive -Path dir -DestinationPath archive.zip</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>tar -xzf archive.tar.gz</code></td>
+<td>bash</td>
+<td><code>Expand-Archive archive.zip -DestinationPath .</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>zip -r archive.zip dir/</code></td>
+<td>bash</td>
+<td><code>Compress-Archive -Path dir -DestinationPath archive.zip</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>unzip archive.zip</code></td>
+<td>bash</td>
+<td><code>Expand-Archive archive.zip</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>unzip -d dir archive.zip</code></td>
+<td>bash</td>
+<td><code>Expand-Archive archive.zip -DestinationPath dir</code></td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#output--redirection" aria-hidden="true" class="anchor" id="output--redirection"></a>Output &amp; Redirection</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>echo &quot;text&quot;</code></td>
+<td>bash/cmd</td>
+<td><code>Write-Output &quot;text&quot;</code></td>
+<td><code>echo &quot;text&quot;</code></td>
+</tr>
+<tr>
+<td><code>echo &quot;text&quot; &gt; file</code></td>
+<td>bash/cmd</td>
+<td><code>&quot;text&quot; | Out-File file</code> or <code>&quot;text&quot; &gt; file</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>echo &quot;text&quot; &gt;&gt; file</code></td>
+<td>bash/cmd</td>
+<td><code>&quot;text&quot; | Out-File file -Append</code> or <code>&quot;text&quot; &gt;&gt; file</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>cmd 2&gt;&amp;1</code></td>
+<td>bash</td>
+<td><code>cmd 2&gt;&amp;1</code> (works) or <code>cmd *&gt;&amp;1</code> (all streams)</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>cmd &gt; /dev/null</code></td>
+<td>bash</td>
+<td><code>cmd | Out-Null</code> or <code>cmd &gt; $null</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>cmd | less</code></td>
+<td>bash</td>
+<td><code>cmd | Out-Host -Paging</code></td>
+<td><code>cmd | oh -Paging</code></td>
+</tr>
+<tr>
+<td><code>cmd | head -n 10</code></td>
+<td>bash</td>
+<td><code>cmd | Select-Object -First 10</code></td>
+<td><code>cmd | select -First 10</code></td>
+</tr>
+<tr>
+<td><code>cmd | tail -n 10</code></td>
+<td>bash</td>
+<td><code>cmd | Select-Object -Last 10</code></td>
+<td><code>cmd | select -Last 10</code></td>
+</tr>
+<tr>
+<td><code>printf &quot;fmt&quot; args</code></td>
+<td>bash</td>
+<td><code>[string]::Format(&quot;fmt&quot;, args)</code> or <code>&quot;$var&quot;</code> interpolation</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#system-info" aria-hidden="true" class="anchor" id="system-info"></a>System Info</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uname -a</code></td>
+<td>bash</td>
+<td><code>[System.Environment]::OSVersion</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>uname -r</code> (kernel)</td>
+<td>bash</td>
+<td><code>(Get-ComputerInfo).OsVersion</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>hostname</code></td>
+<td>bash/cmd</td>
+<td><code>hostname</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>whoami</code></td>
+<td>bash/cmd</td>
+<td><code>whoami</code> or <code>$env:USERNAME</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>bash</td>
+<td><code>[Security.Principal.WindowsIdentity]::GetCurrent()</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>bash</td>
+<td><code>Get-Date</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>date +%Y-%m-%d</code></td>
+<td>bash</td>
+<td><code>Get-Date -Format 'yyyy-MM-dd'</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>uptime</code></td>
+<td>bash</td>
+<td><code>(Get-Date) - (gcim Win32_OperatingSystem).LastBootUpTime</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>free -h</code></td>
+<td>bash</td>
+<td><code>Get-ComputerInfo | Select-Object TotalPhysicalMemory, *Memory*</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>lscpu</code></td>
+<td>bash</td>
+<td><code>Get-ComputerInfo | Select-Object *Processor*</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>history</code></td>
+<td>bash</td>
+<td><code>Get-History</code></td>
+<td><code>h</code></td>
+</tr>
+<tr>
+<td><code>history | grep cmd</code></td>
+<td>bash</td>
+<td><code>Get-History | Where-Object { $_.CommandLine -match 'cmd' }</code></td>
+<td><code>h | ? { $_.CommandLine -match 'cmd' }</code></td>
+</tr>
+<tr>
+<td><code>!n</code> (run history item n)</td>
+<td>bash</td>
+<td><code>Invoke-History n</code></td>
+<td><code>r n</code></td>
+</tr>
+<tr>
+<td><code>clear</code></td>
+<td>bash/cmd</td>
+<td><code>Clear-Host</code></td>
+<td><code>cls</code> or <code>clear</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2><a href="#command-discovery" aria-hidden="true" class="anchor" id="command-discovery"></a>Command Discovery</h2>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>from</th>
+<th>powershell</th>
+<th>abbreviated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>which python</code></td>
+<td>bash</td>
+<td><code>Get-Command python</code></td>
+<td><code>gcm python</code></td>
+</tr>
+<tr>
+<td><code>where python</code></td>
+<td>cmd.exe</td>
+<td><code>Get-Command python</code></td>
+<td><code>gcm python</code></td>
+</tr>
+<tr>
+<td><code>man cmd</code></td>
+<td>bash</td>
+<td><code>Get-Help cmd -Full</code></td>
+<td><code>help cmd -Full</code></td>
+</tr>
+<tr>
+<td><code>cmd --help</code></td>
+<td>bash</td>
+<td><code>Get-Help cmd</code></td>
+<td><code>help cmd</code></td>
+</tr>
+<tr>
+<td><code>type -a cmd</code></td>
+<td>bash</td>
+<td><code>Get-Command cmd | Select-Object -ExpandProperty Source</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td>bash</td>
+<td><code>Get-Alias</code></td>
+<td><code>gal</code></td>
+</tr>
+<tr>
+<td><code>alias ll='ls -la'</code></td>
+<td>bash</td>
+<td><code>Set-Alias ll Get-ChildItem</code> (simple) or <code>function ll { ls -Force }</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>List all aliases for a cmdlet</td>
+<td>bash</td>
+<td><code>Get-Alias -Definition Get-ChildItem</code></td>
+<td><code>gal -Definition Get-ChildItem</code></td>
+</tr>
+</tbody>
+</table>
+
+    <div class="footer">
+      <a href="/">Back to Index</a>
+    </div>
+  </div>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QT64MJL0WW');
+  </script>
+</body>
+</html>
