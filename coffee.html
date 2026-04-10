@@ -93,19 +93,19 @@
   <div class="summary">
     <div class="stat-card">
       <h3>Total Bags</h3>
-      <div class="value">14</div>
+      <div class="value">15</div>
     </div>
     <div class="stat-card">
       <h3>Total Spent</h3>
-      <div class="value">$212.79</div>
+      <div class="value">$228.91</div>
     </div>
     <div class="stat-card">
       <h3>Avg g/day</h3>
-      <div class="value">44.0</div>
+      <div class="value">43.3</div>
     </div>
     <div class="stat-card">
       <h3>Avg Cost/Day</h3>
-      <div class="value">$1.80</div>
+      <div class="value">$1.72</div>
     </div>
   </div>
 
@@ -157,16 +157,32 @@
   <td>Guatemala Ixlama + Espresso Roast + Guatemala + Espresso Roast + Mind Body Soul + Dunkin Mint Chip + BG Colombian + BG Costa Rica (simultaneous)</td>
   <td>68</td>
   <td>103.0oz (2920g)</td>
-  <td>266.6 g/day</td>
-  <td>$8.83/day</td>
+  <td>269.3 g/day</td>
+  <td>$8.92/day</td>
 </tr>
 <tr>
-  <td>2026-03-17 &rarr; ~2026-04-03 (est.)</td>
-  <td>Starbucks Pike Place + House + Traditional (simultaneous)</td>
-  <td>17</td>
-  <td>36.0oz (1021g)</td>
-  <td>20.0 g/day</td>
-  <td>$0.47/day</td>
+  <td>2026-03-17 &rarr; 2026-03-24</td>
+  <td>Starbucks Pike Place</td>
+  <td>7</td>
+  <td>12.0oz (340g)</td>
+  <td>48.6 g/day</td>
+  <td>$1.14/day</td>
+</tr>
+<tr>
+  <td>2026-03-25 &rarr; 2026-04-02</td>
+  <td>Gevalia Traditional</td>
+  <td>8</td>
+  <td>12.0oz (340g)</td>
+  <td>42.5 g/day</td>
+  <td>$1.24/day</td>
+</tr>
+<tr>
+  <td>2026-04-03 &rarr; ~2026-04-19 (est.)</td>
+  <td>Gevalia House + Gevalia Colombia (simultaneous)</td>
+  <td>16</td>
+  <td>32.0oz (907g)</td>
+  <td>21.3 g/day</td>
+  <td>$0.62/day</td>
 </tr>
 
     </tbody>
@@ -188,24 +204,34 @@
     </thead>
     <tbody>
 <tr>
-  <td>2026-03-15</td>
-  <td>Traditional</td>
-  <td>Gevalia</td>
-  <td>12.0oz (340g)</td>
-  <td>$9.96</td>
+  <td>2026-04-06</td>
+  <td>Gevalia Colombia</td>
+  <td>Walmart</td>
+  <td>20.0oz (567g)</td>
+  <td>$16.12</td>
   <td><em>not opened</em></td>
   <td><em>not opened yet</em></td>
   <td></td>
 </tr>
 <tr>
   <td>2026-03-15</td>
-  <td>House</td>
-  <td>Gevalia</td>
+  <td>Gevalia House</td>
+  <td>Walmart</td>
   <td>12.0oz (340g)</td>
   <td>$9.96</td>
-  <td><em>not opened</em></td>
-  <td><em>not opened yet</em></td>
-  <td></td>
+  <td>2026-04-03</td>
+  <td><em>~2026-04-19 (est.)</em></td>
+  <td><span class="stars" title="4/5">★★★★☆</span></td>
+</tr>
+<tr>
+  <td>2026-03-15</td>
+  <td>Gevalia Traditional</td>
+  <td>Walmart</td>
+  <td>12.0oz (340g)</td>
+  <td>$9.96</td>
+  <td>2026-03-25</td>
+  <td>2026-04-02</td>
+  <td><span class="stars" title="4/5">★★★★☆</span></td>
 </tr>
 <tr>
   <td>2026-02-28</td>
@@ -214,7 +240,7 @@
   <td>12.0oz (340g)</td>
   <td>$7.99</td>
   <td>2026-03-17</td>
-  <td><em>~2026-04-03 (est.)</em></td>
+  <td>2026-03-24</td>
   <td><span class="stars" title="3/5">★★★☆☆</span></td>
 </tr>
 <tr>
@@ -244,7 +270,7 @@
   <td>11.0oz (312g)</td>
   <td>$10.62</td>
   <td>2026-02-28</td>
-  <td><em>~2026-03-16 (est.)</em></td>
+  <td><em>~2026-03-14 (est.)</em></td>
   <td></td>
 </tr>
 <tr>
@@ -337,10 +363,10 @@
 
   <script>
     const monthlyLabels = ["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04"];
-    const monthlyGPerDay = [23.9,28.3,30.0,43.7,42.2,20.0];
-    const monthlyCostPerDay = [2.0,1.75,1.79,1.06,1.29,0.47];
-    const monthlyGramsTotals = [167,879,932,1224,1267,40];
-    const monthlyCostTotals = [14.0,54.17,55.47,29.68,38.61,0.94];
+    const monthlyGPerDay = [23.9,28.3,30.0,43.8,55.2,22.5];
+    const monthlyCostPerDay = [2.0,1.75,1.79,1.06,1.66,0.66];
+    const monthlyGramsTotals = [167,879,932,1226,1602,383];
+    const monthlyCostTotals = [14.0,54.17,55.47,29.78,48.17,11.21];
 
     new Chart(document.getElementById('monthlyGramsChart').getContext('2d'), {
       type: 'bar',

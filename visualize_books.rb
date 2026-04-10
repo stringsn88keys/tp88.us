@@ -210,6 +210,12 @@ filtered_books.each do |book|
   end
 end
 
+# Count completed books per year
+yearly_book_count = Hash.new(0)
+book_details.each do |b|
+  yearly_book_count[b[:date].year] += 1 if b[:completed]
+end
+
 # Sort data for charts
 sorted_years = yearly_data.keys.sort
 sorted_months = monthly_data.flat_map do |year, months|
@@ -254,8 +260,8 @@ yearly_pages_per_day = sorted_years.map.with_index do |year, idx|
   days > 0 ? (pages.to_f / days).round(1) : 0
 end
 
-# Build table rows separately
-table_rows = book_details.sort_by { |b| b[:date] }.reverse.map do |b|
+# Build rows for a single book
+def build_book_row(b)
   progress = b[:total_pages] > 0 ? "#{(b[:pages_read].to_f / b[:total_pages] * 100).round}%" : "N/A"
   status_class = b[:completed] ? 'status-completed' : 'status-reading'
   status_text = b[:completed] ? 'Completed' : 'Reading'
@@ -283,6 +289,50 @@ table_rows = book_details.sort_by { |b| b[:date] }.reverse.map do |b|
       <td>#{source_html}</td>
     </tr>
   ROW
+end
+
+# Build year-grouped collapsible sections
+current_year = Date.today.year
+books_by_year = book_details.sort_by { |b| b[:date] }.reverse.group_by { |b| b[:date].year }
+sorted_year_keys = books_by_year.keys.sort.reverse
+
+table_header = <<~THEAD
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Rating</th>
+      <th>Pages Read</th>
+      <th>Total Pages</th>
+      <th>Progress</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+THEAD
+
+year_sections = sorted_year_keys.map do |year|
+  year_books = books_by_year[year]
+  year_book_count = year_books.count
+  year_pages = year_books.sum { |b| b[:pages_read] }
+  formatted_year_pages = year_pages.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+  open_attr = year == current_year ? ' open' : ''
+  rows = year_books.map { |b| build_book_row(b) }.join
+  <<~SECTION
+    <details#{open_attr} class="year-section">
+      <summary class="year-summary">
+        <span class="year-label">#{year}</span>
+        <span class="year-stats">#{year_book_count} #{year_book_count == 1 ? 'book' : 'books'} &middot; #{formatted_year_pages} pages</span>
+      </summary>
+      <table class="books-table">
+        #{table_header}
+        <tbody>
+    #{rows}
+        </tbody>
+      </table>
+    </details>
+  SECTION
 end.join
 
 # Generate HTML
@@ -381,6 +431,49 @@ html_output = <<~HTML
       text-align: center;
       font-size: 14px;
     }
+    .year-section {
+      margin-bottom: 16px;
+    }
+    .year-summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+    .year-summary::-webkit-details-marker { display: none; }
+    details.year-section[open] .year-summary {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 2px solid #3498db;
+    }
+    .year-summary::before {
+      content: '\\25B6';
+      font-size: 0.75em;
+      color: #3498db;
+      transition: transform 0.2s;
+    }
+    details.year-section[open] > .year-summary::before {
+      transform: rotate(90deg);
+    }
+    .year-label {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .year-stats {
+      color: #7f8c8d;
+      font-size: 0.95em;
+    }
+    .year-section .books-table {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
   </style>
 </head>
 <body>
@@ -424,24 +517,7 @@ html_output = <<~HTML
   </div>
 
   <h2>Book Details</h2>
-  <table class="books-table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Rating</th>
-        <th>Pages Read</th>
-        <th>Total Pages</th>
-        <th>Progress</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Source</th>
-      </tr>
-    </thead>
-    <tbody>
-#{table_rows}
-    </tbody>
-  </table>
+#{year_sections}
 
   <div class="footer">
     <a href="/">Back to Index</a>
@@ -451,27 +527,47 @@ html_output = <<~HTML
     const yearlyPagesPerDay = #{yearly_pages_per_day.to_json};
     const monthlyPagesPerDay = #{monthly_pages_per_day.to_json};
 
+    const yearlyBooksCount = #{sorted_years.map { |y| yearly_book_count[y] }.to_json};
+
     const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
     new Chart(yearlyCtx, {
       type: 'bar',
       data: {
         labels: #{sorted_years.to_json},
-        datasets: [{
-          label: 'Pages Read',
-          data: #{sorted_years.map { |y| yearly_data[y] }.to_json},
-          backgroundColor: 'rgba(52, 152, 219, 0.7)',
-          borderColor: 'rgba(52, 152, 219, 1)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'Pages Read',
+            data: #{sorted_years.map { |y| yearly_data[y] }.to_json},
+            backgroundColor: 'rgba(52, 152, 219, 0.7)',
+            borderColor: 'rgba(52, 152, 219, 1)',
+            borderWidth: 1,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Books Read',
+            data: yearlyBooksCount,
+            type: 'line',
+            borderColor: 'rgba(231, 76, 60, 1)',
+            backgroundColor: 'rgba(231, 76, 60, 0.15)',
+            pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+            pointRadius: 5,
+            borderWidth: 2,
+            fill: false,
+            yAxisID: 'y1'
+          }
+        ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: false },
+          legend: { display: true },
           tooltip: {
             callbacks: {
               label: function(context) {
+                if (context.dataset.label === 'Books Read') {
+                  return 'Books Read: ' + context.raw;
+                }
                 const pages = context.raw;
                 const ppd = yearlyPagesPerDay[context.dataIndex];
                 return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
@@ -480,7 +576,18 @@ html_output = <<~HTML
           }
         },
         scales: {
-          y: { beginAtZero: true, title: { display: true, text: 'Pages' } },
+          y: {
+            beginAtZero: true,
+            position: 'left',
+            title: { display: true, text: 'Pages' }
+          },
+          y1: {
+            beginAtZero: true,
+            position: 'right',
+            title: { display: true, text: 'Books Read' },
+            grid: { drawOnChartArea: false },
+            ticks: { precision: 0 }
+          },
           x: { title: { display: true, text: 'Year' } }
         }
       }

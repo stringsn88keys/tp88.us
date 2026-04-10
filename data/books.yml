@@ -63,15 +63,31 @@
 - title: How to Be an Antiracist
   author: Ibram X. Kendi
   date_started: 2026-02-28
-  date_finished:
+  date_finished: 2026-03-30
   associates_link: https://amzn.to/4sf5BD1
+  rating: 5
+  commentary: Valuable and insightful perspective and call to action that is a lot more even-handed than people who seem to have an allergy to the book would have you believe.
   format_read: hardcover
   print_length: 320 pages
-  pages_read: 97 pages
 - title: Kafka for Architects
   author: Katya Gorshkova
   date_started: 2026-03-11
+  date_finished: 2026-03-27
   associates_link: https://amzn.to/3Nd7fGE
   format_read: Audiobook on O'Reilly App
-  percent_complete: 38%
   print_length: 392 pages
+  commentary: A little too "enterprise architect" specific for me.
+  rating: 4
+- title: Effective Platform Engineering
+  subtitle: Build self-service interfaces to boost developer experience
+  author: Ajay Chankramath, Sean Alvarez, Bryan Oliver, Nic Cheneweth
+  date_started: 2026-03-27
+  date_finished:
+  format_read: Audiobook on O'Reilly App
+  print_length: 400 pages
+  percent_complete: 66%
+- title: The Punic Wars
+  author: Adrian Goldsworthy
+  date_started: 2026-03-30
+  print_length: 416 pages
+  pages_read: 123 pages
