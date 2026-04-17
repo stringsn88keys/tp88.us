@@ -159,6 +159,7 @@ filtered_books.each do |book|
       month_key: month_key,
       associates_link: book['associates_link'],
       rating: book['rating'],
+      commentary: book['commentary'],
       source: book['source'] || 'manual'
     }
   else
@@ -205,6 +206,7 @@ filtered_books.each do |book|
       month_key: Date.today.strftime("%Y-%m"),
       associates_link: book['associates_link'],
       rating: book['rating'],
+      commentary: book['commentary'],
       source: book['source'] || 'manual'
     }
   end
@@ -271,7 +273,11 @@ def build_book_row(b)
   end
   rating_html = if b[:rating] && b[:rating] > 0
                   stars = "\u2605" * b[:rating] + "\u2606" * (5 - b[:rating])
-                  "<span title=\"#{b[:rating]}/5\">#{stars}</span>"
+                  tooltip = "#{b[:rating]}/5"
+                  if b[:commentary] && !b[:commentary].to_s.strip.empty?
+                    tooltip += " \u2014 #{ERB::Util.html_escape(b[:commentary].to_s.strip)}"
+                  end
+                  "<span class=\"rating-tooltip\" title=\"#{tooltip}\">#{stars}</span>"
                 else
                   "\u2014"
                 end
@@ -301,7 +307,7 @@ table_header = <<~THEAD
     <tr>
       <th>Title</th>
       <th>Author</th>
-      <th>Rating</th>
+      <th>Rating<br><small style="font-weight:normal;opacity:0.65;">hover for commentary</small></th>
       <th>Pages Read</th>
       <th>Total Pages</th>
       <th>Progress</th>
@@ -419,6 +425,7 @@ html_output = <<~HTML
     .status-reading { color: #f39c12; font-weight: bold; }
     .source-goodreads { color: #999; font-size: 0.8em; }
     .source-manual { color: #3498db; font-size: 0.8em; }
+    .rating-tooltip { cursor: help; }
     .filter-info {
       background: #e8f4fd;
       padding: 10px 15px;

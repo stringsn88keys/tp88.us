@@ -101,11 +101,11 @@
     </div>
     <div class="stat-card">
       <h3>Avg g/day</h3>
-      <div class="value">43.3</div>
+      <div class="value">40.0</div>
     </div>
     <div class="stat-card">
       <h3>Avg Cost/Day</h3>
-      <div class="value">$1.72</div>
+      <div class="value">$1.59</div>
     </div>
   </div>
 
@@ -177,12 +177,20 @@
   <td>$1.24/day</td>
 </tr>
 <tr>
-  <td>2026-04-03 &rarr; ~2026-04-19 (est.)</td>
-  <td>Gevalia House + Gevalia Colombia (simultaneous)</td>
-  <td>16</td>
-  <td>32.0oz (907g)</td>
-  <td>21.3 g/day</td>
-  <td>$0.62/day</td>
+  <td>2026-04-03 &rarr; 2026-04-13</td>
+  <td>Gevalia House</td>
+  <td>10</td>
+  <td>12.0oz (340g)</td>
+  <td>34.0 g/day</td>
+  <td>$1.00/day</td>
+</tr>
+<tr>
+  <td>2026-04-13 &rarr; ~2026-05-08 (est.)</td>
+  <td>Gevalia Colombia</td>
+  <td>25</td>
+  <td>20.0oz (567g)</td>
+  <td>22.7 g/day</td>
+  <td>$0.64/day</td>
 </tr>
 
     </tbody>
@@ -209,9 +217,9 @@
   <td>Walmart</td>
   <td>20.0oz (567g)</td>
   <td>$16.12</td>
-  <td><em>not opened</em></td>
-  <td><em>not opened yet</em></td>
-  <td></td>
+  <td>2026-04-13</td>
+  <td><em>~2026-05-08 (est.)</em></td>
+  <td><span class="stars" title="5/5">★★★★★</span></td>
 </tr>
 <tr>
   <td>2026-03-15</td>
@@ -220,7 +228,7 @@
   <td>12.0oz (340g)</td>
   <td>$9.96</td>
   <td>2026-04-03</td>
-  <td><em>~2026-04-19 (est.)</em></td>
+  <td>2026-04-13</td>
   <td><span class="stars" title="4/5">★★★★☆</span></td>
 </tr>
 <tr>
@@ -311,7 +319,7 @@
   <td>$7.50</td>
   <td>2026-01-20</td>
   <td>2026-03-16</td>
-  <td></td>
+  <td><span class="stars" title="5/5">★★★★★</span></td>
 </tr>
 <tr>
   <td>2026-01-07</td>
@@ -362,11 +370,11 @@
   </div>
 
   <script>
-    const monthlyLabels = ["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04"];
-    const monthlyGPerDay = [23.9,28.3,30.0,43.8,55.2,22.5];
-    const monthlyCostPerDay = [2.0,1.75,1.79,1.06,1.66,0.66];
-    const monthlyGramsTotals = [167,879,932,1226,1602,383];
-    const monthlyCostTotals = [14.0,54.17,55.47,29.78,48.17,11.21];
+    const monthlyLabels = ["2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05"];
+    const monthlyGPerDay = [23.9,28.3,30.0,43.8,55.2,27.3,22.7];
+    const monthlyCostPerDay = [2.0,1.75,1.79,1.06,1.66,0.79,0.64];
+    const monthlyGramsTotals = [167,879,932,1226,1602,791,159];
+    const monthlyCostTotals = [14.0,54.17,55.47,29.78,48.17,22.81,4.51];
 
     new Chart(document.getElementById('monthlyGramsChart').getContext('2d'), {
       type: 'bar',
