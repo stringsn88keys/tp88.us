@@ -82,12 +82,23 @@
   subtitle: Build self-service interfaces to boost developer experience
   author: Ajay Chankramath, Sean Alvarez, Bryan Oliver, Nic Cheneweth
   date_started: 2026-03-27
-  date_finished:
+  date_finished: 2026-04-20
   format_read: Audiobook on O'Reilly App
   print_length: 400 pages
-  percent_complete: 85%
+  rating: 4
+  commentary: Some decent high level thoughts on the topic, difficult landscape to keep up with
+  percent_complete: 100%
 - title: The Punic Wars
   author: Adrian Goldsworthy
   date_started: 2026-03-30
   print_length: 416 pages
-  pages_read: 182 pages
+  pages_read: 223 pages
+- title: Investing for Programmers
+  subtitle: Understanding markets through data and code
+  author: Stefan Papp
+  date_started: 2026-04-22
+  print_length: 368 pages
+  percent_complete: 3%
+  associates_link: https://amzn.to/4cEpYDy
+  format_read: Audiobook on O'Reilly App
+
