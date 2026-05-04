@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florida Lottery Expected Value Calculator</title>
+    <meta name="description" content="Calculate the expected value of Florida Lottery Super Grouper tickets, accounting for odds, cash options, and taxes on prizes over $600.">
+    <meta name="keywords" content="Florida Lottery calculator, Powerball, Mega Millions, Florida Lotto, expected value, lottery odds, Super Grouper">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="Florida Lottery Expected Value Calculator">
+    <meta property="og:description" content="Analyze Florida Lottery Super Grouper tickets with expected value calculations, tax considerations, and cash option analysis.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tp88.us/calculators/florida_lottery.html">
+    <link rel="canonical" href="https://tp88.us/calculators/florida_lottery.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 10px;
+        }
+
+        .controls {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .games-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .games-table th {
+            background: #ff6b35;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .games-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .games-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .games-table input[type="number"] {
+            width: 100%;
+            max-width: 120px;
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #efefef 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .result-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 5px;
+        }
+
+        .result-detail {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .game-input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .game-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .status.loading {
+            background: #e3f2fd;
+            color: #1976d2;
+            display: block;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .tooltip {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 0.8em;
+            cursor: help;
+            margin-left: 5px;
+            position: relative;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            font-size: 0.85em;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .game-input-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎰 Florida Lottery EV Calculator</h1>
+            <p>Calculate expected value and returns on Florida Lottery Super Grouper tickets</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="info-box">
+                    <strong>ℹ️ Super Grouper Package ($10 total):</strong> Includes Jackpot Triple Play ($2 free bonus), Powerball w/ Double Play ($3), Florida Lotto w/ Double Play ($3), Cash Pop ($2), and Fantasy 5 w/ EZ Match ($2). Enter current jackpot amounts to calculate expected value accounting for odds, cash options, and taxes.
+                </div>
+
+                <h2 class="section-title">Settings & Options</h2>
+                <div class="controls">
+                    <div class="control-group">
+                        <div class="input-group">
+                            <label for="ticketCost">Total Ticket Cost ($)</label>
+                            <input type="number" id="ticketCost" value="10" step="0.01" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="fedTaxRate">Federal Tax Rate (%)</label>
+                            <input type="number" id="fedTaxRate" value="24" step="0.1" min="0" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label for="stateTaxRate">Florida Tax Rate (%)</label>
+                            <input type="number" id="stateTaxRate" value="0" step="0.1" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="applyTaxes" checked>
+                            <label for="applyTaxes">Apply Taxes (prizes over $600)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cashOption">
+                            <label for="cashOption">Use Cash Option <span class="tooltip" data-tooltip="Typically 40-50% of annuity value">?</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cashOptionPercent" checked disabled>
+                            <label for="cashOptionPercent">Set Cash % manually</label>
+                        </div>
+                    </div>
+
+                    <div class="control-group" id="cashPercentControl" style="display: none;">
+                        <div class="input-group">
+                            <label for="cashPercent">Cash Option as % of Jackpot</label>
+                            <input type="number" id="cashPercent" value="45" step="1" min="1" max="100">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="calculateEV()">Calculate Expected Value</button>
+                <!-- <button onclick="loadLiveJackpots()" style="margin-left: 10px; background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);">📡 Load Live Jackpots</button> -->
+                <div class="status" id="status"></div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Game Jackpots & Odds</h2>
+                <p style="color: #666; margin-bottom: 15px;">Enter current jackpot amounts for each game. Odds and prize structures are pre-filled.</p>
+                <table class="games-table">
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Current Jackpot</th>
+                            <th>Odds of Jackpot</th>
+                            <th>Win Any Prize</th>
+                        </tr>
+                    </thead>
+                    <tbody id="gamesTable">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Results</h2>
+                <div class="results" id="results">
+                    <div class="result-card">
+                        <h3>Expected Value Per Ticket</h3>
+                        <div class="result-value">-</div>
+                        <div class="result-detail">Based on jackpots and odds</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>Total Expected Return</h3>
+                        <div class="result-value">-</div>
+                        <div class="result-detail">Return on ticket investment</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>Probability of Winning Any Prize</h3>
+                        <div class="result-value">-</div>
+                        <div class="result-detail">Across all participating games</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Florida Lottery Super Grouper Package games with odds and prize structure
+        const games = [
+            {
+                name: 'Jackpot Triple Play ($2)',
+                cost: 2,
+                jackpotOdds: 23003839,
+                anyPrizeOdds: 18.14,
+                prizeStructure: [
+                    { tier: 'Jackpot', odds: 23003839, pct: 1 },
+                    { tier: '2nd Prize', odds: 81409, pct: 0.10 },
+                    { tier: '3rd Prize', odds: 1380, pct: 0.05 },
+                    { tier: '4th Prize', odds: 745, pct: 0.02 },
+                    { tier: '5th Prize', odds: 75, pct: 0.02 }
+                ],
+                defaultJackpot: 2500000,
+                note: 'Triple Play: play 3 times'
+            },
+            {
+                name: 'Powerball w/ Double Play ($3)',
+                cost: 3,
+                jackpotOdds: 292200000,
+                anyPrizeOdds: 24.87,
+                prizeStructure: [
+                    { tier: 'Jackpot', odds: 292200000, pct: 1 },
+                    { tier: '2nd Prize', odds: 11688000, pct: 0.25 },
+                    { tier: '3rd Prize', odds: 913129, pct: 0.10 },
+                    { tier: '4th Prize', odds: 36525, pct: 0.10 },
+                    { tier: '5th Prize', odds: 8082, pct: 0.04 },
+                    { tier: '6th Prize', odds: 709, pct: 0.04 },
+                    { tier: '7th Prize', odds: 606, pct: 0.03 },
+                    { tier: '8th Prize', odds: 110, pct: 0.02 },
+                    { tier: '9th Prize', odds: 37, pct: 0.01 }
+                ],
+                defaultJackpot: 126000000,
+                note: 'Double Play: extra ticket'
+            },
+            {
+                name: 'Florida Lotto w/ Double Play ($3)',
+                cost: 3,
+                jackpotOdds: 23003839,
+                anyPrizeOdds: 18.14,
+                prizeStructure: [
+                    { tier: 'Jackpot', odds: 23003839, pct: 1 },
+                    { tier: '2nd Prize', odds: 81409, pct: 0.10 },
+                    { tier: '3rd Prize', odds: 1380, pct: 0.05 },
+                    { tier: '4th Prize', odds: 745, pct: 0.02 },
+                    { tier: '5th Prize', odds: 75, pct: 0.02 }
+                ],
+                defaultJackpot: 2500000,
+                note: 'Double Play: extra ticket'
+            },
+            {
+                name: 'Fantasy 5 w/ EZ Match ($2)',
+                cost: 2,
+                jackpotOdds: 376992,
+                anyPrizeOdds: 53.03,
+                prizeStructure: [
+                    { tier: 'Jackpot', odds: 376992, pct: 1 },
+                    { tier: '2nd Prize', odds: 2432, pct: 0.10 },
+                    { tier: '3rd Prize', odds: 87, pct: 0.05 },
+                    { tier: '4th Prize', odds: 17, pct: 0.03 },
+                    { tier: '5th Prize', odds: 10, pct: 0.01 }
+                ],
+                defaultJackpot: 250000,
+                note: 'EZ Match: instant win component'
+            },
+            {
+                name: 'Cash Pop ($2)',
+                cost: 2,
+                jackpotOdds: 15000,
+                anyPrizeOdds: 33.33,
+                prizeStructure: [
+                    { tier: '$500', odds: 15000, pct: 1 },
+                    { tier: '$200', odds: 4500, pct: 1 },
+                    { tier: '$100', odds: 1950, pct: 1 },
+                    { tier: '$50', odds: 630, pct: 1 },
+                    { tier: '$40', odds: 240, pct: 1 },
+                    { tier: '$30', odds: 150, pct: 1 },
+                    { tier: '$20', odds: 105, pct: 1 },
+                    { tier: '$14', odds: 90, pct: 1 },
+                    { tier: '$10', odds: 30, pct: 1 }
+                ],
+                defaultJackpot: 500,
+                note: 'Fixed prizes; 5 drawings daily',
+                isFixedPrize: true
+            }
+        ];
+
+        // Initialize
+        function initializeCalculator() {
+            renderGamesTable();
+            setupEventListeners();
+        }
+
+        function renderGamesTable() {
+            const tbody = document.getElementById('gamesTable');
+            tbody.innerHTML = '';
+
+            games.forEach((game, idx) => {
+                const row = document.createElement('tr');
+                let jackpotCell = '';
+                
+                if (game.isFixedPrize) {
+                    jackpotCell = `<td><span style="color: #666; font-style: italic;">$${game.defaultJackpot.toLocaleString()} (fixed)</span></td>`;
+                } else {
+                    jackpotCell = `<td>
+                        <input type="number" 
+                               id="jackpot_${idx}" 
+                               value="${game.defaultJackpot}" 
+                               step="100000" 
+                               min="0"
+                               placeholder="Enter jackpot">
+                    </td>`;
+                }
+                
+                row.innerHTML = `
+                    <td class="game-name">${game.name}<br><small style="color: #999;">${game.note}</small></td>
+                    ${jackpotCell}
+                    <td>1 in ${game.jackpotOdds.toLocaleString()}</td>
+                    <td>${game.anyPrizeOdds}%</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function setupEventListeners() {
+            document.getElementById('cashOption').addEventListener('change', (e) => {
+                document.getElementById('cashPercentControl').style.display = e.target.checked ? 'grid' : 'none';
+            });
+
+            document.getElementById('applyTaxes').addEventListener('change', calculateEV);
+            document.getElementById('cashOption').addEventListener('change', calculateEV);
+            document.getElementById('cashPercent').addEventListener('change', calculateEV);
+            document.getElementById('fedTaxRate').addEventListener('change', calculateEV);
+            document.getElementById('stateTaxRate').addEventListener('change', calculateEV);
+            document.getElementById('ticketCost').addEventListener('change', calculateEV);
+
+            games.forEach((game, idx) => {
+                if (!game.isFixedPrize) {
+                    const input = document.getElementById(`jackpot_${idx}`);
+                    if (input) {
+                        input.addEventListener('change', calculateEV);
+                    }
+                }
+            });
+        }
+
+        async function loadLiveJackpots() {
+            const status = document.getElementById('status');
+            status.className = 'status loading';
+            status.textContent = '⏳ Fetching live jackpots...';
+
+            try {
+                // Fetch from local JSON file generated by scraper
+                const response = await fetch('/data/lottery_jackpots.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (!data.jackpots) {
+                    throw new Error('No jackpot data found');
+                }
+                
+                let updatedCount = 0;
+                
+                // Update each game's jackpot from the JSON data
+                const gameMap = {
+                    'Powerball w/ Double Play': 1,
+                    'Florida Lotto w/ Double Play': 2,
+                    'Fantasy 5 w/ EZ Match': 3,
+                    'Jackpot Triple Play': 0
+                };
+                
+                for (const [gameName, idx] of Object.entries(gameMap)) {
+                    if (data.jackpots[gameName] && !games[idx].isFixedPrize) {
+                        const inputElement = document.getElementById(`jackpot_${idx}`);
+                        if (inputElement) {
+                            inputElement.value = data.jackpots[gameName];
+                            updatedCount++;
+                        }
+                    }
+                }
+                
+                if (updatedCount > 0) {
+                    status.className = 'status success';
+                    const updateTime = new Date(data.updated_at).toLocaleDateString();
+                    status.textContent = `✓ Updated ${updatedCount} jackpot(s) (${updateTime})`;
+                    calculateEV();
+                } else {
+                    throw new Error('No jackpots could be updated');
+                }
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = `❌ Could not load live jackpots: ${error.message}. Using defaults or enter manually.`;
+            }
+        }
+
+        function calculateTaxes(amount) {
+            if (amount <= 600) return amount;
+
+            const fedTax = parseFloat(document.getElementById('fedTaxRate').value) / 100;
+            const stateTax = parseFloat(document.getElementById('stateTaxRate').value) / 100;
+            const totalTaxRate = fedTax + stateTax;
+
+            return amount * (1 - totalTaxRate);
+        }
+
+        function calculateEV() {
+            const status = document.getElementById('status');
+            const applyTaxes = document.getElementById('applyTaxes').checked;
+            const cashOption = document.getElementById('cashOption').checked;
+            const cashPercent = parseFloat(document.getElementById('cashPercent').value) / 100;
+            const ticketCost = parseFloat(document.getElementById('ticketCost').value);
+
+            let totalEV = 0;
+            let totalExpectedWins = 0;
+            let gameDetails = [];
+
+            games.forEach((game, idx) => {
+                let jackpot;
+                if (game.isFixedPrize) {
+                    jackpot = game.defaultJackpot;
+                } else {
+                    const inputElement = document.getElementById(`jackpot_${idx}`);
+                    jackpot = inputElement ? parseFloat(inputElement.value) || 0 : 0;
+                }
+                
+                let useJackpot = jackpot;
+
+                // Apply cash option (skip for fixed prizes like Cash Pop)
+                if (cashOption && !game.isFixedPrize) {
+                    useJackpot = jackpot * cashPercent;
+                }
+
+                // Apply taxes (skip for prizes under $600)
+                if (applyTaxes) {
+                    useJackpot = calculateTaxes(useJackpot);
+                }
+
+                // Calculate EV for this game (jackpot only)
+                const jackpotEV = useJackpot / game.jackpotOdds;
+                
+                // Calculate probability of winning any prize in this game
+                const anyPrizeProb = game.anyPrizeOdds / 100;
+                totalExpectedWins += anyPrizeProb;
+                
+                totalEV += jackpotEV;
+                
+                gameDetails.push({
+                    name: game.name,
+                    ev: jackpotEV,
+                    cost: game.cost
+                });
+            });
+
+            // Cap combined probability at reasonable level (can't win all 5 simultaneously)
+            const overallWinProb = Math.min(totalExpectedWins, 0.95);
+
+            const returnPct = (totalEV / ticketCost) * 100;
+
+            // Update results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="result-card">
+                    <h3>Expected Value Per Package</h3>
+                    <div class="result-value">$${totalEV.toFixed(2)}</div>
+                    <div class="result-detail">Expected return from $${ticketCost} spent</div>
+                </div>
+                <div class="result-card">
+                    <h3>Return on Investment</h3>
+                    <div class="result-value">${returnPct.toFixed(1)}%</div>
+                    <div class="result-detail">${returnPct < 100 ? 'Expected loss of ' + (100 - returnPct).toFixed(1) + '%' : 'Positive expectation'}</div>
+                </div>
+                <div class="result-card">
+                    <h3>Chance of Winning Something</h3>
+                    <div class="result-value">${(overallWinProb * 100).toFixed(2)}%</div>
+                    <div class="result-detail">Approx 1 in ${(1 / overallWinProb).toFixed(0)}</div>
+                </div>
+            `;
+
+            // Show calculation summary
+            status.className = 'status success';
+            status.textContent = `✓ Calculated for ${games.length} games${applyTaxes ? ' with taxes' : ' before taxes'}${cashOption ? ' (cash option @ ' + parseFloat(document.getElementById('cashPercent').value) + '%)' : ' (annuity)'}`;
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeCalculator);
+    </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+</body>
+</html>

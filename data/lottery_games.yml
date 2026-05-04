@@ -1,0 +1,262 @@
+# Florida Lottery Super Grouper Package Prize Matrix
+# Each game has a cost, default jackpot, and primary/secondary prize tiers
+# Prizes can be marked as free_ticket: true (value represents ticket cost, e.g., $2)
+
+games:
+  - name: Jackpot Triple Play
+    cost: 2
+    cost_note: "Free bonus ticket"
+    default_jackpot: 2500000
+    drawings_per_day: 1
+    
+    primary_play:
+      name: "Draw 1"
+      prizes:
+        - tier: Jackpot
+          odds: 23003839
+          value: null  # Uses jackpot field
+        - tier: 2nd Prize
+          odds: 81409
+          value: 0.10
+        - tier: 3rd Prize
+          odds: 1380
+          value: 0.05
+        - tier: 4th Prize
+          odds: 745
+          value: 0.02
+        - tier: 5th Prize
+          odds: 75
+          value: 0.02
+        - tier: Free Ticket
+          odds: null  # TBD
+          value: 2
+          free_ticket: true
+    
+    secondary_play:
+      name: "Draw 2"
+      odds_note: "Triple Play includes 2 additional identical draws"
+      prizes:
+        - tier: Jackpot
+          odds: 23003839
+          value: null
+        - tier: 2nd Prize
+          odds: 81409
+          value: 0.10
+        - tier: 3rd Prize
+          odds: 1380
+          value: 0.05
+        - tier: 4th Prize
+          odds: 745
+          value: 0.02
+        - tier: 5th Prize
+          odds: 75
+          value: 0.02
+        - tier: Free Ticket
+          odds: null
+          value: 2
+          free_ticket: true
+
+  - name: Powerball w/ Double Play
+    cost: 3
+    default_jackpot: 126000000
+    drawings_per_day: 1
+    
+    primary_play:
+      name: "Draw 1"
+      prizes:
+        - tier: Jackpot
+          odds: 292200000
+          value: null
+        - tier: 2nd Prize
+          odds: 11688000
+          value: 0.25
+        - tier: 3rd Prize
+          odds: 913129
+          value: 0.10
+        - tier: 4th Prize
+          odds: 36525
+          value: 0.10
+        - tier: 5th Prize
+          odds: 8082
+          value: 0.04
+        - tier: 6th Prize
+          odds: 709
+          value: 0.04
+        - tier: 7th Prize
+          odds: 606
+          value: 0.03
+        - tier: 8th Prize
+          odds: 110
+          value: 0.02
+        - tier: 9th Prize
+          odds: 37
+          value: 0.01
+        - tier: Free Ticket
+          odds: null
+          value: 3
+          free_ticket: true
+    
+    secondary_play:
+      name: "Double Play"
+      odds_note: "Identical prize structure"
+      prizes:
+        - tier: Jackpot
+          odds: 292200000
+          value: null
+        - tier: 2nd Prize
+          odds: 11688000
+          value: 0.25
+        - tier: 3rd Prize
+          odds: 913129
+          value: 0.10
+        - tier: 4th Prize
+          odds: 36525
+          value: 0.10
+        - tier: 5th Prize
+          odds: 8082
+          value: 0.04
+        - tier: 6th Prize
+          odds: 709
+          value: 0.04
+        - tier: 7th Prize
+          odds: 606
+          value: 0.03
+        - tier: 8th Prize
+          odds: 110
+          value: 0.02
+        - tier: 9th Prize
+          odds: 37
+          value: 0.01
+        - tier: Free Ticket
+          odds: null
+          value: 3
+          free_ticket: true
+
+  - name: Florida Lotto w/ Double Play
+    cost: 3
+    default_jackpot: 2500000
+    drawings_per_day: 1
+    
+    primary_play:
+      name: "Draw 1"
+      prizes:
+        - tier: Jackpot
+          odds: 23003839
+          value: null
+        - tier: 2nd Prize
+          odds: 81409
+          value: 0.10
+        - tier: 3rd Prize
+          odds: 1380
+          value: 0.05
+        - tier: 4th Prize
+          odds: 745
+          value: 0.02
+        - tier: 5th Prize
+          odds: 75
+          value: 0.02
+        - tier: Free Ticket
+          odds: null
+          value: 3
+          free_ticket: true
+    
+    secondary_play:
+      name: "Double Play"
+      odds_note: "Identical prize structure"
+      prizes:
+        - tier: Jackpot
+          odds: 23003839
+          value: null
+        - tier: 2nd Prize
+          odds: 81409
+          value: 0.10
+        - tier: 3rd Prize
+          odds: 1380
+          value: 0.05
+        - tier: 4th Prize
+          odds: 745
+          value: 0.02
+        - tier: 5th Prize
+          odds: 75
+          value: 0.02
+        - tier: Free Ticket
+          odds: null
+          value: 3
+          free_ticket: true
+
+  - name: Fantasy 5 w/ EZ Match
+    cost: 2
+    default_jackpot: 250000
+    drawings_per_day: 1
+    
+    primary_play:
+      name: "Draw 1"
+      prizes:
+        - tier: Jackpot
+          odds: 376992
+          value: null
+        - tier: 2nd Prize
+          odds: 2432
+          value: 0.10
+        - tier: 3rd Prize
+          odds: 87
+          value: 0.05
+        - tier: 4th Prize
+          odds: 17
+          value: 0.03
+        - tier: 5th Prize
+          odds: 10
+          value: 0.01
+        - tier: Free Ticket
+          odds: null
+          value: 2
+          free_ticket: true
+    
+    secondary_play:
+      name: "EZ Match"
+      odds_note: "Instant win component"
+      prizes:
+        - tier: Free Ticket
+          odds: null
+          value: 2
+          free_ticket: true
+
+  - name: Cash Pop
+    cost: 2
+    default_jackpot: 500
+    drawings_per_day: 5
+    
+    primary_play:
+      name: "Draw 1"
+      prizes:
+        - tier: "$500"
+          odds: 15000
+          value: 500
+        - tier: "$200"
+          odds: 4500
+          value: 200
+        - tier: "$100"
+          odds: 1950
+          value: 100
+        - tier: "$50"
+          odds: 630
+          value: 50
+        - tier: "$40"
+          odds: 240
+          value: 40
+        - tier: "$30"
+          odds: 150
+          value: 30
+        - tier: "$20"
+          odds: 105
+          value: 20
+        - tier: "$14"
+          odds: 90
+          value: 14
+        - tier: "$10"
+          odds: 30
+          value: 10
+        - tier: Free Ticket
+          odds: null
+          value: 2
+          free_ticket: true

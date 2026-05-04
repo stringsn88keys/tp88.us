@@ -1,0 +1,10 @@
+{
+  "updated_at": "2026-04-30 21:41:26 -0400",
+  "source": "Florida Lottery APIs",
+  "jackpots": {
+    "Powerball w/ Double Play": 20000000,
+    "Florida Lotto w/ Double Play": 2500000,
+    "Fantasy 5 w/ EZ Match": 250000,
+    "Jackpot Triple Play": 2500000
+  }
+}
