@@ -7,8 +7,17 @@ GEM
     commonmarker (2.6.3-arm64-darwin)
     commonmarker (2.6.3-x64-mingw-ucrt)
     logger (1.7.0)
+    mini_portile2 (2.8.9)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
+    nokogiri (1.19.2)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.19.2-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.19.2-x64-mingw-ucrt)
+      racc (~> 1.4)
+    racc (1.8.1)
     rack (3.1.12)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
@@ -38,6 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   commonmarker
+  nokogiri
   rouge
   sinatra
 

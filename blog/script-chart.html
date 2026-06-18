@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Polyglot Script Alignment Chart — a reference guide by Thomas Powell.">
+    <meta name="keywords" content="Thomas Powell, script chart, blog, reference, tp88.us">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="Polyglot Script Alignment Chart">
+    <meta property="og:description" content="Polyglot Script Alignment Chart — a reference guide by Thomas Powell.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tp88.us/blog/script-chart.html">
+    <link rel="canonical" href="https://tp88.us/blog/script-chart.html">
+<title>Polyglot Script Alignment Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #141720;
+    --border: #252a38;
+    --accent: #c8a96e;
+    --accent2: #6e9ec8;
+    --text: #ddd8cc;
+    --muted: #7a7468;
+    --tamil:   #e07b6a;
+    --deva:    #d4884f;
+    --cyril:   #b5a84e;
+    --greek:   #6aaf7e;
+    --latin:   #6e9ec8;
+    --arabic:  #8b7ec8;
+    --hebrew:  #c87eb5;
+    --ipa:     #c8a96e;
+    --row-even: #161a23;
+    --row-odd:  #111420;
+    --highlight: rgba(200,169,110,0.08);
+    --highlight-border: rgba(200,169,110,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  header h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  header p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    font-style: italic;
+  }
+
+  /* Script selector */
+  .selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .sel-btn {
+    padding: 0.45rem 1.1rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sel-btn .script-glyph {
+    display: block;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
+    font-family: inherit;
+  }
+
+  .sel-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .sel-btn.active {
+    color: var(--bg);
+    font-weight: 700;
+  }
+
+  .sel-btn[data-script="tamil"].active   { background: var(--tamil);  border-color: var(--tamil); }
+  .sel-btn[data-script="deva"].active    { background: var(--deva);   border-color: var(--deva); }
+  .sel-btn[data-script="cyril"].active   { background: var(--cyril);  border-color: var(--cyril); }
+  .sel-btn[data-script="greek"].active   { background: var(--greek);  border-color: var(--greek); }
+  .sel-btn[data-script="latin"].active   { background: var(--latin);  border-color: var(--latin); }
+  .sel-btn[data-script="arabic"].active  { background: var(--arabic); border-color: var(--arabic); }
+  .sel-btn[data-script="hebrew"].active  { background: var(--hebrew); border-color: var(--hebrew); }
+
+  /* Legend bar */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* Table wrapper */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--surface);
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 760px;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: #0e1018;
+    padding: 0.65rem 0.6rem 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  thead th.col-ipa    { color: var(--ipa); }
+  thead th.col-tamil  { color: var(--tamil); }
+  thead th.col-deva   { color: var(--deva); }
+  thead th.col-cyril  { color: var(--cyril); }
+  thead th.col-greek  { color: var(--greek); }
+  thead th.col-latin  { color: var(--latin); }
+  thead th.col-arabic { color: var(--arabic); }
+  thead th.col-hebrew { color: var(--hebrew); }
+  thead th.col-cat    { color: var(--muted); }
+
+  thead th.primary-col {
+    border-bottom: 2px solid var(--accent);
+    color: var(--accent) !important;
+  }
+
+  /* Category rows */
+  tr.cat-row td {
+    background: #0b0d12;
+    padding: 0.3rem 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr:not(.cat-row) {
+    cursor: default;
+    transition: background 0.1s;
+  }
+
+  tbody tr:not(.cat-row):nth-child(even) { background: var(--row-even); }
+  tbody tr:not(.cat-row):nth-child(odd)  { background: var(--row-odd); }
+  tbody tr:not(.cat-row):hover           { background: var(--highlight); }
+
+  td {
+    padding: 0.5rem 0.6rem;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #1b1f2a;
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  td:last-child { border-right: none; }
+
+  td.ipa-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ipa);
+    letter-spacing: 0.05em;
+  }
+
+  td.label-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-align: left;
+    padding-left: 0.9rem;
+    white-space: nowrap;
+  }
+
+  td.col-tamil  { color: var(--tamil); }
+  td.col-deva   { color: var(--deva); }
+  td.col-cyril  { color: var(--cyril); }
+  td.col-greek  { color: var(--greek); }
+  td.col-latin  { color: var(--latin); }
+  td.col-arabic { color: var(--arabic); direction: rtl; }
+  td.col-hebrew { color: var(--hebrew); direction: rtl; }
+
+  td.primary-cell {
+    font-size: 1.45rem;
+    font-weight: 600;
+    background: var(--highlight);
+    border-left: 2px solid var(--highlight-border);
+    border-right: 2px solid var(--highlight-border);
+  }
+
+  td.null-cell {
+    color: #2a2e3a;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  td.approx {
+    opacity: 0.55;
+  }
+
+  td .sub {
+    display: block;
+    font-size: 0.55rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-top: 0.1rem;
+    opacity: 0.7;
+  }
+
+  .note-bar {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 1.2rem;
+    font-family: 'Lora', serif;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .note-bar strong { color: var(--accent); font-style: normal; }
+
+  /* Shimmer on active column */
+  @keyframes colPulse {
+    0%   { box-shadow: inset 0 0 0 0 rgba(200,169,110,0); }
+    50%  { box-shadow: inset 0 0 8px 0 rgba(200,169,110,0.08); }
+    100% { box-shadow: inset 0 0 0 0 rgba(200,169,110,0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Polyglot Script Alignment</h1>
+  <p>Tamil · Devanagari · Cyrillic · Greek · Latin · Arabic · Hebrew — phonetically aligned by closest equivalent</p>
+</header>
+
+<div class="selector" id="selector">
+  <button class="sel-btn active" data-script="latin">
+    <span class="script-glyph">A</span>LATIN
+  </button>
+  <button class="sel-btn" data-script="tamil">
+    <span class="script-glyph">அ</span>TAMIL
+  </button>
+  <button class="sel-btn" data-script="deva">
+    <span class="script-glyph">अ</span>DEVANAGARI
+  </button>
+  <button class="sel-btn" data-script="cyril">
+    <span class="script-glyph">А</span>CYRILLIC
+  </button>
+  <button class="sel-btn" data-script="greek">
+    <span class="script-glyph">Α</span>GREEK
+  </button>
+  <button class="sel-btn" data-script="arabic">
+    <span class="script-glyph">ا</span>ARABIC
+  </button>
+  <button class="sel-btn" data-script="hebrew">
+    <span class="script-glyph">א</span>HEBREW
+  </button>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--tamil)"></div>Tamil</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--deva)"></div>Devanagari (Hindi)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--cyril)"></div>Cyrillic (Russian)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--greek)"></div>Greek</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--latin)"></div>Latin</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--arabic)"></div>Arabic (MSA)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--hebrew)"></div>Hebrew</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--ipa)"></div>IPA</div>
+</div>
+
+<div class="table-wrap">
+  <table id="chartTable">
+    <thead id="thead"></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<div class="note-bar">
+  <strong>Approximation key:</strong> Dimmed cells indicate the closest available equivalent, which may differ in voicing, aspiration, or articulation.
+  IPA columns shown for Hindi (Devanagari), Russian (Cyrillic), MSA (Arabic), and Hebrew.
+  Tamil phonology differs significantly from Indo-European scripts; many distinctions (aspiration, voiced stops) are absent.
+  Arabic and Hebrew are abjads — vowels shown are common diacritics (harakat / niqqud), typically omitted in adult writing.
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+// Each row: { cat, label, ipa, tamil, deva, cyril, greek, latin, arabic, hebrew, approx:{} }
+// approx: set of script keys where this is an approximation (not native/exact)
+// null means no reasonable equivalent
+
+const ROWS = [
+  // ── VOWELS ──────────────────────────────────────────────────────────────────
+  { cat:'Vowels', label:'open front unrounded', ipa:'/a/',
+    tamil:'அ', deva:'अ', cyril:'а', greek:'α', latin:'a', arabic:'اَ', hebrew:'אַ',
+    approx:{} },
+
+  { cat:'Vowels', label:'near-close front unrounded', ipa:'/i/',
+    tamil:'இ', deva:'इ', cyril:'и', greek:'ι', latin:'i', arabic:'اِ', hebrew:'אִ',
+    approx:{} },
+
+  { cat:'Vowels', label:'close back rounded', ipa:'/u/',
+    tamil:'உ', deva:'उ', cyril:'у', greek:'ου', latin:'u', arabic:'اُ', hebrew:'אֻ',
+    approx:{ greek:true } },
+
+  { cat:'Vowels', label:'mid-front unrounded', ipa:'/e/',
+    tamil:'எ', deva:'ए', cyril:'э', greek:'ε', latin:'e', arabic:'اِي', hebrew:'אֵ',
+    approx:{ arabic:true } },
+
+  { cat:'Vowels', label:'mid-back rounded', ipa:'/o/',
+    tamil:'ஒ', deva:'ओ', cyril:'о', greek:'ο', latin:'o', arabic:'اَو', hebrew:'אוֹ',
+    approx:{ arabic:true } },
+
+  { cat:'Vowels', label:'open-mid front unrounded', ipa:'/ɛ/',
+    tamil:'எ', deva:'ऎ', cyril:'е', greek:'αι', latin:'e', arabic:'اِ', hebrew:'אֶ',
+    approx:{ tamil:true, cyril:true, latin:true, arabic:true } },
+
+  { cat:'Vowels', label:'long ā', ipa:'/aː/',
+    tamil:'ஆ', deva:'आ', cyril:'а', greek:'α', latin:'ā', arabic:'آ', hebrew:'אָ',
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Vowels', label:'long ī', ipa:'/iː/',
+    tamil:'ஈ', deva:'ई', cyril:'и', greek:'η', latin:'ī', arabic:'اِي', hebrew:'אִי',
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Vowels', label:'long ū', ipa:'/uː/',
+    tamil:'ஊ', deva:'ऊ', cyril:'у', greek:'ου', latin:'ū', arabic:'اُو', hebrew:'אוּ',
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Vowels', label:'schwa', ipa:'/ə/',
+    tamil:null, deva:'अ', cyril:'ъ', greek:null, latin:'ə', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── STOPS — BILABIAL ───────────────────────────────────────────────────────
+  { cat:'Stops — Bilabial', label:'voiced bilabial stop', ipa:'/b/',
+    tamil:'ப', deva:'ब', cyril:'б', greek:'β', latin:'b', arabic:'ب', hebrew:'ב',
+    approx:{ tamil:true, greek:true } },
+
+  { cat:'Stops — Bilabial', label:'voiceless bilabial stop', ipa:'/p/',
+    tamil:'ப', deva:'प', cyril:'п', greek:'π', latin:'p', arabic:'ب', hebrew:'פ',
+    approx:{ tamil:true, arabic:true } },
+
+  { cat:'Stops — Bilabial', label:'aspirated bilabial stop', ipa:'/pʰ/',
+    tamil:null, deva:'फ', cyril:'п', greek:'φ', latin:'ph', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Stops — Bilabial', label:'aspirated voiced bilabial', ipa:'/bʰ/',
+    tamil:null, deva:'भ', cyril:'б', greek:null, latin:'bh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── STOPS — DENTAL/ALVEOLAR ────────────────────────────────────────────────
+  { cat:'Stops — Dental/Alveolar', label:'voiced alveolar stop', ipa:'/d/',
+    tamil:'த', deva:'द', cyril:'д', greek:'δ', latin:'d', arabic:'د', hebrew:'ד',
+    approx:{ tamil:true } },
+
+  { cat:'Stops — Dental/Alveolar', label:'voiceless dental stop', ipa:'/t/',
+    tamil:'த', deva:'त', cyril:'т', greek:'τ', latin:'t', arabic:'ت', hebrew:'ת',
+    approx:{ tamil:true } },
+
+  { cat:'Stops — Dental/Alveolar', label:'aspirated dental stop', ipa:'/tʰ/',
+    tamil:null, deva:'थ', cyril:'т', greek:'θ', latin:'th', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Stops — Dental/Alveolar', label:'aspirated voiced dental', ipa:'/dʰ/',
+    tamil:null, deva:'ध', cyril:'д', greek:null, latin:'dh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── STOPS — RETROFLEX ──────────────────────────────────────────────────────
+  { cat:'Stops — Retroflex', label:'retroflex stop ṭ', ipa:'/ʈ/',
+    tamil:'ட', deva:'ट', cyril:'т', greek:'τ', latin:'ṭ', arabic:'ط', hebrew:null,
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Stops — Retroflex', label:'retroflex stop ḍ', ipa:'/ɖ/',
+    tamil:'ட', deva:'ड', cyril:'д', greek:'δ', latin:'ḍ', arabic:'ض', hebrew:null,
+    approx:{ tamil:true, cyril:true, greek:true, latin:true } },
+
+  { cat:'Stops — Retroflex', label:'asp. retroflex ṭh', ipa:'/ʈʰ/',
+    tamil:null, deva:'ठ', cyril:'т', greek:null, latin:'ṭh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Stops — Retroflex', label:'asp. voiced retroflex ḍh', ipa:'/ɖʰ/',
+    tamil:null, deva:'ढ', cyril:'д', greek:null, latin:'ḍh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── STOPS — VELAR ──────────────────────────────────────────────────────────
+  { cat:'Stops — Velar', label:'voiced velar stop', ipa:'/ɡ/',
+    tamil:'க', deva:'ग', cyril:'г', greek:'γ', latin:'g', arabic:'غ', hebrew:'ג',
+    approx:{ tamil:true, arabic:true } },
+
+  { cat:'Stops — Velar', label:'voiceless velar stop', ipa:'/k/',
+    tamil:'க', deva:'क', cyril:'к', greek:'κ', latin:'k', arabic:'ك', hebrew:'כ',
+    approx:{ tamil:true } },
+
+  { cat:'Stops — Velar', label:'aspirated velar stop', ipa:'/kʰ/',
+    tamil:null, deva:'ख', cyril:'х', greek:'χ', latin:'kh', arabic:'خ', hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Stops — Velar', label:'asp. voiced velar', ipa:'/ɡʰ/',
+    tamil:null, deva:'घ', cyril:'г', greek:null, latin:'gh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── AFFRICATES ────────────────────────────────────────────────────────────
+  { cat:'Affricates', label:'voiceless palatal affricate', ipa:'/tɕ/ ~ /tʃ/',
+    tamil:'ச', deva:'च', cyril:'ч', greek:null, latin:'ch', arabic:null, hebrew:null,
+    approx:{ latin:true } },
+
+  { cat:'Affricates', label:'voiced palatal affricate', ipa:'/dʑ/ ~ /dʒ/',
+    tamil:'ஜ', deva:'ज', cyril:'дж', greek:null, latin:'j', arabic:'ج', hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Affricates', label:'asp. palatal affricate', ipa:'/tɕʰ/',
+    tamil:null, deva:'छ', cyril:'ч', greek:null, latin:'chh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Affricates', label:'asp. voiced palatal', ipa:'/dʑʰ/',
+    tamil:null, deva:'झ', cyril:'дж', greek:null, latin:'jh', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── NASALS ───────────────────────────────────────────────────────────────
+  { cat:'Nasals', label:'bilabial nasal', ipa:'/m/',
+    tamil:'ம', deva:'म', cyril:'м', greek:'μ', latin:'m', arabic:'م', hebrew:'מ',
+    approx:{} },
+
+  { cat:'Nasals', label:'alveolar nasal', ipa:'/n/',
+    tamil:'ந', deva:'न', cyril:'н', greek:'ν', latin:'n', arabic:'ن', hebrew:'נ',
+    approx:{} },
+
+  { cat:'Nasals', label:'retroflex nasal', ipa:'/ɳ/',
+    tamil:'ண', deva:'ण', cyril:'н', greek:'ν', latin:'ṇ', arabic:null, hebrew:null,
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Nasals', label:'palatal nasal', ipa:'/ɲ/',
+    tamil:'ஞ', deva:'ञ', cyril:'нь', greek:'γν', latin:'ñ', arabic:null, hebrew:null,
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Nasals', label:'velar nasal', ipa:'/ŋ/',
+    tamil:'ங', deva:'ङ', cyril:'нг', greek:'γγ', latin:'ng', arabic:null, hebrew:null,
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Nasals', label:'dental nasal', ipa:'/n̪/',
+    tamil:'ன', deva:'न', cyril:'н', greek:'ν', latin:'n', arabic:'ن', hebrew:'נ',
+    approx:{ cyril:true, greek:true, latin:true, arabic:true, hebrew:true } },
+
+  // ── FRICATIVES ───────────────────────────────────────────────────────────
+  { cat:'Fricatives', label:'voiceless labiodental', ipa:'/f/',
+    tamil:null, deva:'फ़', cyril:'ф', greek:'φ', latin:'f', arabic:'ف', hebrew:'פ',
+    approx:{ deva:true } },
+
+  { cat:'Fricatives', label:'voiced labiodental', ipa:'/v/',
+    tamil:'வ', deva:'व', cyril:'в', greek:'β', latin:'v', arabic:'و', hebrew:'ו',
+    approx:{ greek:true, arabic:true, hebrew:true } },
+
+  { cat:'Fricatives', label:'voiceless alveolar sibilant', ipa:'/s/',
+    tamil:'ஸ', deva:'स', cyril:'с', greek:'σ/ς', latin:'s', arabic:'س', hebrew:'ס',
+    approx:{} },
+
+  { cat:'Fricatives', label:'voiced alveolar sibilant', ipa:'/z/',
+    tamil:null, deva:'ज़', cyril:'з', greek:'ζ', latin:'z', arabic:'ز', hebrew:'ז',
+    approx:{ deva:true, greek:true } },
+
+  { cat:'Fricatives', label:'voiceless postalveolar', ipa:'/ʃ/',
+    tamil:'ஷ', deva:'श', cyril:'ш', greek:null, latin:'sh', arabic:'ش', hebrew:'שׁ',
+    approx:{ latin:true } },
+
+  { cat:'Fricatives', label:'voiced postalveolar', ipa:'/ʒ/',
+    tamil:null, deva:'झ़', cyril:'ж', greek:null, latin:'zh', arabic:null, hebrew:null,
+    approx:{ deva:true, latin:true } },
+
+  { cat:'Fricatives', label:'voiceless velar fricative', ipa:'/x/',
+    tamil:null, deva:'ख़', cyril:'х', greek:'χ', latin:'kh', arabic:'خ', hebrew:'כ/ח',
+    approx:{ deva:true, latin:true } },
+
+  { cat:'Fricatives', label:'voiced velar fricative', ipa:'/ɣ/',
+    tamil:null, deva:null, cyril:'г', greek:'γ', latin:'gh', arabic:'غ', hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Fricatives', label:'voiceless glottal fricative', ipa:'/h/',
+    tamil:'ஹ', deva:'ह', cyril:'х', greek:null, latin:'h', arabic:'ه', hebrew:'ה',
+    approx:{ cyril:true } },
+
+  { cat:'Fricatives', label:'pharyngeal fricative ʿayn', ipa:'/ʕ/',
+    tamil:null, deva:null, cyril:null, greek:null, latin:'ʿ', arabic:'ع', hebrew:'ע',
+    approx:{ latin:true } },
+
+  { cat:'Fricatives', label:'pharyngeal fricative ḥ', ipa:'/ħ/',
+    tamil:null, deva:null, cyril:null, greek:null, latin:'ḥ', arabic:'ح', hebrew:'ח',
+    approx:{ latin:true } },
+
+  { cat:'Fricatives', label:'dental fricative θ', ipa:'/θ/',
+    tamil:null, deva:null, cyril:null, greek:'θ', latin:'th', arabic:'ث', hebrew:null,
+    approx:{ latin:true } },
+
+  { cat:'Fricatives', label:'dental fricative ð', ipa:'/ð/',
+    tamil:null, deva:null, cyril:null, greek:null, latin:'dh', arabic:'ذ', hebrew:null,
+    approx:{ latin:true } },
+
+  // ── EMPHATICS (Arabic/Hebrew) ─────────────────────────────────────────────
+  { cat:'Emphatics (Arabic · Hebrew)', label:'emphatic dental stop ṭ', ipa:'/tˤ/',
+    tamil:null, deva:'ट', cyril:'т', greek:null, latin:'ṭ', arabic:'ط', hebrew:null,
+    approx:{ deva:true, cyril:true, latin:true } },
+
+  { cat:'Emphatics (Arabic · Hebrew)', label:'emphatic alveolar ṣ', ipa:'/sˤ/',
+    tamil:null, deva:null, cyril:'с', greek:null, latin:'ṣ', arabic:'ص', hebrew:'צ',
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Emphatics (Arabic · Hebrew)', label:'emphatic ḍ', ipa:'/dˤ/',
+    tamil:null, deva:null, cyril:'д', greek:null, latin:'ḍ', arabic:'ض', hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Emphatics (Arabic · Hebrew)', label:'emphatic ẓ', ipa:'/zˤ/',
+    tamil:null, deva:null, cyril:'з', greek:null, latin:'ẓ', arabic:'ظ', hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── LIQUIDS & GLIDES ──────────────────────────────────────────────────────
+  { cat:'Liquids & Glides', label:'alveolar trill/tap', ipa:'/r/',
+    tamil:'ர', deva:'र', cyril:'р', greek:'ρ', latin:'r', arabic:'ر', hebrew:'ר',
+    approx:{} },
+
+  { cat:'Liquids & Glides', label:'retroflex flap', ipa:'/ɽ/',
+    tamil:'ழ', deva:'ड़', cyril:'р', greek:null, latin:'ṟ', arabic:null, hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Liquids & Glides', label:'lateral approximant', ipa:'/l/',
+    tamil:'ல', deva:'ल', cyril:'л', greek:'λ', latin:'l', arabic:'ل', hebrew:'ל',
+    approx:{} },
+
+  { cat:'Liquids & Glides', label:'retroflex lateral', ipa:'/ɭ/',
+    tamil:'ள', deva:'ळ', cyril:'л', greek:'λ', latin:'ḷ', arabic:null, hebrew:null,
+    approx:{ cyril:true, greek:true, latin:true } },
+
+  { cat:'Liquids & Glides', label:'palatal approximant', ipa:'/j/',
+    tamil:'ய', deva:'य', cyril:'й', greek:'γ', latin:'y', arabic:'ي', hebrew:'י',
+    approx:{ greek:true } },
+
+  { cat:'Liquids & Glides', label:'labiovelar approximant', ipa:'/w/',
+    tamil:'வ', deva:'व', cyril:'в', greek:'ου', latin:'w', arabic:'و', hebrew:'ו',
+    approx:{ deva:true, cyril:true, greek:true } },
+
+  // ── GLOTTAL ──────────────────────────────────────────────────────────────
+  { cat:'Glottal', label:'glottal stop', ipa:'/ʔ/',
+    tamil:null, deva:null, cyril:null, greek:null, latin:'ʼ', arabic:'ء', hebrew:'א',
+    approx:{ latin:true } },
+
+  // ── UNIQUE CYRILLIC ───────────────────────────────────────────────────────
+  { cat:'Cyrillic-specific', label:'voiceless alveolar affricate', ipa:'/ts/',
+    tamil:null, deva:null, cyril:'ц', greek:null, latin:'ts', arabic:null, hebrew:'צ',
+    approx:{ latin:true } },
+
+  { cat:'Cyrillic-specific', label:'hard sign (no sound)', ipa:'[ʔ]',
+    tamil:null, deva:null, cyril:'ъ', greek:null, latin:null, arabic:null, hebrew:null,
+    approx:{} },
+
+  { cat:'Cyrillic-specific', label:'soft sign (palatalisation)', ipa:'[ʲ]',
+    tamil:null, deva:null, cyril:'ь', greek:null, latin:'ʲ', arabic:null, hebrew:null,
+    approx:{ latin:true } },
+
+  { cat:'Cyrillic-specific', label:'front vowel close-mid', ipa:'/ɨ/',
+    tamil:null, deva:null, cyril:'ы', greek:null, latin:'ï', arabic:null, hebrew:null,
+    approx:{ latin:true } },
+
+  // ── GREEK-SPECIFIC ────────────────────────────────────────────────────────
+  { cat:'Greek-specific', label:'voiceless aspirate theta', ipa:'/θ/',
+    tamil:null, deva:null, cyril:null, greek:'θ', latin:'th', arabic:'ث', hebrew:null,
+    approx:{ latin:true } },
+
+  { cat:'Greek-specific', label:'voiced fricative phi', ipa:'/f/ (modern)', 
+    tamil:null, deva:'फ़', cyril:'ф', greek:'φ', latin:'ph/f', arabic:'ف', hebrew:'פ',
+    approx:{ deva:true, latin:true } },
+
+  { cat:'Greek-specific', label:'voiced velar fricative gamma', ipa:'/ɣ/ (modern)',
+    tamil:null, deva:null, cyril:'г', greek:'γ', latin:'gh', arabic:'غ', hebrew:null,
+    approx:{ cyril:true, latin:true } },
+
+  // ── SEMITIC UNIQUE ────────────────────────────────────────────────────────
+  { cat:'Semitic — unique', label:'uvular stop qaf', ipa:'/q/',
+    tamil:null, deva:null, cyril:null, greek:null, latin:'q', arabic:'ق', hebrew:'ק',
+    approx:{ latin:true } },
+
+  { cat:'Semitic — unique', label:'tsade (emphatic s)', ipa:'/tsˤ/',
+    tamil:null, deva:null, cyril:'ц', greek:null, latin:'ṣ', arabic:'ص', hebrew:'צ',
+    approx:{ cyril:true, latin:true } },
+
+  { cat:'Semitic — unique', label:'shin (Hebrew)', ipa:'/ʃ/',
+    tamil:'ஷ', deva:'श', cyril:'ш', greek:null, latin:'sh', arabic:'ش', hebrew:'שׁ',
+    approx:{} },
+
+  { cat:'Semitic — unique', label:'ayin (voiced pharyngeal)', ipa:'/ʕ/',
+    tamil:null, deva:null, cyril:null, greek:null, latin:'ʿ', arabic:'ع', hebrew:'ע',
+    approx:{ latin:true } },
+];
+
+// ─── COLUMN CONFIG ────────────────────────────────────────────────────────────
+const SCRIPTS = [
+  { key:'tamil',  label:'Tamil',       ipaCol:false },
+  { key:'deva',   label:'Devanāgarī',  ipaCol:true  },
+  { key:'cyril',  label:'Cyrillic',    ipaCol:true  },
+  { key:'greek',  label:'Greek',       ipaCol:false },
+  { key:'latin',  label:'Latin',       ipaCol:false },
+  { key:'arabic', label:'Arabic (MSA)',ipaCol:true  },
+  { key:'hebrew', label:'Hebrew',      ipaCol:true  },
+];
+
+const LANG_LABELS = {
+  deva:   'Hindi',
+  cyril:  'Russian',
+  arabic: 'MSA',
+  hebrew: 'Hebrew',
+};
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+let primary = 'latin';
+
+function colOrder() {
+  // primary script first, then others in original order (excluding primary)
+  const rest = SCRIPTS.filter(s => s.key !== primary);
+  return [SCRIPTS.find(s => s.key === primary), ...rest];
+}
+
+function renderHeader() {
+  const thead = document.getElementById('thead');
+  const ordered = colOrder();
+  let html = '<tr>';
+  html += `<th class="col-cat">Sound</th>`;
+  html += `<th class="col-ipa">IPA</th>`;
+  for (const s of ordered) {
+    const isPrimary = s.key === primary;
+    const cls = `col-${s.key}${isPrimary ? ' primary-col' : ''}`;
+    html += `<th class="${cls}">${s.label}`;
+    if (s.ipaCol) {
+      const lang = LANG_LABELS[s.key] || '';
+      html += `<br><span style="font-size:0.55rem;opacity:0.6;text-transform:none;letter-spacing:0;">(+ IPA)</span>`;
+    }
+    html += `</th>`;
+  }
+  html += '</tr>';
+  thead.innerHTML = html;
+}
+
+function renderBody() {
+  const tbody = document.getElementById('tbody');
+  const ordered = colOrder();
+  let lastCat = '';
+  let html = '';
+
+  for (const row of ROWS) {
+    // category row
+    if (row.cat !== lastCat) {
+      lastCat = row.cat;
+      html += `<tr class="cat-row"><td colspan="${2 + ordered.length}">${row.cat}</td></tr>`;
+    }
+
+    html += '<tr>';
+    html += `<td class="label-cell">${row.label}</td>`;
+    html += `<td class="ipa-cell">${row.ipa}</td>`;
+
+    for (const s of ordered) {
+      const val = row[s.key];
+      const isApprox = row.approx && row.approx[s.key];
+      const isPrimary = s.key === primary;
+      let cls = `col-${s.key}`;
+      if (isPrimary) cls += ' primary-cell';
+      if (isApprox) cls += ' approx';
+
+      if (val === null) {
+        html += `<td class="${cls} null-cell">—</td>`;
+      } else {
+        html += `<td class="${cls}">`;
+        html += val;
+        if (s.ipaCol) {
+          // show IPA beneath as sub
+          html += `<span class="sub">${row.ipa}</span>`;
+        }
+        html += `</td>`;
+      }
+    }
+
+    html += '</tr>';
+  }
+
+  tbody.innerHTML = html;
+}
+
+function render() {
+  renderHeader();
+  renderBody();
+}
+
+// ─── SELECTOR ────────────────────────────────────────────────────────────────
+document.getElementById('selector').addEventListener('click', e => {
+  const btn = e.target.closest('.sel-btn');
+  if (!btn) return;
+  primary = btn.dataset.script;
+  document.querySelectorAll('.sel-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+});
+
+render();
+</script>
+
+
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+<!-- home-link-start -->
+<div style="margin-top:20px;text-align:center;font-size:14px;">
+  <a href="/">&#8592; Back to Home</a>
+</div>
+<!-- home-link-end -->
+</body>
+</html>

@@ -92,16 +92,15 @@ def add_seo_meta(file_path, description:, keywords:, og_title: nil, og_type: 'we
   File.write(file_path, updated)
 end
 
-# Add Google Analytics to existing HTML files
+# Add Google Analytics to HTML files, replacing any existing GA block to avoid duplicates
 def add_google_analytics(file_path)
   content = File.read(file_path)
-  
-  # Check if Google Analytics is already present
-  return if content.include?('gtag.js')
-  
-  # Add Google Analytics before closing </body> tag
+
+  # Remove any existing GA blocks before re-adding
+  content = content.gsub(/[ \t]*<!-- Google tag \(gtag\.js\) -->.*?<\/script>\s*<script>.*?<\/script>[ \t]*\n?/m, '')
+
   analytics_code = <<~HTML
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
     <script>
@@ -112,12 +111,38 @@ def add_google_analytics(file_path)
       gtag('config', 'G-QT64MJL0WW');
     </script>
   HTML
-  
-  # Insert before closing </body> tag
-  updated_content = content.gsub(/<\/body>/i, "#{analytics_code}</body>")
-  
-  # Write the updated content back to the file
-  File.write(file_path, updated_content)
+
+  File.write(file_path, content.gsub(/<\/body>/i, "#{analytics_code}</body>"))
+end
+
+# Add a home link to HTML files, replacing any existing home-link to avoid duplicates.
+# Skipped for index.html since it is the home page.
+def add_home_link(file_path)
+  return if File.basename(file_path) == 'index.html'
+
+  content = File.read(file_path)
+
+  # Remove injected home links from previous runs (comment-wrapped)
+  content = content.gsub(/[ \t]*<!-- home-link-start -->.*?<!-- home-link-end -->[ \t]*\n?/m, '')
+
+  # Remove <footer> elements that contain a back-to-home link
+  content = content.gsub(/<footer[^>]*>.*?<\/footer>/im) { |m| m.include?('href="/"') ? '' : m }
+
+  # Remove <div class="footer"> containing only a home link
+  content = content.gsub(/[ \t]*<div[^>]*class="footer"[^>]*>\s*<a\s[^>]*href="\/"[^>]*>.*?<\/a>\s*<\/div>[ \t]*\n?/im, '')
+
+  # Remove footer-link anchors (various hand-authored styles)
+  content = content.gsub(/[ \t]*<a\s[^>]*class="footer-link"[^>]*>.*?<\/a>[ \t]*\n?/im, '')
+
+  home_html = <<~HTML
+    <!-- home-link-start -->
+    <div style="margin-top:20px;text-align:center;font-size:14px;">
+      <a href="/">&#8592; Back to Home</a>
+    </div>
+    <!-- home-link-end -->
+  HTML
+
+  File.write(file_path, content.sub(/<\/body>/i, "#{home_html}</body>"))
 end
 
 # Generate syntax-highlighted HTML files for .sh, .rb, and .ps1 files
@@ -694,6 +719,24 @@ File.open('index.html', 'wt') do |f|
   HTML
 end
 
+# Final pass: ensure every HTML page has Google Analytics and a home link.
+# This is intentionally comprehensive and idempotent — safe to run on every regeneration.
+all_content_pages = [
+  *Dir['blog/*.html'],
+  *Dir['calculators/*.html'],
+  *Dir['resumes/*.html'],
+  *Dir['interview_prep/*.html'],
+  *Dir['scripts/*.sh.html', 'scripts/*.rb.html', 'scripts/*.ps1.html', 'scripts/*.bat.html'],
+  *Dir['books_all.html', 'books_completed.html'],
+  *Dir['coffee.html']
+].uniq
+
+all_content_pages.each do |file|
+  add_google_analytics(file)
+  add_home_link(file)
+end
+add_google_analytics('index.html')
+
 # Generate robots.txt
 File.write('robots.txt', <<~ROBOTS)
   User-agent: *
@@ -758,6 +801,13 @@ end
 
 puts "Generated robots.txt and sitemap.xml (#{sitemap_urls.length} URLs)"
 
+## Scrape lottery jackpots
+#puts "\n" + "=" * 50
+#puts "Scraping Florida Lottery jackpots..."
+#puts "=" * 50
+#%x|ruby scrape_lottery_jackpots.rb|
+#puts ""
+#
 # Sync files to S3 (exclude JSX source files — HTML wrappers are generated from them)
 %x|aws s3 sync . s3://tp88.us --exclude "*.jsx"|
 

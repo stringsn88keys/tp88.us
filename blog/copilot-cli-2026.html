@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GitHub Copilot CLI — Power Reference — May 2026 — a reference guide by Thomas Powell.">
+    <meta name="keywords" content="Thomas Powell, copilot cli 2026, blog, reference, tp88.us">
+    <meta name="author" content="Thomas Powell">
+    <meta property="og:title" content="GitHub Copilot CLI — Power Reference — May 2026">
+    <meta property="og:description" content="GitHub Copilot CLI — Power Reference — May 2026 — a reference guide by Thomas Powell.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://tp88.us/blog/copilot-cli-2026.html">
+    <link rel="canonical" href="https://tp88.us/blog/copilot-cli-2026.html">
+<title>GitHub Copilot CLI — Power Reference — May 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+:root {
+  --bg:        #0a0c0f;
+  --surface:   #111418;
+  --surface2:  #171b21;
+  --border:    #1f252e;
+  --border2:   #2a3040;
+  --green:     #39d353;
+  --cyan:      #58e6d9;
+  --orange:    #f0883e;
+  --yellow:    #e3b341;
+  --pink:      #f778ba;
+  --blue:      #79c0ff;
+  --muted:     #3d4a5c;
+  --text:      #b0bac8;
+  --heading:   #e6edf3;
+  --mono:      'Fira Code', monospace;
+  --sans:      'Barlow', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(160deg, #0d1117 0%, #0a0c0f 60%);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(57,211,83,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 30%, rgba(57,211,83,0.03) 0%, transparent 60%);
+  pointer-events: none;
+}
+.header-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+
+.stamp {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.stamp::before { content: '▶'; font-size: 0.55rem; }
+
+h1 {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  font-weight: 600;
+  color: var(--heading);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+h1 span { color: var(--green); }
+
+.tagline {
+  margin-top: 0.75rem;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 560px;
+}
+
+.header-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pill {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  background: var(--surface);
+}
+.pill.green  { border-color: rgba(57,211,83,0.3);  color: var(--green);  background: rgba(57,211,83,0.05); }
+.pill.cyan   { border-color: rgba(88,230,217,0.3); color: var(--cyan);   background: rgba(88,230,217,0.05); }
+.pill.orange { border-color: rgba(240,136,62,0.3); color: var(--orange); background: rgba(240,136,62,0.05); }
+
+.crosslink {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.9rem;
+  border: 1px solid rgba(88,230,217,0.35);
+  color: var(--cyan);
+  background: rgba(88,230,217,0.05);
+  text-decoration: none;
+  margin-left: auto;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.crosslink:hover { background: rgba(88,230,217,0.1); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 3rem 0 1.25rem;
+}
+.section-header:first-child { margin-top: 0; }
+.section-header h2 {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.section-header .rule { flex: 1; height: 1px; background: var(--border); }
+.section-header .accent        { color: var(--green); }
+.section-header .accent-cyan   { color: var(--cyan); }
+.section-header .accent-orange { color: var(--orange); }
+.section-header .accent-yellow { color: var(--yellow); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.cmd-card { background: var(--surface); padding: 1.1rem 1.3rem; transition: background 0.15s; }
+.cmd-card:hover { background: var(--surface2); }
+
+.cmd-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+.cmd { font-family: var(--mono); font-size: 0.82rem; font-weight: 600; color: var(--green); }
+.cmd.cyan   { color: var(--cyan); }
+.cmd.orange { color: var(--orange); }
+.cmd.blue   { color: var(--blue); }
+
+.badge {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.07em;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  background: var(--bg);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.badge.new   { border-color: rgba(57,211,83,0.35);  color: var(--green); }
+.badge.agent { border-color: rgba(88,230,217,0.35); color: var(--cyan); }
+.badge.prev  { border-color: rgba(61,74,92,0.6);    color: var(--muted); }
+
+.cmd-desc { font-size: 0.83rem; color: var(--text); line-height: 1.55; }
+
+.table-card { background: var(--surface); border: 1px solid var(--border); overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead tr { background: var(--bg); border-bottom: 1px solid var(--border2); }
+thead th {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.7rem 1.2rem;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--surface2); }
+td { padding: 0.7rem 1.2rem; font-size: 0.83rem; vertical-align: top; }
+td:first-child { font-family: var(--mono); font-weight: 500; color: var(--cyan); white-space: nowrap; }
+td:nth-child(2) { color: var(--text); }
+td:last-child   { color: var(--muted); font-size: 0.78rem; }
+
+.pattern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+.pattern-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--green);
+  padding: 1.25rem 1.4rem;
+}
+.pattern-card.cyan   { border-top-color: var(--cyan); }
+.pattern-card.orange { border-top-color: var(--orange); }
+.pattern-card.yellow { border-top-color: var(--yellow); }
+.pattern-card h3 {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+.pattern-card p { font-size: 0.82rem; color: var(--text); margin-bottom: 0.85rem; line-height: 1.6; }
+
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  padding: 0.7rem 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--cyan);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.code-block .kw  { color: var(--green); }
+.code-block .op  { color: var(--orange); }
+.code-block .cmt { color: var(--muted); }
+
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--orange);
+  padding: 1rem 1.4rem;
+  margin: 1.5rem 0;
+  font-size: 0.84rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.callout strong {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--orange);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+footer a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+footer a:hover {
+  color: var(--heading);
+}
+
+@media (max-width: 600px) {
+  .grid, .pattern-grid { grid-template-columns: 1fr; }
+  header { padding: 2rem 1.25rem 1.75rem; }
+  main { padding: 2rem 1.25rem 3rem; }
+  .crosslink { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="stamp">GitHub Copilot — CLI Reference — May 22, 2026</div>
+    <h1>Copilot <span>CLI</span><br>Power Reference</h1>
+    <p class="tagline">Slash commands, agentic workflow, model &amp; MCP control, and /chronicle. Terminal-native; everything here runs outside the IDE.</p>
+    <div class="header-meta">
+      <span class="pill green">Copilot CLI GA — Feb 2026</span>
+      <span class="pill">/fleet — Apr 2026</span>
+      <span class="pill">/remote — May 2026</span>
+      <span class="pill">/chronicle — experimental</span>
+      <a href="copilot-vscode-2026.html" class="crosslink">→ VS Code Reference</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- SESSION & CONTEXT -->
+  <div class="section-header">
+    <h2 class="accent">Session &amp; Context</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="grid">
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/clear</span><span class="badge">must-know</span></div>
+      <div class="cmd-desc">Wipe accumulated conversation context without ending the session. Use before switching tasks or modules to prevent context bleed.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/cwd</span><span class="badge">must-know</span></div>
+      <div class="cmd-desc">Show or change Copilot's working directory scope. Critical for multi-repo setups — always confirm scope before letting Copilot modify files.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/add-dir &lt;path&gt;</span><span class="badge prev">context</span></div>
+      <div class="cmd-desc">Grant Copilot read/write access to an additional directory beyond the CWD. Explicit; defaults to restricted access. Audit with /list-dirs before long sessions.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/list-dirs</span><span class="badge prev">context</span></div>
+      <div class="cmd-desc">Show all directories currently accessible to Copilot. Audit this before long-running sessions to confirm blast radius.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/list-files</span><span class="badge prev">context</span></div>
+      <div class="cmd-desc">Browse files without navigating complex interfaces. Keyboard-driven; useful in headless/SSH environments.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/session</span><span class="badge prev">context</span></div>
+      <div class="cmd-desc">Display or manage session state. Copilot maintains session persistence across reconnects — inspect what it remembers before continuing.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/resume</span><span class="badge new">new</span></div>
+      <div class="cmd-desc">Return to a previous long-running session. Memory and compaction keep sessions from collapsing under their own history. Use after stepping away.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/changelog</span><span class="badge new">new</span></div>
+      <div class="cmd-desc">View recent Copilot CLI updates in-session. The CLI ships fast and muscle memory goes stale — check this after any update.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/update</span><span class="badge new">new</span></div>
+      <div class="cmd-desc">Update Copilot CLI to the latest version in-place. Run before starting a long session to avoid mid-task surprises.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/help</span><span class="badge prev">always</span></div>
+      <div class="cmd-desc">List all available commands in the current session. The CLI evolves fast — prefer in-product help over docs after updates.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/exit print</span><span class="badge new">May 2026</span></div>
+      <div class="cmd-desc">Print the full session transcript to the terminal before exiting. Useful for archiving or pasting into docs/PRs.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">/rubber-duck</span><span class="badge new">May 2026</span></div>
+      <div class="cmd-desc">Get an independent critique of the agent's current work — a second opinion mid-session without switching models or context.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd">! &lt;command&gt;</span><span class="badge">must-know</span></div>
+      <div class="cmd-desc">Shell out: prefix any command with <code style="color:var(--cyan);font-size:0.8rem">!</code> to run it in your session. Output lands directly in the conversation. Essential for logins, env checks, and one-off CLI tasks that don't fit a full prompt. Example: <code style="color:var(--cyan);font-size:0.8rem">! gcloud auth login</code>.</div>
+    </div>
+  </div>
+
+  <!-- /chronicle -->
+  <div class="section-header">
+    <h2 class="accent">/chronicle — Session History</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="callout">
+    <strong>Experimental — enable with /experimental on first</strong>
+    /chronicle reads session data stored locally in <code style="color:var(--cyan)">~/.copilot/session-state/</code>. Every session records prompts, responses, tools used, and files modified. /chronicle gives you structured ways to query that history. Type /chronicle alone for a picker, or invoke subcommands directly.
+  </div>
+
+  <div class="grid">
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/chronicle standup</span><span class="badge agent">insight</span></div>
+      <div class="cmd-desc">Generate a concise summary of the last 24 hours — grouped by completion status, tied to branches/repos, with PR/issue links. Append context to adjust: <code style="color:var(--cyan);font-size:0.8rem">standup for the last 3 days</code>.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/chronicle improve</span><span class="badge agent">insight</span></div>
+      <div class="cmd-desc">Analyzes your actual prompts, tools used, and features you haven't tried. Returns 3–5 personalized recommendations. Key use: when Copilot keeps making the same mistake — identify the pattern and generate custom instructions to fix it.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/chronicle tips</span><span class="badge agent">insight</span></div>
+      <div class="cmd-desc">Surface personalized workflow tips derived from your session history — features you're underusing or patterns that could be optimized. Good Monday morning warmup.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/chronicle search &lt;query&gt;</span><span class="badge new">May 18 2026</span></div>
+      <div class="cmd-desc">Search all past session content by keyword or topic. Free-form questions also work at any time: <code style="color:var(--cyan);font-size:0.8rem">Have I worked on the payments API?</code></div>
+    </div>
+  </div>
+
+  <!-- AGENTIC WORKFLOW -->
+  <div class="section-header">
+    <h2 class="accent-cyan">Agentic Workflow</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="callout">
+    <strong>Shift+Tab to cycle modes</strong>
+    In an interactive session, Shift+Tab cycles: Normal chat → Plan mode → Autopilot. Plan mode creates a structured implementation plan before writing any code. Autopilot self-approves actions and iterates until the task completes. /fleet is orthogonal — it's about parallelism, not autonomy; both can be combined.
+  </div>
+
+  <div class="grid">
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/plan</span><span class="badge agent">agentic</span></div>
+      <div class="cmd-desc">Enter plan mode explicitly. Copilot drafts a structured implementation plan — compare approaches across models before committing. Models succeed more often when given a concrete plan first.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/fleet</span><span class="badge new">Apr 2026</span></div>
+      <div class="cmd-desc">Break a complex request into independent subtasks and run them in parallel via subagents. Best for work with clean file/module boundaries and no circular dependencies. Uses a premium request multiplier — check /model first.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/task</span><span class="badge agent">agentic</span></div>
+      <div class="cmd-desc">Spawn a subtask agent manually (the primitive /fleet uses internally). Useful for explicit task decomposition when you want control over what runs in parallel.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/delegate</span><span class="badge agent">agentic</span></div>
+      <div class="cmd-desc">Hand off the task to GitHub's cloud coding agent. Creates a branch, implements the change, opens a PR. Requires GitHub sign-in. Monitor and merge from github.com or GitHub Mobile.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/pr</span><span class="badge agent">agentic</span></div>
+      <div class="cmd-desc">View, create, and fix pull requests directly from Copilot CLI. Works via GitHub's native /mcp integration for full issue/branch/PR access without leaving the terminal.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/review</span><span class="badge agent">agentic</span></div>
+      <div class="cmd-desc">Request a code review of your current diff or a PR. Flags bugs, perf issues, code quality, and style. Also available via <code style="color:var(--green);font-size:0.8rem">gh copilot review</code> in the GitHub CLI.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/remote on</span><span class="badge new">May 2026</span></div>
+      <div class="cmd-desc">Enable remote control mid-session. Streams live to github.com or GitHub Mobile — steer mid-session, queue messages, approve permissions, respond to questions from your phone.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">copilot --remote</span><span class="badge new">May 2026</span></div>
+      <div class="cmd-desc">Start a session with remote control enabled from the outset. Kick off from the terminal, then monitor, steer, and merge from anywhere.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd cyan">/experimental show</span><span class="badge prev">config</span></div>
+      <div class="cmd-desc">Opt into preview features as they ship. Gate-controlled per session. Run /changelog alongside to understand what just landed. Required to unlock /chronicle.</div>
+    </div>
+  </div>
+
+  <!-- MODEL & MCP -->
+  <div class="section-header">
+    <h2 class="accent-orange">Model &amp; MCP</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="grid">
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd orange">/model</span><span class="badge">must-know</span></div>
+      <div class="cmd-desc">Switch models mid-session. Shows current model and its premium request multiplier. Check this before /fleet — multiplier scales with parallelism. Requires tool calling + streaming; 128k+ context window recommended.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd orange">/models</span><span class="badge prev">config</span></div>
+      <div class="cmd-desc">List all models available to your account/plan. Copilot auto-selects by default; override here for agentic tasks that benefit from a larger context window.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd orange">/mcp</span><span class="badge agent">mcp</span></div>
+      <div class="cmd-desc">Connect to or manage MCP servers in-session. GitHub's native /mcp server exposes issues, branches, and PRs — not just file edits. Add external MCP servers (Jira, Slack, Linear, etc.) for broader tool access.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd orange">/agent</span><span class="badge agent">agentic</span></div>
+      <div class="cmd-desc">Switch to a custom agent defined in AGENTS.md or .github/agents/. Agents encapsulate instructions, tool access, and model preferences — persist across sessions and delegated work.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd orange">/skills</span><span class="badge new">new</span></div>
+      <div class="cmd-desc">List or invoke agent skills — reusable capability packages that add specialized instructions and tools. Define skills in a SKILL.md folder structure for consistent, repeatable behavior.</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd orange">/user switch</span><span class="badge new">May 2026</span></div>
+      <div class="cmd-desc">Switch GitHub account mid-session. Reuses the fetched user list and shows a loading spinner on first open. Useful on shared machines or multi-org setups.</div>
+    </div>
+  </div>
+
+  <!-- POWER PATTERNS -->
+  <div class="section-header">
+    <h2 class="accent-yellow">CLI Power Patterns</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="pattern-grid">
+
+    <div class="pattern-card yellow">
+      <h3>Plan → Fleet → Delegate Pipeline</h3>
+      <p>The layered CLI workflow for large tasks: plan in Shift+Tab plan mode, parallelize with /fleet for independent subtasks, then /delegate to the cloud agent for background completion and PR creation.</p>
+      <div class="code-block"><span class="cmt"># 1. Drop into plan mode (Shift+Tab)</span>
+<span class="kw">></span> Upgrade all gem minor versions in Gemfile
+<span class="cmt">   → Copilot drafts plan, lists file impacts</span>
+
+<span class="cmt"># 2. Execute in parallel</span>
+<span class="kw">></span> /fleet execute the plan
+
+<span class="cmt"># 3. Send to cloud for PR</span>
+<span class="kw">></span> /delegate open a PR with the results
+<span class="cmt">   → Monitor at github.com or mobile</span></div>
+    </div>
+
+    <div class="pattern-card">
+      <h3>Custom Agent Definition</h3>
+      <p>Define specialist agents in <code style="color:var(--green);font-size:0.82rem">.github/agents/my-agent.agent.md</code> (team) or <code style="color:var(--green);font-size:0.82rem">~/.copilot/agents/</code> (personal). Switch with <code style="color:var(--green);font-size:0.82rem">/agent</code>. Agents persist across sessions and delegated work.</p>
+      <div class="code-block"><span class="kw">---
+name:</span> CVE Scout
+<span class="kw">description:</span> "Security review for gem updates"
+<span class="kw">tools:</span> [read, search, web_search]
+<span class="kw">model:</span> gpt-5.4
+<span class="kw">---
+# Instructions</span>
+You are a security engineer reviewing Ruby gem updates.
+1. Check rubysec/ruby-advisory-db for CVEs first
+2. Review changelog between current and target version
+3. Flag any method signature or behavior changes
+4. Output: risk level + rollback SHA</div>
+    </div>
+
+    <div class="pattern-card">
+      <h3>Path-Scoped Instruction Files</h3>
+      <p>Add <code style="color:var(--green);font-size:0.82rem">.github/instructions/&lt;area&gt;.instructions.md</code> with <code style="color:var(--green);font-size:0.82rem">applyTo</code> globs. This is a persistent context file that scopes what Copilot is allowed to touch — instructions only activate when Copilot is working on matching files, keeping changes contained and preventing scope creep across large or multi-platform repos. Commit alongside your <code style="color:var(--green);font-size:0.82rem">copilot-instructions.md</code> root file; the two layers compose.</p>
+      <div class="code-block"><span class="cmt"># .github/instructions/openssl.instructions.md</span>
+<span class="kw">applyTo:</span> ["ext/openssl/**", "spec/openssl/**"]
+<span class="kw">rules:</span>
+  - Target OpenSSL 3.2+ only; no 1.1.x compat shims
+  - All platform guards must cover: linux, darwin,
+    aix, solaris, windows-ucrt
+  - Do not modify vendor/ or submodule paths
+  - Flag any implicit RSA PKCS#1 v1.5 usage —
+    see CVE notes in SECURITY.md
+
+<span class="cmt"># .github/instructions/ci.instructions.md</span>
+<span class="kw">applyTo:</span> [".github/workflows/**"]
+<span class="kw">rules:</span>
+  - GitHub Actions only; no Buildkite syntax
+  - Ruby matrix: [3.1, 3.2, 3.3, 3.4]
+  - Cache keys must include lockfile SHA</div>
+    </div>
+
+    <div class="pattern-card cyan">
+      <h3>/chronicle improve → Custom Instructions Loop</h3>
+      <p>Run <code style="color:var(--cyan);font-size:0.82rem">/chronicle improve</code> after a frustrating session where Copilot kept missing the mark. It identifies the pattern in your prompt history and can draft additions to your <code style="color:var(--cyan);font-size:0.82rem">copilot-instructions.md</code> to fix it.</p>
+      <div class="code-block"><span class="cmt"># After a bad session:</span>
+<span class="kw">></span> /experimental on
+<span class="kw">></span> /chronicle improve
+<span class="cmt">   → "You repeatedly corrected Copilot on
+      OpenSSL platform guards. Add this to
+      your instructions file:"</span>
+<span class="kw">></span> append suggestion to .github/copilot-instructions.md
+<span class="kw">></span> /clear  <span class="cmt"># fresh context with new rules</span></div>
+    </div>
+
+    <div class="pattern-card orange">
+      <h3>PR Evidence Prompt</h3>
+      <p>After making a change, use this prompt to generate a complete PR body with test evidence, rollback instructions, and risk assessment.</p>
+      <div class="code-block"><span class="kw">Fill this PR template:</span>
+Summary: what changed and why
+Files touched: &lt;list&gt;
+
+<span class="kw">Tests/Evidence:</span>
+- Command + output summary
+- Before/after if perf or behavior changed
+
+<span class="kw">Risk &amp; Rollback:</span>
+- Risk: low/medium/high + rationale
+- Rollback: <span class="op">git revert &lt;SHA&gt;</span> or flag off</div>
+    </div>
+
+  </div>
+
+  <!-- INSTALL & AUTH -->
+  <div class="section-header">
+    <h2 class="accent">Install &amp; Auth</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="grid">
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd blue">Install (script)</span><span class="badge prev">setup</span></div>
+      <div class="code-block" style="margin-top:0.5rem"><span class="op">curl -fsSL https://gh.io/copilot-install | bash</span></div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd blue">Install (npm)</span><span class="badge prev">setup</span></div>
+      <div class="code-block" style="margin-top:0.5rem"><span class="op">npm install -g @github/copilot</span></div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd blue">Auth</span><span class="badge prev">setup</span></div>
+      <div class="code-block" style="margin-top:0.5rem"><span class="op">copilot auth</span>
+<span class="cmt"># or via GitHub CLI:</span>
+<span class="op">gh auth login</span></div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-top"><span class="cmd blue">Start session</span><span class="badge prev">setup</span></div>
+      <div class="code-block" style="margin-top:0.5rem"><span class="op">copilot</span>               <span class="cmt"># interactive</span>
+<span class="op">copilot --remote</span>     <span class="cmt"># + remote control</span>
+<span class="op">copilot -h</span>           <span class="cmt"># help</span></div>
+    </div>
+  </div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QT64MJL0WW');
+</script>
+<!-- home-link-start -->
+<div style="margin-top:20px;text-align:center;font-size:14px;">
+  <a href="/">&#8592; Back to Home</a>
+</div>
+<!-- home-link-end -->
+</body>
+</html>

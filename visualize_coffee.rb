@@ -19,7 +19,11 @@ end.parse!
 
 def parse_date(str)
   return nil if str.nil? || str.strip.empty?
-  Date.parse(str.strip.tr('/', '-'))
+  s = str.strip.tr('/', '-')
+  # Bare "M-D" (no year) confuses Ruby's Date.parse — e.g. "4-13" → May 13 instead of April 13.
+  # Prepend the current year so "4-13" becomes "2026-4-13" → 2026-04-13.
+  s = "#{Date.today.year}-#{s}" if s.match?(/^\d{1,2}-\d{1,2}$/)
+  Date.parse(s)
 end
 
 # Load coffee data
@@ -44,7 +48,23 @@ end.sort_by { |b| b[:opened] || Date.new(9999) }
 finished_bags = bags.select { |b| b[:finished] }
 historical_gpd = if finished_bags.any?
   total_g    = finished_bags.sum { |b| b[:size_oz] * OZ_TO_GRAMS }
-  total_days = finished_bags.sum { |b| [(b[:finished] - b[:opened]).to_i, 1].max }
+
+  # Merge overlapping intervals to get actual calendar days covered
+  intervals = finished_bags.map { |b| [b[:opened], b[:finished]] }.sort_by(&:first)
+  total_days = 0
+  merged_start = merged_end = nil
+
+  intervals.each do |s, e|
+    if merged_end.nil? || s > merged_end
+      total_days += (merged_end - merged_start).to_i if merged_start
+      merged_start = s
+      merged_end = e
+    else
+      merged_end = [merged_end, e].max
+    end
+  end
+
+  total_days += (merged_end - merged_start).to_i if merged_start
   total_g / total_days.to_f
 else
   DEFAULT_G_PER_DAY
@@ -84,7 +104,8 @@ unless bags.empty?
   bags[1..].each do |bag|
     if bag[:opened].nil? || group_end.nil? || bag[:opened] < group_end
       current_group << bag
-      group_end = [group_end, bag[:end_date]].compact.max
+      # Don't extend group_end — keep it anchored to the first bag's end date
+      # so long-running bags don't cascade everything into one mega-group
     else
       groups << current_group
       current_group = [bag]

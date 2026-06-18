@@ -91,14 +91,49 @@
 - title: The Punic Wars
   author: Adrian Goldsworthy
   date_started: 2026-03-30
+  date_finished: 2026-06-08
   print_length: 416 pages
-  pages_read: 223 pages
+  associates_link: https://amzn.to/4vw7QU7
+  commentary: A bit tedious and rough, but also covers a lot of ground
+  rating: 4
 - title: Investing for Programmers
   subtitle: Understanding markets through data and code
   author: Stefan Papp
   date_started: 2026-04-22
+  date_finished: 2026-05-23
+  rating: 3
   print_length: 368 pages
-  percent_complete: 3%
   associates_link: https://amzn.to/4cEpYDy
   format_read: Audiobook on O'Reilly App
-
+- title: Careless People
+  subtitle: A Cautionary Tale of Power, Greed, and Lost Idealism
+  author: Sarah Wynn-Williams
+  date_started: 2026-04-26
+  print_length: 400 pages
+  time_left: 13 hours 6 minutes
+  listening_length: 13 hours 16 minutes
+  format_read: Audible
+  associates_link: https://amzn.to/4mXVroX
+- title: "Innovator's DNA"
+  subtitle: Mastering the Five Skills of Disruptive Innovators
+  author: Jeff Dyer, Hal Gregersen, Clayton M. Christensen
+  date_started: 2026-04-28
+  date_finished: 2026-05-14
+  print_length: 304 pages
+  rating: 4
+  commentary: Some inspirational messaging still, but the benefit of hindsight dulls the messaging.
+  associates_link: https://amzn.to/4tyZkTO
+- title: "Easy Money"
+  subtitle: Cryptocurrency, Casino Capitalism, and the Golden Age of Fraud
+  author: Ben McKenzie, Jacob Silverman
+  date_started: 2026-05-29
+  print_length: 320 pages
+  listening_length: 10 hours and 33 minutes
+  time_left: 5 hours 18 minutes
+  associates_link: https://amzn.to/4xipRqH
+- title: Upstream
+  subtitle: The Quest to Solve Problems Before They Happen
+  author: Dan Heath
+  print_length: 320 pages
+  pages_read: 37 pages
+  associates_link: https://amzn.to/4fuPuhL
