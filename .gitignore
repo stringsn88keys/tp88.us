@@ -3,3 +3,4 @@ tmp/*
 scripts/*.html
 data/Goodreads/
 **/.DS_Store
+node_modules/
