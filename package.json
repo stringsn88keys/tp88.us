@@ -1,0 +1,27 @@
+{
+  "name": "tp88.us",
+  "version": "1.0.0",
+  "description": "tp88.us source scripts",
+  "main": "playwright.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stringsn88keys/tp88.us.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/stringsn88keys/tp88.us/issues"
+  },
+  "homepage": "https://github.com/stringsn88keys/tp88.us#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0"
+  }
+}

@@ -74,6 +74,32 @@ def parse_percent(percent_str)
   match ? match[1].to_f / 100.0 : nil
 end
 
+# Normalize free-text format_read values into a small set of categories
+def normalize_format(raw)
+  return 'Unknown' if raw.nil? || raw.to_s.strip.empty?
+  fmt = raw.to_s.downcase
+  return 'Audiobook' if fmt.match?(/audible|audiobook|audio/)
+  return 'Digital' if fmt.match?(/digital|ebook|kindle/)
+  return 'Physical' if fmt.match?(/hardcover|paperback|print|physical/)
+  'Other'
+end
+
+FORMAT_ORDER = ['Audiobook', 'Digital', 'Physical', 'Other', 'Unknown'].freeze
+FORMAT_COLORS = {
+  'Audiobook' => '#2a78d6',
+  'Digital'   => '#1baf7a',
+  'Physical'  => '#eda100',
+  'Other'     => '#4a3aa7',
+  'Unknown'   => '#c3c2b7'
+}.freeze
+
+def format_rgba(hex, alpha)
+  r = hex[1..2].to_i(16)
+  g = hex[3..4].to_i(16)
+  b = hex[5..6].to_i(16)
+  "rgba(#{r}, #{g}, #{b}, #{alpha})"
+end
+
 # Calculate pages read for a book
 def calculate_pages_read(book)
   total_pages = parse_pages(book['print_length'])
@@ -131,12 +157,15 @@ filtered_books = options[:show_all] ? books : books.select { |b| completed?(b) }
 # Aggregate data by year and month
 monthly_data = Hash.new { |h, k| h[k] = Hash.new(0) }
 yearly_data = Hash.new(0)
+monthly_format_data = Hash.new { |h, k| h[k] = Hash.new(0) } # month_key => {format => pages}
+yearly_format_data = Hash.new { |h, k| h[k] = Hash.new(0) } # year => {format => pages}
 book_details = []
 
 filtered_books.each do |book|
   pages_read = calculate_pages_read(book)
   total_pages = parse_pages(book['print_length'])
   is_completed = completed?(book)
+  format_category = normalize_format(book['format_read'])
 
   if is_completed
     # Completed books: assign all pages to finish date
@@ -147,6 +176,8 @@ filtered_books.each do |book|
 
     monthly_data[year][month] += pages_read
     yearly_data[year] += pages_read
+    monthly_format_data[month_key][format_category] += pages_read
+    yearly_format_data[year][format_category] += pages_read
 
     full_title = book['subtitle'] ? "#{book['title']}: #{book['subtitle']}" : book['title']
     book_details << {
@@ -184,6 +215,8 @@ filtered_books.each do |book|
         month_pages = (days_in_month * pages_per_day).round
         monthly_data[current.year][current.month] += month_pages
         yearly_data[current.year] += month_pages
+        monthly_format_data[current.strftime("%Y-%m")][format_category] += month_pages
+        yearly_format_data[current.year][format_category] += month_pages
 
         # Move to next month
         current = Date.new(current.year, current.month, 1).next_month
@@ -193,6 +226,8 @@ filtered_books.each do |book|
       end_date = Date.today
       monthly_data[end_date.year][end_date.month] += pages_read
       yearly_data[end_date.year] += pages_read
+      monthly_format_data[end_date.strftime("%Y-%m")][format_category] += pages_read
+      yearly_format_data[end_date.year][format_category] += pages_read
     end
 
     full_title = book['subtitle'] ? "#{book['title']}: #{book['subtitle']}" : book['title']
@@ -260,6 +295,24 @@ yearly_pages_per_day = sorted_years.map.with_index do |year, idx|
   pages = yearly_data[year]
   days = yearly_days[idx]
   days > 0 ? (pages.to_f / days).round(1) : 0
+end
+
+# Determine which format categories actually have pages, in fixed display order
+active_formats = FORMAT_ORDER.select do |fmt|
+  yearly_format_data.values.any? { |h| (h[fmt] || 0) > 0 } ||
+    monthly_format_data.values.any? { |h| (h[fmt] || 0) > 0 }
+end
+has_format_breakdown = !active_formats.empty? && active_formats != ['Unknown']
+
+yearly_format_datasets = active_formats.map do |fmt|
+  {
+    label: fmt,
+    data: sorted_years.map { |y| yearly_format_data[y][fmt] || 0 },
+    backgroundColor: format_rgba(FORMAT_COLORS[fmt], 0.75),
+    borderWidth: 0,
+    stack: 'pages',
+    yAxisID: 'y'
+  }
 end
 
 # Build rows for a single book
@@ -510,7 +563,7 @@ html_output = <<~HTML
   </div>
 
   <div class="chart-container">
-    <h2>Pages Read by Year</h2>
+    <h2>Pages Read by Year#{has_format_breakdown ? ', by Format' : ''}</h2>
     <div class="chart-wrapper">
       <canvas id="yearlyChart"></canvas>
     </div>
@@ -533,8 +586,34 @@ html_output = <<~HTML
   <script>
     const yearlyPagesPerDay = #{yearly_pages_per_day.to_json};
     const monthlyPagesPerDay = #{monthly_pages_per_day.to_json};
+    const hasFormatBreakdown = #{has_format_breakdown.to_json};
 
     const yearlyBooksCount = #{sorted_years.map { |y| yearly_book_count[y] }.to_json};
+
+    function pagesTooltipFilter(item) {
+      return item.dataset.label === 'Books Read' || item.raw > 0;
+    }
+
+    function pagesTooltipLabel(context) {
+      if (context.dataset.label === 'Books Read') {
+        return 'Books Read: ' + context.raw;
+      }
+      return context.dataset.label + ': ' + context.raw.toLocaleString() + ' pages';
+    }
+
+    function pagesTooltipFooter(ppdByIndex) {
+      return function(items) {
+        const barItems = items.filter((i) => i.dataset.label !== 'Books Read');
+        if (!barItems.length) return '';
+        const lines = [];
+        if (barItems.length > 1) {
+          const total = barItems.reduce((sum, i) => sum + i.raw, 0);
+          lines.push('Total: ' + total.toLocaleString() + ' pages');
+        }
+        lines.push('Pages per Day: ' + ppdByIndex[barItems[0].dataIndex]);
+        return lines;
+      };
+    }
 
     const yearlyCtx = document.getElementById('yearlyChart').getContext('2d');
     new Chart(yearlyCtx, {
@@ -542,14 +621,14 @@ html_output = <<~HTML
       data: {
         labels: #{sorted_years.to_json},
         datasets: [
-          {
+          ...#{(has_format_breakdown ? yearly_format_datasets : [{
             label: 'Pages Read',
-            data: #{sorted_years.map { |y| yearly_data[y] }.to_json},
+            data: sorted_years.map { |y| yearly_data[y] },
             backgroundColor: 'rgba(52, 152, 219, 0.7)',
             borderColor: 'rgba(52, 152, 219, 1)',
             borderWidth: 1,
             yAxisID: 'y'
-          },
+          }]).to_json},
           {
             label: 'Books Read',
             data: yearlyBooksCount,
@@ -567,18 +646,14 @@ html_output = <<~HTML
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { display: true },
           tooltip: {
+            filter: pagesTooltipFilter,
             callbacks: {
-              label: function(context) {
-                if (context.dataset.label === 'Books Read') {
-                  return 'Books Read: ' + context.raw;
-                }
-                const pages = context.raw;
-                const ppd = yearlyPagesPerDay[context.dataIndex];
-                return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
-              }
+              label: pagesTooltipLabel,
+              footer: pagesTooltipFooter(yearlyPagesPerDay)
             }
           }
         },
@@ -586,6 +661,7 @@ html_output = <<~HTML
           y: {
             beginAtZero: true,
             position: 'left',
+            stacked: hasFormatBreakdown,
             title: { display: true, text: 'Pages' }
           },
           y1: {
@@ -595,7 +671,7 @@ html_output = <<~HTML
             grid: { drawOnChartArea: false },
             ticks: { precision: 0 }
           },
-          x: { title: { display: true, text: 'Year' } }
+          x: { stacked: hasFormatBreakdown, title: { display: true, text: 'Year' } }
         }
       }
     });
@@ -616,15 +692,14 @@ html_output = <<~HTML
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { display: false },
           tooltip: {
+            filter: pagesTooltipFilter,
             callbacks: {
-              label: function(context) {
-                const pages = context.raw;
-                const ppd = monthlyPagesPerDay[context.dataIndex];
-                return ['Pages Read: ' + pages.toLocaleString(), 'Pages per Day: ' + ppd];
-              }
+              label: pagesTooltipLabel,
+              footer: pagesTooltipFooter(monthlyPagesPerDay)
             }
           }
         },

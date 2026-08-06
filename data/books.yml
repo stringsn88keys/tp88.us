@@ -92,6 +92,7 @@
   author: Adrian Goldsworthy
   date_started: 2026-03-30
   date_finished: 2026-06-08
+  format_read: hardcover
   print_length: 416 pages
   associates_link: https://amzn.to/4vw7QU7
   commentary: A bit tedious and rough, but also covers a lot of ground
@@ -119,6 +120,7 @@
   author: Jeff Dyer, Hal Gregersen, Clayton M. Christensen
   date_started: 2026-04-28
   date_finished: 2026-05-14
+  format_read: hardcover
   print_length: 304 pages
   rating: 4
   commentary: Some inspirational messaging still, but the benefit of hindsight dulls the messaging.
@@ -127,13 +129,62 @@
   subtitle: Cryptocurrency, Casino Capitalism, and the Golden Age of Fraud
   author: Ben McKenzie, Jacob Silverman
   date_started: 2026-05-29
+  date_finished: 2026-06-13
+  format_read: Audible
   print_length: 320 pages
   listening_length: 10 hours and 33 minutes
-  time_left: 5 hours 18 minutes
+  rating: 5
   associates_link: https://amzn.to/4xipRqH
 - title: Upstream
   subtitle: The Quest to Solve Problems Before They Happen
   author: Dan Heath
+  format_read: hardcover
   print_length: 320 pages
-  pages_read: 37 pages
+  pages_read: 93 pages
   associates_link: https://amzn.to/4fuPuhL
+- title: "The Hitchhiker's Guide to the Galaxy"
+  author: Douglas Adams
+  print_length: 208 pages
+  date_started: 2026-06-14
+  date_finished: 2026-07-05
+  rating: 4
+  commentary: I appreciate that I would have received this better in my teens
+  listening_length: 5 hours 51 minutes
+  format_read: Audible
+  associates_link: https://amzn.to/3TpLfe7
+- title: Life on Svalbard
+  subtitle: Finding Home on a Remote Island Near the North Pole
+  author: Cecilia Blomdahl
+  print_length: 256 pages
+  format_read: Audible
+  listening_length: 2 hours 26 minutes
+  rating: 5
+  date_started: 2026-07-05
+  date_finished: 2026-07-12
+- title: Meditations
+  subtitle: A New Translation
+  author: Marcus Aurelius
+  format_read: Audible
+  associates_link: https://amzn.to/4fvquXj
+  rating: 4
+  print_length: 192 pages
+  listening_length: 4 hours and 47 minutes
+  date_started: 2026-07-12
+  date_finished: 2026-07-19
+- title: For the Love of the Grind
+  subtitle: A Memoir
+  author: Sara Hall
+  format_read: Audible
+  associates_link: https://amzn.to/4wCO2ja
+  listening_length: 7 hours and 39 minutes
+  date_started: 2026-07-19
+  date_finished: 2026-08-03
+  print_length: 288 pages
+- title: The Odyssey
+  author: Homer, Emily Wilson
+  print_length: 592 pages
+  listening_length: 13 hours and 32 minutes
+  time_left: 12 hours and 35 minutes
+  associates_link: https://amzn.to/4cmrZ7W
+
+

@@ -10,7 +10,8 @@
       "WebFetch(domain:floridalottery.com)",
       "WebFetch(domain:www.floridalottery.com)",
       "WebFetch(domain:www.powerball.com)",
-      "WebFetch(domain:files.floridalottery.com)"
+      "WebFetch(domain:files.floridalottery.com)",
+      "Bash(npx playwright *)"
     ],
     "deny": [],
     "ask": []
