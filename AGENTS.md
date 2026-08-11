@@ -27,6 +27,7 @@ These files are **not** overwritten by `index_me.rb`. Edit them directly.
 | `blog/openssl_pepe_silvia_generated.html` | Standalone blog post (not generated from `.md`) |
 | `blog/llm-quick-reference-march-2026.html` | LLM performance/deployment reference (hand-authored HTML only) |
 | `calculators/annuity_calculator.html` | Standalone calculator |
+| `calculators/apple-voicemail-transcriber.html` | Standalone calculator (uses `voicemailBotcher.js`) |
 | `calculators/camera-sensor.html` | Standalone calculator |
 | `calculators/fake-secrets.html` | Standalone calculator |
 | `calculators/healthcare-calculator.html` | Standalone calculator |

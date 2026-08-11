@@ -7,7 +7,7 @@ class ConspiracyBoardGenerator
     @notes = [
       {
         id: 'openssl_gem',
-        content: "OpenSSL GEM<br>ruby/openssl<br>VERSION: 3.2.0<br><strong>RUBY WRAPPER!</strong><br>NOT the actual crypto!",
+        content: "OpenSSL GEM<br>ruby/openssl<br>VERSION: 3.3.1<br><strong>RUBY WRAPPER!</strong><br>NOT the actual crypto!",
         class: 'yellow',
         position: { top: 100, left: 50 },
         rotation: -5,
@@ -47,7 +47,7 @@ class ConspiracyBoardGenerator
       },
       {
         id: 'version_mismatch',
-        content: "VERSION MISMATCH<br>Gem 3.2.0 ≠ Library 3.2.4<br>Different repos!<br>Different numbering!<br>TOTALLY DIFFERENT!",
+        content: "VERSION MISMATCH<br>Gem 3.3.1 ≠ Library 3.2.4<br>Different repos!<br>Different numbering!<br>TOTALLY DIFFERENT!",
         class: 'pink',
         position: { top: 480, left: 800 },
         rotation: 6,
@@ -156,7 +156,7 @@ class ConspiracyBoardGenerator
                   min-height: 100vh;
                   overflow-x: auto;
               }
-              
+
               .conspiracy-board {
                   position: relative;
                   width: 1200px;
@@ -166,7 +166,7 @@ class ConspiracyBoardGenerator
                   box-shadow: 0 0 30px rgba(0,0,0,0.5);
                   margin: 0 auto;
               }
-              
+
               .note {
                   position: absolute;
                   background: #FFE4B5;
@@ -179,13 +179,13 @@ class ConspiracyBoardGenerator
                   max-width: 150px;
                   font-weight: bold;
               }
-              
+
               .note.yellow { background: #FFFF99; }
               .note.pink { background: #FFB6C1; }
               .note.green { background: #90EE90; }
               .note.blue { background: #87CEEB; }
               .note.orange { background: #FFD700; }
-              
+
               .red-string {
                   position: absolute;
                   height: 2px;
@@ -193,7 +193,7 @@ class ConspiracyBoardGenerator
                   transform-origin: left center;
                   z-index: 1;
               }
-              
+
               .red-string::before {
                   content: '';
                   position: absolute;
@@ -205,7 +205,7 @@ class ConspiracyBoardGenerator
                   border-top: 3px solid transparent;
                   border-bottom: 3px solid transparent;
               }
-              
+
               .title {
                   position: absolute;
                   top: 20px;
@@ -216,7 +216,7 @@ class ConspiracyBoardGenerator
                   color: #8B0000;
                   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
               }
-              
+
               .charlie-text {
                   position: absolute;
                   bottom: 20px;
@@ -226,7 +226,7 @@ class ConspiracyBoardGenerator
                   font-style: italic;
                   transform: rotate(1deg);
               }
-              
+
               .pushpin {
                   position: absolute;
                   width: 12px;
@@ -236,7 +236,7 @@ class ConspiracyBoardGenerator
                   box-shadow: 0 0 4px rgba(0,0,0,0.5);
                   z-index: 10;
               }
-              
+
               .pushpin::before {
                   content: '';
                   position: absolute;
@@ -252,26 +252,26 @@ class ConspiracyBoardGenerator
       <body>
           <div class="conspiracy-board">
               <div class="title">OPENSSL FIPS COMPLIANCE CONSPIRACY</div>
-              
+
               <!-- Generated connections -->
               <% @connections.each do |connection| %>
                 <% from_note = find_note(connection[:from]) %>
                 <% to_note = find_note(connection[:to]) %>
                 <% string_props = calculate_string_properties(from_note[:pushpin], to_note[:pushpin]) %>
-                
+
                 <!-- <%= connection[:from] %> to <%= connection[:to] %> -->
                 <div class="pushpin" style="top: <%= from_note[:pushpin][:top] %>px; left: <%= from_note[:pushpin][:left] %>px;"></div>
                 <div class="red-string" style="top: <%= string_props[:start_y] + 6 %>px; left: <%= string_props[:start_x] + 12 %>px; width: <%= string_props[:length] %>px; transform: rotate(<%= string_props[:angle] %>deg);"></div>
                 <div class="pushpin" style="top: <%= to_note[:pushpin][:top] %>px; left: <%= to_note[:pushpin][:left] %>px;"></div>
               <% end %>
-              
+
               <!-- Generated notes -->
               <% @notes.each do |note| %>
                 <div class="note <%= note[:class] %>" style="top: <%= note[:position][:top] %>px; left: <%= note[:position][:left] %>px; transform: rotate(<%= note[:rotation] %>deg);">
                     <%= note[:content] %>
                 </div>
               <% end %>
-              
+
               <div class="charlie-text">
                   "Day bow bow... chik... chika-chika..."<br>
                   - Charlie Kelly, Cryptography Expert
@@ -297,7 +297,7 @@ generator.instance_variable_get(:@connections).each do |connection|
   from_note = generator.find_note(connection[:from])
   to_note = generator.find_note(connection[:to])
   string_props = generator.calculate_string_properties(from_note[:pushpin], to_note[:pushpin])
-  
+
   puts "#{connection[:from]} -> #{connection[:to]}:"
   puts "  Length: #{string_props[:length]}px, Angle: #{string_props[:angle]}°"
   puts "  From: (#{from_note[:pushpin][:left]}, #{from_note[:pushpin][:top]}) To: (#{to_note[:pushpin][:left]}, #{to_note[:pushpin][:top]})"
