@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenSSL FIPS Compliance Explained</title>
-    <meta name="description" content="A visual explanation of OpenSSL FIPS compliance, presented as a conspiracy board. Deep dive into FIPS 140-2 cryptography requirements, OpenSSL builds, and compliance pitfalls.">
-    <meta name="keywords" content="OpenSSL, FIPS, FIPS 140-2, compliance, cryptography, SSL, TLS, security, DevOps, Chef">
-    <meta name="author" content="Thomas Powell">
-    <meta property="og:title" content="OpenSSL FIPS Compliance Explained">
-    <meta property="og:description" content="A visual conspiracy-board-style deep dive into OpenSSL FIPS 140-2 compliance requirements and common pitfalls.">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://tp88.us/blog/openssl_pepe_silvia_generated.html">
-    <link rel="canonical" href="https://tp88.us/blog/openssl_pepe_silvia_generated.html">
     <style>
         body {
             margin: 0;
@@ -21,7 +13,7 @@
             min-height: 100vh;
             overflow-x: auto;
         }
-        
+
         .conspiracy-board {
             position: relative;
             width: 1200px;
@@ -31,7 +23,7 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
             margin: 0 auto;
         }
-        
+
         .note {
             position: absolute;
             background: #FFE4B5;
@@ -44,13 +36,13 @@
             max-width: 150px;
             font-weight: bold;
         }
-        
+
         .note.yellow { background: #FFFF99; }
         .note.pink { background: #FFB6C1; }
         .note.green { background: #90EE90; }
         .note.blue { background: #87CEEB; }
         .note.orange { background: #FFD700; }
-        
+
         .red-string {
             position: absolute;
             height: 2px;
@@ -58,7 +50,7 @@
             transform-origin: left center;
             z-index: 1;
         }
-        
+
         .red-string::before {
             content: '';
             position: absolute;
@@ -70,7 +62,7 @@
             border-top: 3px solid transparent;
             border-bottom: 3px solid transparent;
         }
-        
+
         .title {
             position: absolute;
             top: 20px;
@@ -81,7 +73,7 @@
             color: #8B0000;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        
+
         .charlie-text {
             position: absolute;
             bottom: 20px;
@@ -91,7 +83,7 @@
             font-style: italic;
             transform: rotate(1deg);
         }
-        
+
         .pushpin {
             position: absolute;
             width: 12px;
@@ -101,7 +93,7 @@
             box-shadow: 0 0 4px rgba(0,0,0,0.5);
             z-index: 10;
         }
-        
+
         .pushpin::before {
             content: '';
             position: absolute;
@@ -117,13 +109,13 @@
 <body>
     <div class="conspiracy-board">
         <div class="title">OPENSSL FIPS COMPLIANCE CONSPIRACY</div>
-        
+
         <!-- Generated connections -->
         
           
           
           
-          
+
           <!-- openssl_gem to openssl_library -->
           <div class="pushpin" style="top: 140px; left: 125px;"></div>
           <div class="red-string" style="top: 146px; left: 137px; width: 306px; transform: rotate(11.3deg);"></div>
@@ -132,7 +124,7 @@
           
           
           
-          
+
           <!-- openssl_library to fips_validation -->
           <div class="pushpin" style="top: 200px; left: 425px;"></div>
           <div class="red-string" style="top: 206px; left: 437px; width: 308px; transform: rotate(13.1deg);"></div>
@@ -141,7 +133,7 @@
           
           
           
-          
+
           <!-- fips_validation to dependency_chain -->
           <div class="pushpin" style="top: 270px; left: 725px;"></div>
           <div class="red-string" style="top: 276px; left: 737px; width: 262px; transform: rotate(-17.7deg);"></div>
@@ -150,7 +142,7 @@
           
           
           
-          
+
           <!-- nist_validation to provider_architecture -->
           <div class="pushpin" style="top: 360px; left: 175px;"></div>
           <div class="red-string" style="top: 366px; left: 187px; width: 359px; transform: rotate(12.9deg);"></div>
@@ -159,7 +151,7 @@
           
           
           
-          
+
           <!-- fips_validation to provider_architecture -->
           <div class="pushpin" style="top: 270px; left: 725px;"></div>
           <div class="red-string" style="top: 276px; left: 737px; width: 262px; transform: rotate(139.6deg);"></div>
@@ -168,7 +160,7 @@
           
           
           
-          
+
           <!-- fips_validation to separate_versions -->
           <div class="pushpin" style="top: 270px; left: 725px;"></div>
           <div class="red-string" style="top: 276px; left: 737px; width: 446px; transform: rotate(109.7deg);"></div>
@@ -177,7 +169,7 @@
           
           
           
-          
+
           <!-- provider_architecture to compliance_reality -->
           <div class="pushpin" style="top: 440px; left: 525px;"></div>
           <div class="red-string" style="top: 446px; left: 537px; width: 403px; transform: rotate(-7.1deg);"></div>
@@ -186,7 +178,7 @@
           
           
           
-          
+
           <!-- version_mismatch to separate_versions -->
           <div class="pushpin" style="top: 520px; left: 875px;"></div>
           <div class="red-string" style="top: 526px; left: 887px; width: 345px; transform: rotate(150.5deg);"></div>
@@ -195,7 +187,7 @@
           
           
           
-          
+
           <!-- the_truth to separate_versions -->
           <div class="pushpin" style="top: 620px; left: 275px;"></div>
           <div class="red-string" style="top: 626px; left: 287px; width: 308px; transform: rotate(13.1deg);"></div>
@@ -204,17 +196,17 @@
           
           
           
-          
+
           <!-- pepe_silvia to fips_validation -->
           <div class="pushpin" style="top: 90px; left: 575px;"></div>
           <div class="red-string" style="top: 96px; left: 587px; width: 234px; transform: rotate(50.2deg);"></div>
           <div class="pushpin" style="top: 270px; left: 725px;"></div>
         
-        
+
         <!-- Generated notes -->
         
           <div class="note yellow" style="top: 100px; left: 50px; transform: rotate(-5deg);">
-              OpenSSL GEM<br>ruby/openssl<br>VERSION: 3.2.0<br><strong>RUBY WRAPPER!</strong><br>NOT the actual crypto!
+              OpenSSL GEM<br>ruby/openssl<br>VERSION: 3.3.1<br><strong>RUBY WRAPPER!</strong><br>NOT the actual crypto!
           </div>
         
           <div class="note pink" style="top: 160px; left: 350px; transform: rotate(3deg);">
@@ -234,7 +226,7 @@
           </div>
         
           <div class="note pink" style="top: 480px; left: 800px; transform: rotate(6deg);">
-              VERSION MISMATCH<br>Gem 3.2.0 ≠ Library 3.2.4<br>Different repos!<br>Different numbering!<br>TOTALLY DIFFERENT!
+              VERSION MISMATCH<br>Gem 3.3.1 ≠ Library 3.2.4<br>Different repos!<br>Different numbering!<br>TOTALLY DIFFERENT!
           </div>
         
           <div class="note yellow" style="top: 580px; left: 200px; transform: rotate(-4deg);">
@@ -257,80 +249,11 @@
               SEPARATE VERSIONS<br>You MUST maintain<br>different versions for<br>FIPS vs non-FIPS<br>because validation<br>locks you to specific<br>exact versions!
           </div>
         
-        
+
         <div class="charlie-text">
             "Day bow bow... chik... chika-chika..."<br>
             - Charlie Kelly, Cryptography Expert
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QT64MJL0WW');
-</script>
-<!-- home-link-start -->
-<div style="margin-top:20px;text-align:center;font-size:14px;">
-  <a href="/">&#8592; Back to Home</a>
-</div>
-<!-- home-link-end -->
 </body>
 </html>
