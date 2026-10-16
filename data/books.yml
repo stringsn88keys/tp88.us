@@ -110,11 +110,13 @@
   subtitle: A Cautionary Tale of Power, Greed, and Lost Idealism
   author: Sarah Wynn-Williams
   date_started: 2026-04-26
+  date_finished: 2026-09-28
   print_length: 400 pages
-  time_left: 13 hours 6 minutes
   listening_length: 13 hours 16 minutes
+  rating: 5
   format_read: Audible
   associates_link: https://amzn.to/4mXVroX
+  commentary: How is it possible for this to have lowered my opinion of all involved?
 - title: "Innovator's DNA"
   subtitle: Mastering the Five Skills of Disruptive Innovators
   author: Jeff Dyer, Hal Gregersen, Clayton M. Christensen
@@ -140,7 +142,8 @@
   author: Dan Heath
   format_read: hardcover
   print_length: 320 pages
-  pages_read: 93 pages
+  date_started: 2026-07-06
+  date_finished: 2026-10-16
   associates_link: https://amzn.to/4fuPuhL
 - title: "The Hitchhiker's Guide to the Galaxy"
   author: Douglas Adams
@@ -177,14 +180,33 @@
   format_read: Audible
   associates_link: https://amzn.to/4wCO2ja
   listening_length: 7 hours and 39 minutes
+  rating: 5
   date_started: 2026-07-19
   date_finished: 2026-08-03
   print_length: 288 pages
 - title: The Odyssey
   author: Homer, Emily Wilson
+  date_started: 2026-08-06
+  date_finished: 2026-09-11
+  rating: 4
+  commentary: A little more enjoyable than the translation I remember reading before.
   print_length: 592 pages
+  format_read: Audible
   listening_length: 13 hours and 32 minutes
-  time_left: 12 hours and 35 minutes
   associates_link: https://amzn.to/4cmrZ7W
-
-
+- title: Gilded Rage
+  subtitle: Elon Musk and the Radicalization of Silicon Valley
+  date_started: 2026-09-27
+  format_read: Audible
+  associates_link: https://link.amazon/B03FiRDWQ
+  listening_length: 11 hours and 26 minutes
+  time_left: 36 minutes and 4 seconds
+  print_length: 336 pages
+- title: Ottoman odyssey
+  subtitle: travels through a lost empire
+  date_started: 2026-10-16
+  format_read: hardcover
+  author: Alev Scott
+  print_length: 320 pages
+  pages_read: 9
+  associates_link: https://link.amazon/B05sqb0x4
