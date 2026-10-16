@@ -144,6 +144,8 @@
   print_length: 320 pages
   date_started: 2026-07-06
   date_finished: 2026-10-16
+  rating: 5
+  commentary: Feels like there's still plenty of inspiration/insight here
   associates_link: https://amzn.to/4fuPuhL
 - title: "The Hitchhiker's Guide to the Galaxy"
   author: Douglas Adams
@@ -196,6 +198,7 @@
   associates_link: https://amzn.to/4cmrZ7W
 - title: Gilded Rage
   subtitle: Elon Musk and the Radicalization of Silicon Valley
+  author: Jacob Silverman
   date_started: 2026-09-27
   format_read: Audible
   associates_link: https://link.amazon/B03FiRDWQ

@@ -62,6 +62,39 @@ def script_description_text(file)
   end
 end
 
+# Matches blank lines immediately preceding an injected block, so removing the
+# block also removes the spacing that was added with it.
+LEADING_BLANK_LINES = '(?:^[ \t]*\n)*'
+
+# Blocks whose whitespace is significant and must not be touched by tidy_blank_lines.
+PRESERVE_WHITESPACE_RE = %r{<(pre|textarea|script|style)\b.*?</\1\s*>}im
+
+# Collapse runs of blank lines into a single blank line and strip trailing
+# whitespace, leaving <pre>/<textarea>/<script>/<style> contents untouched.
+def tidy_blank_lines(html)
+  out = +''
+  pos = 0
+  tidy = lambda do |chunk|
+    chunk.gsub(/[ \t]+(?=\n)/, '').gsub(/\n{3,}/, "\n\n")
+  end
+  html.scan(PRESERVE_WHITESPACE_RE) do
+    m = Regexp.last_match
+    out << tidy.call(html[pos...m.begin(0)]) << m[0]
+    pos = m.end(0)
+  end
+  out << tidy.call(html[pos..])
+end
+
+# Write HTML after normalizing blank lines, so repeated runs are idempotent.
+def write_html(file_path, content)
+  File.write(file_path, tidy_blank_lines(content))
+end
+
+# Insert a snippet just before </body>, dropping any blank lines before </body>.
+def insert_before_body_close(content, snippet)
+  content.sub(/\n(?:[ \t]*\n)*[ \t]*<\/body>/i) { "\n#{snippet}</body>" }
+end
+
 # Inject SEO <meta> tags into an HTML file's <head> after the viewport meta.
 # Skips if a meta[name=description] is already present.
 def add_seo_meta(file_path, description:, keywords:, og_title: nil, og_type: 'website', canonical_path: nil)
@@ -89,7 +122,7 @@ def add_seo_meta(file_path, description:, keywords:, og_title: nil, og_type: 'we
     /(<meta\s+name="viewport"[^>]*>)/i,
     "\\1#{seo_block}"
   )
-  File.write(file_path, updated)
+  write_html(file_path, updated)
 end
 
 # Add Google Analytics to HTML files, replacing any existing GA block to avoid duplicates
@@ -97,10 +130,9 @@ def add_google_analytics(file_path)
   content = File.read(file_path)
 
   # Remove any existing GA blocks before re-adding
-  content = content.gsub(/[ \t]*<!-- Google tag \(gtag\.js\) -->.*?<\/script>\s*<script>.*?<\/script>[ \t]*\n?/m, '')
+  content = content.gsub(/#{LEADING_BLANK_LINES}[ \t]*<!-- Google tag \(gtag\.js\) -->.*?<\/script>\s*<script>.*?<\/script>[ \t]*\n?/m, '')
 
   analytics_code = <<~HTML
-
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QT64MJL0WW"></script>
     <script>
@@ -112,7 +144,7 @@ def add_google_analytics(file_path)
     </script>
   HTML
 
-  File.write(file_path, content.gsub(/<\/body>/i, "#{analytics_code}</body>"))
+  write_html(file_path, insert_before_body_close(content, "\n#{analytics_code}"))
 end
 
 # Add a home link to HTML files, replacing any existing home-link to avoid duplicates.
@@ -123,7 +155,7 @@ def add_home_link(file_path)
   content = File.read(file_path)
 
   # Remove injected home links from previous runs (comment-wrapped)
-  content = content.gsub(/[ \t]*<!-- home-link-start -->.*?<!-- home-link-end -->[ \t]*\n?/m, '')
+  content = content.gsub(/#{LEADING_BLANK_LINES}[ \t]*<!-- home-link-start -->.*?<!-- home-link-end -->[ \t]*\n?/m, '')
 
   # Remove <footer> elements that contain a back-to-home link
   content = content.gsub(/<footer[^>]*>.*?<\/footer>/im) { |m| m.include?('href="/"') ? '' : m }
@@ -142,7 +174,7 @@ def add_home_link(file_path)
     <!-- home-link-end -->
   HTML
 
-  File.write(file_path, content.sub(/<\/body>/i, "#{home_html}</body>"))
+  write_html(file_path, insert_before_body_close(content, home_html))
 end
 
 # The AI directive snippet inserted at the top of every HTML body.
@@ -164,7 +196,8 @@ def add_ai_directive(file_path)
   # Remove any previously injected directive before re-adding
   content = content.gsub(/[ \t]*<!-- Global AI Directive -->.*?<\/div>[ \t]*\n?/m, '')
 
-  File.write(file_path, content.sub(/(<body[^>]*>)/i, "\\1\n#{ai_directive_html}"))
+  # Insert right after <body>, followed by one blank line; drop any blank lines already there.
+  write_html(file_path, content.sub(/(<body[^>]*>)[ \t]*\n?(?:[ \t]*\n)*/i) { "#{$1}\n#{ai_directive_html}\n" })
 end
 
 # Generate syntax-highlighted HTML files for .sh, .rb, and .ps1 files
