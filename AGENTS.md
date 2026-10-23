@@ -148,6 +148,13 @@ ruby index_me.rb
 DO_INVALIDATION=1 ruby index_me.rb
 ```
 
+**Always pair publishing with commit and push.** `index_me.rb` regenerates tracked files (`books_*.html`, `coffee.html`, `sitemap.xml`, etc.), so whenever you run it, commit and push the result too, and whenever you commit and push, run it too:
+
+```bash
+ruby index_me.rb
+git add -A && git commit -m "..." && git push
+```
+
 `index_me.rb` will:
 1. Render `.erb` calculator files to `.html`
 2. Generate syntax-highlighted HTML for all scripts in `scripts/`
