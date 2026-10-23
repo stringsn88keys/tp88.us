@@ -200,11 +200,13 @@
   subtitle: Elon Musk and the Radicalization of Silicon Valley
   author: Jacob Silverman
   date_started: 2026-09-27
+  date_finished: 2026-10-18
   format_read: Audible
   associates_link: https://link.amazon/B03FiRDWQ
   listening_length: 11 hours and 26 minutes
-  time_left: 36 minutes and 4 seconds
   print_length: 336 pages
+  commentary: Vivek Ramaswamy details are unsurprising in hindsight
+  rating: 5
 - title: Ottoman odyssey
   subtitle: travels through a lost empire
   date_started: 2026-10-16
@@ -213,3 +215,11 @@
   print_length: 320 pages
   pages_read: 9
   associates_link: https://link.amazon/B05sqb0x4
+- title: The 100 Biggest Mistakes That Poker Players Make
+  date_started: 2026-10-18
+  format_read: Audible
+  print_length: 400 pages
+  author: Alexander Fitzgerald
+  listening_length: 12 hours and 38 minutes
+  time_left: 9 hours and 11 minutes
+  associates_link: https://link.amazon/B0cgCPxYi
